@@ -1,105 +1,207 @@
 <template>
-  <div class="container" @click="clickHandle('test click', $event)">
+  <view id="index">
 
-    <div class="userinfo" @click="bindViewTap">
-      <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
-      <div class="userinfo-nickname">
-        <card :text="userInfo.nickName"></card>
-      </div>
-    </div>
+    <view class="main">
 
-    <div class="usermotto">
-      <div class="user-motto">
-        <card :text="motto"></card>
-      </div>
-    </div>
+      <view class="tip">填写你的行程</view>
 
-    <form class="form-container">
-      <input type="text" class="form-control" v-model="motto" placeholder="v-model" />
-      <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy" />
-    </form>
-    <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a>
-  </div>
+      <view class="service">
+        <view class="distance">
+          <view class="origin info">
+            <view class="title">
+              <view class="icon">
+                <icon type="success" size="20"/>
+              </view>
+              <view class="text">起点：</view>
+            </view>
+            <view class="input">
+              <input placeholder-class="placeholder-color" placeholder="出发地"/>
+            </view>
+          </view>
+          <view class="destination info">
+            <view class="title">
+              <view class="icon">
+                <icon type="success" size="20"/>
+              </view>
+              <view class="text">终点：</view>
+            </view>
+            <view class="input">
+              <input placeholder-class="placeholder-color" placeholder="目的地"/>
+            </view>
+          </view>
+          <view class="time info">
+            <view class="title">
+              <view class="icon">
+                <icon type="success" size="20"/>
+              </view>
+              <view class="text">时间：</view>
+            </view>
+            <view class="input">
+              <input placeholder-class="placeholder-color" placeholder="乘车时间"/>
+            </view>
+          </view>
+          <view class="phone info">
+            <view class="title">
+              <view class="icon">
+                <icon type="success" size="20"/>
+              </view>
+              <view class="text">手机：</view>
+            </view>
+            <view class="input">
+              <input placeholder-class="placeholder-color" placeholder="联系方式"/>
+            </view>
+          </view>
+        </view>
+        <view class="remarks">
+          ddd
+        </view>
+      </view>
+
+    </view>
+
+    <view class="release">
+      <view class="btn">
+        <button type="default" size="default" @click="handler" plain="true" hover-class="button-hover">发布行程</button>
+      </view>
+    </view>
+
+  </view>
 </template>
 
 <script>
-import card from '@/components/card'
 
 export default {
   data () {
     return {
-      motto: 'Hello World',
-      userInfo: {}
     }
   },
-
   components: {
-    card
   },
-
   methods: {
-    bindViewTap () {
-      const url = '../logs/main'
-      wx.navigateTo({ url })
-    },
-    getUserInfo () {
-      // 调用登录接口
-      wx.login({
-        success: () => {
-          wx.getUserInfo({
-            success: (res) => {
-              this.userInfo = res.userInfo
-            }
-          })
-        }
-      })
-    },
-    clickHandle (msg, ev) {
-      console.log('clickHandle:', msg, ev)
+    handler () {
+      console.log('--------------')
     }
   },
 
   created () {
-    // 调用应用实例的方法获取全局数据
-    this.getUserInfo()
   }
 }
 </script>
 
 <style scoped>
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  #index {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: space-between;
+    /*background: darkslateblue;*/
+  }
+  .main {
+    width: 93%;
+    /*height: 650rpx;*/
+    background: #ffffff;
+    /*background: red;*/
+  }
+  .main .tip {
+    width: 100%;
+    height: 75rpx;
+    line-height: 75rpx;
+    font-size: 14px;
+    color: #989898;
+    background: #F0F0F0;
+    /*background: beige;*/
+  }
+  .main .service {
+    width: 100%;
+    /*height: 100%;*/
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+    background: #F0F0F0;
+  }
+  .main .service .distance {
+    width: 100%;
+    /*height: 510rpx;*/
+    border-radius: 5px;
+    border: 1px solid #EDEDED;
+    background: #ffffff;
+  }
+  .main .service .distance .info {
+    width: 100%;
+    height: 120rpx;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    border-bottom: 1px solid #EDEDED;
+    /*background: darkgrey;*/
+  }
+  .main .service .distance .info .title {
+    width: 40%;
+    height: 120rpx;
+    color: #313131;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .main .service .distance .info .title .icon {
+    height: 120rpx;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+  }
+  .main .service .distance .info .title .text {
+    height: 120rpx;
+    line-height: 120rpx;
+    font-size: 18px;
+    margin-left: 15rpx;
+  }
+  .main .service .distance .info .input {
+    width: 60%;
+  }
+  .main .service .distance .info .input input {
+    text-align:right;
+    font-size: 16px;
+    padding-right: 10px;
+  }
+  .main .service .distance .phone {
+    border-bottom: none;
+  }
+  .main .service .distance .origin .input, .destination .input {
+    color: #313131;
+  }
+  .main .service .distance .time .input, .phone .input {
+    color: #6B6B6B;
+  }
 
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-}
 
-.userinfo-nickname {
-  color: #aaa;
-}
 
-.usermotto {
-  margin-top: 150px;
-}
-
-.form-control {
-  display: block;
-  padding: 0 12px;
-  margin-bottom: 5px;
-  border: 1px solid #ccc;
-}
-
-.counter {
-  display: inline-block;
-  margin: 10px auto;
-  padding: 5px 10px;
-  color: blue;
-  border: 1px solid blue;
-}
+  .main .service .remarks {
+    width: 100%;
+    height: 115rpx;
+    border-radius: 5px;
+    margin-top: 25rpx;
+    background: forestgreen;
+  }
+  .release {
+    height: 160rpx;
+    width: 100%;
+    border-top: 1px solid #E2E2E2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff;
+  }
+  .release .btn {
+    height: 100rpx;
+    width: 90%;
+  }
+  .button-hover {
+    background-color: red;
+  }
 </style>
