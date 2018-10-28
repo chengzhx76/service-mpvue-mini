@@ -12,10 +12,10 @@
               <view class="icon">
                 <icon type="success" size="20"/>
               </view>
-              <view class="text">起点：</view>
+              <view class="text">起点</view>
             </view>
             <view class="input">
-              <input placeholder-class="placeholder-color" placeholder="出发地"/>
+              <input placeholder-class="placeholder-color" placeholder="出发地" focus v-model="service.origin"/>
             </view>
           </view>
           <view class="destination info">
@@ -23,10 +23,10 @@
               <view class="icon">
                 <icon type="success" size="20"/>
               </view>
-              <view class="text">终点：</view>
+              <view class="text">终点</view>
             </view>
             <view class="input">
-              <input placeholder-class="placeholder-color" placeholder="目的地"/>
+              <input placeholder-class="placeholder-color" placeholder="目的地" v-model="service.destination"/>
             </view>
           </view>
           <view class="time info">
@@ -34,10 +34,10 @@
               <view class="icon">
                 <icon type="success" size="20"/>
               </view>
-              <view class="text">时间：</view>
+              <view class="text">时间</view>
             </view>
             <view class="input">
-              <input placeholder-class="placeholder-color" placeholder="乘车时间"/>
+              <input placeholder-class="placeholder-color" placeholder="乘车时间" v-model="service.time"/>
             </view>
           </view>
           <view class="phone info">
@@ -45,23 +45,21 @@
               <view class="icon">
                 <icon type="success" size="20"/>
               </view>
-              <view class="text">手机：</view>
+              <view class="text">手机</view>
             </view>
             <view class="input">
-              <input placeholder-class="placeholder-color" placeholder="联系方式"/>
+              <input type="number" maxlength="11" placeholder-class="placeholder-color" placeholder="联系方式" v-model="service.phone"/>
             </view>
           </view>
         </view>
         <view class="remarks">
-          ddd
+          <input placeholder-class="placeholder-color" placeholder="填写备注（选填）" v-model="service.remarks"/>
         </view>
       </view>
-
     </view>
-
     <view class="release">
       <view class="btn">
-        <button type="default" size="default" @click="handler" plain="true" hover-class="button-hover">发布行程</button>
+        <button type="default" size="default" @click="addDistance" plain="true" hover-class="button-hover">发布行程</button>
       </view>
     </view>
 
@@ -73,13 +71,20 @@
 export default {
   data () {
     return {
+      service: {
+        origin: '成武',
+        destination: '菏泽',
+        time: '10月30日 周日 18:15',
+        phone: '18600536683',
+        remarks: '一人'
+      }
     }
   },
   components: {
   },
   methods: {
-    handler () {
-      console.log('--------------')
+    addDistance () {
+      console.log(this.service)
     }
   },
 
@@ -123,9 +128,9 @@ export default {
   }
   .main .service .distance {
     width: 100%;
-    /*height: 510rpx;*/
     border-radius: 5px;
     border: 1px solid #EDEDED;
+    /*box-shadow:1px 1px 5px #BEBEBE;*/
     background: #ffffff;
   }
   .main .service .distance .info {
@@ -167,7 +172,7 @@ export default {
   .main .service .distance .info .input input {
     text-align:right;
     font-size: 16px;
-    padding-right: 10px;
+    padding-right: 12px;
   }
   .main .service .distance .phone {
     border-bottom: none;
@@ -186,7 +191,15 @@ export default {
     height: 115rpx;
     border-radius: 5px;
     margin-top: 25rpx;
-    background: forestgreen;
+    padding-left: 15px;
+    /*box-shadow:1px 1px 5px #E6E6E6;*/
+    background: #ffffff;
+    border: 1px solid #EDEDED;
+  }
+  .main .service .remarks input {
+    width: 100%;
+    height: 100%;
+    color: #313131;
   }
   .release {
     height: 160rpx;
