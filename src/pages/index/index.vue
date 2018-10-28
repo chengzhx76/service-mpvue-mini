@@ -72,11 +72,11 @@ export default {
   data () {
     return {
       service: {
-        origin: '成武',
-        destination: '菏泽',
-        time: '10月30日 周日 18:15',
-        phone: '18600536683',
-        remarks: '一人'
+        origin: '',
+        destination: '',
+        time: '',
+        phone: '',
+        remarks: ''
       }
     }
   },
