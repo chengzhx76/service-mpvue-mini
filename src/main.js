@@ -11,6 +11,7 @@ export default {
   config: {
     'pages': [
       'pages/index/main',
+      'pages/add/main',
       'pages/logs/main',
       'pages/counter/main'
     ],
