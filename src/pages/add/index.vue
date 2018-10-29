@@ -100,12 +100,12 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-content: space-between;
+    /*align-content: space-between;*/
   }
   .main {
     width: 93%;
     /*height: 650rpx;*/
-    background: #ffffff;
+    background: #F0F0F0;
     .tip {
       width: 100%;
       height: 75rpx;
@@ -182,7 +182,7 @@ export default {
         width: 100%;
         height: 115rpx;
         border-radius: 10rpx;
-        margin-top: 50rpx;
+        margin-top: 25rpx;
         padding-left: 30rpx;
         /*box-shadow:1px 1px 5px #E6E6E6;*/
         background: #ffffff;
@@ -200,6 +200,9 @@ export default {
   .release {
     height: 160rpx;
     width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
     border-top: 1rpx solid #E2E2E2;
     display: flex;
     justify-content: center;
