@@ -7,7 +7,8 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#F0F0F0",
+    "backgroundColor": "#F0F0F0",
     "navigationBarTitleText": "程",
     "navigationBarTextStyle": "black"
   }
