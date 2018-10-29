@@ -101,116 +101,113 @@ export default {
     flex-wrap: wrap;
     justify-content: center;
     align-content: space-between;
-    /*background: darkslateblue;*/
   }
   .main {
     width: 93%;
     /*height: 650rpx;*/
     background: #ffffff;
-    /*background: red;*/
-  }
-  .main .tip {
-    width: 100%;
-    height: 75rpx;
-    line-height: 75rpx;
-    font-size: 14px;
-    color: #989898;
-    background: #F0F0F0;
-    /*background: beige;*/
-  }
-  .main .service {
-    width: 100%;
-    /*height: 100%;*/
-    display: flex;
-    flex-wrap: wrap;
-    align-content: space-between;
-    background: #F0F0F0;
-  }
-  .main .service .distance {
-    width: 100%;
-    border-radius: 5px;
-    border: 1px solid #EDEDED;
-    /*box-shadow:1px 1px 5px #BEBEBE;*/
-    background: #ffffff;
-  }
-  .main .service .distance .info {
-    width: 100%;
-    height: 120rpx;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-start;
-    border-bottom: 1px solid #EDEDED;
-    /*background: darkgrey;*/
-  }
-  .main .service .distance .info .title {
-    width: 40%;
-    height: 120rpx;
-    color: #313131;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-start;
-  }
-  .main .service .distance .info .title .icon {
-    height: 120rpx;
-    width: 80rpx;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-  }
-  .main .service .distance .info .title .text {
-    height: 120rpx;
-    /*width: 80rpx;*/
-    line-height: 115rpx;
-    font-size: 17px;
-    /*text-align: center;*/
-  }
-  .main .service .distance .info .input {
-    width: 60%;
-  }
-  .main .service .distance .info .input input {
-    text-align:right;
-    font-size: 16px;
-    padding-right: 12px;
-  }
-  .main .service .distance .phone {
-    border-bottom: none;
-  }
-  .main .service .distance .origin .input, .destination .input {
-    color: #313131;
-  }
-  .main .service .distance .time .input, .phone .input {
-    color: #6B6B6B;
-  }
+    .tip {
+      width: 100%;
+      height: 75rpx;
+      line-height: 75rpx;
+      font-size: 28rpx;
+      color: #989898;
+      background: #F0F0F0;
+    }
+    .service {
+      width: 100%;
+      /*height: 100%;*/
+      display: flex;
+      flex-wrap: wrap;
+      align-content: space-between;
+      background: #F0F0F0;
+      .distance {
+        width: 100%;
+        border-radius: 10rpx;
+        border: 2rpx solid #EDEDED;
+        /*box-shadow:1px 1px 5px #BEBEBE;*/
+        background: #ffffff;
+        .info {
+          width: 100%;
+          height: 120rpx;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: flex-start;
+          border-bottom: 1rpx solid #EDEDED;
+          .title {
+            width: 40%;
+            height: 120rpx;
+            color: #313131;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-start;
+            .icon {
+              height: 120rpx;
+              width: 80rpx;
+              display: flex;
+              flex-wrap: wrap;
+              align-items: center;
+              justify-content: center;
+            }
+            .text {
+              height: 120rpx;
+              /*width: 80rpx;*/
+              line-height: 115rpx;
+              font-size: 34rpx;
+            }
+          }
+          .input {
+            width: 60%;
+            input {
+              text-align:right;
+              padding-right: 24rpx;
+            }
+          }
+        }
+        .phone {
+          border-bottom: none;
+        }
+        .origin .input, .destination .input {
+          font-size: 40rpx;
+          color: #313131;
+        }
+        .time .input, .phone .input {
+          font-size: 34rpx;
+          color: #6B6B6B;
+        }
+      }
+      .remarks {
+        width: 100%;
+        height: 115rpx;
+        border-radius: 10rpx;
+        margin-top: 50rpx;
+        padding-left: 30rpx;
+        /*box-shadow:1px 1px 5px #E6E6E6;*/
+        background: #ffffff;
+        border: 2rpx solid #EDEDED;
+        input {
+          width: 100%;
+          height: 100%;
+          font-size: 36rpx;
+          color: #313131;
+        }
+      }
+    }
 
-  .main .service .remarks {
-    width: 100%;
-    height: 115rpx;
-    border-radius: 5px;
-    margin-top: 25px;
-    padding-left: 15px;
-    /*box-shadow:1px 1px 5px #E6E6E6;*/
-    background: #ffffff;
-    border: 1px solid #EDEDED;
-  }
-  .main .service .remarks input {
-    width: 100%;
-    height: 100%;
-    color: #313131;
   }
   .release {
     height: 160rpx;
     width: 100%;
-    border-top: 1px solid #E2E2E2;
+    border-top: 1rpx solid #E2E2E2;
     display: flex;
     justify-content: center;
     align-items: center;
     background: #ffffff;
-  }
-  .release .btn {
-    height: 100rpx;
-    width: 90%;
+    .btn {
+      height: 100rpx;
+      width: 90%;
+    }
   }
 </style>
