@@ -93,7 +93,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style rel="stylesheet/scss" lang="scss" scoped>
   #add {
     width: 100%;
     height: 100%;
