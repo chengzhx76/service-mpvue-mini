@@ -12,7 +12,7 @@
               <view class="icon">
                 <text class="fa fa-car gray-icon"/>
               </view>
-              <view class="text">起点</view>
+              <text class="label">起点</text>
             </view>
             <view class="input">
               <input placeholder-class="placeholder-color" placeholder="出发地" focus v-model="service.origin"/>
@@ -23,7 +23,7 @@
               <view class="icon">
                 <text class="fa fa-lg fa-map-marker gray-icon"/>
               </view>
-              <view class="text">终点</view>
+              <text class="label">终点</text>
             </view>
             <view class="input">
               <input placeholder-class="placeholder-color" placeholder="目的地" v-model="service.destination"/>
@@ -34,7 +34,7 @@
               <view class="icon">
                 <text class="fa fa-calendar gray-icon"/>
               </view>
-              <view class="text">时间</view>
+              <text class="label">时间</text>
             </view>
             <view class="input">
               <input placeholder-class="placeholder-color" placeholder="乘车时间" v-model="service.time"/>
@@ -45,7 +45,7 @@
               <view class="icon">
                 <text class="fa fa-lg fa-mobile gray-icon"/>
               </view>
-              <view class="text">手机</view>
+              <text class="label">手机</text>
             </view>
             <view class="input">
               <input type="number" maxlength="11" placeholder-class="placeholder-color" placeholder="联系方式" v-model="service.phone"/>
@@ -100,7 +100,6 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    /*align-content: space-between;*/
   }
   .main {
     width: 93%;
@@ -125,7 +124,7 @@ export default {
         width: 100%;
         border-radius: 10rpx;
         border: 2rpx solid #EDEDED;
-        /*box-shadow:1px 1px 5px #BEBEBE;*/
+        box-shadow:1rpx 1rpx 5px #E6E6E6;
         background: #ffffff;
         .info {
           width: 100%;
@@ -151,7 +150,7 @@ export default {
               align-items: center;
               justify-content: center;
             }
-            .text {
+            .label {
               height: 120rpx;
               /*width: 80rpx;*/
               line-height: 115rpx;
@@ -184,7 +183,7 @@ export default {
         border-radius: 10rpx;
         margin-top: 25rpx;
         padding-left: 30rpx;
-        /*box-shadow:1px 1px 5px #E6E6E6;*/
+        box-shadow:1rpx 1rpx 5px #E6E6E6;
         background: #ffffff;
         border: 2rpx solid #EDEDED;
         input {
