@@ -58,7 +58,7 @@
       </view>
     </view>
     <view class="release">
-      <button class="release" type="default" size="default" @click="addDistance" hover-class="button-hover">发布行程</button>
+      <button class="release-button" type="default" size="default" @click="addDistance" hover-class="button-hover">发布行程</button>
     </view>
 
   </view>
