@@ -20,7 +20,7 @@
                   <text class="fa fa-car gray-icon"/>
                 </view>
                 <view class="input">
-                  <input placeholder-class="placeholder-color" placeholder="出发地"/>
+                  <input placeholder-class="placeholder-color" placeholder="从哪出发"/>
                 </view>
               </view>
               <view class="destination info">
@@ -28,17 +28,17 @@
                   <text class="fa fa-lg fa-map-marker gray-icon"/>
                 </view>
                 <view class="input">
-                  <input placeholder-class="placeholder-color" placeholder="目的地"/>
+                  <input placeholder-class="placeholder-color" placeholder="要去哪"/>
                 </view>
               </view>
             </view>
             <view class="change">
-
+                <text class="fa fa-1-6x fa-retweet gray-icon"/>
             </view>
 
           </view>
           <view class="search-btn">
-
+            <button class="search-button" type="default" size="default" @click="handler">搜索</button>
           </view>
 
         </view>
@@ -51,9 +51,9 @@
 
     </view>
 
-    <button @click="handler">BTN</button>
+    <!--<button @click="handler">BTN</button>
     <text class="fa fa-paper-plane-o"></text>
-    <text class="fa fa-paper-plane-o" aria-hidden="true"></text>
+    <text class="fa fa-paper-plane-o" aria-hidden="true"></text>-->
   </view>
 </template>
 
@@ -106,7 +106,7 @@ export default {
     justify-content: center;
   }
   .main {
-    height: 320rpx;
+    height: 335rpx;
     width: 100%;
     .section-swiper {
       height: 100%;
@@ -132,19 +132,18 @@ export default {
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
-      background: darkgoldenrod;
+      background: #ffffff;
       .search-main {
         height: 100%;
         width: 94%;
-        background: darkgrey;
+        padding-top: 15rpx;
         .service {
-          height: 180rpx;
+          height: 170rpx;
           width: 100%;
           display: flex;
           flex-wrap: wrap;
           align-items: center;
           justify-content: flex-start;
-          background: darkkhaki;
           .distance {
             height: 100%;
             width: 88%;
@@ -152,15 +151,13 @@ export default {
             flex-wrap: wrap;
             align-items: center;
             justify-content: flex-start;
-            background: violet;
             .info {
-              height: 90rpx;
+              height: 49%;
               width: 100%;
               display: flex;
               flex-wrap: wrap;
               align-items: center;
               justify-content: flex-start;
-              background: darkcyan;
               .icon {
                 height: 100%;
                 width: 15%;
@@ -168,12 +165,11 @@ export default {
                 flex-wrap: wrap;
                 align-items: center;
                 justify-content: center;
-                background: darkolivegreen;
               }
               .input {
-                height: 88rpx;
+                height: 99%;
                 width: 85%;
-                background: #08e9ef;
+                border-bottom: 1rpx solid #EDEDED;
                 input {
                   height: 100%;
                   width: 100%;
@@ -181,17 +177,23 @@ export default {
                 }
               }
             }
-            .origin {
-              .input {
-                border-bottom: 1rpx solid #ed221f;
-              }
-            }
           }
           .change {
             height: 100%;
             width: 12%;
-            background: #5abdab;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
           }
+        }
+        .search-btn {
+          height: 125rpx;
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: center;
         }
       }
     }
