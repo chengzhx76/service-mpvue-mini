@@ -58,9 +58,7 @@
       </view>
     </view>
     <view class="release">
-      <view class="btn">
-        <button type="default" size="default" @click="addDistance" plain="true" hover-class="button-hover">发布行程</button>
-      </view>
+      <button class="release" type="default" size="default" @click="addDistance" hover-class="button-hover">发布行程</button>
     </view>
 
   </view>
@@ -207,9 +205,5 @@ export default {
     justify-content: center;
     align-items: center;
     background: #ffffff;
-    .btn {
-      height: 100rpx;
-      width: 90%;
-    }
   }
 </style>

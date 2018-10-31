@@ -7,14 +7,23 @@ page {
   color: #DADADA;
 }
 
-#add button[type=default][plain] {
+#add .release-button {
+  height: 100rpx;
+  width: 90%;
   border: none;
   background: #76ABEF;
   color: #ffffff;
   border-radius: 60rpx;
 }
 
-#add .placeholder-color {
+#index .search-button {
+  height: 80rpx;
+  width: 100%;
+  text-align: center;
+  line-height: 80rpx;
+}
+
+.placeholder-color {
   color: #E0E0E0;
 }
 
