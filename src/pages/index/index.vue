@@ -14,17 +14,26 @@
         <view class="search-main">
 
           <view class="service">
-
-            <view class="origin info">
-              <view class="title">
+            <view class="distance">
+              <view class="origin info">
                 <view class="icon">
                   <text class="fa fa-car gray-icon"/>
                 </view>
-                <text class="label">起点</text>
+                <view class="input">
+                  <input placeholder-class="placeholder-color" placeholder="出发地"/>
+                </view>
               </view>
-              <view class="input">
-                <input placeholder-class="placeholder-color" placeholder="出发地"/>
+              <view class="destination info">
+                <view class="icon">
+                  <text class="fa fa-lg fa-map-marker gray-icon"/>
+                </view>
+                <view class="input">
+                  <input placeholder-class="placeholder-color" placeholder="目的地"/>
+                </view>
               </view>
+            </view>
+            <view class="change">
+
             </view>
 
           </view>
@@ -128,6 +137,62 @@ export default {
         height: 100%;
         width: 94%;
         background: darkgrey;
+        .service {
+          height: 180rpx;
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: flex-start;
+          background: darkkhaki;
+          .distance {
+            height: 100%;
+            width: 88%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-start;
+            background: violet;
+            .info {
+              height: 90rpx;
+              width: 100%;
+              display: flex;
+              flex-wrap: wrap;
+              align-items: center;
+              justify-content: flex-start;
+              background: darkcyan;
+              .icon {
+                height: 100%;
+                width: 15%;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+                background: darkolivegreen;
+              }
+              .input {
+                height: 88rpx;
+                width: 85%;
+                background: #08e9ef;
+                input {
+                  height: 100%;
+                  width: 100%;
+                  padding-left: 12rpx;
+                }
+              }
+            }
+            .origin {
+              .input {
+                border-bottom: 1rpx solid #ed221f;
+              }
+            }
+          }
+          .change {
+            height: 100%;
+            width: 12%;
+            background: #5abdab;
+          }
+        }
       }
     }
   }
