@@ -2,13 +2,20 @@
   <view id="index">
 
     <view class="main">
-      <view class="section-swiper">
+      <view class="section-header">
         <swiper class="swiper-main" :indicator-dots="indicatorDots" :autoplay="autoplay" :circular="circular"
                 :vertical="vertical" :interval="interval" :duration="duration">
           <swiper-item class="swiper-item" v-for="item in imgs" :key="item.id">
             <image class="swiper-img" mode="scaleToFill" :src="item.src"/>
           </swiper-item>
         </swiper>
+        <view class="user-main">
+          <view class="switch">
+            <view class="passenger btn">乘客</view>
+            <view class="driver btn">司机</view>
+          </view>
+          <view class="my">我的</view>
+        </view>
       </view>
       <view class="search">
         <view class="search-main">
@@ -106,14 +113,18 @@ export default {
     justify-content: center;
   }
   .main {
-    height: 335rpx;
+    height: 725rpx;
     width: 100%;
-    .section-swiper {
-      height: 100%;
+    .section-header {
+      height: 405rpx;
       width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
       margin-bottom: 20rpx;
       .swiper-main {
-        height: 100%;
+        height: 330rpx;
         width: 100%;
         .swiper-item {
           height: 100%;
@@ -122,6 +133,32 @@ export default {
             height: 100%;
             width: 100%;
           }
+        }
+      }
+      .user-main {
+        height: 75rpx;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        background: darkgoldenrod;
+        .switch {
+          height: 75rpx;
+          width: 240rpx;
+          display: flex;
+          background: darkslateblue;
+          .btn {
+            height: 75rpx;
+            width: 120rpx;
+            text-align: center;
+            line-height: 75rpx;
+          }
+        }
+        .my {
+          height: 75rpx;
+          width: 150rpx;
+          text-align: center;
+          line-height: 75rpx;
+          background: darkgrey;
         }
       }
     }
@@ -138,7 +175,7 @@ export default {
         width: 94%;
         padding-top: 15rpx;
         .service {
-          height: 170rpx;
+          height: 172rpx;
           width: 100%;
           display: flex;
           flex-wrap: wrap;
@@ -188,7 +225,7 @@ export default {
           }
         }
         .search-btn {
-          height: 125rpx;
+          height: 113rpx;
           width: 100%;
           display: flex;
           flex-wrap: wrap;
