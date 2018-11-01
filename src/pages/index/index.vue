@@ -79,7 +79,7 @@
         </view>
         <view class="guild">
           <view class="summary">
-            <view class="time"></view>
+            <view class="time">10月30号 周一 18:15</view>
             <view class="other"></view>
           </view>
           <view class="share">
@@ -299,7 +299,7 @@ export default {
         justify-content: flex-start;
         background: darkolivegreen;
         .run {
-          height: 100%;
+          height: 120rpx;
           width: 75%;
           display: flex;
           flex-wrap: wrap;
@@ -326,6 +326,7 @@ export default {
             .text {
               height: 100%;
               width: 85%;
+              font-size: 36rpx;
               text-indent: 5rpx;
               display: flex;
               flex-wrap: wrap;
@@ -336,21 +337,23 @@ export default {
           }
         }
         .info {
-          height: 100%;
+          height: 120rpx;
           width: 25%;
-          font-size: 32rpx;
+          font-size: 24rpx;
           text-align:right;
           /*margin-right: 10rpx;*/
           background: firebrick;
           .price {
-            height: 35%;
+            height: 40rpx;
             /*width: 100%;*/
             padding-right: 20rpx;
+            line-height: 40rpx;
             background: #fa4d5c;
           }
           .note {
-            height: 35%;
+            height: 40rpx;
             /*width: 100%;*/
+            line-height: 40rpx;
             padding-right: 20rpx;
             background: dimgrey;
           }
