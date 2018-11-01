@@ -56,11 +56,25 @@
       <view class="cart">
         <view class="map">
           <view class="run">
-            菏泽 -> 成武
+            <view class="origin address">
+              <view class="icon">
+                <text class="fa fa-car gray-icon"/>
+              </view>
+              <text class="text">菏泽</text>
+            </view>
+            <view class="destination address">
+              <view class="icon">
+                <text class="fa fa-car gray-icon"/>
+              </view>
+              <text class="text">成武</text>
+            </view>
           </view>
           <view class="info">
-            <view class="price"></view>
-            <view class="note"></view>
+            <view class="price">
+              <text class="money">12</text>
+              <text class="unit">/人</text>
+            </view>
+            <view class="note">8小时后</view>
           </view>
         </view>
         <view class="guild">
@@ -267,7 +281,7 @@ export default {
     justify-content: center;
     background: salmon;
     .cart {
-      height: 300rpx;
+      height: 240rpx;
       width: 94%;
       border-radius: 20rpx;
       display: flex;
@@ -276,13 +290,74 @@ export default {
       justify-content: center;
       background: darkcyan;
       .map {
-        height: 150rpx;
+        height: 120rpx;
         width: 100%;
         border-radius: 10rpx;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
         background: darkolivegreen;
+        .run {
+          height: 100%;
+          width: 75%;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: center;
+          background: darkcyan;
+          .address {
+            height: 50%;
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-start;
+            background: darkkhaki;
+            .icon {
+              height: 100%;
+              width: 15%;
+              display: flex;
+              flex-wrap: wrap;
+              align-items: center;
+              justify-content: center;
+              background: dimgrey;
+            }
+            .text {
+              height: 100%;
+              width: 85%;
+              text-indent: 5rpx;
+              display: flex;
+              flex-wrap: wrap;
+              align-items: center;
+              justify-content: flex-start;
+              background: darkgoldenrod;
+            }
+          }
+        }
+        .info {
+          height: 100%;
+          width: 25%;
+          font-size: 32rpx;
+          text-align:right;
+          /*margin-right: 10rpx;*/
+          background: firebrick;
+          .price {
+            height: 35%;
+            /*width: 100%;*/
+            padding-right: 20rpx;
+            background: #fa4d5c;
+          }
+          .note {
+            height: 35%;
+            /*width: 100%;*/
+            padding-right: 20rpx;
+            background: dimgrey;
+          }
+        }
       }
       .guild {
-        height: 150rpx;
+        height: 120rpx;
         width: 100%;
         border-radius: 10rpx;
         background: #58b7ff;
