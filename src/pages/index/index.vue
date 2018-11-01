@@ -11,7 +11,7 @@
         </swiper>
         <view class="user-main">
           <view class="switch">
-            <view class="passenger btn">乘客</view>
+            <view class="passenger btn active">乘客</view>
             <view class="driver btn">司机</view>
           </view>
           <view class="my">我的</view>
@@ -27,7 +27,7 @@
                   <text class="fa fa-car gray-icon"/>
                 </view>
                 <view class="input">
-                  <input placeholder-class="placeholder-color" placeholder="从哪出发"/>
+                  <input placeholder-class="placeholder-color" placeholder="哪出发"/>
                 </view>
               </view>
               <view class="destination info">
@@ -52,9 +52,27 @@
       </view>
 
     </view>
-    <view class="add">
+    <view class="list">
+      <view class="cart">
+        <view class="map">
+          <view class="run">
+            菏泽 -> 成武
+          </view>
+          <view class="info">
+            <view class="price"></view>
+            <view class="note"></view>
+          </view>
+        </view>
+        <view class="guild">
+          <view class="summary">
+            <view class="time"></view>
+            <view class="other"></view>
+          </view>
+          <view class="share">
 
-
+          </view>
+        </view>
+      </view>
 
     </view>
 
@@ -108,9 +126,9 @@ export default {
   #index {
     width: 100%;
     height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    /*display: flex;*/
+    /*flex-wrap: wrap;*/
+    /*justify-content: center;*/
   }
   .main {
     height: 725rpx;
@@ -140,17 +158,22 @@ export default {
         width: 100%;
         display: flex;
         justify-content: space-between;
-        background: darkgoldenrod;
+        background: #ffffff;
         .switch {
           height: 75rpx;
           width: 240rpx;
           display: flex;
-          background: darkslateblue;
+          /*background: darkslateblue;*/
           .btn {
-            height: 75rpx;
-            width: 120rpx;
+            height: 71rpx;
+            width: 100rpx;
             text-align: center;
-            line-height: 75rpx;
+            line-height: 85rpx;
+            margin-left: 15rpx;
+          }
+          .active {
+            width: 100rpx;
+            border-bottom: 4rpx solid #fa4d5c;
           }
         }
         .my {
@@ -158,7 +181,7 @@ export default {
           width: 150rpx;
           text-align: center;
           line-height: 75rpx;
-          background: darkgrey;
+          /*background: darkgrey;*/
         }
       }
     }
@@ -232,6 +255,37 @@ export default {
           align-items: center;
           justify-content: center;
         }
+      }
+    }
+  }
+  .list {
+    min-height: 700rpx;
+    width: 100%;
+    margin-top: 20rpx;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background: salmon;
+    .cart {
+      height: 300rpx;
+      width: 94%;
+      border-radius: 20rpx;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      background: darkcyan;
+      .map {
+        height: 150rpx;
+        width: 100%;
+        border-radius: 10rpx;
+        background: darkolivegreen;
+      }
+      .guild {
+        height: 150rpx;
+        width: 100%;
+        border-radius: 10rpx;
+        background: #58b7ff;
       }
     }
   }
