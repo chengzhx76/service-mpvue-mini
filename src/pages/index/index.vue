@@ -261,134 +261,85 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+  @import "@/styles/mixin.scss";
   #index {
-    width: 100%;
-    height: 100%;
+    @include height-width-100;
   }
   .main {
-    height: 725rpx;
-    width: 100%;
+    @include height-rpx-width-100(725);
     .section-header {
-      height: 405rpx;
-      width: 100%;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
+      @include height-rpx-width-100(405);
+      @include justify-align-center;
       margin-bottom: 20rpx;
       .swiper-main {
-        height: 330rpx;
-        width: 100%;
+        @include height-rpx-width-100(330);
         .swiper-item {
-          height: 100%;
-          width: 100%;
+          @include height-width-100;
           .swiper-img {
-            height: 100%;
-            width: 100%;
+            @include height-width-100;
           }
         }
       }
       .user-main {
-        height: 75rpx;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
+        @include height-rpx-width-100(75);
+        @include justify-space-between;
         background: #ffffff;
         .switch {
-          height: 75rpx;
-          width: 300rpx;
+          @include height-width(75, 300)
           display: flex;
-          /*background: darkslateblue;*/
           .btn {
-            height: 71rpx;
-            width: 100rpx;
-            text-align: center;
-            line-height: 85rpx;
+            @include height-width-line-height-text-center(71, 100, 85);
             margin-left: 15rpx;
           }
           .active {
             width: 100rpx;
-            border-bottom: 4rpx solid #fa4d5c;
+            @include width-border-bottom(100, 4, #fa4d5c)
           }
         }
         .my {
-          height: 75rpx;
-          width: 200rpx;
-          text-align: center;
-          line-height: 75rpx;
+          @include height-width-text-center(75, 200);
           /*background: darkgrey;*/
         }
       }
     }
     .search {
-      height: 300rpx;
-      width: 100%;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
+      @include height-rpx-width-100(300);
+      @include justify-align-center;
       background: #ffffff;
       .search-main {
-        height: 100%;
-        width: 94%;
+        @include height-100-width-percent(94%)
         padding-top: 15rpx;
         .service {
-          height: 172rpx;
-          width: 100%;
-          display: flex;
-          flex-wrap: wrap;
-          align-items: center;
-          justify-content: flex-start;
+          @include height-rpx-width-100(172);
+          @include justify-start-align-center;
           .distance {
-            height: 100%;
-            width: 88%;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: flex-start;
+            @include height-100-width-percent(88%)
+            @include justify-start-align-center;
             .info {
-              height: 49%;
-              width: 100%;
-              display: flex;
-              flex-wrap: wrap;
-              align-items: center;
-              justify-content: flex-start;
+              @include height-percent-width-100(49%)
+              @include justify-start-align-center;
               .icon {
-                height: 100%;
-                width: 15%;
-                display: flex;
-                flex-wrap: wrap;
-                align-items: center;
-                justify-content: center;
+                @include height-100-width-percent(15%)
+                @include justify-start-align-center;
               }
               .input {
-                height: 99%;
-                width: 85%;
-                border-bottom: 1rpx solid #EDEDED;
+                @include height-percent-width-percent(99%, 85%);
+                @include border-bottom-width(1);
                 input {
-                  height: 100%;
-                  width: 100%;
+                  @include height-width-100;
                   padding-left: 12rpx;
                 }
               }
             }
           }
           .change {
-            height: 100%;
-            width: 12%;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
+            @include height-100-width-percent(12%)
+            @include justify-align-center;
           }
         }
         .search-btn {
-          height: 113rpx;
-          width: 100%;
-          display: flex;
-          flex-wrap: wrap;
-          align-items: center;
-          justify-content: center;
+          @include height-rpx-width-100(113);
+          @include justify-align-center;
         }
       }
     }
@@ -399,35 +350,23 @@ export default {
     color: transparent;
   }
   .list {
-    height: 700rpx;
-    width: 100%;
-    /*margin-top: 20rpx;*/
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    /*background: darkkhaki;*/
+    @include height-rpx-width-100(700);
+    @include justify-center;
     .cart {
-      height: 331rpx;
-      width: 100%;
+      @include height-rpx-width-100(331);
       border-radius: 10rpx;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
+      @include justify-align-center;
       margin-top: 10rpx;
-      background: #ffffff;
-      box-shadow:1rpx 1rpx 5px #E6E6E6;
+      @include bg-fff;
+      @include box-shadow;
       .header {
-        height: 50rpx;
-        width: 100%;
+        @include height-rpx-width-100(50);
         display: flex;
         padding-top: 10rpx;
-        border-top-left-radius: 10rpx;
-        border-top-right-radius: 10rpx;
+        @include border-radius-top-left(10);
         background: #FAFAFA;
         .nav-block {
-          height: 35rpx;
-          width: 10rpx;
+          @include height-width(35, 10)
           border-radius: 8rpx;
           margin-left: 15rpx;
           background: #3B8CDD;
@@ -439,7 +378,7 @@ export default {
             height: 35rpx;
             font-size: 30rpx;
             line-height: 36rpx;
-            padding-right: 10px;
+            padding-right: 20rpx;
             padding-left: 12rpx;
           }
           .seats {
@@ -456,33 +395,21 @@ export default {
       .content {
         height: 200rpx;
         width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: flex-start;
+        @include justify-start-align-center;
         .left {
           height: 200rpx;
           width: 70%;
-          display: flex;
-          flex-wrap: wrap;
-          align-items: center;
-          justify-content: center;
+          @include justify-align-center;
           /*background: #690e0d;*/
           .address {
             height: 50rpx;
             width: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: flex-start;
+            @include justify-start-align-center;
             /*background: #fa4d5c;*/
             .icon {
               height: 50rpx;
               width: 10%;
-              display: flex;
-              flex-wrap: wrap;
-              align-items: center;
-              justify-content: center;
+              @include justify-align-center;
               /*background: darkgoldenrod;*/
               .nav {
                 height: 30rpx;
@@ -501,10 +428,7 @@ export default {
               font-size: 32rpx;
               line-height: 60rpx;
               text-indent: 5rpx;
-              display: flex;
-              flex-wrap: wrap;
-              align-items: center;
-              justify-content: flex-start;
+              @include justify-start-align-center;
               /*background: #58b7ff;*/
             }
           }
@@ -568,10 +492,7 @@ export default {
           .share {
             height: 100rpx;
             width: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
+            @include justify-align-center;
             .icon {
               height: 50rpx;
               width: 80rpx;
