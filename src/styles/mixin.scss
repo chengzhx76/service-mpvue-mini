@@ -1,0 +1,84 @@
+@import './variables.scss';
+
+@mixin height-rpx-width-100($height) {
+  height: #{$height}rpx;
+  width: $percent-100;
+}
+@mixin height-percent-width-100($height) {
+  height: $height;
+  width: $percent-100;
+}
+@mixin height-100-width-percent($width) {
+  height: $percent-100;
+  width: $width;
+}
+@mixin height-percent-width-percent($height, $width) {
+  height: $percent-100;
+  width: $width;
+}
+@mixin height-width($height, $width) {
+  height: #{$height}rpx;
+  width: #{$width}rpx;
+}
+
+@mixin height-width-100 {
+  height: $percent-100;
+  width: $percent-100;
+}
+
+@mixin width-border-bottom($width, $bbw, $color) {
+  width: #{$width}rpx;
+  border-bottom: #{$bbw}rpx solid $color;
+}
+
+@mixin height-width-text-center($height, $width) {
+  height: #{$height}rpx;
+  width: #{$width}rpx;
+  text-align: center;
+  line-height: #{$height}rpx;
+}
+
+@mixin height-width-line-height-text-center($height, $width, $lineHeight) {
+  height: #{$height}rpx;
+  width: #{$width}rpx;
+  text-align: center;
+  line-height: #{$lineHeight}rpx;;
+}
+@mixin border-bottom-width($width){
+  border-bottom: #{$width}rpx solid $border;
+}
+
+@mixin justify-align-center {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+@mixin justify-start-align-center {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+@mixin justify-space-between {
+  display: flex;
+  justify-content: space-between;
+}
+@mixin justify-center {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@mixin bg-fff {
+  background: $white;
+}
+
+@mixin box-shadow {
+  box-shadow:1rpx 1rpx 5px $boxShadow;
+}
+@mixin border-radius-top-left($val) {
+  border-top-left-radius: #{$val}rpx;
+  border-top-right-radius: #{$val}rpx;
+}
+
