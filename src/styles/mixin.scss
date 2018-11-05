@@ -4,6 +4,10 @@
   height: #{$height}rpx;
   width: $percent-100;
 }
+@mixin height-rpx-width-percent($height, $width) {
+  height: #{$height}rpx;
+  width: $width;
+}
 @mixin height-percent-width-100($height) {
   height: $height;
   width: $percent-100;
@@ -44,7 +48,12 @@
   text-align: center;
   line-height: #{$lineHeight}rpx;;
 }
-@mixin border-bottom-width($width){
+
+@mixin border-bottom-width($width) {
+  border-bottom: #{$width}rpx solid $border;
+}
+
+@mixin border-top-width($width) {
   border-bottom: #{$width}rpx solid $border;
 }
 
@@ -64,21 +73,26 @@
   display: flex;
   justify-content: space-between;
 }
+@mixin justify-end {
+  display: flex;
+  justify-content: flex-end;
+}
 @mixin justify-center {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-@mixin bg-fff {
-  background: $white;
-}
-
 @mixin box-shadow {
   box-shadow:1rpx 1rpx 5px $boxShadow;
 }
-@mixin border-radius-top-left($val) {
+
+@mixin border-radius-top($val) {
   border-top-left-radius: #{$val}rpx;
   border-top-right-radius: #{$val}rpx;
+}
+@mixin border-radius-bottom($val) {
+  border-bottom-left-radius: #{$val}rpx;
+  border-bottom-right-radius: #{$val}rpx;
 }
 
