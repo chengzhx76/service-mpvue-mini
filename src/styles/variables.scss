@@ -1,23 +1,32 @@
-$blue: #324157;
-$light-blue: #3B8CDD;
-$red: #C03639;
+$gray-blue: #76ABEF;
+$light-blue: #3D94FE;
+$dark-blue: #3B8CDD;
+$dark-yellow: #EBC700;
+$red: #fa4d5c;
 $white: #ffffff;
 
+$unimpColor: #6B6B6B;
+
 $pageBg: #F0F0F0;
-$border: #EDEDED;
-$boxShadow: #E6E6E6;
+$borderColor: #EDEDED;
+$boxShadowColor: #E6E6E6;
+$iconColor: #DADADA;
+$placeholderColor: #E0E0E0;
 $tipColor: #989898;
 $inputColor: #313131;
 $titleColor: #313131;
+$inputUnimpColor: $unimpColor;
+
+$priceColor: #CA4E2A;
+
 $cardHeaderBgColor: #FAFAFA;
-$cardHeaderLineColor: $light-blue;
-$cardHeaderSummaryColor: #313131;
+$cardHeaderSummaryColor: #ABABAB;
 $cardShareColor: #F0F0F0;
 
-$startColor: #3D94FE;
-$roadColor: #DADADA;
+$startColor: $light-blue;
+$roadColor: #ABABAB;
 $endColor: #C7B685;
-$timeColor: #989898;
+$timeColor: $unimpColor;
 
 $percent-100: 100%;
 

@@ -53,12 +53,12 @@
       </view>
 
     </view>
-    <scroll-view class="list" scroll-y>
+    <view class="list">
     <!--<view class="list">-->
 
       <view class="card">
         <view class="header">
-          <view class="nav-block"></view>
+          <view class="nav-block driver"></view>
           <view class="nav-main">
             <view class="tag">车找人</view>
             <view class="seats">剩余3位座</view>
@@ -115,7 +115,7 @@
       </view>
       <view class="card">
         <view class="header">
-          <view class="nav-block"></view>
+          <view class="nav-block driver"></view>
           <view class="nav-main">
             <view class="tag">车找人</view>
             <view class="seats">剩余2位座</view>
@@ -166,10 +166,10 @@
       </view>
       <view class="card">
         <view class="header">
-          <view class="nav-block"></view>
+          <view class="nav-block passenger"></view>
           <view class="nav-main">
-            <view class="tag">车找人</view>
-            <view class="seats">剩余2位座</view>
+            <view class="tag">人找车</view>
+            <view class="seats">2人</view>
           </view>
         </view>
         <view class="content">
@@ -185,20 +185,20 @@
               <view class="icon">
                 <view class="nav">终</view>
               </view>
-              <view class="text">济南</view>
+              <view class="text">商丘火车站</view>
             </view>
             <view class="time address">
               <view class="icon">
                 <view class="nav">时</view>
               </view>
-              <view class="text">11月15号（周一） 08:12</view>
+              <view class="text">11月19号（周六） 08:00</view>
             </view>
           </view>
 
           <view class="right">
             <view class="summary">
               <view class="price">
-                <text class="money">100</text>
+                <text class="money">80</text>
                 <text class="unit">/人</text>
               </view>
               <view class="note">16小时后出发</view>
@@ -215,7 +215,7 @@
           <text class="call-phone">联系TA</text>
         </view>
       </view>
-    </scroll-view>
+    </view>
 
   </view>
 </template>
@@ -294,7 +294,7 @@ export default {
           }
           .active {
             width: 100rpx;
-            @include width-border-bottom(100, 4, #fa4d5c)
+            @include width-border-bottom(100, 4, $red)
           }
         }
         .my {
@@ -319,11 +319,11 @@ export default {
               @include height-percent-width-100(49%);
               @include justify-start-align-center;
               .icon {
-                @include height-100-width-percent(15%);
-                @include justify-start-align-center;
+                @include height-100-width-percent(12%);
+                @include justify-align-center;
               }
               .input {
-                @include height-percent-width-percent(99%, 85%);
+                @include height-percent-width-percent(99%, 88%);
                 @include border-bottom-width(1);
                 input {
                   @include height-width-100;
@@ -370,7 +370,12 @@ export default {
           @include height-width(35, 10);
           border-radius: 8rpx;
           margin-left: 15rpx;
-          background: $cardHeaderLineColor;
+        }
+        .passenger {
+          background: $dark-yellow;
+        }
+        .driver {
+          background: $dark-blue;
         }
         .nav-main {
           height: 35rpx;
@@ -471,9 +476,11 @@ export default {
             padding-right: 20rpx;
             .price {
               height: 40rpx;
+              color: $priceColor;
             }
             .note {
               height: 40rpx;
+              color: $unimpColor;
             }
           }
           .share {
@@ -502,7 +509,7 @@ export default {
           padding: 0 10rpx;
           margin-right: 15rpx;
           border-radius: 5rpx;
-          background: $light-blue;
+          background: $dark-blue;
         }
       }
     }
