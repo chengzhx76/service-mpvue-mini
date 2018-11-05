@@ -294,7 +294,7 @@ export default {
           }
           .active {
             width: 100rpx;
-            @include width-border-bottom(100, 4, $red)
+            @include border-bottom(4, $red)
           }
         }
         .my {
@@ -353,7 +353,7 @@ export default {
     @include height-rpx-width-100(700);
     @include justify-center;
     .card {
-      @include height-rpx-width-100(331);
+      @include height-rpx-width-percent(331, 98%);
       @include border-radius-top(10);
       @include border-radius-bottom(10);
       @include justify-align-center;
@@ -368,7 +368,7 @@ export default {
         background: $cardHeaderBgColor;
         .nav-block {
           @include height-width(35, 10);
-          border-radius: 8rpx;
+          @include border-radius(8);
           margin-left: 15rpx;
         }
         .passenger {
@@ -414,7 +414,7 @@ export default {
                 @include height-width-text-center(30, 30);
                 font-size: 20rpx;
                 color: $white;
-                border-radius: 50%;
+                @include border-radius-percent(50%);
               }
             }
             .text {
@@ -471,15 +471,13 @@ export default {
           .summary {
             height: 100rpx;
             font-size: 28rpx;
-            text-align: right;
-            line-height: 40rpx;
             padding-right: 20rpx;
             .price {
-              height: 40rpx;
+              @include height-text(40, 'right');
               color: $priceColor;
             }
             .note {
-              height: 40rpx;
+              @include height-text(40, 'right');
               color: $unimpColor;
             }
           }
@@ -488,7 +486,7 @@ export default {
             @include justify-align-center;
             .icon {
               @include height-width-line-height-text-center(50, 80, 47);
-              border-radius: 50rpx;
+              @include border-radius(50);
               background: $cardShareColor;
             }
           }
@@ -508,7 +506,7 @@ export default {
           color: $white;
           padding: 0 10rpx;
           margin-right: 15rpx;
-          border-radius: 5rpx;
+          @include border-radius(5);
           background: $dark-blue;
         }
       }

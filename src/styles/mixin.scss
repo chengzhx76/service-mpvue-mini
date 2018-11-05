@@ -30,15 +30,15 @@
   width: $percent-100;
 }
 
-@mixin width-border-bottom($width, $bbw, $color) {
-  width: #{$width}rpx;
-  border-bottom: #{$bbw}rpx solid $color;
-}
-
 @mixin height-width-text-center($height, $width) {
   height: #{$height}rpx;
   width: #{$width}rpx;
   text-align: center;
+  line-height: #{$height}rpx;
+}
+@mixin height-text($height, $position) {
+  height: #{$height}rpx;
+  text-align: $position;
   line-height: #{$height}rpx;
 }
 
@@ -57,6 +57,17 @@
   border-top: #{$width}rpx solid $borderColor;
 }
 
+@mixin border-bottom($width, $color) {
+  border-bottom: #{$width}rpx solid $color;
+}
+
+@mixin border($width) {
+  border: #{$width}rpx solid $borderColor;
+}
+@mixin border-none($position) {
+  border-#{$position}: none;
+}
+
 @mixin justify-align-center {
   display: flex;
   flex-wrap: wrap;
@@ -71,6 +82,7 @@
 }
 @mixin justify-space-between {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 @mixin justify-end {
@@ -84,9 +96,15 @@
 }
 
 @mixin box-shadow {
-  box-shadow:1rpx 1rpx 5px $boxShadowColor;
+  box-shadow:1rpx 1rpx 10rpx $boxShadowColor;
 }
 
+@mixin border-radius($val) {
+  border-radius: #{$val}rpx;
+}
+@mixin border-radius-percent($val) {
+  border-radius: $val;
+}
 @mixin border-radius-top($val) {
   border-top-left-radius: #{$val}rpx;
   border-top-right-radius: #{$val}rpx;

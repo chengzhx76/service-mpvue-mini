@@ -92,65 +92,47 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+  @import "@/styles/mixin.scss";
+  @import "@/styles/variables.scss";
+
   #add {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    @include height-width-100;
+    @include justify-center;
   }
   .main {
     width: 93%;
-    /*height: 650rpx;*/
-    background: #F0F0F0;
+    background: $pageBg;
     .tip {
-      width: 100%;
-      height: 75rpx;
+      @include height-rpx-width-100(75);
       line-height: 75rpx;
       font-size: 28rpx;
-      color: #989898;
-      background: #F0F0F0;
+      color: $tipColor;
+      background: $pageBg;
     }
     .service {
       width: 100%;
-      /*height: 100%;*/
-      display: flex;
-      flex-wrap: wrap;
-      align-content: space-between;
-      background: #F0F0F0;
+      @include justify-space-between;
+      background: $pageBg;
       .distance {
         width: 100%;
-        border-radius: 10rpx;
-        border: 2rpx solid #EDEDED;
-        box-shadow:1rpx 1rpx 5px #E6E6E6;
-        background: #ffffff;
+        @include border-radius(10);
+        @include border(2);
+        @include box-shadow;
+        background: $white;
         .info {
-          width: 100%;
-          height: 120rpx;
-          display: flex;
-          flex-wrap: wrap;
-          align-items: center;
-          justify-content: flex-start;
-          border-bottom: 1rpx solid #EDEDED;
+          @include height-rpx-width-100(120);
+          @include justify-start-align-center;
+          @include border-bottom-width(1);
           .title {
-            width: 40%;
-            height: 120rpx;
-            color: #313131;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: flex-start;
+            @include height-rpx-width-percent(120, 40%);
+            color: $titleColor;
+            @include justify-start-align-center;
             .icon {
-              height: 120rpx;
-              width: 80rpx;
-              display: flex;
-              flex-wrap: wrap;
-              align-items: center;
-              justify-content: center;
+              @include height-width(120, 80);
+              @include justify-align-center;
             }
             .label {
               height: 120rpx;
-              /*width: 80rpx;*/
               line-height: 115rpx;
               font-size: 34rpx;
             }
@@ -164,46 +146,41 @@ export default {
           }
         }
         .phone {
-          border-bottom: none;
+          @include border-none('bottom')
         }
         .origin .input, .destination .input {
           font-size: 40rpx;
-          color: #313131;
+          color: $inputColor;
         }
         .time .input, .phone .input {
           font-size: 34rpx;
-          color: #6B6B6B;
+          color: $inputUnimpColor;
         }
       }
       .remarks {
-        width: 100%;
-        height: 115rpx;
+        @include height-rpx-width-100(115);
         border-radius: 10rpx;
         margin-top: 25rpx;
         padding-left: 30rpx;
-        box-shadow:1rpx 1rpx 5px #E6E6E6;
-        background: #ffffff;
-        border: 2rpx solid #EDEDED;
+        @include box-shadow;
+        background: $white;
+        @include border(2);
         input {
-          width: 100%;
-          height: 100%;
+          @include height-width-100;
           font-size: 36rpx;
-          color: #313131;
+          color: $inputColor;
         }
       }
     }
 
   }
   .release {
-    height: 160rpx;
-    width: 100%;
+    @include height-rpx-width-100(160);
     position: fixed;
     left: 0;
     bottom: 0;
-    border-top: 1rpx solid #E2E2E2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #ffffff;
+    @include border-top-width(1);
+    @include justify-align-center;
+    background: $white;
   }
 </style>
