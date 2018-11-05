@@ -2,25 +2,25 @@
 
 page {
   height:100%;
-  background: #F0F0F0;
+  background: $pageBg;
 }
 
 .gray-icon {
-  color: #DADADA;
+  color: $iconColor;
 }
 .blue-icon {
-  color: #6896E7;
+  color: $light-blue;
 }
 
 .placeholder-color {
-  color: #E0E0E0;
+  color: $placeholderColor;
 }
 
 #add .release-button {
   height: 100rpx;
   width: 90%;
   border: none;
-  background: #76ABEF;
+  background: $gray-blue;
   color: #ffffff;
   border-radius: 60rpx;
 }

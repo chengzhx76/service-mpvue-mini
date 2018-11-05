@@ -50,11 +50,11 @@
 }
 
 @mixin border-bottom-width($width) {
-  border-bottom: #{$width}rpx solid $border;
+  border-bottom: #{$width}rpx solid $borderColor;
 }
 
 @mixin border-top-width($width) {
-  border-bottom: #{$width}rpx solid $border;
+  border-top: #{$width}rpx solid $borderColor;
 }
 
 @mixin justify-align-center {
@@ -84,7 +84,7 @@
 }
 
 @mixin box-shadow {
-  box-shadow:1rpx 1rpx 5px $boxShadow;
+  box-shadow:1rpx 1rpx 5px $boxShadowColor;
 }
 
 @mixin border-radius-top($val) {
