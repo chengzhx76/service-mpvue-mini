@@ -215,6 +215,11 @@
           <text class="call-phone">联系TA</text>
         </view>
       </view>
+
+      <view class="more">
+        查看更多 >
+      </view>
+
     </view>
 
   </view>
@@ -350,10 +355,11 @@ export default {
     color: transparent;
   }
   .list {
-    @include height-rpx-width-100(700);
+    min-height: 370rpx;
+    width: 100%;
     @include justify-center;
     .card {
-      @include height-rpx-width-percent(331, 98%);
+      @include height-rpx-width-percent(360, 98%);
       @include border-radius-top(10);
       @include border-radius-bottom(10);
       @include justify-align-center;
@@ -361,14 +367,15 @@ export default {
       background: $white;
       @include box-shadow;
       .header {
-        @include height-rpx-width-100(50);
+        @include height-rpx-width-100(60);
         display: flex;
-        padding-top: 10rpx;
+        /*padding-top: 15rpx;*/
         @include border-radius-top(10);
         background: $cardHeaderBgColor;
         .nav-block {
           @include height-width(35, 10);
           @include border-radius(8);
+          margin-top: 15rpx;
           margin-left: 15rpx;
         }
         .passenger {
@@ -378,6 +385,8 @@ export default {
           background: $dark-blue;
         }
         .nav-main {
+          /*background: forestgreen;*/
+          margin-top: 15rpx;
           height: 35rpx;
           display: flex;
           .tag {
@@ -399,16 +408,19 @@ export default {
         }
       }
       .content {
-        @include height-rpx-width-100(200);
+        /*background: darkorange;*/
+        @include height-rpx-width-100(230);
         @include justify-start-align-center;
         .left {
-          @include height-rpx-width-percent(200, 70%);
+          /*background: darkslateblue;*/
+          @include height-rpx-width-percent(230, 72%);
           @include justify-align-center;
           .address {
-            @include height-rpx-width-100(50);
+            /*background: darkgoldenrod;*/
+            @include height-rpx-width-100(65);
             @include justify-start-align-center;
             .icon {
-              @include height-rpx-width-percent(50, 10%);
+              @include height-rpx-width-percent(65, 10%);
               @include justify-align-center;
               .nav {
                 @include height-width-text-center(30, 30);
@@ -418,7 +430,7 @@ export default {
               }
             }
             .text {
-              @include height-rpx-width-percent(50, 90%);
+              @include height-rpx-width-percent(65, 90%);
               font-size: 32rpx;
               line-height: 60rpx;
               text-indent: 5rpx;
@@ -426,63 +438,71 @@ export default {
             }
           }
           .start {
+            /*background: firebrick;*/
             .icon {
               .nav {
                 background: $startColor;
               }
             }
+            .text {
+              font-size: 36rpx;
+            }
           }
           .road {
+            height: 50rpx;
+            /*background: darkslateblue;*/
             .icon {
               .nav {
                 background: $roadColor;
               }
             }
+            .text {
+              color: $roadColor;
+              font-size: 28rpx;
+            }
           }
           .end {
+            /*background: darkgray;*/
             .icon {
               .nav {
                 background: $endColor;
               }
             }
+            .text {
+              font-size: 36rpx;
+            }
           }
           .time {
+            height: 50rpx;
+            color: $timeColor;
+            /*background: darkgreen;*/
             .icon {
               .nav {
                 background: $timeColor;
               }
             }
-          }
-          .road {
             .text {
               font-size: 28rpx;
-              color: $roadColor;
-            }
-          }
-          .time {
-            .text {
-              font-size: 28rpx;
-              color: $timeColor;
             }
           }
         }
         .right {
-          @include height-rpx-width-percent(200, 30%);
+          @include height-rpx-width-percent(230, 28%);
           .summary {
             height: 100rpx;
             font-size: 28rpx;
             padding-right: 20rpx;
             .price {
-              @include height-text(40, 'right');
+              @include height-text(40, right);
               color: $priceColor;
             }
             .note {
-              @include height-text(40, 'right');
+              @include height-text(40, right);
               color: $unimpColor;
             }
           }
           .share {
-            @include height-rpx-width-100(100);
+            @include height-rpx-width-100(130);
             @include justify-align-center;
             .icon {
               @include height-width-line-height-text-center(50, 80, 47);
@@ -494,7 +514,7 @@ export default {
         }
       }
       .footer {
-        @include height-rpx-width-100(79);
+        @include height-rpx-width-100(70);
         @include justify-end;
         padding-top: 10rpx;
         @include border-radius-bottom(10);
@@ -507,10 +527,28 @@ export default {
           padding: 0 10rpx;
           margin-right: 15rpx;
           @include border-radius(5);
-          background: $dark-blue;
+          background: $light-blue;
         }
       }
     }
+    .card:nth-last-child(2) {
+      @include border-radius-bottom(0);
+      .footer {
+        @include border-radius-bottom(0);
+      }
+    }
+    .more {
+      @include height-rpx-width-percent(79, 98%);
+      line-height: 79rpx;
+      font-size: 34rpx;
+      color: $light-blue;
+      text-align: center;
+      @include border-top-width(1)
+      @include border-radius-bottom(10);
+      background: $white;
+      margin-bottom: 20rpx;
+    }
+
   }
 
 </style>

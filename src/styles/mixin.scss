@@ -96,7 +96,7 @@
 }
 
 @mixin box-shadow {
-  box-shadow:1rpx 1rpx 10rpx $boxShadowColor;
+  box-shadow: 1rpx 1rpx 10rpx $boxShadowColor;
 }
 
 @mixin border-radius($val) {
