@@ -1,9 +1,9 @@
 <template>
   <view id="add">
 
-    <view class="switch">
-      <view class="left">乘客</view>
-      <view class="right">车主</view>
+    <view class="main-nav">
+      <view class="left nav active">乘客</view>
+      <view class="right nav">车主</view>
     </view>
 
     <view class="main">
@@ -102,8 +102,32 @@ export default {
 
   #add {
     @include height-width-100;
-    @include justify-center;
+    @include column-align-center;
   }
+  .main-nav {
+    @include height-rpx-width-percent(90, 93%);
+    @include border-radius(80);
+    display: flex;
+    margin-top: 30rpx;
+    margin-bottom: 10rpx;
+    @include border(1);
+    background: $white;
+    .nav {
+      @include height-width-percent-text-center(90, 50%);
+      font-size: 36rpx;
+    }
+    .left {
+      @include border-radius-left(80);
+    }
+    .right {
+      @include border-radius-right(80);
+    }
+    .active {
+      background: $gray-blue;
+      color: $white;
+    }
+  }
+
   .main {
     width: 93%;
     background: $pageBg;
