@@ -1,6 +1,11 @@
 <template>
   <view id="add">
 
+    <view class="switch">
+      <view class="left">乘客</view>
+      <view class="right">车主</view>
+    </view>
+
     <view class="main">
 
       <view class="tip">填写你的行程</view>
@@ -32,7 +37,7 @@
           <view class="time info">
             <view class="title">
               <view class="icon">
-                <text class="fa fa-calendar gray-icon"/>
+                <text class="fa fa-clock-o gray-icon"/>
               </view>
               <text class="label">时间</text>
             </view>
