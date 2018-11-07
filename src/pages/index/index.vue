@@ -9,8 +9,8 @@
             <image class="swiper-img" mode="scaleToFill" :src="item.src"/>
           </swiper-item>
         </swiper>
-        <view class="user-main">
-          <view class="switch">
+        <view class="nav-main">
+          <view class="nav">
             <view class="all btn active">全部</view>
             <view class="passenger btn">乘客</view>
             <view class="driver btn">车主</view>
@@ -46,7 +46,7 @@
 
           </view>
           <view class="search-btn">
-            <button class="search-button" type="default" size="default" @click="handler">搜索顺路车程</button>
+            <button class="search-button" type="default" size="default" @click="searchHandler">搜索顺路车程</button>
           </view>
 
         </view>
@@ -59,7 +59,7 @@
       <view class="card">
         <view class="header">
           <view class="nav-block driver"></view>
-          <view class="nav-main">
+          <view class="nav-info">
             <view class="tag">车找人</view>
             <view class="seats">剩余3位座</view>
           </view>
@@ -116,7 +116,7 @@
       <view class="card">
         <view class="header">
           <view class="nav-block driver"></view>
-          <view class="nav-main">
+          <view class="nav-info">
             <view class="tag">车找人</view>
             <view class="seats">剩余2位座</view>
           </view>
@@ -167,7 +167,7 @@
       <view class="card">
         <view class="header">
           <view class="nav-block passenger"></view>
-          <view class="nav-main">
+          <view class="nav-info">
             <view class="tag">人找车</view>
             <view class="seats">2人</view>
           </view>
@@ -222,7 +222,7 @@
 
     </view>
 
-    <view class="add">
+    <view class="add" @click="addHandler">
       <text class="fa fa-plus fa-lg"/>
     </view>
   </view>
@@ -258,7 +258,11 @@ export default {
   components: {
   },
   methods: {
-    handler () {
+    searchHandler () {
+      const url = '../list/main'
+      wx.navigateTo({ url })
+    },
+    addHandler () {
       const url = '../add/main'
       wx.navigateTo({ url })
     }
@@ -271,6 +275,7 @@ export default {
 <style rel="stylesheet/scss" lang="scss" scoped>
   @import "@/styles/mixin.scss";
   @import "@/styles/variables.scss";
+  @import "@/styles/card.scss";
   #index {
     @include height-width-100;
   }
@@ -289,12 +294,12 @@ export default {
           }
         }
       }
-      .user-main {
+      .nav-main {
         @include height-rpx-width-100(75);
         @include justify-space-between;
         background: $white;
-        .switch {
-          @include height-width(75, 300)
+        .nav {
+          @include height-width(75, 300);
           display: flex;
           .btn {
             @include height-width-line-height-text-center(71, 100, 85);
@@ -361,182 +366,6 @@ export default {
     min-height: 370rpx;
     width: 100%;
     @include justify-center;
-    .card {
-      @include height-rpx-width-percent(360, 98%);
-      @include border-radius-top(10);
-      @include border-radius-bottom(10);
-      @include justify-align-center;
-      margin-top: 10rpx;
-      background: $white;
-      @include box-shadow;
-      .header {
-        @include height-rpx-width-100(60);
-        display: flex;
-        /*padding-top: 15rpx;*/
-        @include border-radius-top(10);
-        background: $cardHeaderBgColor;
-        .nav-block {
-          @include height-width(35, 10);
-          @include border-radius(8);
-          margin-top: 15rpx;
-          margin-left: 15rpx;
-        }
-        .passenger {
-          background: $dark-yellow;
-        }
-        .driver {
-          background: $dark-blue;
-        }
-        .nav-main {
-          /*background: forestgreen;*/
-          margin-top: 15rpx;
-          height: 35rpx;
-          display: flex;
-          .tag {
-            height: 35rpx;
-            font-size: 30rpx;
-            line-height: 36rpx;
-            padding-right: 20rpx;
-            padding-left: 12rpx;
-          }
-          .seats {
-            height: 25rpx;
-            font-size: 24rpx;
-            color: $cardHeaderSummaryColor;
-            line-height: 25rpx;
-            text-indent: 15rpx;
-            margin-top: 5rpx;
-            border-left: 4rpx solid $cardHeaderSummaryColor;
-          }
-        }
-      }
-      .content {
-        /*background: darkorange;*/
-        @include height-rpx-width-100(230);
-        @include justify-start-align-center;
-        .left {
-          /*background: darkslateblue;*/
-          @include height-rpx-width-percent(230, 72%);
-          @include justify-align-center;
-          .address {
-            /*background: darkgoldenrod;*/
-            @include height-rpx-width-100(65);
-            @include justify-start-align-center;
-            .icon {
-              @include height-rpx-width-percent(65, 10%);
-              @include justify-align-center;
-              .nav {
-                @include height-width-text-center(30, 30);
-                font-size: 20rpx;
-                color: $white;
-                @include border-radius-percent(50%);
-              }
-            }
-            .text {
-              @include height-rpx-width-percent(65, 90%);
-              font-size: 32rpx;
-              line-height: 60rpx;
-              text-indent: 5rpx;
-              @include justify-start-align-center;
-            }
-          }
-          .start {
-            /*background: firebrick;*/
-            .icon {
-              .nav {
-                background: $startColor;
-              }
-            }
-            .text {
-              font-size: 36rpx;
-            }
-          }
-          .road {
-            height: 50rpx;
-            /*background: darkslateblue;*/
-            .icon {
-              .nav {
-                background: $roadColor;
-              }
-            }
-            .text {
-              color: $roadColor;
-              font-size: 28rpx;
-            }
-          }
-          .end {
-            /*background: darkgray;*/
-            .icon {
-              .nav {
-                background: $endColor;
-              }
-            }
-            .text {
-              font-size: 36rpx;
-            }
-          }
-          .time {
-            height: 50rpx;
-            color: $timeColor;
-            /*background: darkgreen;*/
-            .icon {
-              .nav {
-                background: $timeColor;
-              }
-            }
-            .text {
-              font-size: 28rpx;
-            }
-          }
-        }
-        .right {
-          @include height-rpx-width-percent(230, 28%);
-          .summary {
-            height: 100rpx;
-            font-size: 28rpx;
-            padding-right: 20rpx;
-            .price {
-              @include height-text(40, right);
-              color: $priceColor;
-              .money {
-                font-size: 34rpx;
-              }
-            }
-            .note {
-              @include height-text(40, right);
-              color: $unimpColor;
-            }
-          }
-          .share {
-            @include height-rpx-width-100(130);
-            @include justify-align-center;
-            .icon {
-              @include height-width-line-height-text-center(50, 80, 47);
-              @include border-radius(50);
-              background: $cardShareColor;
-            }
-          }
-
-        }
-      }
-      .footer {
-        @include height-rpx-width-100(70);
-        @include justify-end;
-        padding-top: 10rpx;
-        @include border-radius-bottom(10);
-        @include border-top-width(1);
-        .call-phone {
-          height: 50rpx;
-          font-size: 32rpx;
-          line-height: 50rpx;
-          color: $white;
-          padding: 0 10rpx;
-          margin-right: 15rpx;
-          @include border-radius(5);
-          background: $light-blue;
-        }
-      }
-    }
     .card:nth-last-child(2) {
       @include border-radius-bottom(0);
       .footer {
@@ -554,7 +383,9 @@ export default {
       background: $white;
       margin-bottom: 20rpx;
     }
-
+    .card {
+      @include height-rpx-width-percent(360, 98%);
+    }
   }
 
   .add {
