@@ -222,6 +222,9 @@
 
     </view>
 
+    <view class="add">
+      <text class="fa fa-plus fa-lg"/>
+    </view>
   </view>
 </template>
 
@@ -495,6 +498,9 @@ export default {
             .price {
               @include height-text(40, right);
               color: $priceColor;
+              .money {
+                font-size: 34rpx;
+              }
             }
             .note {
               @include height-text(40, right);
@@ -543,7 +549,7 @@ export default {
       font-size: 34rpx;
       color: $light-blue;
       text-align: center;
-      @include border-top-width(1)
+      @include border-top-width(1);
       @include border-radius-bottom(10);
       background: $white;
       margin-bottom: 20rpx;
@@ -551,4 +557,17 @@ export default {
 
   }
 
+  .add {
+    @include height-width(90, 90);
+    position: fixed;
+    right: 40rpx;
+    bottom: 60rpx;
+    @include justify-align-center;
+    @include border-radius(80);
+    @include box-shadow;
+    background: $endColor;
+    text {
+      color: $white;
+    }
+  }
 </style>
