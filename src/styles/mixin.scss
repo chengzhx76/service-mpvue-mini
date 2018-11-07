@@ -36,6 +36,14 @@
   text-align: center;
   line-height: #{$height}rpx;
 }
+
+@mixin height-width-percent-text-center($height, $width) {
+  height: #{$height}rpx;
+  width: $width;
+  text-align: center;
+  line-height: #{$height}rpx;
+}
+
 @mixin height-text($height, $position) {
   height: #{$height}rpx;
   text-align: $position;
@@ -47,25 +55,6 @@
   width: #{$width}rpx;
   text-align: center;
   line-height: #{$lineHeight}rpx;;
-}
-
-@mixin border-bottom-width($width) {
-  border-bottom: #{$width}rpx solid $borderColor;
-}
-
-@mixin border-top-width($width) {
-  border-top: #{$width}rpx solid $borderColor;
-}
-
-@mixin border-bottom($width, $color) {
-  border-bottom: #{$width}rpx solid $color;
-}
-
-@mixin border($width) {
-  border: #{$width}rpx solid $borderColor;
-}
-@mixin border-none($position) {
-  border-#{$position}: none;
 }
 
 @mixin justify-align-center {
@@ -94,6 +83,30 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+@mixin column-align-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@mixin border-bottom-width($width) {
+  border-bottom: #{$width}rpx solid $borderColor;
+}
+
+@mixin border-top-width($width) {
+  border-top: #{$width}rpx solid $borderColor;
+}
+
+@mixin border-bottom($width, $color) {
+  border-bottom: #{$width}rpx solid $color;
+}
+
+@mixin border($width) {
+  border: #{$width}rpx solid $borderColor;
+}
+@mixin border-none($position) {
+  border-#{$position}: none;
+}
 
 @mixin box-shadow {
   box-shadow: 1rpx 1rpx 10rpx $boxShadowColor;
@@ -109,8 +122,16 @@
   border-top-left-radius: #{$val}rpx;
   border-top-right-radius: #{$val}rpx;
 }
-@mixin border-radius-bottom($val) {
+@mixin border-radius-left($val) {
+  border-top-left-radius: #{$val}rpx;
   border-bottom-left-radius: #{$val}rpx;
+}
+@mixin border-radius-right($val) {
+  border-top-right-radius: #{$val}rpx;
   border-bottom-right-radius: #{$val}rpx;
+}
+@mixin border-radius-bottom($val) {
+  border-bottom-right-radius: #{$val}rpx;
+  border-bottom-left-radius: #{$val}rpx;
 }
 
