@@ -1,0 +1,179 @@
+@import "@/styles/mixin.scss";
+@import "@/styles/variables.scss";
+
+.card {
+  @include height-rpx-width-percent(360, 96%);
+  @include border-radius-top(10);
+  @include border-radius-bottom(10);
+  @include justify-align-center;
+  margin-top: 10rpx;
+  background: $white;
+  @include box-shadow;
+  .header {
+    @include height-rpx-width-100(60);
+    display: flex;
+    /*padding-top: 15rpx;*/
+    @include border-radius-top(10);
+    background: $cardHeaderBgColor;
+    .nav-block {
+      @include height-width(35, 10);
+      @include border-radius(8);
+      margin-top: 15rpx;
+      margin-left: 15rpx;
+    }
+    .passenger {
+      background: $dark-yellow;
+    }
+    .driver {
+      background: $dark-blue;
+    }
+    .nav-info {
+      /*background: forestgreen;*/
+      margin-top: 15rpx;
+      height: 35rpx;
+      display: flex;
+      .tag {
+        height: 35rpx;
+        font-size: 30rpx;
+        line-height: 36rpx;
+        padding-right: 20rpx;
+        padding-left: 12rpx;
+      }
+      .seats {
+        height: 25rpx;
+        font-size: 24rpx;
+        color: $cardHeaderSummaryColor;
+        line-height: 25rpx;
+        text-indent: 15rpx;
+        margin-top: 5rpx;
+        border-left: 4rpx solid $cardHeaderSummaryColor;
+      }
+    }
+  }
+  .content {
+    /*background: darkorange;*/
+    @include height-rpx-width-100(230);
+    @include justify-start-align-center;
+    .left {
+      /*background: darkslateblue;*/
+      @include height-rpx-width-percent(230, 72%);
+      @include justify-align-center;
+      .address {
+        /*background: darkgoldenrod;*/
+        @include height-rpx-width-100(65);
+        @include justify-start-align-center;
+        .icon {
+          @include height-rpx-width-percent(65, 10%);
+          @include justify-align-center;
+          .nav {
+            @include height-width-text-center(30, 30);
+            font-size: 20rpx;
+            color: $white;
+            @include border-radius-percent(50%);
+          }
+        }
+        .text {
+          @include height-rpx-width-percent(65, 90%);
+          font-size: 32rpx;
+          line-height: 60rpx;
+          text-indent: 5rpx;
+          @include justify-start-align-center;
+        }
+      }
+      .start {
+        /*background: firebrick;*/
+        .icon {
+          .nav {
+            background: $startColor;
+          }
+        }
+        .text {
+          font-size: 36rpx;
+        }
+      }
+      .road {
+        height: 50rpx;
+        /*background: darkslateblue;*/
+        .icon {
+          .nav {
+            background: $roadColor;
+          }
+        }
+        .text {
+          color: $roadColor;
+          font-size: 28rpx;
+        }
+      }
+      .end {
+        /*background: darkgray;*/
+        .icon {
+          .nav {
+            background: $endColor;
+          }
+        }
+        .text {
+          font-size: 36rpx;
+        }
+      }
+      .time {
+        height: 50rpx;
+        color: $timeColor;
+        /*background: darkgreen;*/
+        .icon {
+          .nav {
+            background: $timeColor;
+          }
+        }
+        .text {
+          font-size: 28rpx;
+        }
+      }
+    }
+    .right {
+      @include height-rpx-width-percent(230, 28%);
+      .summary {
+        height: 100rpx;
+        font-size: 28rpx;
+        padding-right: 20rpx;
+        .price {
+          @include height-text(40, right);
+          color: $priceColor;
+          .money {
+            font-size: 34rpx;
+          }
+        }
+        .note {
+          @include height-text(40, right);
+          color: $unimpColor;
+        }
+      }
+      .share {
+        @include height-rpx-width-100(130);
+        @include justify-align-center;
+        .icon {
+          @include height-width-line-height-text-center(50, 80, 47);
+          @include border-radius(50);
+          background: $cardShareColor;
+        }
+      }
+
+    }
+  }
+  .footer {
+    @include height-rpx-width-100(70);
+    @include justify-end;
+    padding-top: 10rpx;
+    @include border-radius-bottom(10);
+    @include border-top-width(1);
+    .call-phone {
+      height: 50rpx;
+      font-size: 32rpx;
+      line-height: 50rpx;
+      color: $white;
+      padding: 0 10rpx;
+      margin-right: 15rpx;
+      @include border-radius(5);
+      background: $light-blue;
+    }
+  }
+}

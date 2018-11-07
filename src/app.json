@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/add/main",
     "pages/index/main",
+    "pages/list/main",
+    "pages/add/main",
     "pages/logs/main",
     "pages/counter/main"
   ],
