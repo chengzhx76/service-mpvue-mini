@@ -29,6 +29,18 @@
 export default {
   data () {
     return {
+      tabs: [
+        {
+          name: '乘客',
+          class: 'passenger',
+          isActive: false
+        },
+        {
+          name: '车主',
+          class: 'driver',
+          isActive: false
+        }
+      ],
       date: '',
       day: '',
       time: '',

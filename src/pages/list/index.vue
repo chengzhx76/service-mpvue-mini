@@ -6,7 +6,7 @@
         <view class="passenger btn">乘客</view>
         <view class="driver btn">车主</view>
       </view>
-      <view class="filter">筛选</view>
+      <view class="filter" @click="filterHandler()">筛选</view>
     </view>
     <scroll-view scroll-y class="list" :style="{height: listHeight}">
 
@@ -343,7 +343,12 @@
         listHeight: '370rpx'
       }
     },
-
+    methods: {
+      filterHandler () {
+        const url = '../filter/main'
+        wx.navigateTo({ url })
+      }
+    },
     created () {
     },
     mounted () {
