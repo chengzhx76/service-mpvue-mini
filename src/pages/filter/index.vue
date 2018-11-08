@@ -1,20 +1,26 @@
 <template>
   <view id="filter">
     <view class="input">
-      <input placeholder-class="placeholder-color" placeholder="乘车时间" v-model="time"/>
+      <input placeholder-class="placeholder-color" placeholder="乘车时间" v-model="date"/>
     </view>
-    <picker-view indicator-style="height: 30px;" style="width: 90%; height: 100px; background: darkcyan" :value="value" @change="bindChange">
-      <picker-view-column>
-        <view v-for="(day, index) in days" style="line-height: 30px; text-align: center" :key="index">{{ day }}</view>
-      </picker-view-column>
-      <picker-view-column>
-        <view v-for="(time, index) in times" style="line-height: 30px; text-align: center" :key="index">{{ time }}</view>
-      </picker-view-column>
-      <picker-view-column>
-        <view v-for="(minute, index) in minutes" style="line-height: 30px; text-align: center" :key="index">{{ minute }}</view>
-      </picker-view-column>
-    </picker-view>
+    <view class="time-picker">
 
+      <picker-view class="picker day"  indicator-style="height: 60rpx;" :value="dayVal" @change="dayChange">
+        <picker-view-column style="background: darkcyan">
+          <view class="item" v-for="(day, index) in days" :key="index">{{ day }}</view>
+        </picker-view-column>
+      </picker-view>
+
+      <picker-view class="picker time" indicator-style="height: 60rpx;" :value="timeVal" @change="timeChange">
+        <picker-view-column>
+          <view class="item" v-for="(time, index) in times" :key="index">{{ time }}</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view class="item" v-for="(minute, index) in minutes" :key="index">{{ minute }}</view>
+        </picker-view-column>
+      </picker-view>
+
+    </view>
 
   </view>
 </template>
@@ -23,8 +29,12 @@
 export default {
   data () {
     return {
-      time: '10月12号（周六） 14:10',
-      value: [0, 0, 1],
+      date: '',
+      day: '',
+      time: '',
+      minute: '',
+      dayVal: [0],
+      timeVal: [0, 1],
       days: [
         '11月08日 周四',
         '11月09日 周五',
@@ -48,13 +58,29 @@ export default {
       ]
     }
   },
-  computed: {
+  created () {
+    this.day = this.days[this.dayVal[0]]
+    this.time = this.times[this.timeVal[0]]
+    this.minute = this.minutes[this.timeVal[1]]
+    this.date = `${this.day} ${this.time}:${this.minute}`
+  },
+  watch: {
+    dayVal (val) {
+      this.day = this.days[val[0]]
+      this.date = `${this.day} ${this.time}:${this.minute}`
+    },
+    timeVal (val) {
+      this.time = this.times[val[0]]
+      this.minute = this.minutes[val[1]]
+      this.date = `${this.day} ${this.time}:${this.minute}`
+    }
   },
   methods: {
-    bindChange (e) {
-      const val2 = e.mp.detail.value
-      console.log(val2)
-      console.log(this.value)
+    dayChange (e) {
+      this.dayVal = e.mp.detail.value
+    },
+    timeChange (e) {
+      this.timeVal = e.mp.detail.value
     }
   }
 }
@@ -78,5 +104,26 @@ export default {
       padding-left: 20rpx;
     }
   }
+  .time-picker {
+    width: 100%;
+    display: flex;
+    .picker {
+      width: 100%;
+      height: 210rpx;
+    }
+    .day {
+      width: 60%;
+    }
+    .time {
+      width: 40%;
+    }
+    .item {
+      width: 100%;
+      height: 60rpx;
+      line-height: 70rpx;
+      text-align: center
+    }
+  }
+
 
 </style>
