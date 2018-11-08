@@ -11,9 +11,10 @@
         </swiper>
         <view class="nav-main">
           <view class="nav">
-            <view class="all btn active">全部</view>
-            <view class="passenger btn">乘客</view>
-            <view class="driver btn">车主</view>
+            <view v-for="(tab, index) in tabs"
+                  :class="[tab.class, {active: tab.isActive}, 'btn']"
+                  @click="tabsSwitch(tab.class)"
+                  :key="tab.class">{{ tab.name }}</view>
           </view>
           <view class="my">个人中心</view>
         </view>
@@ -249,15 +250,41 @@ export default {
       ],
       indicatorDots: true,
       vertical: false,
-      autoplay: false,
+      autoplay: true,
       circular: false,
-      interval: 2000,
-      duration: 500
+      interval: 10000,
+      duration: 500,
+      tabs: [
+        {
+          name: '全部',
+          class: 'all',
+          isActive: true
+        },
+        {
+          name: '乘客',
+          class: 'passenger',
+          isActive: false
+        },
+        {
+          name: '车主',
+          class: 'driver',
+          isActive: false
+        }
+      ]
     }
   },
   components: {
   },
   methods: {
+    tabsSwitch (type) {
+      this.tabs.forEach(tab => {
+        if (type === tab.class) {
+          tab.isActive = true
+        } else {
+          tab.isActive = false
+        }
+      })
+    },
     searchHandler () {
       const url = '../list/main'
       wx.navigateTo({ url })
@@ -396,7 +423,7 @@ export default {
     @include height-width(90, 90);
     position: fixed;
     right: 40rpx;
-    bottom: 60rpx;
+    bottom: 50rpx;
     @include justify-align-center;
     @include border-radius(80);
     @include box-shadow;
