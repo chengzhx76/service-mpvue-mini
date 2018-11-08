@@ -43,6 +43,12 @@
   text-align: center;
   line-height: #{$height}rpx;
 }
+@mixin height-width-percent-text($height, $width, $position) {
+  height: #{$height}rpx;
+  width: $width;
+  text-align: $position;
+  line-height: #{$height}rpx;
+}
 
 @mixin height-text($height, $position) {
   height: #{$height}rpx;
