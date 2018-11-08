@@ -19,10 +19,11 @@ page {
 #add .release-button {
   height: 100rpx;
   width: 90%;
+  line-height: 95rpx;
   border: none;
   background: $gray-blue;
   color: $white;
-  border-radius: 60rpx;
+  //border-radius: 60rpx;
 }
 
 #index .search-button {

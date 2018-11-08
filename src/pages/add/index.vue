@@ -20,7 +20,7 @@
               <text class="label">起点</text>
             </view>
             <view class="input">
-              <input placeholder-class="placeholder-color" placeholder="出发地" focus v-model="service.origin"/>
+              <input placeholder-class="placeholder-color" placeholder="出发地" v-model="service.origin"/>
             </view>
           </view>
           <view class="destination info">
@@ -115,6 +115,7 @@ export default {
     .nav {
       @include height-width-percent-text-center(90, 50%);
       font-size: 36rpx;
+      color: $navColor;
     }
     .left {
       @include border-radius-left(80);
@@ -123,7 +124,7 @@ export default {
       @include border-radius-right(80);
     }
     .active {
-      background: $gray-blue;
+      background: #78B4E1;
       color: $white;
     }
   }
