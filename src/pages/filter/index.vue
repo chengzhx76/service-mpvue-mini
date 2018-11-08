@@ -34,7 +34,7 @@ export default {
       time: '',
       minute: '',
       dayVal: [0],
-      timeVal: [0, 1],
+      timeVal: [0, 0],
       days: [
         '11月08日 周四',
         '11月09日 周五',
