@@ -394,7 +394,7 @@ export default {
     color: transparent;
   }
   .list {
-    min-height: 460rpx;
+    min-height: 490rpx;
     width: 100%;
     @include justify-center;
     .card:nth-last-child(2) {
@@ -412,7 +412,7 @@ export default {
       @include border-top-width(1);
       @include border-radius-bottom(10);
       background: $white;
-      margin-bottom: 20rpx;
+      margin-bottom: 50rpx;
     }
     .card {
       @include height-rpx-width-percent(360, 98%);

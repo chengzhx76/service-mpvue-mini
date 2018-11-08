@@ -29,3 +29,5 @@ https://blog.csdn.net/qq_31393401/article/details/80728523
 
 icon
 http://www.fontawesome.com.cn/faicons/
+
+https://lbs.qq.com/product/miniapp/jssdk/
