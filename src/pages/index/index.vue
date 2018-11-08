@@ -216,7 +216,7 @@
         </view>
       </view>
 
-      <view class="more">
+      <view class="more" @click="moreHandler">
         查看更多 >
       </view>
 
@@ -264,6 +264,10 @@ export default {
     },
     addHandler () {
       const url = '../add/main'
+      wx.navigateTo({ url })
+    },
+    moreHandler () {
+      const url = '../list/main'
       wx.navigateTo({ url })
     }
   },
@@ -363,7 +367,7 @@ export default {
     color: transparent;
   }
   .list {
-    min-height: 370rpx;
+    min-height: 460rpx;
     width: 100%;
     @include justify-center;
     .card:nth-last-child(2) {
@@ -373,8 +377,8 @@ export default {
       }
     }
     .more {
-      @include height-rpx-width-percent(79, 98%);
-      line-height: 79rpx;
+      @include height-rpx-width-percent(89, 98%);
+      line-height: 89rpx;
       font-size: 34rpx;
       color: $light-blue;
       text-align: center;

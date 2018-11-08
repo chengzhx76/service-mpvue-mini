@@ -6,7 +6,7 @@
         <view class="passenger btn">乘客</view>
         <view class="driver btn">车主</view>
       </view>
-      <view class="filter">查找</view>
+      <view class="filter">筛选</view>
     </view>
     <scroll-view scroll-y class="list" :style="{height: listHeight}">
 
@@ -366,18 +366,19 @@
     @include column-align-center;
   }
   .nav-main {
-    @include height-rpx-width-100(90);
+    @include height-rpx-width-100(89);
     @include justify-space-between;
+    @include border-bottom-width(1);
     position: fixed;
     left: 0;
     top: 0;
     z-index: 999;
     background: $white;
     .nav {
-      @include height-width(90, 300);
+      @include height-width(89, 300);
       display: flex;
       .btn {
-        @include height-width-line-height-text-center(86, 100, 100);
+        @include height-width-line-height-text-center(85, 100, 100);
         margin-left: 15rpx;
       }
       .active {
@@ -386,8 +387,9 @@
       }
     }
     .filter {
-      @include height-width-text-center(90, 140);
-      background: darkcyan;
+      @include height-width-text-center(89, 140);
+      color: $light-blue;
+      font-size: 36rpx;
     }
   }
 
