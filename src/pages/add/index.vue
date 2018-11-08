@@ -344,6 +344,7 @@ export default {
     bottom: 0;
     @include border-top-width(1);
     @include justify-align-center;
+    z-index: 999;
     background: $white;
   }
 </style>
