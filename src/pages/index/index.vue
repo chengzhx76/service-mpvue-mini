@@ -14,7 +14,8 @@
             <view v-for="(tab, index) in tabs"
                   :class="[tab.class, {active: tab.isActive}, 'btn']"
                   @click="tabsSwitch(tab.class)"
-                  :key="tab.class">{{ tab.name }}</view>
+                  :key="tab.class"
+                  hover-class="tab-hover">{{ tab.name }}</view>
           </view>
           <view class="my">个人中心</view>
         </view>
@@ -339,6 +340,9 @@ export default {
           .active {
             width: 100rpx;
             @include border-bottom(4, $red)
+          }
+          .tab-hover {
+            background: $tabHover;
           }
         }
         .my {
