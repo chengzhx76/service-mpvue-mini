@@ -68,8 +68,8 @@
 
     </view>
     <view class="footer">
-      <view class="all btn">全部</view>
-      <view class="search btn">搜索</view>
+      <view class="all btn" hover-class="btn-hover" @click="searchHandler('all')">全部</view>
+      <view class="search btn" @click="searchHandler('condition')">搜索</view>
     </view>
   </view>
 </template>
@@ -171,6 +171,10 @@ export default {
       }
       this.showTimePicker = !this.showTimePicker
     },
+    searchHandler () {
+      const url = '../list/main'
+      wx.navigateTo({ url })
+    },
     typeChange (e) {
       this.typeVal = e.mp.detail.value
     },
@@ -266,7 +270,7 @@ export default {
         .choose-picker {
           width: 80%;
           margin-left: 20%;
-          border-left: 1rpx solid $borderColor;;
+          border-left: 1rpx solid $borderColor;
           .left {
             width: 100%;
           }
