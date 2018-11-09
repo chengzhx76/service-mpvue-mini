@@ -2,26 +2,45 @@
   <view id="filter">
     <view class="header">
 
-      <view class="tip">填写你的行程</view>
+      <view class="tip">填写你的筛选条件</view>
 
       <view class="condition">
         <view class="origin info">
-          <view class="label">起点</view>
+          <view class="label">出发地</view>
           <view class="input">
-            <input placeholder-class="placeholder-color" placeholder="出发地"/>
+            <input placeholder-class="placeholder-color" placeholder="填写出发地"/>
           </view>
         </view>
         <view class="destination info">
-          <view class="label">终点</view>
+          <view class="label">目的地</view>
           <view class="input">
-            <input placeholder-class="placeholder-color" placeholder="目的地"/>
+            <input placeholder-class="placeholder-color" placeholder="填写目的地"/>
+          </view>
+        </view>
+        <view class="type info">
+          <view class="label">类型</view>
+          <view class="input">
+            <input placeholder-class="placeholder-color" placeholder="人找车"/>
+          </view>
+        </view>
+        <view class="time info">
+          <view class="label">出发时间</view>
+          <view class="input">
+            <input placeholder-class="placeholder-color" placeholder="11月10号 周六 14:12"/>
+          </view>
+        </view>
+        <view class="number info">
+          <view class="label">人数</view>
+          <view class="input">
+            <input placeholder-class="placeholder-color" placeholder="2"/>
           </view>
         </view>
       </view>
 
     </view>
     <view class="footer">
-
+      <view class="arrow-1"></view>
+      <view class="arrow-2"></view>
     </view>
   </view>
 </template>
@@ -49,32 +68,39 @@ export default {
     @include height-width-100;
   }
   .header {
-
     @include height-rpx-width-100(600);
-
     @include column-align-center;
-    background: darkgoldenrod;
-
+    /*background: darkgoldenrod;*/
     .condition {
-      @include height-rpx-width-100(160);
-      background: darkcyan;
+      @include height-rpx-width-100(456);
+      background: $white;
       .info {
-        @include height-rpx-width-100(80);
+        @include height-rpx-width-100(90);
+        @include border-bottom-width(1);
         @include justify-start-align-center;
         .label {
-          @include height-width-percent-text-center(80, 20%);
-          background: darkolivegreen;
+          @include height-width-percent-text(90, 22%, left);
+          margin-left: 3%;
         }
         .input {
-          @include height-100-width-percent(80%);
-          background: salmon;
+          @include height-rpx-width-percent(90, 75%);
+          position: relative;
+          input {
+            @include height-width-100-text(90, left);
+          }
+        }
+        .input:after {
+          @include arrow(10, 30, 40);
         }
       }
       .origin {
-        background: darkkhaki;
+        @include border-top-width(1);
+        /*background: #fa4d5c;*/
+        input {
+          /*background: darkgreen;*/
+        }
       }
     }
 
   }
-
 </style>

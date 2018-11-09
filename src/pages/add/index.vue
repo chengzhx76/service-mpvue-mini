@@ -24,7 +24,6 @@
             <view class="input">
               <input placeholder-class="placeholder-color" placeholder="出发地" v-model="service.origin"/>
             </view>
-            <view class="choose">&gt;</view>
           </view>
           <view class="destination info">
             <view class="title">
@@ -36,7 +35,6 @@
             <view class="input">
               <input placeholder-class="placeholder-color" placeholder="目的地" v-model="service.destination"/>
             </view>
-            <view class="choose">&gt;</view>
           </view>
           <view class="time info">
             <view class="title">
@@ -48,7 +46,6 @@
             <view class="input" @click="chooseTime">
               <input placeholder-class="placeholder-color" placeholder="乘车时间" disabled v-model="service.date"/>
             </view>
-            <view class="choose time-choose">&gt;</view>
             <view class="time-picker" v-if="showTimePicker">
               <picker-view class="picker day"  indicator-style="height: 50rpx;" :value="dayVal" @change="dayChange">
                 <picker-view-column>
@@ -260,23 +257,13 @@ export default {
             }
           }
           .input {
-            width: 54%;
+            height: 120rpx;
+            width: 60%;
             input {
+              height: 120rpx;
               text-align: right;
-              padding-right: 12rpx;
+              padding-right: 45rpx;
             }
-          }
-          .choose {
-            @include height-rpx-width-percent(120, 6%);
-            text-align: left;
-            line-height: 116rpx;
-            font-size: 40rpx;
-            font-weight: bold;
-            color: $chooseColor;
-          }
-          .time-choose {
-            font-size: 34rpx;
-            color: $chooseColor;
           }
         }
         .origin, .destination {
@@ -294,6 +281,14 @@ export default {
         }
         .phone {
           height: 120rpx;
+        }
+        .time {
+          .input {
+            position: relative;
+          }
+          .input:after {
+            @include arrow(16, 25, 52);
+          }
         }
         .time {
           min-height: 120rpx;

@@ -49,6 +49,25 @@
   text-align: $position;
   line-height: #{$height}rpx;
 }
+@mixin height-width-percent-text-line($height, $width, $position, $lineHeight) {
+  height: #{$height}rpx;
+  width: $width;
+  text-align: $position;
+  line-height: #{$lineHeight}rpx;
+}
+@mixin height-width-100-text-line($height, $position, $lineHeight) {
+  height: #{$height}rpx;
+  width: $percent-100;
+  text-align: $position;
+  line-height: #{$lineHeight}rpx;
+}
+
+@mixin height-width-100-text($height, $position) {
+  height: #{$height}rpx;
+  width: $percent-100;
+  text-align: $position;
+  line-height: #{$height}rpx;
+}
 
 @mixin height-text($height, $position) {
   height: #{$height}rpx;
@@ -139,5 +158,18 @@
 @mixin border-radius-bottom($val) {
   border-bottom-right-radius: #{$val}rpx;
   border-bottom-left-radius: #{$val}rpx;
+}
+
+@mixin arrow($val, $right, $top) {
+  content: " ";
+  display: inline-block;
+  height: #{$val}rpx;
+  width: #{$val}rpx;
+  border-top: 4rpx solid $arrowColor;
+  border-right: 4rpx solid $arrowColor;
+  transform: rotate(45deg);
+  position: absolute;
+  right: #{$right}rpx;
+  top: #{$top}rpx;
 }
 
