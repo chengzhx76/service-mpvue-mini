@@ -1,27 +1,28 @@
 <template>
   <view id="filter">
-    <view class="input">
-      <input placeholder-class="placeholder-color" placeholder="乘车时间" v-model="date"/>
+    <view class="header">
+
+      <view class="tip">填写你的行程</view>
+
+      <view class="condition">
+        <view class="origin info">
+          <view class="label">起点</view>
+          <view class="input">
+            <input placeholder-class="placeholder-color" placeholder="出发地"/>
+          </view>
+        </view>
+        <view class="destination info">
+          <view class="label">终点</view>
+          <view class="input">
+            <input placeholder-class="placeholder-color" placeholder="目的地"/>
+          </view>
+        </view>
+      </view>
+
     </view>
-    <view class="time-picker">
-
-      <picker-view class="picker day"  indicator-style="height: 60rpx;" :value="dayVal" @change="dayChange">
-        <picker-view-column style="background: darkcyan">
-          <view class="item" v-for="(day, index) in days" :key="index">{{ day }}</view>
-        </picker-view-column>
-      </picker-view>
-
-      <picker-view class="picker time" indicator-style="height: 60rpx;" :value="timeVal" @change="timeChange">
-        <picker-view-column>
-          <view class="item" v-for="(time, index) in times" :key="index">{{ time }}</view>
-        </picker-view-column>
-        <picker-view-column>
-          <view class="item" v-for="(minute, index) in minutes" :key="index">{{ minute }}</view>
-        </picker-view-column>
-      </picker-view>
+    <view class="footer">
 
     </view>
-
   </view>
 </template>
 
@@ -29,71 +30,13 @@
 export default {
   data () {
     return {
-      tabs: [
-        {
-          name: '乘客',
-          class: 'passenger',
-          isActive: false
-        },
-        {
-          name: '车主',
-          class: 'driver',
-          isActive: false
-        }
-      ],
-      date: '',
-      day: '',
-      time: '',
-      minute: '',
-      dayVal: [0],
-      timeVal: [0, 0],
-      days: [
-        '11月08日 周四',
-        '11月09日 周五',
-        '11月10日 周六',
-        '11月11日 周日',
-        '11月12日 周一'
-      ],
-      times: [
-        '14',
-        '15',
-        '16',
-        '17',
-        '18',
-        '19'
-      ],
-      minutes: [
-        '00',
-        '15',
-        '30',
-        '45'
-      ]
     }
   },
   created () {
-    this.day = this.days[this.dayVal[0]]
-    this.time = this.times[this.timeVal[0]]
-    this.minute = this.minutes[this.timeVal[1]]
-    this.date = `${this.day} ${this.time}:${this.minute}`
   },
   watch: {
-    dayVal (val) {
-      this.day = this.days[val[0]]
-      this.date = `${this.day} ${this.time}:${this.minute}`
-    },
-    timeVal (val) {
-      this.time = this.times[val[0]]
-      this.minute = this.minutes[val[1]]
-      this.date = `${this.day} ${this.time}:${this.minute}`
-    }
   },
   methods: {
-    dayChange (e) {
-      this.dayVal = e.mp.detail.value
-    },
-    timeChange (e) {
-      this.timeVal = e.mp.detail.value
-    }
   }
 }
 </script>
@@ -105,37 +48,33 @@ export default {
   #filter {
     @include height-width-100;
   }
+  .header {
 
-  .input {
-    height: 100rpx;
-    background: $white;
-    @include border(2);
-    input {
-      height: 100rpx;
-      line-height: 100rpx;
-      padding-left: 20rpx;
-    }
-  }
-  .time-picker {
-    width: 100%;
-    display: flex;
-    .picker {
-      width: 100%;
-      height: 210rpx;
-    }
-    .day {
-      width: 60%;
-    }
-    .time {
-      width: 40%;
-    }
-    .item {
-      width: 100%;
-      height: 60rpx;
-      line-height: 70rpx;
-      text-align: center
-    }
-  }
+    @include height-rpx-width-100(600);
 
+    @include column-align-center;
+    background: darkgoldenrod;
+
+    .condition {
+      @include height-rpx-width-100(160);
+      background: darkcyan;
+      .info {
+        @include height-rpx-width-100(80);
+        @include justify-start-align-center;
+        .label {
+          @include height-width-percent-text-center(80, 20%);
+          background: darkolivegreen;
+        }
+        .input {
+          @include height-100-width-percent(80%);
+          background: salmon;
+        }
+      }
+      .origin {
+        background: darkkhaki;
+      }
+    }
+
+  }
 
 </style>

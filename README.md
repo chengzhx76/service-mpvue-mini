@@ -27,7 +27,12 @@ https://blog.csdn.net/abczdefg/article/details/54407526
 基础框架
 https://blog.csdn.net/qq_31393401/article/details/80728523
 
+mpvue注意事项
+https://www.jianshu.com/p/184db91b101d
+
 icon
 http://www.fontawesome.com.cn/faicons/
 
 https://lbs.qq.com/product/miniapp/jssdk/
+https://blog.csdn.net/zhongguohaoshaonian/article/details/80870415
+LT5BZ-BLKW3-MKP3M-YB3AY-IQSWK-GUFLN
