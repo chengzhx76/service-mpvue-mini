@@ -283,15 +283,13 @@ export default {
           height: 120rpx;
         }
         .time {
+          min-height: 120rpx;
           .input {
             position: relative;
           }
           .input:after {
             @include arrow(16, 25, 52);
           }
-        }
-        .time {
-          min-height: 120rpx;
           .time-picker {
             @include height-rpx-width-100(240);
             display: flex;

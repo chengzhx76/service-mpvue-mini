@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/filter/main",
-    "pages/add/main",
     "pages/index/main",
+    "pages/add/main",
     "pages/list/main",
     "pages/logs/main",
     "pages/counter/main"
