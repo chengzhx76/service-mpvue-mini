@@ -17,7 +17,7 @@
                   :key="tab.class"
                   hover-class="tab-hover">{{ tab.name }}</view>
           </view>
-          <view class="my">个人中心</view>
+          <view class="my" hover-class="tab-hover">个人中心</view>
         </view>
       </view>
       <view class="search">
@@ -218,7 +218,7 @@
         </view>
       </view>
 
-      <view class="more" @click="moreHandler">
+      <view class="more" hover-class="btn-hover" @click="moreHandler">
         查看更多 >
       </view>
 
@@ -341,12 +341,12 @@ export default {
             width: 100rpx;
             @include border-bottom(4, $red)
           }
-          .tab-hover {
-            background: $tabHover;
-          }
         }
         .my {
           @include height-width-text-center(75, 200);
+        }
+        .tab-hover {
+          background: $tabHover;
         }
       }
     }
@@ -398,28 +398,16 @@ export default {
     color: transparent;
   }
   .list {
-    min-height: 490rpx;
     width: 100%;
+    min-height: 490rpx;
+    margin-bottom: 50rpx;
     @include justify-center;
-    .card:nth-last-child(2) {
-      @include border-radius-bottom(0);
-      .footer {
-        @include border-radius-bottom(0);
-      }
+    .card {
+      @include height-rpx-width-percent(360, 98%);
     }
     .more {
       @include height-rpx-width-percent(89, 98%);
-      line-height: 89rpx;
-      font-size: 34rpx;
-      color: $light-blue;
-      text-align: center;
-      @include border-top-width(1);
-      @include border-radius-bottom(10);
-      background: $white;
       margin-bottom: 50rpx;
-    }
-    .card {
-      @include height-rpx-width-percent(360, 98%);
     }
   }
 

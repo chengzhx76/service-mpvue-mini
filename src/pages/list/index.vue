@@ -2,11 +2,13 @@
   <view id="list">
     <view class="nav-main">
       <view class="nav">
-        <view class="all btn active">全部</view>
-        <view class="passenger btn">乘客</view>
-        <view class="driver btn">车主</view>
+        <view v-for="(tab, index) in tabs"
+              :class="[tab.class, {active: tab.isActive}, 'btn']"
+              @click="tabsSwitch(tab.class)"
+              :key="tab.class"
+              hover-class="tab-hover">{{ tab.name }}</view>
       </view>
-      <view class="filter" @click="filterHandler()">筛选</view>
+      <view class="filter" hover-class="filter-hover" @click="filterHandler()">筛选</view>
     </view>
     <scroll-view scroll-y class="list" :style="{height: listHeight}">
 
@@ -328,7 +330,10 @@
           <text class="call-phone">联系TA</text>
         </view>
       </view>
-
+      <view class="more" hover-class="btn-hover" @click="addHandler">
+        没有找到，发布一个 >
+      </view>
+      <view class="block"></view>
     </scroll-view>
   </view>
 </template>
@@ -340,10 +345,40 @@
 
     data () {
       return {
-        listHeight: '370rpx'
+        listHeight: '370rpx',
+        tabs: [
+          {
+            name: '全部',
+            class: 'all',
+            isActive: true
+          },
+          {
+            name: '乘客',
+            class: 'passenger',
+            isActive: false
+          },
+          {
+            name: '车主',
+            class: 'driver',
+            isActive: false
+          }
+        ]
       }
     },
     methods: {
+      tabsSwitch (type) {
+        this.tabs.forEach(tab => {
+          if (type === tab.class) {
+            tab.isActive = true
+          } else {
+            tab.isActive = false
+          }
+        })
+      },
+      addHandler () {
+        const url = '../add/main'
+        wx.navigateTo({ url })
+      },
       filterHandler () {
         const url = '../filter/main'
         wx.navigateTo({ url })
@@ -390,11 +425,18 @@
         width: 100rpx;
         @include border-bottom(4, $red)
       }
+      .tab-hover {
+        background: $tabHover;
+      }
     }
     .filter {
       @include height-width-text-center(89, 140);
       color: $light-blue;
       font-size: 36rpx;
+    }
+    .filter-hover {
+      background: $tabHover;
+      color: $white;
     }
   }
 
@@ -408,7 +450,21 @@
       color: transparent;
     }
     .card {
+      @include height-rpx-width-percent(360, 96%);
       margin-left: 2%;
+    }
+    .card:nth-last-child(3) {
+      @include border-radius-bottom(0);
+      .footer {
+        @include border-radius-bottom(0);
+      }
+    }
+    .more {
+      @include height-rpx-width-percent(89, 96%);
+      margin-left: 2%;
+    }
+    .block {
+      @include height-rpx-width-100(50)
     }
   }
 

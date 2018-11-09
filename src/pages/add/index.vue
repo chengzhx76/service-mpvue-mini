@@ -5,7 +5,7 @@
       <view v-for="(tab, index) in tabs"
             :class="[tab.class, {active: tab.isActive}, 'nav']"
             @click="tabsSwitch(tab.class)"
-            :key="tab.class">{{ tab.name }}</view>
+            :key="tab.class" hover-class="btn-hover">{{ tab.name }}</view>
     </view>
 
     <view class="main">
@@ -46,18 +46,36 @@
             <view class="input" @click="chooseTime">
               <input placeholder-class="placeholder-color" placeholder="乘车时间" disabled v-model="service.date"/>
             </view>
-            <view class="time-picker" v-if="showTimePicker">
-              <picker-view class="picker day"  indicator-style="height: 50rpx;" :value="dayVal" @change="dayChange">
+            <view class="choose-picker" v-if="showTimePicker">
+              <picker-view class="picker left"  indicator-style="height: 50rpx;" :value="dayVal" @change="dayChange">
                 <picker-view-column>
                   <view class="item" v-for="(day, index) in days" :key="index">{{ day }}</view>
                 </picker-view-column>
               </picker-view>
-              <picker-view class="picker time" indicator-style="height: 50rpx;" :value="timeVal" @change="timeChange">
+              <picker-view class="picker right" indicator-style="height: 50rpx;" :value="timeVal" @change="timeChange">
                 <picker-view-column>
                   <view class="item" v-for="(time, index) in times" :key="index">{{ time }}</view>
                 </picker-view-column>
                 <picker-view-column>
                   <view class="item" v-for="(minute, index) in minutes" :key="index">{{ minute }}</view>
+                </picker-view-column>
+              </picker-view>
+            </view>
+          </view>
+          <view class="number info">
+            <view class="title">
+              <view class="icon">
+                <text class="fa fa-heart-o gray-icon"/>
+              </view>
+              <text class="label">座位</text>
+            </view>
+            <view class="input" @click="chooseNumber">
+              <input placeholder-class="placeholder-color" placeholder="座位数" disabled v-model="service.number"/>
+            </view>
+            <view class="choose-picker" v-if="showNumPicker">
+              <picker-view class="picker left" indicator-style="height: 50rpx;" :value="numVal" @change="numChange">
+                <picker-view-column>
+                  <view class="item" v-for="(num, index) in nums" :key="index">{{ num }}</view>
                 </picker-view-column>
               </picker-view>
             </view>
@@ -107,15 +125,18 @@ export default {
         origin: '',
         destination: '',
         date: '',
+        number: '',
         phone: '',
         remarks: ''
       },
       showTimePicker: false,
+      showNumPicker: false,
       day: '',
       time: '',
       minute: '',
       dayVal: [0],
       timeVal: [0, 0],
+      numVal: [0, 0],
       days: [
         '11月08日 周四',
         '11月09日 周五',
@@ -136,7 +157,8 @@ export default {
         '15',
         '30',
         '45'
-      ]
+      ],
+      nums: [1, 2, 3, 4, 5, 6]
     }
   },
   created () {
@@ -144,6 +166,7 @@ export default {
     this.time = this.times[this.timeVal[0]]
     this.minute = this.minutes[this.timeVal[1]]
     this.service.date = `${this.day} ${this.time}:${this.minute}`
+    this.service.number = this.nums[this.numVal[0]]
   },
   watch: {
     dayVal (val) {
@@ -154,6 +177,9 @@ export default {
       this.time = this.times[val[0]]
       this.minute = this.minutes[val[1]]
       this.service.date = `${this.day} ${this.time}:${this.minute}`
+    },
+    numVal (val) {
+      this.service.number = this.nums[val[0]]
     }
   },
   components: {
@@ -169,9 +195,17 @@ export default {
       })
     },
     chooseTime () {
+      if (this.showNumPicker) {
+        this.showNumPicker = false
+      }
       this.showTimePicker = !this.showTimePicker
     },
-
+    chooseNumber () {
+      if (this.showTimePicker) {
+        this.showTimePicker = false
+      }
+      this.showNumPicker = !this.showNumPicker
+    },
     addDistance () {
       console.log(this.service)
     },
@@ -180,6 +214,9 @@ export default {
     },
     timeChange (e) {
       this.timeVal = e.mp.detail.value
+    },
+    numChange (e) {
+      this.numVal = e.mp.detail.value
     }
   }
 }
@@ -279,10 +316,7 @@ export default {
             color: $inputUnimpColor;
           }
         }
-        .phone {
-          height: 120rpx;
-        }
-        .time {
+        .time, .number {
           min-height: 120rpx;
           .input {
             position: relative;
@@ -290,27 +324,42 @@ export default {
           .input:after {
             @include arrow(16, 25, 52);
           }
-          .time-picker {
+        }
+        .phone {
+          height: 120rpx;
+          @include border-none('bottom');
+        }
+        .choose-picker {
+          @include height-rpx-width-100(240);
+          display: flex;
+          .picker {
             @include height-rpx-width-100(240);
-            display: flex;
-            .picker {
-              @include height-rpx-width-100(240);
-            }
-            .day {
+          }
+          .item {
+            width: 100%;
+            line-height: 75rpx;
+            text-align: center
+          }
+        }
+        .time {
+          .choose-picker {
+            .left {
               width: 60%;
             }
-            .time {
+            .right {
               width: 40%;
-            }
-            .item {
-              width: 100%;
-              line-height: 75rpx;
-              text-align: center
             }
           }
         }
-        .phone {
-          @include border-none('bottom');
+        .number {
+          .choose-picker {
+            width: 80%;
+            margin-left: 20%;
+            border-left: 1rpx solid $borderColor;
+            .left {
+              width: 100%;
+            }
+          }
         }
       }
       .remarks {
