@@ -63,3 +63,74 @@ wx.canvasToTempFilePath();
 6、最好调用预览图片接口，传入第5步的tempFilePath，预览您生成的图片，具体接口如下
 
 wx.previewImage();
+
+
+this.tabs.forEach(tab => {
+        if (type === tab.class) {
+          if (tab.class === 'passenger') {
+            this.type = 1
+            this.isPassenger = true
+            this.numberTitle = '人数'
+          } else {
+            this.type = 2
+            this.isPassenger = false
+            this.numberTitle = '座位'
+          }
+          tab.isActive = true
+        } else {
+          tab.isActive = false
+        }
+      })
+      
+      
+      if (state) {
+              if (type === 'passenger') {
+                this.addHeight += 200
+              } else {
+                this.addHeight += 540
+              }
+              this.menuBottomRadius = '0'
+              this.summaryShow = true
+            } else {
+              if (this.isPassenger) {
+                this.addHeight -= 200
+              } else {
+                this.addHeight -= 540
+              }
+              this.summaryShow = false
+              this.menuBottomRadius = '10rpx'
+            }
+            
+            this.tabs = []
+                  if (type === 'passenger') {
+                    this.tabs.push({
+                      name: '乘客',
+                      class: 'passenger',
+                      isActive: true
+                    })
+                    this.tabs.push({
+                      name: '车主',
+                      class: 'driver',
+                      isActive: false
+                    })
+                    this.type = 1
+                    this.isPassenger = true
+                    this.numberTitle = '人数'
+                    this.moreSwitchOff('passenger')
+                  }
+                  if (type === 'driver') {
+                    this.tabs.push({
+                      name: '乘客',
+                      class: 'passenger',
+                      isActive: false
+                    })
+                    this.tabs.push({
+                      name: '车主',
+                      class: 'driver',
+                      isActive: true
+                    })
+                    this.type = 2
+                    this.isPassenger = false
+                    this.numberTitle = '座位'
+                    this.moreSwitchOff('driver')
+                  }
