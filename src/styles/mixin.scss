@@ -17,7 +17,7 @@
   width: $width;
 }
 @mixin height-percent-width-percent($height, $width) {
-  height: $percent-100;
+  height: $height;
   width: $width;
 }
 @mixin height-width($height, $width) {
@@ -46,6 +46,12 @@
 @mixin height-width-percent-text($height, $width, $position) {
   height: #{$height}rpx;
   width: $width;
+  text-align: $position;
+  line-height: #{$height}rpx;
+}
+@mixin height-width-rpx-text($height, $width, $position) {
+  height: #{$height}rpx;
+  width: #{$width}rpx;
   text-align: $position;
   line-height: #{$height}rpx;
 }

@@ -18,9 +18,11 @@
           </view>
         </view>
         <view class="type info">
-          <view class="label">类型</view>
-          <view class="input" @click="chooseType">
-            <input placeholder-class="placeholder-color" placeholder="选择类型" disabled v-model="filter.type"/>
+          <view class="warp" hover-class="btn-hover" @click="chooseType">
+            <view class="label">类型</view>
+            <view class="input">
+              <input placeholder-class="placeholder-color" placeholder="选择类型" disabled v-model="filter.type"/>
+            </view>
           </view>
           <view class="choose-picker" v-if="showTypePicker">
             <picker-view class="picker left"  indicator-style="height: 50rpx;" :value="typeVal" @change="typeChange">
@@ -31,9 +33,11 @@
           </view>
         </view>
         <view class="time info">
-          <view class="label">出发时间</view>
-          <view class="input" @click="chooseTime">
-            <input placeholder-class="placeholder-color" placeholder="选择出发时间" disabled v-model="filter.date"/>
+          <view class="warp" hover-class="btn-hover" @click="chooseTime">
+            <view class="label">出发时间</view>
+            <view class="input">
+              <input placeholder-class="placeholder-color" placeholder="选择出发时间" disabled v-model="filter.date"/>
+            </view>
           </view>
           <view class="choose-picker" v-if="showTimePicker">
             <picker-view class="picker left"  indicator-style="height: 50rpx;" :value="dayVal" @change="dayChange">
@@ -52,9 +56,11 @@
           </view>
         </view>
         <view class="number info">
-          <view class="label">人数</view>
-          <view class="input" @click="chooseNumber">
-            <input placeholder-class="placeholder-color" placeholder="选择人数" disabled v-model="filter.number"/>
+          <view class="warp" hover-class="btn-hover" @click="chooseNumber">
+            <view class="label">人数</view>
+            <view class="input">
+              <input placeholder-class="placeholder-color" placeholder="选择人数" disabled v-model="filter.number"/>
+            </view>
           </view>
           <view class="choose-picker" v-if="showNumPicker">
             <picker-view class="picker left"  indicator-style="height: 50rpx;" :value="numVal" @change="numChange">
@@ -220,6 +226,10 @@ export default {
         width: 100%;
         @include border-bottom-width(1);
         @include justify-start-align-center;
+        .warp {
+          width: 100%;
+          @include justify-start-align-center;
+        }
         .label {
           @include height-width-percent-text(90, 22%, left);
           margin-left: 3%;
