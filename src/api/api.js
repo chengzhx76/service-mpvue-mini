@@ -1,9 +1,21 @@
 import request from '@/utils/request'
 
-export function getUserInfo (token) {
+export function test (data) {
+  console.log('1------>', data)
   return request({
-    url: '/user/info',
+    url: 'app/test',
     method: 'get',
-    params: { token }
+    params: { data }
   })
+}
+
+export function test2 (data) {
+  console.log('2------>', data)
+  request.get('app/test')
+    .then(function (response) {
+      console.log(response)
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
 }
