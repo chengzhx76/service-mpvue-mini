@@ -81,120 +81,117 @@
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      filter: {
-        date: '',
-        number: '',
-        type: ''
+  import { formatNumber, getDay } from '@/utils/index'
+  export default {
+    data () {
+      return {
+        filter: {
+          date: '',
+          number: '',
+          type: ''
+        },
+        showTypePicker: false,
+        showTimePicker: false,
+        showNumPicker: false,
+        day: '',
+        time: '',
+        minute: '',
+        dayVal: [0],
+        timeVal: [0, 0],
+        days: [],
+        times: [
+          '14',
+          '15',
+          '16',
+          '17',
+          '18',
+          '19'
+        ],
+        minutes: [],
+        nums: [1, 2, 3, 4, 5, 6],
+        numVal: [0],
+        types: ['人找车', '车找人'],
+        typeVal: [0]
+      }
+    },
+    created () {
+      for (let i = 1; i <= 24; i++) {
+        this.times.push(formatNumber(i))
+      }
+      for (let i = 0; i < 60; i++) {
+        this.minutes.push(formatNumber(i))
+      }
+      this.days = getDay(30)
+      this.day = this.days[this.dayVal[0]]
+      this.time = this.times[this.timeVal[0]]
+      this.minute = this.minutes[this.timeVal[1]]
+      this.filter.date = `${this.day} ${this.time}:${this.minute}`
+      this.filter.number = this.nums[this.numVal[0]]
+      this.filter.type = this.types[this.typeVal[0]]
+    },
+    watch: {
+      dayVal (val) {
+        this.day = this.days[val[0]]
+        this.filter.date = `${this.day} ${this.time}:${this.minute}`
       },
-      showTypePicker: false,
-      showTimePicker: false,
-      showNumPicker: false,
-      day: '',
-      time: '',
-      minute: '',
-      dayVal: [0],
-      timeVal: [0, 0],
-      days: [
-        '11月08日 周四',
-        '11月09日 周五',
-        '11月10日 周六',
-        '11月11日 周日',
-        '11月12日 周一'
-      ],
-      times: [
-        '14',
-        '15',
-        '16',
-        '17',
-        '18',
-        '19'
-      ],
-      minutes: [
-        '00',
-        '15',
-        '30',
-        '45'
-      ],
-      nums: [1, 2, 3, 4, 5, 6],
-      numVal: [0],
-      types: ['人找车', '车找人'],
-      typeVal: [0]
-    }
-  },
-  created () {
-    this.day = this.days[this.dayVal[0]]
-    this.time = this.times[this.timeVal[0]]
-    this.minute = this.minutes[this.timeVal[1]]
-    this.filter.date = `${this.day} ${this.time}:${this.minute}`
-    this.filter.number = this.nums[this.numVal[0]]
-    this.filter.type = this.types[this.typeVal[0]]
-  },
-  watch: {
-    dayVal (val) {
-      this.day = this.days[val[0]]
-      this.filter.date = `${this.day} ${this.time}:${this.minute}`
-    },
-    timeVal (val) {
-      this.time = this.times[val[0]]
-      this.minute = this.minutes[val[1]]
-      this.filter.date = `${this.day} ${this.time}:${this.minute}`
-    },
-    numVal (val) {
-      this.filter.number = this.nums[val[0]]
-    },
-    typeVal (val) {
-      this.filter.type = this.types[val[0]]
-    }
-  },
-  methods: {
-    chooseType () {
-      if (this.showTimePicker) {
-        this.showTimePicker = false
+      timeVal (val) {
+        this.time = this.times[val[0]]
+        this.minute = this.minutes[val[1]]
+        this.filter.date = `${this.day} ${this.time}:${this.minute}`
+      },
+      numVal (val) {
+        this.filter.number = this.nums[val[0]]
+      },
+      typeVal (val) {
+        this.filter.type = this.types[val[0]]
       }
-      if (this.showNumPicker) {
-        this.showNumPicker = false
+    },
+    methods: {
+      chooseType () {
+        if (this.showTimePicker) {
+          this.showTimePicker = false
+        }
+        if (this.showNumPicker) {
+          this.showNumPicker = false
+        }
+        this.showTypePicker = !this.showTypePicker
+      },
+      chooseNumber () {
+        if (this.showTypePicker) {
+          this.showTypePicker = false
+        }
+        if (this.showTimePicker) {
+          this.showTimePicker = false
+        }
+        this.showNumPicker = !this.showNumPicker
+      },
+      chooseTime () {
+        if (this.showTypePicker) {
+          this.showTypePicker = false
+        }
+        if (this.showNumPicker) {
+          this.showNumPicker = false
+        }
+        this.showTimePicker = !this.showTimePicker
+      },
+      searchHandler () {
+        const url = '../list/main'
+        wx.navigateTo({ url })
+      },
+      typeChange (e) {
+        this.typeVal = e.mp.detail.value
+      },
+      dayChange (e) {
+        this.dayVal = e.mp.detail.value
+      },
+      timeChange (e) {
+        this.timeVal = e.mp.detail.value
+      },
+      numChange (e) {
+        this.numVal = e.mp.detail.value
       }
-      this.showTypePicker = !this.showTypePicker
-    },
-    chooseNumber () {
-      if (this.showTypePicker) {
-        this.showTypePicker = false
-      }
-      if (this.showTimePicker) {
-        this.showTimePicker = false
-      }
-      this.showNumPicker = !this.showNumPicker
-    },
-    chooseTime () {
-      if (this.showTypePicker) {
-        this.showTypePicker = false
-      }
-      if (this.showNumPicker) {
-        this.showNumPicker = false
-      }
-      this.showTimePicker = !this.showTimePicker
-    },
-    searchHandler () {
-      const url = '../list/main'
-      wx.navigateTo({ url })
-    },
-    typeChange (e) {
-      this.typeVal = e.mp.detail.value
-    },
-    dayChange (e) {
-      this.dayVal = e.mp.detail.value
-    },
-    timeChange (e) {
-      this.timeVal = e.mp.detail.value
-    },
-    numChange (e) {
-      this.numVal = e.mp.detail.value
     }
   }
-}
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>

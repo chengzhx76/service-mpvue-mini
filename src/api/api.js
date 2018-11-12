@@ -1,21 +1,13 @@
-import request from '@/utils/request'
+import { getRequest } from '@/utils/request'
 
-export function test (data) {
-  console.log('1------>', data)
-  return request({
-    url: 'app/test',
-    method: 'get',
-    params: { data }
-  })
+export function test () {
+  return getRequest('app/test')
 }
 
-export function test2 (data) {
-  console.log('2------>', data)
-  request.get('app/test')
-    .then(function (response) {
-      console.log(response)
-    })
-    .catch(function (error) {
-      console.log(error)
-    })
+export function test2 (param) {
+  return getRequest('app/test?y=2', param, 'x=1')
+}
+
+export function list (param) {
+  return getRequest('mp/list', param)
 }

@@ -199,7 +199,7 @@
 </template>
 
 <script>
-  import { formatDay, getDay } from '@/utils/index'
+  import { formatNumber, getDay } from '@/utils/index'
   export default {
     data () {
       return {
@@ -261,10 +261,10 @@
     },
     created () {
       for (let i = 1; i <= 24; i++) {
-        this.times.push(formatDay(i))
+        this.times.push(formatNumber(i))
       }
       for (let i = 0; i < 60; i++) {
-        this.minutes.push(formatDay(i))
+        this.minutes.push(formatNumber(i))
       }
       this.days = getDay(30)
       let dates = getDay(30)
@@ -333,7 +333,7 @@
             } else {
               this.type = 2
               this.isPassenger = false
-              this.numberTitle = '座位'
+              this.numberTitle = '余座'
               this.moreSwitchOff('driver')
             }
             tab.isActive = true
