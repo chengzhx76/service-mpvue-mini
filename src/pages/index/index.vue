@@ -30,7 +30,7 @@
                   <text class="fa fa-car gray-icon"/>
                 </view>
                 <view class="input">
-                  <input placeholder-class="placeholder-color" placeholder="哪出发"/>
+                  <input placeholder-class="placeholder-color" placeholder="哪出发" v-model="origin"/>
                 </view>
               </view>
               <view class="destination info">
@@ -38,7 +38,7 @@
                   <text class="fa fa-lg fa-map-marker gray-icon"/>
                 </view>
                 <view class="input">
-                  <input placeholder-class="placeholder-color" placeholder="要去哪"/>
+                  <input placeholder-class="placeholder-color" placeholder="要去哪" v-model="dest"/>
                 </view>
               </view>
             </view>
@@ -157,6 +157,9 @@
         circular: false,
         interval: 10000,
         duration: 500,
+        type: 'all',
+        origin: '',
+        dest: '',
         list: [],
         tabs: [
           {
@@ -181,17 +184,18 @@
     },
     methods: {
       tabsSwitch (type) {
+        this.type = type
+        this.getList(type)
         this.tabs.forEach(tab => {
           tab.isActive = type === tab.class
         })
       },
       searchHandler () {
-        const url = '../list/main'
-        wx.navigateTo({ url })
+        this.getList(this.type, this.origin, this.dest)
       },
 
-      getList () {
-        list().then(res => {
+      getList (type, origin, dest) {
+        list(type, origin, dest).then(res => {
           this.list = res.data.map(item => {
             item['distTime'] = formatTime(item.time)
             item.time = formatDate(item.time)
@@ -210,7 +214,7 @@
       }
     },
     created () {
-      this.getList()
+      this.getList('all')
     }
   }
 </script>

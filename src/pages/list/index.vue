@@ -12,12 +12,13 @@
     </view>
     <scroll-view scroll-y class="list" :style="{height: listHeight}">
 
-      <view class="card">
+      <view class="card" v-for="(item, index) in list" :key="item.id">
         <view class="header">
-          <view class="nav-block driver"></view>
+          <view :class="[item.type === 2 ? 'driver' : 'passenger', 'nav-block']"></view>
           <view class="nav-info">
-            <view class="tag">车找人</view>
-            <view class="seats">剩余3位座</view>
+            <view class="tag">{{ item.type === 2 ? '车找人' : '人找车'}}</view>
+            <view class="seats" v-if="item.type === 2">剩余{{ item.num }}座</view>
+            <view class="seats" v-if="item.type === 1">{{ item.num }}人</view>
           </view>
         </view>
         <view class="content">
@@ -27,35 +28,38 @@
               <view class="icon">
                 <view class="nav">起</view>
               </view>
-              <view class="text">成武</view>
+              <view class="text">{{ item.origin }}</view>
             </view>
-            <view class="road address">
+            <view class="road address" v-if="!!item.via">
               <view class="icon">
                 <view class="nav">经</view>
               </view>
-              <text class="text">五岔路口</text>
+              <text class="text">{{ item.via }}</text>
             </view>
             <view class="end address">
               <view class="icon">
                 <view class="nav">终</view>
               </view>
-              <view class="text">菏泽</view>
+              <view class="text">{{ item.dest }}</view>
             </view>
             <view class="time address">
               <view class="icon">
                 <view class="nav">时</view>
               </view>
-              <view class="text">11月12号（周日） 11:12</view>
+              <view class="text">{{ item.time }}</view>
             </view>
           </view>
 
           <view class="right">
             <view class="summary">
-              <view class="price">
-                <text class="money">12</text>
+              <view class="price" v-if="item.price !== '-1'">
+                <text class="money">{{ item.price }}</text>
                 <text class="unit">/人</text>
               </view>
-              <view class="note">8小时后出发</view>
+              <view class="price" v-else>
+                <text class="money">面议</text>
+              </view>
+              <view class="note">{{ item.distTime }}</view>
             </view>
             <view class="share">
               <view class="icon">
@@ -69,267 +73,7 @@
           <text class="call-phone">联系TA</text>
         </view>
       </view>
-      <view class="card">
-        <view class="header">
-          <view class="nav-block driver"></view>
-          <view class="nav-info">
-            <view class="tag">车找人</view>
-            <view class="seats">剩余2位座</view>
-          </view>
-        </view>
-        <view class="content">
 
-          <view class="left">
-            <view class="start address">
-              <view class="icon">
-                <view class="nav">起</view>
-              </view>
-              <view class="text">成武</view>
-            </view>
-            <view class="end address">
-              <view class="icon">
-                <view class="nav">终</view>
-              </view>
-              <view class="text">济南</view>
-            </view>
-            <view class="time address">
-              <view class="icon">
-                <view class="nav">时</view>
-              </view>
-              <view class="text">11月15号（周一） 08:12</view>
-            </view>
-          </view>
-
-          <view class="right">
-            <view class="summary">
-              <view class="price">
-                <text class="money">100</text>
-                <text class="unit">/人</text>
-              </view>
-              <view class="note">16小时后出发</view>
-            </view>
-            <view class="share">
-              <view class="icon">
-                <text class="fa blue-icon fa-sm fa-share-alt"/>
-              </view>
-            </view>
-          </view>
-        </view>
-
-        <view class="footer">
-          <text class="call-phone">联系TA</text>
-        </view>
-      </view>
-      <view class="card">
-        <view class="header">
-          <view class="nav-block passenger"></view>
-          <view class="nav-info">
-            <view class="tag">人找车</view>
-            <view class="seats">2人</view>
-          </view>
-        </view>
-        <view class="content">
-
-          <view class="left">
-            <view class="start address">
-              <view class="icon">
-                <view class="nav">起</view>
-              </view>
-              <view class="text">成武</view>
-            </view>
-            <view class="end address">
-              <view class="icon">
-                <view class="nav">终</view>
-              </view>
-              <view class="text">商丘火车站</view>
-            </view>
-            <view class="time address">
-              <view class="icon">
-                <view class="nav">时</view>
-              </view>
-              <view class="text">11月19号（周六） 08:00</view>
-            </view>
-          </view>
-
-          <view class="right">
-            <view class="summary">
-              <view class="price">
-                <text class="money">80</text>
-                <text class="unit">/人</text>
-              </view>
-              <view class="note">16小时后出发</view>
-            </view>
-            <view class="share">
-              <view class="icon">
-                <text class="fa blue-icon fa-sm fa-share-alt"/>
-              </view>
-            </view>
-          </view>
-        </view>
-
-        <view class="footer">
-          <text class="call-phone">联系TA</text>
-        </view>
-      </view>
-      <view class="card">
-        <view class="header">
-          <view class="nav-block driver"></view>
-          <view class="nav-info">
-            <view class="tag">车找人</view>
-            <view class="seats">剩余3位座</view>
-          </view>
-        </view>
-        <view class="content">
-
-          <view class="left">
-            <view class="start address">
-              <view class="icon">
-                <view class="nav">起</view>
-              </view>
-              <view class="text">成武</view>
-            </view>
-            <view class="road address">
-              <view class="icon">
-                <view class="nav">经</view>
-              </view>
-              <text class="text">五岔路口</text>
-            </view>
-            <view class="end address">
-              <view class="icon">
-                <view class="nav">终</view>
-              </view>
-              <view class="text">菏泽</view>
-            </view>
-            <view class="time address">
-              <view class="icon">
-                <view class="nav">时</view>
-              </view>
-              <view class="text">11月12号（周日） 11:12</view>
-            </view>
-          </view>
-
-          <view class="right">
-            <view class="summary">
-              <view class="price">
-                <text class="money">12</text>
-                <text class="unit">/人</text>
-              </view>
-              <view class="note">8小时后出发</view>
-            </view>
-            <view class="share">
-              <view class="icon">
-                <text class="fa blue-icon fa-sm fa-share-alt"/>
-              </view>
-            </view>
-          </view>
-        </view>
-
-        <view class="footer">
-          <text class="call-phone">联系TA</text>
-        </view>
-      </view>
-      <view class="card">
-        <view class="header">
-          <view class="nav-block driver"></view>
-          <view class="nav-info">
-            <view class="tag">车找人</view>
-            <view class="seats">剩余2位座</view>
-          </view>
-        </view>
-        <view class="content">
-
-          <view class="left">
-            <view class="start address">
-              <view class="icon">
-                <view class="nav">起</view>
-              </view>
-              <view class="text">成武</view>
-            </view>
-            <view class="end address">
-              <view class="icon">
-                <view class="nav">终</view>
-              </view>
-              <view class="text">济南</view>
-            </view>
-            <view class="time address">
-              <view class="icon">
-                <view class="nav">时</view>
-              </view>
-              <view class="text">11月15号（周一） 08:12</view>
-            </view>
-          </view>
-
-          <view class="right">
-            <view class="summary">
-              <view class="price">
-                <text class="money">100</text>
-                <text class="unit">/人</text>
-              </view>
-              <view class="note">16小时后出发</view>
-            </view>
-            <view class="share">
-              <view class="icon">
-                <text class="fa blue-icon fa-sm fa-share-alt"/>
-              </view>
-            </view>
-          </view>
-        </view>
-
-        <view class="footer">
-          <text class="call-phone">联系TA</text>
-        </view>
-      </view>
-      <view class="card">
-        <view class="header">
-          <view class="nav-block passenger"></view>
-          <view class="nav-info">
-            <view class="tag">人找车</view>
-            <view class="seats">2人</view>
-          </view>
-        </view>
-        <view class="content">
-
-          <view class="left">
-            <view class="start address">
-              <view class="icon">
-                <view class="nav">起</view>
-              </view>
-              <view class="text">成武</view>
-            </view>
-            <view class="end address">
-              <view class="icon">
-                <view class="nav">终</view>
-              </view>
-              <view class="text">商丘火车站</view>
-            </view>
-            <view class="time address">
-              <view class="icon">
-                <view class="nav">时</view>
-              </view>
-              <view class="text">11月19号（周六） 08:00</view>
-            </view>
-          </view>
-
-          <view class="right">
-            <view class="summary">
-              <view class="price">
-                <text class="money">80</text>
-                <text class="unit">/人</text>
-              </view>
-              <view class="note">16小时后出发</view>
-            </view>
-            <view class="share">
-              <view class="icon">
-                <text class="fa blue-icon fa-sm fa-share-alt"/>
-              </view>
-            </view>
-          </view>
-        </view>
-
-        <view class="footer">
-          <text class="call-phone">联系TA</text>
-        </view>
-      </view>
       <view class="more" hover-class="btn-hover" @click="addHandler">
         没有找到，发布一个 >
       </view>
@@ -339,6 +83,9 @@
 </template>
 
 <script>
+  import { list } from '@/api/api'
+  import { formatTime, formatDate } from '@/utils/index'
+
   export default {
     components: {
     },
@@ -362,17 +109,24 @@
             class: 'driver',
             isActive: false
           }
-        ]
+        ],
+        list: []
       }
     },
     methods: {
       tabsSwitch (type) {
+        this.getList(type)
         this.tabs.forEach(tab => {
-          if (type === tab.class) {
-            tab.isActive = true
-          } else {
-            tab.isActive = false
-          }
+          tab.isActive = type === tab.class
+        })
+      },
+      getList (type) {
+        list(type).then(res => {
+          this.list = res.data.map(item => {
+            item['distTime'] = formatTime(item.time)
+            item.time = formatDate(item.time)
+            return item
+          })
         })
       },
       addHandler () {
@@ -385,6 +139,7 @@
       }
     },
     created () {
+      this.getList('all')
     },
     mounted () {
       const res = wx.getSystemInfoSync()
