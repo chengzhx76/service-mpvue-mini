@@ -8,6 +8,6 @@ export function test2 (param) {
   return getRequest('app/test?y=2', param, 'x=1')
 }
 
-export function list (param) {
-  return getRequest('list', param)
+export function list (type, origin, dest, time, number) {
+  return getRequest(`list/${type}?origin=${origin === undefined ? '' : origin}&dest=${dest === undefined ? '' : dest}&time=${time === undefined ? '' : time}&num=${number === undefined ? '' : number}`)
 }
