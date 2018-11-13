@@ -99,14 +99,7 @@
         dayVal: [0],
         timeVal: [0, 0],
         days: [],
-        times: [
-          '14',
-          '15',
-          '16',
-          '17',
-          '18',
-          '19'
-        ],
+        times: [],
         minutes: [],
         nums: [1, 2, 3, 4, 5, 6],
         numVal: [0],

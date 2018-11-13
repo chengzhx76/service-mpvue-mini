@@ -65,3 +65,11 @@ wx.canvasToTempFilePath();
 wx.previewImage();
 
 https://github.com/davidlin88/mpvue-vuex-demo/blob/master/src/http/api.js
+
+SSL
+
+https://console.qcloud.com/ssl
+
+https://yundunnext.console.aliyun.com/?p=casnext#/overview/cn-hangzhou
+
+http://www.ibloglife.com/archives/3938.html
