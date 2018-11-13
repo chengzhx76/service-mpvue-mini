@@ -2,7 +2,7 @@ const Fly = require('flyio/dist/npm/wx')
 const service = new Fly()
 
 service.config.timeout = 60000
-service.config.baseURL = 'http://rap2api.taobao.org/app/mock/117113/'
+service.config.baseURL = 'https://chengzhx76.picp.vip/mock/mp/'
 
 service.interceptors.request.use(
   config => {

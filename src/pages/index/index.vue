@@ -197,7 +197,6 @@
             item.time = formatDate(item.time)
             return item
           })
-          console.log(res.data)
         })
       },
 

@@ -9,5 +9,5 @@ export function test2 (param) {
 }
 
 export function list (param) {
-  return getRequest('mp/list', param)
+  return getRequest('list', param)
 }
