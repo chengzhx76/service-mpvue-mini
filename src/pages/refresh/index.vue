@@ -4,7 +4,7 @@
     <view class="fix">======{{ preScrollTop }}=={{ listHeight/2 }}====</view>
       <scroll-view scroll-y class="scroll-view" :style="{height: listHeight + 'rpx'}" @scroll="scroll">
         <view class="refresh" v-if="show">{{ text }}</view>
-        <view class="block" :style="{marginTop: marginTop + 'rpx'}"></view>
+        <view :style="{height: blockHeight + 'rpx'}"></view>
         <view class="num" v-for="num in 20" :key="num">---{{ num }}----</view>
       </scroll-view>
   </view>
@@ -16,7 +16,7 @@
     data () {
       return {
         listHeight: 370,
-        marginTop: 0,
+        blockHeight: 0,
         preScrollTop: 0,
         show: false,
         loading: false,
@@ -30,18 +30,19 @@
         if (scrollTop < 0 && scrollTop < this.preScrollTop) {
           if (!this.loading) {
             this.loading = true
+            wx.vibrateShort()
             this.text = '加载中~~~'
             this.show = true
-            this.marginTop = 60
+            this.blockHeight = 60
             setTimeout(() => {
-              this.loading = false
               this.text = '加载完成~~~'
               setTimeout(() => {
-                this.marginTop = 0
+                this.loading = false
+                this.blockHeight = 0
                 this.show = false
                 this.text = '下拉加载~~~'
-              }, 200)
-            }, 2000)
+              }, 2500)
+            }, 900)
           }
         }
         this.preScrollTop = scrollTop
