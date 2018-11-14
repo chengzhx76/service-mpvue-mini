@@ -1,9 +1,10 @@
 {
   "pages": [
+    "pages/refresh/main",
     "pages/index/main",
+    "pages/list/main",
     "pages/test/main",
     "pages/add/main",
-    "pages/list/main",
     "pages/filter/main",
     "pages/logs/main",
     "pages/counter/main"
@@ -13,6 +14,7 @@
     "navigationBarBackgroundColor": "#F0F0F0",
     "backgroundColor": "#F0F0F0",
     "navigationBarTitleText": "程",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "debug": true
   }
 }

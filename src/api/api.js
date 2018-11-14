@@ -1,11 +1,7 @@
 import { getRequest } from '@/utils/request'
 
-export function test () {
-  return getRequest('app/test')
-}
-
-export function test2 (param) {
-  return getRequest('app/test?y=2', param, 'x=1')
+export function test (param) {
+  return getRequest('test?y=2', param, 'x=1')
 }
 
 export function list (type, origin, dest, time, number) {

@@ -18,9 +18,13 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
   response => {
+    wx.stopPullDownRefresh()
+    wx.hideNavigationBarLoading()
     return response.data
   },
   error => {
+    wx.stopPullDownRefresh()
+    wx.hideNavigationBarLoading()
     console.log('err' + error)
     return Promise.reject(error)
   }

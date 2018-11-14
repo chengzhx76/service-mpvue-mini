@@ -191,11 +191,12 @@
         })
       },
       searchHandler () {
-        this.getList(this.type, this.origin, this.dest)
+        const url = `../list/main?origin=${this.origin}&dest=${this.dest}`
+        wx.navigateTo({ url })
       },
 
-      getList (type, origin, dest) {
-        list(type, origin, dest).then(res => {
+      getList (type) {
+        list(type).then(res => {
           this.list = res.data.map(item => {
             item['distTime'] = formatTime(item.time)
             item.time = formatDate(item.time)
@@ -215,6 +216,10 @@
     },
     created () {
       this.getList('all')
+    },
+    onPullDownRefresh () {
+      wx.showNavigationBarLoading()
+      this.getList(this.type)
     }
   }
 </script>

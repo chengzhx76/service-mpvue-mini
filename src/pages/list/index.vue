@@ -93,6 +93,7 @@
     data () {
       return {
         listHeight: '370rpx',
+        type: 'all',
         tabs: [
           {
             name: '全部',
@@ -115,6 +116,7 @@
     },
     methods: {
       tabsSwitch (type) {
+        this.type = type
         this.getList(type)
         this.tabs.forEach(tab => {
           tab.isActive = type === tab.class
