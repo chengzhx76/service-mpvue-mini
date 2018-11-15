@@ -37,11 +37,17 @@
   line-height: #{$height}rpx;
 }
 
-@mixin height-width-percent-text-center($height, $width) {
+@mixin height-width-percent-text-center($height, $width:100%) {
   height: #{$height}rpx;
   width: $width;
   text-align: center;
   line-height: #{$height}rpx;
+}
+@mixin height-width-percent-lineHeight-text-center($height, $lineHeight, $width:100%) {
+  height: #{$height}rpx;
+  width: $width;
+  text-align: center;
+  line-height: #{$lineHeight}rpx;
 }
 @mixin height-width-percent-text($height, $width, $position) {
   height: #{$height}rpx;

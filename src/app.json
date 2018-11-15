@@ -1,8 +1,8 @@
 {
   "pages": [
-    "pages/refresh/main",
-    "pages/index/main",
     "pages/list/main",
+    "pages/index/main",
+    "pages/refresh/main",
     "pages/test/main",
     "pages/add/main",
     "pages/filter/main",

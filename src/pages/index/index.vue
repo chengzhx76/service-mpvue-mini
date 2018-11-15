@@ -210,7 +210,7 @@
         wx.navigateTo({ url })
       },
       moreHandler () {
-        const url = '../list/main'
+        const url = '../refresh/main'
         wx.navigateTo({ url })
       }
     },
