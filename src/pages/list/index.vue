@@ -77,8 +77,11 @@
         </view>
       </view>
 
-      <view class="more" hover-class="btn-hover" @click="addHandler">
+      <view class="bottom-block more" hover-class="btn-hover" @click="addHandler">
         没有找到，发布一个 >
+      </view>
+      <view class="load-more" hover-class="btn-hover" @click="loadMore">
+        查看更多 >
       </view>
       <view class="block"></view>
     </scroll-view>
@@ -175,6 +178,15 @@
           }
         }
         this.preScrollTop = scrollTop
+      },
+      loadMore () {
+        list(this.type).then(res => {
+          res.data.forEach(item => {
+            item['distTime'] = formatTime(item.time)
+            item.time = formatDate(item.time)
+            this.list.splice(this.list.length, 0, item)
+          })
+        })
       }
     },
     created () {
@@ -256,7 +268,7 @@
       @include height-rpx-width-percent(360, 96%);
       margin-left: 2%;
     }
-    .card:nth-last-child(3) {
+    .card:nth-last-child(4) {
       @include border-radius-bottom(0);
       .footer {
         @include border-radius-bottom(0);
@@ -265,6 +277,15 @@
     .more {
       @include height-rpx-width-percent(89, 96%);
       margin-left: 2%;
+    }
+    .load-more {
+      @include height-width-percent-text-center(89, 96%);
+      margin-left: 2%;
+      font-size: 34rpx;
+      color: $light-blue;
+      @include border-top-width(1);
+      @include border-radius-bottom(10);
+      background: $white;
     }
     .block {
       @include height-rpx-width-100(50)

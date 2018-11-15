@@ -119,7 +119,7 @@
         </view>
       </view>
 
-      <view class="more" hover-class="btn-hover" @click="moreHandler">
+      <view class="bottom-block more" hover-class="btn-hover" @click="moreHandler">
         查看更多 >
       </view>
 
@@ -327,6 +327,7 @@
     }
     .more {
       @include height-rpx-width-percent(89, 98%);
+      @include border-radius-bottom(10);
       margin-bottom: 50rpx;
     }
   }
