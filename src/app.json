@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/draw/main",
     "pages/index/main",
     "pages/list/main",
     "pages/refresh/main",
