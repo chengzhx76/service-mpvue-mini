@@ -5,7 +5,8 @@
       <scroll-view scroll-y class="scroll-view" :style="{height: listHeight + 'rpx'}" @scroll="scroll">
         <view class="refresh" v-if="show">{{ text }}</view>
         <view :style="{height: blockHeight + 'rpx'}"></view>
-        <view class="num" v-for="num in 20" :key="num">---{{ num }}----</view>
+        <view class="num" v-for="(num, index) in nums" :key="index">---{{ num }}----</view>
+        <view class="load-more" @click="loadMore">查看更多></view>
       </scroll-view>
   </view>
 
@@ -15,6 +16,7 @@
   export default {
     data () {
       return {
+        nums: [0, 1, 2, 3, 4, 5, 6, 7],
         listHeight: 370,
         blockHeight: 0,
         preScrollTop: 0,
@@ -46,6 +48,13 @@
           }
         }
         this.preScrollTop = scrollTop
+      },
+      loadMore () {
+        console.log('------')
+        let newData = [16, 17, 18, 19, 20]
+        newData.forEach(item => {
+          this.nums.splice(this.nums.length, 0, item)
+        })
       }
     },
     created () {
@@ -89,7 +98,14 @@
       left: 0;
       top: 0;
       text-align: center;
-      line-height: 50rpx;
+      line-height: 60rpx;
+      background: cadetblue;
+    }
+    .load-more {
+      height: 60rpx;
+      width: 100%;
+      text-align: center;
+      line-height: 60rpx;
       background: cadetblue;
     }
     .num {
@@ -99,6 +115,7 @@
       text-align: center;
       background: darkkhaki;
     }
+
   }
 
 

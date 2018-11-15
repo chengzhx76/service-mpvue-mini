@@ -3,6 +3,8 @@
   <view id="test">
     <button type="default" size="default" @click="testBtn">测试</button>
     <view class="data">{{ data }}</view>
+    <button type="default" size="default" @click="testBtn2">测试Set</button>
+    <view class="data">{{ user.age }}</view>
   </view>
 
 </template>
@@ -13,7 +15,10 @@ import { test } from '@/api/api'
 export default {
   data () {
     return {
-      data: ''
+      data: '',
+      user: {
+        name: ''
+      }
     }
   },
   methods: {
@@ -24,6 +29,11 @@ export default {
       }).catch((e) => {
         console.error(e)
       })
+    },
+    testBtn2 () {
+      console.log(this)
+
+      this.$set(this.user, 'age', 18)
     }
   },
   created () {

@@ -174,13 +174,12 @@
       @include border-radius-bottom(0);
     }
   }
-  .more {
+  .bottom-block {
     line-height: 89rpx;
     font-size: 34rpx;
     color: $light-blue;
     text-align: center;
     @include border-top-width(1);
-    @include border-radius-bottom(10);
     background: $white;
   }
 
