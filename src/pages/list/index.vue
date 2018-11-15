@@ -10,7 +10,10 @@
       </view>
       <view class="filter" hover-class="filter-hover" @click="filterHandler()">筛选</view>
     </view>
-    <scroll-view scroll-y class="list" :style="{height: listHeight}">
+    <scroll-view scroll-y class="list" :style="{height: listHeight}" @scroll="scroll">
+
+      <view class="refresh" v-if="show">{{ text }}</view>
+      <view :style="{height: blockHeight + 'rpx'}"></view>
 
       <view class="card" v-for="(item, index) in list" :key="item.id">
         <view class="header">
@@ -111,7 +114,12 @@
             isActive: false
           }
         ],
-        list: []
+        list: [],
+        blockHeight: 0,
+        preScrollTop: 0,
+        show: false,
+        loading: false,
+        text: '下拉加载~~~'
       }
     },
     methods: {
@@ -138,6 +146,35 @@
       filterHandler () {
         const url = '../filter/main'
         wx.navigateTo({ url })
+      },
+      scroll (e) {
+        let scrollTop = e.mp.detail.scrollTop
+        // 说明是在下拉
+        if (scrollTop < 0 && scrollTop < this.preScrollTop) {
+          if (!this.loading) {
+            this.loading = true
+            this.text = '加载中~~~'
+            this.show = true
+            this.blockHeight = 60
+            setTimeout(() => {
+              list(this.type).then(res => {
+                this.list = res.data.map(item => {
+                  item['distTime'] = formatTime(item.time)
+                  item.time = formatDate(item.time)
+                  return item
+                })
+                this.text = '加载完成~~~'
+                setTimeout(() => {
+                  this.loading = false
+                  this.blockHeight = 0
+                  this.show = false
+                  this.text = '下拉加载~~~'
+                }, 1500)
+              })
+            }, 500)
+          }
+        }
+        this.preScrollTop = scrollTop
       }
     },
     created () {
@@ -201,10 +238,19 @@
     width: 100%;
     margin-top: 90rpx;
     @include justify-center;
+    position: relative;
     ::-webkit-scrollbar {
       width: 0;
       height: 0;
       color: transparent;
+    }
+    .refresh {
+      @include height-width-percent-lineHeight-text-center(60, 80);
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 32rpx;
+      color: $refreshColor;
     }
     .card {
       @include height-rpx-width-percent(360, 96%);
