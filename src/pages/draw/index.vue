@@ -37,7 +37,7 @@ export default {
       let self = this
       let bg = new Promise(function (resolve, reject) {
         wx.getImageInfo({
-          src: 'img/bgcz.png',
+          src: 'img/bg.png',
           success: function (res) {
             console.log(res)
             resolve(res)
@@ -104,7 +104,7 @@ export default {
         success (res) {
           console.log(res)
           wx.showModal({
-            content: '图片已保存到相册，赶紧晒一下吧~',
+            content: '图片已保存到相册',
             showCancel: false,
             confirmText: '好哒',
             confirmColor: '#72B9C3',
