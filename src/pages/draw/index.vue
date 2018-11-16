@@ -39,7 +39,6 @@ export default {
         wx.getImageInfo({
           src: 'img/bg.png',
           success: function (res) {
-            console.log(res)
             resolve(res)
           }
         })
@@ -48,7 +47,6 @@ export default {
         wx.getImageInfo({
           src: 'img/qr.png',
           success: function (res) {
-            console.log(res)
             resolve(res)
           },
           fail: function (error) {
