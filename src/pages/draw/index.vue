@@ -9,11 +9,11 @@
     <view class="btn">
       <button type='primary' @click="drawImg()">画</button>
       <button type='primary' @click="createImg()">生成</button>
+      <button type='primary' @click="saveImg()">保存</button>
     </view>
 
     <view class='preview'>
       <image :src='src' :style="{height: canvasHeightPx + 'px', width: canvasWidthPx + 'px'}"/>
-      <button type='primary' @click="saveImg()">保存分享图</button>
     </view>
 
   </view>
@@ -160,10 +160,6 @@ export default {
     @include justify-center;
     image {
       background: khaki;
-    }
-    button {
-      margin-top: 20rpx;
-      width: 100%;
     }
   }
 
