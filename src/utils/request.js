@@ -7,7 +7,6 @@ service.config.baseURL = 'https://chengzhx76.picp.vip/mock/mp/'
 service.interceptors.request.use(
   config => {
     config.headers['X-Token'] = 'xxx'
-    console.log(config)
     return config
   },
   error => {
