@@ -2,9 +2,9 @@
 
   <view id="draw">
 
-    <view class="info">--{{ windowHeight }}--{{ windowWidth }}--</view>
+    <view class="info">--{{ windowHeightPx }}--{{ windowWidthPx }}--</view>
 
-    <canvas class="canvas" canvas-id="shareImg"/>
+    <canvas class="canvas" canvas-id="shareImg" :style="{height: canvasHeightPx + 'px', width: canvasWidthPx + 'px'}"/>
 
     <view class="btn">
       <button type='primary' @click="drawImg()">画</button>
@@ -12,8 +12,8 @@
     </view>
 
     <view class='preview'>
-      <image :src='src'/>
-      <button type='primary'>保存分享图</button>
+      <image :src='src' :style="{height: canvasHeightPx + 'px', width: canvasWidthPx + 'px'}"/>
+      <button type='primary' @click="saveImg()">保存分享图</button>
     </view>
 
   </view>
@@ -26,12 +26,15 @@ export default {
   data () {
     return {
       src: '',
-      windowHeight: 0,
-      windowWidth: 0
+      canvasHeightPx: 350,
+      canvasWidthPx: 200,
+      windowHeightPx: 0,
+      windowWidthPx: 0
     }
   },
   methods: {
     drawImg () {
+      let self = this
       let bg = new Promise(function (resolve, reject) {
         wx.getImageInfo({
           src: 'img/bgcz.png',
@@ -57,14 +60,19 @@ export default {
         console.log(res)
         const ctx = wx.createCanvasContext('shareImg')
 
-        ctx.drawImage('../../' + res[0].path, 0, 0, 200, 350)
-        ctx.drawImage('../../' + res[1].path, 50, 125, 100, 100)
+        const bgWidth = self.canvasWidthPx
+        const bgHeight = self.canvasHeightPx
+        const qrWidth = 76
+        const qrHeight = 76
+
+        ctx.drawImage('../../' + res[0].path, 0, 0, bgWidth, bgHeight)
+        ctx.drawImage('../../' + res[1].path, (bgWidth - qrWidth) / 2, (bgHeight - qrHeight) / 2, qrWidth, qrHeight)
 
         ctx.setTextAlign('center')
-        ctx.setFillStyle('#ffffff')
+        ctx.setFillStyle('red')
         ctx.setFontSize(18)
-        ctx.fillText('分享文字描述1', 545 / 2, 130)
-        ctx.fillText('分享文字描述2', 545 / 2, 160)
+        ctx.fillText('分享文字描述1', bgWidth / 2, 130)
+        ctx.fillText('分享文字描述2', bgWidth / 2, 160)
 
         ctx.stroke()
         ctx.draw()
@@ -75,10 +83,10 @@ export default {
       wx.canvasToTempFilePath({
         x: 0,
         y: 0,
-        width: 545,
-        height: 771,
-        destWidth: 545,
-        destHeight: 771,
+        width: self.canvasWidthPx,
+        height: self.canvasHeightPx,
+        destWidth: self.canvasWidthPx,
+        destHeight: self.canvasHeightPx,
         canvasId: 'shareImg',
         success: function (res) {
           console.log(res.tempFilePath)
@@ -86,6 +94,26 @@ export default {
         },
         fail: function (res) {
           console.log(res)
+        }
+      })
+    },
+    saveImg () {
+      const self = this
+      wx.saveImageToPhotosAlbum({
+        filePath: self.src,
+        success (res) {
+          console.log(res)
+          wx.showModal({
+            content: '图片已保存到相册，赶紧晒一下吧~',
+            showCancel: false,
+            confirmText: '好哒',
+            confirmColor: '#72B9C3',
+            success: function (res) {
+              if (res.confirm) {
+                console.log('用户点击确定')
+              }
+            }
+          })
         }
       })
     }
@@ -96,9 +124,8 @@ export default {
     const res = wx.getSystemInfoSync()
     const clientHeight = res.windowHeight
     const clientWidth = res.windowWidth
-    const rpxR = 750 / clientWidth
-    this.windowHeight = clientHeight * rpxR
-    this.windowWidth = clientWidth * rpxR
+    this.windowHeightPx = clientHeight
+    this.windowWidthPx = clientWidth
   }
 
 }
@@ -116,21 +143,28 @@ export default {
     width: 100%;
     text-align: center;
     line-height: 60rpx;
+    margin-bottom: 20rpx;
     background: darkgray;
   }
   .canvas {
-    height: 800rpx;
-    width: 100%;
     background: darkkhaki;
   }
   .btn {
-    height: 300rpx;
     width: 100%;
+    margin-top: 20rpx;
+    margin-bottom: 20rpx;
     background: skyblue;
   }
   .preview {
     width: 100%;
-    background: goldenrod;
+    @include justify-center;
+    image {
+      background: khaki;
+    }
+    button {
+      margin-top: 20rpx;
+      width: 100%;
+    }
   }
 
 </style>
