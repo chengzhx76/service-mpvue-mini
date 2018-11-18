@@ -244,12 +244,11 @@
             item.time = formatDate(item.time)
             this.list.splice(this.list.length, 0, item)
           })
-          this.page.pageSize = res.data.pageSize
-          this.page.pageSize += 1
           if (this.page.pageSize * res.data.count > res.data.totalNum) {
             this.page.hasMore = false
             this.bottomText = '没有找到，发布一个 >'
           }
+          this.page.pageSize += 1
         })
       },
       createShareImg (val) {
