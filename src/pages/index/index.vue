@@ -30,7 +30,7 @@
                   <text class="fa fa-car gray-icon"/>
                 </view>
                 <view class="input">
-                  <input placeholder-class="placeholder-color" placeholder="哪出发" v-model="origin"/>
+                  <input placeholder-class="placeholder-color" placeholder="哪出发" v-model="service.origin"/>
                 </view>
               </view>
               <view class="destination info">
@@ -38,7 +38,7 @@
                   <text class="fa fa-lg fa-map-marker gray-icon"/>
                 </view>
                 <view class="input">
-                  <input placeholder-class="placeholder-color" placeholder="要去哪" v-model="dest"/>
+                  <input placeholder-class="placeholder-color" placeholder="要去哪" v-model="service.dest"/>
                 </view>
               </view>
             </view>
@@ -107,7 +107,7 @@
               <view class="note">{{ item.distTime }}</view>
             </view>
             <view class="share">
-              <view class="icon" @click="createShareImg(item)">
+              <view class="icon" @click="chooseShare(item)">
                 <text class="fa blue-icon fa-sm fa-share-alt"/>
               </view>
             </view>
@@ -115,18 +115,18 @@
         </view>
 
         <view class="footer">
-          <text class="call-phone">联系TA</text>
+          <text class="call-phone" @click="phoneCall(item.mobileNo)">联系TA</text>
         </view>
       </view>
 
-      <view class="bottom-block more" hover-class="btn-hover" @click="moreHandler">
+      <view class="bottom-block" hover-class="btn-hover" @click="moreHandler">
         查看更多 >
       </view>
 
     </view>
 
     <view class="add" @click="addHandler">
-      <text class="fa fa-plus fa-lg"/>
+      <text class="fa fa-plus fa-2x"/>
     </view>
 
     <view style="position: absolute; top: -9999px; left: -9999px;">
@@ -169,9 +169,16 @@
         circular: false,
         interval: 10000,
         duration: 500,
-        type: 'all',
-        origin: '',
-        dest: '',
+        service: {
+          type: 'all',
+          origin: '',
+          dest: ''
+        },
+        page: {
+          pageSize: 1,
+          count: 10,
+          totalNum: 0
+        },
         list: [],
         tabs: [
           {
@@ -202,20 +209,20 @@
     },
     methods: {
       tabsSwitch (type) {
-        this.type = type
-        this.getList(type)
+        this.service.type = type
+        this.getList()
         this.tabs.forEach(tab => {
           tab.isActive = type === tab.class
         })
       },
       searchHandler () {
-        const url = `../list/main?origin=${this.origin}&dest=${this.dest}`
+        const url = `../list/main?origin=${this.service.origin}&dest=${this.service.dest}`
         wx.navigateTo({ url })
       },
 
-      getList (type) {
-        list(type).then(res => {
-          this.list = res.data.map(item => {
+      getList () {
+        list(this.service, this.page).then(res => {
+          this.list = res.data.list.map(item => {
             item['distTime'] = formatTime(item.time)
             item.time = formatDate(item.time)
             return item
@@ -235,12 +242,40 @@
         const url = '../refresh/main'
         wx.navigateTo({ url })
       },
+
+      chooseShare (item) {
+        const self = this
+        wx.showActionSheet({
+          itemList: ['分享到好友', '生成图片 保存分享'],
+          success (res) {
+            if (res.tapIndex === 0) {
+              console.log('分享给好友')
+            } else if (res.tapIndex === 1) {
+              self.createShareImg(item)
+            }
+          },
+          fail (res) {
+            console.log(res.errMsg)
+          }
+        })
+      },
+
+      phoneCall (phone) {
+        wx.makePhoneCall({
+          phoneNumber: phone
+        })
+      },
+
       createShareImg (val) {
+        wx.showLoading({
+          title: '加载中...'
+        })
         this.src = ''
         this.showShareImg = true
         this.drawImg(val.type, val.origin, val.dest, val.time).then(() => {
           setTimeout(() => {
             this.createImg()
+            wx.hideLoading()
           }, 500)
         })
       },
@@ -360,7 +395,7 @@
       }
     },
     created () {
-      this.getList('all')
+      this.getList()
     },
     mounted () {
       const res = wx.getSystemInfoSync()
@@ -372,7 +407,15 @@
     },
     onPullDownRefresh () {
       wx.showNavigationBarLoading()
-      this.getList(this.type)
+      list(this.service, this.page).then(res => {
+        this.list = res.data.list.map(item => {
+          item['distTime'] = formatTime(item.time)
+          item.time = formatDate(item.time)
+          return item
+        })
+        wx.stopPullDownRefresh()
+        wx.hideNavigationBarLoading()
+      })
     }
   }
 </script>
@@ -478,20 +521,19 @@
     .card {
       @include height-rpx-width-percent(360, 98%);
     }
-    .more {
+    .bottom-block {
       @include height-rpx-width-percent(89, 98%);
-      @include border-radius-bottom(10);
       margin-bottom: 50rpx;
     }
   }
 
   .add {
-    @include height-width(90, 90);
+    @include height-width(100, 100);
     position: fixed;
     right: 40rpx;
     bottom: 50rpx;
     @include justify-align-center;
-    @include border-radius(80);
+    @include border-radius(110);
     @include box-shadow;
     background: $endColor;
     text {

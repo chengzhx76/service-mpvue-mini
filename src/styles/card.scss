@@ -180,6 +180,7 @@
     color: $light-blue;
     text-align: center;
     @include border-top-width(1);
+    @include border-radius-bottom(10);
     background: $white;
   }
 
