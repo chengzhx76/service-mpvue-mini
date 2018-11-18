@@ -111,6 +111,12 @@
   flex-wrap: wrap;
   justify-content: space-between;
 }
+@mixin column-between {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
 @mixin justify-end {
   display: flex;
   justify-content: flex-end;

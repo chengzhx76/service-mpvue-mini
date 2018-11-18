@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/draw/main",
     "pages/index/main",
+    "pages/draw/main",
     "pages/drawImg/main",
     "pages/list/main",
     "pages/refresh/main",
