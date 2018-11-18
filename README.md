@@ -97,3 +97,15 @@ http://www.wxapp-union.com/article-4204-1.html
 文字换行
 
 https://blog.csdn.net/duola8789/article/details/80513583
+
+const ctx = wx.createCanvasContext('posterCanvas');
+
+var lineWidth = 0;
+
+var title = "我们都是中国人";
+
+for (var i = 0; i < title.length; i++) {
+
+     lineWidth += ctx.measureText(title).width;
+
+}

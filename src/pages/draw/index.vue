@@ -2,8 +2,8 @@
 
   <view id="draw">
 
-    <view class="info">--{{ windowHeightPx }}--{{ windowWidthPx }}--</view>
-    <view class="info">--{{ canvasHeightPx }}--{{ canvasWidthPx }}--</view>
+    <view class="info">--窗口高：{{ windowHeightPx }}--窗口宽：{{ windowWidthPx }}--</view>
+    <view class="info">--画布高：{{ canvasHeightPx }}--画布宽：{{ canvasWidthPx }}--</view>
 
     <canvas class="canvas" canvas-id="shareImg" :style="{height: canvasHeightPx + 'px', width: canvasWidthPx + 'px'}"/>
 
@@ -27,7 +27,7 @@ export default {
   data () {
     return {
       src: '',
-      canvasHeightPx: 200,
+      canvasHeightPx: 260,
       canvasWidthPx: 200,
       windowHeightPx: 0,
       windowWidthPx: 0
@@ -39,16 +39,40 @@ export default {
     drawImg () {
       const ctx = wx.createCanvasContext('shareImg')
       ctx.setFillStyle('#F8FCFF')
-      ctx.fillRect(0, 0, this.canvasWidthPx, 160)
-      ctx.beginPath()
-      ctx.setFillStyle('#FFFFFF')
-      ctx.fillRect(0, 160, this.canvasWidthPx, 40)
+      ctx.fillRect(0, 0, this.canvasWidthPx, 170)
 
       ctx.beginPath()
+      ctx.setFillStyle('#FFFFFF')
+      ctx.fillRect(0, 170, this.canvasWidthPx, 90)
+
+      ctx.beginPath()
+      ctx.setStrokeStyle('#E5E5E5')
       ctx.setLineWidth(1)
-      ctx.moveTo(10, 160)
-      ctx.lineTo(this.canvasWidthPx - 10, 160)
+      ctx.moveTo(10, 170)
+      ctx.lineTo(this.canvasWidthPx - 10, 170)
       ctx.stroke()
+
+      ctx.setTextAlign('right')
+      ctx.setFillStyle('#26548D')
+      ctx.setFontSize(18)
+      ctx.fillText('起点：', this.canvasWidthPx * 0.25, 40)
+      ctx.fillText('终点：', this.canvasWidthPx * 0.25, 70)
+      ctx.fillText('时间：', this.canvasWidthPx * 0.25, 100)
+
+      ctx.beginPath()
+      ctx.setTextAlign('left')
+      ctx.setFillStyle('#0A1519')
+      ctx.setFontSize(18)
+      ctx.fillText('成武', this.canvasWidthPx * 0.25, 40)
+      ctx.fillText('菏泽', this.canvasWidthPx * 0.25, 70)
+      ctx.fillText('11月21日（周六） 11:10', this.canvasWidthPx * 0.25, 100)
+
+      ctx.beginPath()
+      ctx.setTextAlign('left')
+      ctx.setFillStyle('#ACACAC')
+      ctx.setFontSize(14)
+      ctx.fillText('长按识别小程序码，查看完整内容', this.canvasWidthPx * 0.08, 200)
+      ctx.fillText('分享来自「花生拼车」', this.canvasWidthPx * 0.08, 226)
 
       ctx.draw()
     },
@@ -59,8 +83,8 @@ export default {
         y: 0,
         width: self.canvasWidthPx,
         height: self.canvasHeightPx,
-        destWidth: self.canvasWidthPx,
-        destHeight: self.canvasHeightPx,
+        destWidth: self.canvasWidthPx * 2,
+        destHeight: self.canvasHeightPx * 2,
         canvasId: 'shareImg',
         success: function (res) {
           console.log(res.tempFilePath)
