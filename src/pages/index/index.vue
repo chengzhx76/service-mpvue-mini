@@ -107,7 +107,7 @@
               <view class="note">{{ item.distTime }}</view>
             </view>
             <view class="share">
-              <view class="icon">
+              <view class="icon" @click="createShareImg(item)">
                 <text class="fa blue-icon fa-sm fa-share-alt"/>
               </view>
             </view>
@@ -127,6 +127,18 @@
 
     <view class="add" @click="addHandler">
       <text class="fa fa-plus fa-lg"/>
+    </view>
+
+    <view style="position: absolute; top: -9999px; left: -9999px;">
+      <canvas canvas-id="shareImg" :style="{height: canvasHeightPx + 'px', width: canvasWidthPx + 'px'}"/>
+    </view>
+    <view class='share-preview' v-if="showShareImg" @click="closeShareImgMode()">
+      <view class="share-warp" :style="{width: canvasWidthPx + 'px'}">
+        <view class="share-img" :style="{height: canvasHeightPx + 'px', width: canvasWidthPx + 'px'}">
+          <image :src='src'/>
+        </view>
+        <view class="save-img-btn" @click="saveShareImg()">保存图片</view>
+      </view>
     </view>
   </view>
 </template>
@@ -177,7 +189,13 @@
             class: 'driver',
             isActive: false
           }
-        ]
+        ],
+        showShareImg: false,
+        src: '',
+        canvasHeightPx: 260,
+        canvasWidthPx: 200,
+        windowHeightPx: 0,
+        windowWidthPx: 0
       }
     },
     components: {
@@ -216,10 +234,141 @@
       moreHandler () {
         const url = '../refresh/main'
         wx.navigateTo({ url })
+      },
+      createShareImg (val) {
+        this.src = ''
+        this.showShareImg = true
+        this.drawImg(val.type, val.origin, val.dest, val.time).then(() => {
+          setTimeout(() => {
+            this.createImg()
+          }, 500)
+        })
+      },
+      saveShareImg () {
+        const self = this
+        wx.saveImageToPhotosAlbum({
+          filePath: self.src,
+          success (res) {
+            self.showShareImg = false
+            wx.showModal({
+              content: '图片已保存到相册',
+              showCancel: false,
+              confirmText: '好的',
+              confirmColor: '#72B9C3',
+              success: function (res) {
+                if (res.confirm) {
+                }
+              }
+            })
+          }
+        })
+      },
+      closeShareImgMode () {
+        this.showShareImg = false
+      },
+      drawImg (type, origin, dest, time) {
+        const self = this
+        let qr = new Promise(function (resolve, reject) {
+          wx.getImageInfo({
+            src: '../../img/gh_e3d8966d446b_258.jpg',
+            success: function (res) {
+              resolve(res)
+            },
+            fail: function (error) {
+              console.error(error)
+            }
+          })
+        })
+
+        return new Promise(function (resolve, reject) {
+          try {
+            Promise.all([qr]).then(res => {
+              const ctx = wx.createCanvasContext('shareImg')
+              ctx.setFillStyle('#F8FCFF')
+              ctx.fillRect(0, 0, self.canvasWidthPx, 170)
+
+              ctx.beginPath()
+              ctx.setFillStyle('#FFFFFF')
+              ctx.fillRect(0, 170, self.canvasWidthPx, 90)
+
+              ctx.beginPath()
+              ctx.setStrokeStyle('#E5E5E5')
+              ctx.setLineWidth(1)
+              ctx.moveTo(10, 170)
+              ctx.lineTo(self.canvasWidthPx - 10, 170)
+              ctx.stroke()
+
+              ctx.beginPath()
+              ctx.setTextAlign('center')
+              ctx.setFillStyle('#26548D')
+              ctx.setFontSize(22)
+              if (type === 1) {
+                ctx.fillText('人找车', self.canvasWidthPx * 0.5, 35)
+              } else {
+                ctx.fillText('车找人', self.canvasWidthPx * 0.5, 35)
+              }
+              ctx.beginPath()
+              ctx.setTextAlign('right')
+              ctx.setFillStyle('#26548D')
+              ctx.setFontSize(18)
+              ctx.fillText('起点：', self.canvasWidthPx * 0.25, 70)
+              ctx.fillText('终点：', self.canvasWidthPx * 0.25, 100)
+              ctx.fillText('时间：', self.canvasWidthPx * 0.25, 130)
+
+              ctx.beginPath()
+              ctx.setTextAlign('left')
+              ctx.setFillStyle('#0A1519')
+              ctx.setFontSize(18)
+              ctx.fillText(origin, self.canvasWidthPx * 0.25, 70)
+              ctx.fillText(dest, self.canvasWidthPx * 0.25, 100)
+              ctx.fillText(time, self.canvasWidthPx * 0.25, 130)
+
+              ctx.beginPath()
+              ctx.setTextAlign('left')
+              ctx.setFillStyle('#ACACAC')
+              ctx.setFontSize(14)
+              ctx.fillText('长按识别小程序码，联系TA', self.canvasWidthPx * 0.08, 200)
+              ctx.fillText('分享来自「花生拼车」', self.canvasWidthPx * 0.08, 226)
+
+              ctx.drawImage('../../' + res[0].path, self.canvasWidthPx - 80, 180, 70, 70)
+              ctx.draw()
+              resolve()
+            })
+          } catch (error) {
+            console.log(error)
+            reject(error)
+          }
+        })
+      },
+      createImg () {
+        let self = this
+        wx.canvasToTempFilePath({
+          x: 0,
+          y: 0,
+          width: self.canvasWidthPx,
+          height: self.canvasHeightPx,
+          destWidth: self.canvasWidthPx * 2,
+          destHeight: self.canvasHeightPx * 2,
+          canvasId: 'shareImg',
+          success: function (res) {
+            self.src = res.tempFilePath
+          },
+          fail: function (res) {
+            console.log(res)
+          }
+        })
       }
     },
     created () {
       this.getList('all')
+    },
+    mounted () {
+      const res = wx.getSystemInfoSync()
+      const clientHeight = res.windowHeight
+      const clientWidth = res.windowWidth
+      this.windowHeightPx = clientHeight
+      this.windowWidthPx = clientWidth
+      this.canvasWidthPx = Math.ceil(clientWidth * 0.9)
     },
     onPullDownRefresh () {
       wx.showNavigationBarLoading()
@@ -347,6 +496,32 @@
     background: $endColor;
     text {
       color: $white;
+    }
+  }
+  .share-preview {
+    @include height-width-100;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    background:rgba(0, 0, 0, 0.5);
+    @include justify-align-center;
+    .share-warp {
+      @include column-between;
+      height: 680rpx;
+      .share-img {
+        image {
+          @include height-width-100;
+          @include border-radius(5);
+        }
+      }
+      .save-img-btn {
+        @include height-width-text-center(80, 240)
+        @include border-radius(30);
+        color: #446C9D;
+        font-size: 32rpx;
+        background: #ffffff;
+      }
     }
   }
 </style>

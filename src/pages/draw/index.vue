@@ -5,7 +5,13 @@
     <view class="info">--窗口高：{{ windowHeightPx }}--窗口宽：{{ windowWidthPx }}--</view>
     <view class="info">--画布高：{{ canvasHeightPx }}--画布宽：{{ canvasWidthPx }}--</view>
 
-    <canvas class="canvas" canvas-id="shareImg" :style="{height: canvasHeightPx + 'px', width: canvasWidthPx + 'px'}"/>
+    <view style=" height: 0; width: 0; visibility: hidden">
+      <canvas class="canvas" canvas-id="shareImg" :style="{height: canvasHeightPx + 'px', width: canvasWidthPx + 'px'}"/>
+    </view>
+
+    <view class='preview'>
+      <image :src='src' :style="{height: canvasHeightPx + 'px', width: canvasWidthPx + 'px'}"/>
+    </view>
 
     <view class="btn">
       <button type='primary' @click="createShareImg()">创建并生成</button>
@@ -14,9 +20,6 @@
       <button type='primary' @click="saveImg()">保存</button>
     </view>
 
-    <view class='preview'>
-      <image :src='src' :style="{height: canvasHeightPx + 'px', width: canvasWidthPx + 'px'}"/>
-    </view>
 
   </view>
 
@@ -41,7 +44,9 @@
 
       createShareImg () {
         this.drawImg(1, '成武', '菏泽', 1542516100000).then(() => {
-          this.createImg()
+          setTimeout(() => {
+            this.createImg()
+          }, 500)
         })
       },
 
@@ -110,7 +115,6 @@
               ctx.fillText('分享来自「花生拼车」', self.canvasWidthPx * 0.08, 226)
 
               ctx.drawImage('../../' + res[0].path, self.canvasWidthPx - 80, 180, 70, 70)
-
               ctx.draw()
               resolve()
             })
@@ -177,7 +181,7 @@
   @import "@/styles/mixin.scss";
   @import "@/styles/variables.scss";
   #draw {
-    @include height-width-100;
+    width: 100%;
     @include justify-center;
   }
   .info {
@@ -185,7 +189,6 @@
     width: 100%;
     text-align: center;
     line-height: 60rpx;
-    margin-bottom: 20rpx;
     background: darkgray;
   }
   .canvas {
@@ -193,7 +196,6 @@
   }
   .btn {
     width: 100%;
-    margin-top: 20rpx;
     margin-bottom: 20rpx;
     background: skyblue;
   }
@@ -204,5 +206,4 @@
       background: khaki;
     }
   }
-
 </style>
