@@ -17,8 +17,6 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
   response => {
-    wx.stopPullDownRefresh()
-    wx.hideNavigationBarLoading()
     return response.data
   },
   error => {
