@@ -42,8 +42,8 @@
                 </view>
               </view>
             </view>
-            <view class="change">
-                <text class="fa fa-1-6x fa-retweet gray-icon"/>
+            <view class="change" @click="exchange()">
+              <text class="fa fa-1-6x fa-retweet gray-icon"/>
             </view>
 
           </view>
@@ -67,7 +67,6 @@
           </view>
         </view>
         <view class="content">
-
           <view class="left">
             <view class="start address">
               <view class="icon">
@@ -94,7 +93,6 @@
               <view class="text">{{ item.time }}</view>
             </view>
           </view>
-
           <view class="right">
             <view class="summary">
               <view class="price" v-if="item.price !== '-1'">
@@ -113,7 +111,6 @@
             </view>
           </view>
         </view>
-
         <view class="footer">
           <text class="call-phone" @click="phoneCall(item.mobileNo)">联系TA</text>
         </view>
@@ -214,6 +211,11 @@
         this.tabs.forEach(tab => {
           tab.isActive = type === tab.class
         })
+      },
+      exchange () {
+        let temp = this.service.dest
+        this.service.origin = this.service.dest
+        this.service.dest = temp
       },
       searchHandler () {
         const url = `../list/main?origin=${this.service.origin}&dest=${this.service.dest}`
