@@ -213,7 +213,7 @@
         })
       },
       exchange () {
-        let temp = this.service.dest
+        let temp = this.service.origin
         this.service.origin = this.service.dest
         this.service.dest = temp
       },

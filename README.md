@@ -110,3 +110,8 @@ for (var i = 0; i < title.length; i++) {
      lineWidth += ctx.measureText(title).width;
 
 }
+
+
+eslint的基础使用
+
+https://segmentfault.com/a/1190000011451121
