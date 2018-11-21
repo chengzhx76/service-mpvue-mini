@@ -13,5 +13,5 @@ export function list (service, page) {
   const pageSize = page.pageSize
   const count = page.count
 
-  return getRequest(`list/${type}?origin=${origin === undefined ? '' : origin}&dest=${dest === undefined ? '' : dest}&date=${date === undefined ? '' : date}&num=${number === undefined ? '' : number}&page=${pageSize === undefined ? '' : pageSize}&count=${count === undefined ? '' : count}`)
+  return getRequest(`mp/list/${type}?origin=${origin === undefined ? '' : origin}&dest=${dest === undefined ? '' : dest}&date=${date === undefined ? '' : date}&num=${number === undefined ? '' : number}&page=${pageSize === undefined ? '' : pageSize}&count=${count === undefined ? '' : count}`)
 }
