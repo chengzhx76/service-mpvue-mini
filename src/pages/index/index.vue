@@ -167,7 +167,7 @@
         interval: 10000,
         duration: 500,
         service: {
-          type: 'all',
+          type: 0,
           origin: '',
           dest: ''
         },
@@ -181,16 +181,19 @@
           {
             name: '全部',
             class: 'all',
+            type: 0,
             isActive: true
           },
           {
             name: '乘客',
             class: 'passenger',
+            type: 1,
             isActive: false
           },
           {
             name: '车主',
             class: 'driver',
+            type: 2,
             isActive: false
           }
         ],

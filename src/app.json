@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/lbs/main",
     "pages/index/main",
+    "pages/lbs/main",
     "pages/list/main",
     "pages/draw/main",
     "pages/drawImg/main",
