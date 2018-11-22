@@ -16,16 +16,6 @@ page {
   color: $placeholderColor;
 }
 
-#add .release-button {
-  height: 100rpx;
-  width: 90%;
-  line-height: 95rpx;
-  border: none;
-  background: $gray-blue;
-  color: $white;
-  //border-radius: 60rpx;
-}
-
 #index .search-button {
   height: 80rpx;
   width: 100%;
@@ -35,7 +25,13 @@ page {
 }
 
 .btn-hover {
-  background: $btnHover;
+  opacity: 0.7;
+}
+button::after {
+  border: 0;
 }
 
-
+.choose-hover {
+  background-color: rgba(240,240,240, 0.5);
+  opacity: 0.7;
+}

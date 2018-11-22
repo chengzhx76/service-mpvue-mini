@@ -4,7 +4,7 @@
       <view v-for="(tab, index) in tabs"
             :class="[tab.class, { active: tab.isActive }, 'nav']"
             @click="tabsSwitch(tab.class)"
-            :key="tab.class" hover-class="btn-hover">{{ tab.name }}</view>
+            :key="tab.class" hover-class="choose-hover">{{ tab.name }}</view>
     </view>
 
     <view class="main">
@@ -36,7 +36,7 @@
               </view>
             </view>
             <view class="time info">
-              <view class="warp" hover-class="btn-hover" @click="chooseTime">
+              <view class="warp" hover-class="choose-hover" @click="chooseTime">
                 <view class="title">
                   <view class="icon">
                     <text class="fa fa-clock-o gray-icon"/>
@@ -64,7 +64,7 @@
               </view>
             </view>
             <view class="number info">
-              <view class="warp" hover-class="btn-hover" @click="chooseNumber">
+              <view class="warp" hover-class="choose-hover" @click="chooseNumber">
                 <view class="title">
                   <view class="icon">
                     <text class="fa fa-heart-o gray-icon"/>
@@ -86,7 +86,7 @@
             <view class="price info">
               <view class="warp">
 
-                <view class="title" hover-class="btn-hover" @click="choosePay">
+                <view class="title" hover-class="choose-hover" @click="choosePay">
                   <view class="icon">
                     <text class="fa fa-jpy gray-icon"/>
                   </view>
@@ -154,7 +154,7 @@
               </view>
 
               <view class="return-time info" v-if="!isPassenger">
-                <view class="warp" hover-class="btn-hover" @click="chooseRetTime">
+                <view class="warp" hover-class="choose-hover" @click="chooseRetTime">
                   <view class="title">
                     <view class="icon">
                       <text class="fa fa-clock-o gray-icon"/>
@@ -192,7 +192,7 @@
         </view>
       </view>
     <view class="release">
-      <button class="release-button" type="default" size="default" @click="addDistance" hover-class="button-hover">发布行程</button>
+      <button class="release-button" @click="addDistance" :loading="loading" hover-class="btn-hover">发布行程</button>
     </view>
 
   </view>
@@ -204,6 +204,7 @@
   export default {
     data () {
       return {
+        loading: false,
         addHeightRpx: '1000rpx',
         addHeight: 1000,
         tabs: [
@@ -441,6 +442,7 @@
         }
       },
       addDistance () {
+        this.loading = true
         const travel = {
           type: this.service.type,
           origin: this.service.origin,
@@ -455,10 +457,12 @@
         }
 
         add(travel).then(res => {
-          console.log(res)
+          const url = '../index/main'
+          wx.navigateTo({ url })
+          this.loading = false
+        }).catch(e => {
+          this.loading = false
         })
-        const url = '../index/main'
-        wx.navigateTo({ url })
       },
       dayChange (e) {
         this.dayVal = e.mp.detail.value
@@ -521,6 +525,18 @@
 <style rel="stylesheet/scss" lang="scss" scoped>
   @import "@/styles/mixin.scss";
   @import "@/styles/variables.scss";
+
+  .release-button {
+    @include height-width-percent-text-center(100, 90%);
+    background: $gray-blue;
+    border-radius: 60rpx;
+    color: $white;
+  }
+  .choose-hover {
+    background-color: rgba(240,240,240, 0.5);
+    opacity: 0.7;
+  }
+
   .more {
     width: 100%;
     @include justify-align-center;

@@ -437,7 +437,7 @@
     }
     .filter-hover {
       background: $tabHover;
-      color: $white;
+      color: $unimpColor;
     }
   }
 
