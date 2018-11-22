@@ -18,7 +18,7 @@
           </view>
         </view>
         <view class="type info">
-          <view class="warp" hover-class="btn-hover" @click="chooseType">
+          <view class="warp" hover-class="choose-hover" @click="chooseType">
             <view class="label">类型</view>
             <view class="input">
               <input placeholder-class="placeholder-color" placeholder="选择类型" disabled v-model="filter.type"/>
@@ -33,7 +33,7 @@
           </view>
         </view>
         <view class="time info">
-          <view class="warp" hover-class="btn-hover" @click="chooseTime">
+          <view class="warp" hover-class="choose-hover" @click="chooseTime">
             <view class="label">出发时间</view>
             <view class="input">
               <input placeholder-class="placeholder-color" placeholder="选择出发时间" disabled v-model="filter.date"/>
@@ -56,7 +56,7 @@
           </view>
         </view>
         <view class="number info">
-          <view class="warp" hover-class="btn-hover" @click="chooseNumber">
+          <view class="warp" hover-class="choose-hover" @click="chooseNumber">
             <view class="label">人数</view>
             <view class="input">
               <input placeholder-class="placeholder-color" placeholder="选择人数" disabled v-model="filter.number"/>
@@ -75,7 +75,7 @@
     </view>
     <view class="footer">
       <view class="all btn" hover-class="btn-hover" @click="searchHandler('all')">全部</view>
-      <view class="search btn" @click="searchHandler('condition')">搜索</view>
+      <view class="search btn" hover-class="btn-hover" @click="searchHandler('condition')">搜索</view>
     </view>
   </view>
 </template>

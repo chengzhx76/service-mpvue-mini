@@ -48,7 +48,7 @@
 
           </view>
           <view class="search-btn">
-            <button class="search-button" type="default" size="default" @click="searchHandler">搜索顺路车程</button>
+            <button class="search-button" @click="searchHandler">搜索顺路车程</button>
           </view>
 
         </view>
