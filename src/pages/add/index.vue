@@ -457,6 +457,8 @@
         add(travel).then(res => {
           console.log(res)
         })
+        const url = '../index/main'
+        wx.navigateTo({ url })
       },
       dayChange (e) {
         this.dayVal = e.mp.detail.value
