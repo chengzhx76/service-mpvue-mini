@@ -4,7 +4,7 @@
       <view class="nav">
         <view v-for="(tab, index) in tabs"
               :class="[tab.class, {active: tab.isActive}, 'btn']"
-              @click="tabsSwitch(tab.class)"
+              @click="tabsSwitch(tab.class, tab.type)"
               :key="tab.class"
               hover-class="tab-hover">{{ tab.name }}</view>
       </view>
@@ -106,27 +106,29 @@
     data () {
       return {
         listHeight: '370rpx',
-        type: 'all',
         tabs: [
           {
             name: '全部',
             class: 'all',
+            type: 0,
             isActive: true
           },
           {
             name: '乘客',
             class: 'passenger',
+            type: 1,
             isActive: false
           },
           {
             name: '车主',
             class: 'driver',
+            type: 2,
             isActive: false
           }
         ],
         list: [],
         service: {
-          type: 'all',
+          type: 0,
           origin: '',
           dest: '',
           date: '',
@@ -153,11 +155,11 @@
       }
     },
     methods: {
-      tabsSwitch (type) {
-        this.type = type
+      tabsSwitch (clazz, type) {
+        this.service.type = type
         this.getList()
         this.tabs.forEach(tab => {
-          tab.isActive = type === tab.class
+          tab.isActive = clazz === tab.class
         })
       },
       getList () {

@@ -36,6 +36,25 @@ export function formatDate (timestamp) {
   return formatNumber(month) + '月' + formatNumber(day) + '日 （' + weeks[week] + '）' + formatNumber(hour) + ':' + formatNumber(minute)
 }
 
+export function parseDate (timeCn) {
+  const now = new Date()
+  const month = now.getMonth() + 1
+
+  let yearCn = now.getFullYear()
+  const monthDayCn = timeCn.split(' ')[0]
+  const hourMinuteCn = timeCn.split(' ')[2]
+  const monthCn = monthDayCn.substring(0, 2)
+  const dayCn = monthDayCn.substring(3, 5)
+
+  if (month > parseInt(monthCn)) {
+    yearCn += 1
+  }
+
+  console.log(yearCn + '/' + monthCn + '/' + dayCn + ' ' + hourMinuteCn + ':00')
+
+  return new Date(`${yearCn}/${monthCn}/${dayCn} ${hourMinuteCn}:00`)
+}
+
 export function getDay (day) {
   let days = []
   let datestr
