@@ -1,8 +1,8 @@
 <template>
-  <view id="add" :style="{height: addHeightRpx}">
+  <view id="add" :style="{ height: addHeightRpx }">
     <view class="main-nav">
       <view v-for="(tab, index) in tabs"
-            :class="[tab.class, {active: tab.isActive}, 'nav']"
+            :class="[tab.class, { active: tab.isActive }, 'nav']"
             @click="tabsSwitch(tab.class)"
             :key="tab.class" hover-class="btn-hover">{{ tab.name }}</view>
     </view>
@@ -44,7 +44,7 @@
                   <text class="label">时间</text>
                 </view>
                 <view class="input">
-                  <input placeholder-class="placeholder-color" placeholder="乘车时间" disabled v-model="service.date"/>
+                  <input placeholder-class="placeholder-color" placeholder="乘车时间" disabled v-model="service.time"/>
                 </view>
               </view>
               <view class="choose-picker" v-if="showTimePicker">
@@ -162,11 +162,11 @@
                     <text class="label">返程</text>
                   </view>
                   <view class="input">
-                    <input placeholder-class="placeholder-color" placeholder="返程时间" disabled v-model="service.retDate"/>
+                    <input placeholder-class="placeholder-color" placeholder="返程时间" disabled v-model="service.returnTime"/>
                   </view>
                 </view>
                 <view class="choose-picker" v-if="showRetTimePicker">
-                  <picker-view class="picker left"  indicator-style="height: 50rpx;" :value="reDayVal" @change="retDayChange">
+                  <picker-view class="picker left"  indicator-style="height: 50rpx;" :value="retDayVal" @change="retDayChange">
                     <picker-view-column>
                       <view class="item" v-for="(day, index) in retDays" :key="index">{{ day }}</view>
                     </picker-view-column>
@@ -199,7 +199,8 @@
 </template>
 
 <script>
-  import { formatNumber, getDay } from '@/utils/index'
+  import { add } from '@/api/api'
+  import { formatNumber, getDay, parseDate } from '@/utils/index'
   export default {
     data () {
       return {
@@ -209,24 +210,26 @@
           {
             name: '乘客',
             class: 'passenger',
+            type: 1,
             isActive: true
           },
           {
             name: '车主',
             class: 'driver',
+            type: 2,
             isActive: false
           }
         ],
         numberTitle: '人数',
         service: {
-          type: '',
+          type: 1,
           origin: '',
           destination: '',
-          date: '',
+          time: '',
           number: '',
           price: '',
           phone: '',
-          returnDate: '',
+          returnTime: '',
           via: '',
           remarks: ''
         },
@@ -273,14 +276,14 @@
       this.day = this.days[this.dayVal[0]]
       this.time = this.times[this.timeVal[0]]
       this.minute = this.minutes[this.timeVal[1]]
-      this.service.date = `${this.day} ${this.time}:${this.minute}`
+      this.service.time = `${this.day} ${this.time}:${this.minute}`
       this.service.number = this.nums[this.numVal[0]]
       this.service.price = this.pays[this.payVal[0]]
       this.priceDisabled = this.pays[this.payVal[0]] === '面议'
       this.retDay = this.retDays[this.retDayVal[0]]
       this.retTime = this.times[this.retTimeVal[0]]
       this.retMinute = this.minutes[this.retTimeVal[1]]
-      this.service.retDate = this.retDay === '无返程' ? '无返程' : `${this.retDay} ${this.retTime}:${this.retMinute}`
+      this.service.returnTime = this.retDay === '无返程' ? '无返程' : `${this.retDay} ${this.retTime}:${this.retMinute}`
     },
     mounted () {
       const res = wx.getSystemInfoSync()
@@ -292,12 +295,12 @@
     watch: {
       dayVal (val) {
         this.day = this.days[val[0]]
-        this.service.date = `${this.day} ${this.time}:${this.minute}`
+        this.service.time = `${this.day} ${this.time}:${this.minute}`
       },
       timeVal (val) {
         this.time = this.times[val[0]]
         this.minute = this.minutes[val[1]]
-        this.service.date = `${this.day} ${this.time}:${this.minute}`
+        this.service.time = `${this.day} ${this.time}:${this.minute}`
       },
       numVal (val) {
         this.service.number = this.nums[val[0]]
@@ -308,12 +311,12 @@
       },
       retDayVal (val) {
         this.retDay = this.retDays[val[0]]
-        this.service.retDate = this.retDay === '无返程' ? '无返程' : `${this.retDay} ${this.retTime}:${this.retMinute}`
+        this.service.returnTime = this.retDay === '无返程' ? '无返程' : `${this.retDay} ${this.retTime}:${this.retMinute}`
       },
       retTimeVal (val) {
         this.retTime = this.times[val[0]]
         this.retMinute = this.minutes[val[1]]
-        this.service.retDate = this.retDay === '无返程' ? '无返程' : `${this.retDay} ${this.retTime}:${this.retMinute}`
+        this.service.returnTime = this.retDay === '无返程' ? '无返程' : `${this.retDay} ${this.retTime}:${this.retMinute}`
       },
       addHeight (val) {
         this.addHeightRpx = `${val}rpx`
@@ -322,20 +325,19 @@
     components: {
     },
     methods: {
-      tabsSwitch (type) {
+      tabsSwitch (clazz) {
         this.tabs.forEach(tab => {
-          if (type === tab.class) {
+          if (clazz === tab.class) {
             if (tab.class === 'passenger') {
-              this.type = 1
               this.isPassenger = true
               this.numberTitle = '人数'
               this.moreSwitchOff('passenger')
             } else {
-              this.type = 2
               this.isPassenger = false
               this.numberTitle = '余座'
               this.moreSwitchOff('driver')
             }
+            this.service.type = tab.type
             tab.isActive = true
           } else {
             tab.isActive = false
@@ -439,7 +441,22 @@
         }
       },
       addDistance () {
-        console.log(this.service)
+        const travel = {
+          type: this.service.type,
+          origin: this.service.origin,
+          dest: this.service.destination,
+          time: parseDate(this.service.time),
+          num: this.service.number,
+          price: this.service.price === '面议' ? '-1' : this.service.price,
+          mobileNo: this.service.phone,
+          returnTime: this.service.returnTime === '无返程' ? '' : parseDate(this.service.returnTime),
+          via: this.service.via,
+          remarks: this.service.remarks
+        }
+
+        add(travel).then(res => {
+          console.log(res)
+        })
       },
       dayChange (e) {
         this.dayVal = e.mp.detail.value
@@ -502,7 +519,6 @@
 <style rel="stylesheet/scss" lang="scss" scoped>
   @import "@/styles/mixin.scss";
   @import "@/styles/variables.scss";
-
   .more {
     width: 100%;
     @include justify-align-center;
@@ -510,9 +526,9 @@
     .menu {
       @include height-rpx-width-100(90);
       @include justify-space-between;
-      @include border-radius-top(10)
-      @include border-top-width(1)
-      @include border-bottom-width(1)
+      @include border-radius-top(10);
+      @include border-top-width(1);
+      @include border-bottom-width(1);
       background: $white;
       .title {
         @include height-width(90, 200);

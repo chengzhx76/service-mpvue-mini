@@ -30,5 +30,8 @@ service.interceptors.response.use(
 export function getRequest (url, param) {
   return service.get(url, param || {})
 }
+export function postRequest (url, param) {
+  return service.post(url, param || {})
+}
 
 export default service

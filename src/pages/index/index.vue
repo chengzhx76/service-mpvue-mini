@@ -13,7 +13,7 @@
           <view class="nav">
             <view v-for="(tab, index) in tabs"
                   :class="[tab.class, {active: tab.isActive}, 'btn']"
-                  @click="tabsSwitch(tab.class)"
+                  @click="tabsSwitch(tab.class, tab.type)"
                   :key="tab.class"
                   hover-class="tab-hover">{{ tab.name }}</view>
           </view>
@@ -208,11 +208,11 @@
     components: {
     },
     methods: {
-      tabsSwitch (type) {
+      tabsSwitch (clazz, type) {
         this.service.type = type
         this.getList()
         this.tabs.forEach(tab => {
-          tab.isActive = type === tab.class
+          tab.isActive = clazz === tab.class
         })
       },
       exchange () {
@@ -244,7 +244,7 @@
         wx.navigateTo({ url })
       },
       moreHandler () {
-        const url = '../refresh/main'
+        const url = '../list/main'
         wx.navigateTo({ url })
       },
 
