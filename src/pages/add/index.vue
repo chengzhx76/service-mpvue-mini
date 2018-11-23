@@ -532,10 +532,6 @@
     border-radius: 60rpx;
     color: $white;
   }
-  .choose-hover {
-    background-color: rgba(240,240,240, 0.5);
-    opacity: 0.7;
-  }
 
   .more {
     width: 100%;
@@ -751,10 +747,6 @@
             }
             .input {
               width: 35%;
-            }
-            .choose-block-hover {
-              /*opacity: 0.6;
-              background: #898b13;*/
             }
           }
         }
