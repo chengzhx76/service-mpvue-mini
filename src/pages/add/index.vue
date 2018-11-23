@@ -272,6 +272,7 @@
       }
     },
     onShow () {
+      const now = new Date()
       for (let i = 1; i <= 24; i++) {
         this.times.push(formatNumber(i))
       }
@@ -283,8 +284,8 @@
       dates.splice(0, 0, '无返程')
       this.retDays = dates
       this.day = this.days[this.dayVal[0]]
-      this.time = this.times[this.timeVal[0]]
-      this.minute = this.minutes[this.timeVal[1]]
+      this.time = this.times[now.getHours()]
+      this.minute = this.minutes[now.getMinutes()]
       this.service.time = `${this.day} ${this.time}:${this.minute}`
       this.service.number = this.nums[this.numVal[0]]
       this.service.price = this.pays[this.payVal[0]]
