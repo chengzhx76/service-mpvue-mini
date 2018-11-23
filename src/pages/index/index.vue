@@ -112,7 +112,7 @@
           </view>
         </view>
         <view class="footer">
-          <text class="call-phone" @click="phoneCall(item.mobileNo)">联系TA</text>
+          <text class="call-phone" hover-class="btn-hover" @click="phoneCall(item.mobileNo)">联系TA</text>
         </view>
       </view>
 
