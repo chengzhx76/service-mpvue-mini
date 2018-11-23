@@ -18,7 +18,7 @@
                 <view class="icon">
                   <text class="fa fa-car gray-icon"/>
                 </view>
-                <text class="label">起点</text>
+                <text class="label origin-error">起点</text>
               </view>
               <view class="input">
                 <input placeholder-class="placeholder-color" placeholder="出发地" @focus="hidePicker" v-model="service.origin"/>
@@ -29,7 +29,7 @@
                 <view class="icon">
                   <text class="fa fa-lg fa-map-marker gray-icon"/>
                 </view>
-                <text class="label">终点</text>
+                <text class="label dest-error">终点</text>
               </view>
               <view class="input">
                 <input placeholder-class="placeholder-color" placeholder="目的地" @focus="hidePicker" v-model="service.destination"/>
@@ -41,7 +41,7 @@
                   <view class="icon">
                     <text class="fa fa-clock-o gray-icon"/>
                   </view>
-                  <text class="label">时间</text>
+                  <text class="label time-error">时间</text>
                 </view>
                 <view class="input">
                   <input placeholder-class="placeholder-color" placeholder="乘车时间" disabled v-model="service.time"/>
@@ -69,7 +69,7 @@
                   <view class="icon">
                     <text class="fa fa-heart-o gray-icon"/>
                   </view>
-                  <text class="label">{{ numberTitle }}</text>
+                  <text class="label number-error">{{ numberTitle }}</text>
                 </view>
                 <view class="input">
                   <input placeholder-class="placeholder-color" placeholder="座位数" disabled v-model="service.number"/>
@@ -90,7 +90,7 @@
                   <view class="icon">
                     <text class="fa fa-jpy gray-icon"/>
                   </view>
-                  <text class="label">价格</text>
+                  <text class="label price-error">价格</text>
                 </view>
 
                 <view class="input" @click="chooseInputPay">
@@ -116,7 +116,7 @@
                 <view class="icon">
                   <text class="fa fa-lg fa-mobile gray-icon"/>
                 </view>
-                <text class="label">手机</text>
+                <text class="label phone-error">手机</text>
               </view>
               <view class="input">
                 <input type="number" maxlength="11"
