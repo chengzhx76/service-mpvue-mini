@@ -8,7 +8,7 @@
               :key="tab.class"
               hover-class="tab-hover">{{ tab.name }}</view>
       </view>
-      <view class="filter" hover-class="filter-hover" @click="filterHandler()">筛选</view>
+      <view class="filter" hover-class="tab-hover" @click="filterHandler()">筛选</view>
     </view>
     <scroll-view scroll-y class="list" :style="{height: listHeight}" @scroll="scroll">
 
@@ -426,18 +426,11 @@
         width: 100rpx;
         @include border-bottom(4, $red)
       }
-      .tab-hover {
-        background: $tabHover;
-      }
     }
     .filter {
       @include height-width-text-center(89, 140);
       color: $light-blue;
       font-size: 36rpx;
-    }
-    .filter-hover {
-      background: $tabHover;
-      color: $unimpColor;
     }
   }
 

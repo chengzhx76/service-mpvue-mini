@@ -42,7 +42,7 @@
                 </view>
               </view>
             </view>
-            <view class="change" @click="exchange()">
+            <view class="change" hover-class="btn-hover" @click="exchange()">
               <text class="fa fa-1-6x fa-retweet gray-icon"/>
             </view>
 
@@ -122,8 +122,9 @@
 
     </view>
 
-    <view class="add" @click="addHandler">
-      <text class="fa fa-plus fa-2x"/>
+    <view class="add" hover-class="btn-hover" @click="addHandler">
+      <text class="icon">+</text>
+      <!--<text class="fa fa-plus fa-2x"/>-->
     </view>
 
     <view style="position: absolute; top: -9999px; left: -9999px;">
@@ -216,9 +217,11 @@
         })
       },
       exchange () {
-        let temp = this.service.origin
-        this.service.origin = this.service.dest
-        this.service.dest = temp
+        if (!!this.service.origin || !!this.service.dest) {
+          let temp = this.service.origin
+          this.service.origin = this.service.dest
+          this.service.dest = temp
+        }
       },
       searchHandler () {
         const url = `../list/main?origin=${this.service.origin}&dest=${this.service.dest}`
@@ -466,9 +469,6 @@
         .my {
           @include height-width-text-center(75, 200);
         }
-        .tab-hover {
-          background: $tabHover;
-        }
       }
     }
     .search {
@@ -542,6 +542,8 @@
     @include box-shadow;
     background: $endColor;
     text {
+      @include height-width-line-height-text-center(90, 90, 75);
+      font-size: 80rpx;
       color: $white;
     }
   }
