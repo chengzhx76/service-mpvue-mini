@@ -18,21 +18,21 @@
                 <view class="icon">
                   <text class="fa fa-car gray-icon"/>
                 </view>
-                <text class="label origin-error">起点</text>
+                <text :class="['label', { error: originError }]">起点</text>
               </view>
               <view class="input">
                 <input placeholder-class="placeholder-color" placeholder="出发地" @focus="hidePicker" v-model="service.origin"/>
               </view>
             </view>
-            <view class="destination info">
+            <view class="dest info">
               <view class="title">
                 <view class="icon">
                   <text class="fa fa-lg fa-map-marker gray-icon"/>
                 </view>
-                <text class="label dest-error">终点</text>
+                <text :class="['label', { error: destError }]">终点</text>
               </view>
               <view class="input">
-                <input placeholder-class="placeholder-color" placeholder="目的地" @focus="hidePicker" v-model="service.destination"/>
+                <input placeholder-class="placeholder-color" placeholder="目的地" @focus="hidePicker" v-model="service.dest"/>
               </view>
             </view>
             <view class="time info">
@@ -41,7 +41,7 @@
                   <view class="icon">
                     <text class="fa fa-clock-o gray-icon"/>
                   </view>
-                  <text class="label time-error">时间</text>
+                  <text :class="['label', { error: timeError }]">时间</text>
                 </view>
                 <view class="input">
                   <input placeholder-class="placeholder-color" placeholder="乘车时间" disabled v-model="service.time"/>
@@ -69,7 +69,7 @@
                   <view class="icon">
                     <text class="fa fa-heart-o gray-icon"/>
                   </view>
-                  <text class="label number-error">{{ numberTitle }}</text>
+                  <text :class="['label', { error: numberError }]">{{ numberTitle }}</text>
                 </view>
                 <view class="input">
                   <input placeholder-class="placeholder-color" placeholder="座位数" disabled v-model="service.number"/>
@@ -90,7 +90,7 @@
                   <view class="icon">
                     <text class="fa fa-jpy gray-icon"/>
                   </view>
-                  <text class="label price-error">价格</text>
+                  <text :class="['label', { error: priceError }]">价格</text>
                 </view>
 
                 <view class="input" @click="chooseInputPay">
@@ -116,7 +116,7 @@
                 <view class="icon">
                   <text class="fa fa-lg fa-mobile gray-icon"/>
                 </view>
-                <text class="label phone-error">手机</text>
+                <text :class="['label', { error: phoneError }]">手机</text>
               </view>
               <view class="input">
                 <input type="number" maxlength="11"
@@ -147,7 +147,7 @@
                 </view>
                 <view class="input">
                   <input placeholder-class="placeholder-color"
-                         placeholder="途经地（可不填）"
+                         placeholder="途经地（选填）"
                          @focus="hidePicker"
                          v-model="service.via"/>
                 </view>
@@ -201,6 +201,7 @@
 <script>
   import { add } from '@/api/api'
   import { formatNumber, getDay, parseDate } from '@/utils/index'
+  import { isInteger, isMoney, isAfterNow, isMobile } from '@/utils/validate'
   export default {
     data () {
       return {
@@ -225,7 +226,7 @@
         service: {
           type: 1,
           origin: '',
-          destination: '',
+          dest: '',
           time: '',
           number: '',
           price: '',
@@ -234,6 +235,12 @@
           via: '',
           remarks: ''
         },
+        originError: false,
+        destError: false,
+        timeError: false,
+        numberError: false,
+        priceError: false,
+        phoneError: false,
         isPassenger: true,
         showTimePicker: false,
         showNumPicker: false,
@@ -321,6 +328,36 @@
       },
       addHeight (val) {
         this.addHeightRpx = `${val}rpx`
+      },
+      'service.origin' (val) {
+        if (!!val && this.originError) {
+          this.originError = false
+        }
+      },
+      'service.dest' (val) {
+        if (!!val && this.destError) {
+          this.destError = false
+        }
+      },
+      'service.time' (val) {
+        if (!!val && this.timeError) {
+          this.timeError = false
+        }
+      },
+      'service.number' (val) {
+        if (!!val && this.numberError) {
+          this.numberError = false
+        }
+      },
+      'service.price' (val) {
+        if (!!val && this.priceError) {
+          this.priceError = false
+        }
+      },
+      'service.phone' (val) {
+        if (!!val && this.phoneError) {
+          this.phoneError = false
+        }
       }
     },
     components: {
@@ -442,11 +479,39 @@
         }
       },
       addDistance () {
+        if (!this.service.origin) {
+          this.originError = true
+        }
+        if (!this.service.dest) {
+          this.destError = true
+        }
+        if (!this.service.time || !isAfterNow(parseDate(this.service.time))) {
+          this.timeError = true
+        }
+        if (!this.service.number || !isInteger(this.service.number)) {
+          this.numberError = true
+        }
+        if ((!this.service.price && isMoney(this.service.price)) || this.service.price !== '面议') {
+          this.priceError = true
+        }
+        if (!this.service.phone || !isMobile(this.service.phone)) {
+          this.phoneError = true
+        }
+
+        if (this.originError || this.destError ||
+          this.timeError || this.numberError ||
+          this.priceError || this.phoneError) {
+          return
+        }
+        if (this.moreSwitchNo || this.service.type === 2) {
+          // TODO 验证返程时间
+        }
+
         this.loading = true
         const travel = {
           type: this.service.type,
           origin: this.service.origin,
-          dest: this.service.destination,
+          dest: this.service.dest,
           time: parseDate(this.service.time),
           num: this.service.number,
           price: this.service.price === '面议' ? '-1' : this.service.price,
@@ -700,7 +765,7 @@
 
         /* info */
 
-        .origin, .destination {
+        .origin, .dest {
           height: 120rpx;
           .input {
             font-size: 40rpx;
@@ -766,5 +831,8 @@
     @include justify-align-center;
     z-index: 999;
     background: $white;
+  }
+  .error {
+    color: #CF5B56;
   }
 </style>
