@@ -49,9 +49,9 @@ export function parseDate (timeCn) {
   if (month > parseInt(monthCn)) {
     yearCn += 1
   }
-
+  /*
   console.log(yearCn + '/' + monthCn + '/' + dayCn + ' ' + hourMinuteCn + ':00')
-
+  */
   return new Date(`${yearCn}/${monthCn}/${dayCn} ${hourMinuteCn}:00`)
 }
 
