@@ -173,8 +173,8 @@
           dest: ''
         },
         page: {
-          pageSize: 1,
-          count: 10,
+          pageNum: 1,
+          count: 6,
           totalNum: 0
         },
         list: [],

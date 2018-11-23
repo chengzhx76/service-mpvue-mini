@@ -10,10 +10,10 @@ export function list (service, page) {
   const dest = service.dest
   const date = service.date
   const number = service.number
-  const pageSize = page.pageSize
+  const pageNum = page.pageNum
   const count = page.count
 
-  return getRequest(`mp/list/${type}?origin=${origin === undefined ? '' : origin}&dest=${dest === undefined ? '' : dest}&date=${date === undefined ? '' : date}&num=${number === undefined ? '' : number}&page=${pageSize === undefined ? '' : pageSize}&count=${count === undefined ? '' : count}`)
+  return getRequest(`mp/list/${type}?origin=${origin === undefined ? '' : origin}&dest=${dest === undefined ? '' : dest}&date=${date === undefined ? '' : date}&num=${number === undefined ? '' : number}&page=${pageNum === undefined ? '' : pageNum}&count=${count === undefined ? '' : count}`)
 }
 
 export function add (service) {

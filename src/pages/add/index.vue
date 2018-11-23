@@ -131,7 +131,7 @@
           <view class="more">
 
             <view class="menu" :style="{borderBottomLeftRadius: menuBottomRadius, borderBottomRightRadius: menuBottomRadius}">
-              <view class="title">其他信息</view>
+              <view class="title" @click="moreSwitch()">其他信息</view>
               <view class="switch">
                 <switch :checked="moreSwitchNo" @change="moreSwitchState" color="#76ABEF"/>
               </view>
@@ -159,7 +159,7 @@
                     <view class="icon">
                       <text class="fa fa-clock-o gray-icon"/>
                     </view>
-                    <text class="label">返程</text>
+                    <text :class="['label', { error: returnTimeError }]">返程</text>
                   </view>
                   <view class="input">
                     <input placeholder-class="placeholder-color" placeholder="返程时间" disabled v-model="service.returnTime"/>
@@ -241,6 +241,7 @@
         numberError: false,
         priceError: false,
         phoneError: false,
+        returnTimeError: false,
         isPassenger: true,
         showTimePicker: false,
         showNumPicker: false,
@@ -270,7 +271,7 @@
         pays: ['面议', '自定义']
       }
     },
-    created () {
+    onShow () {
       for (let i = 1; i <= 24; i++) {
         this.times.push(formatNumber(i))
       }
@@ -357,6 +358,11 @@
       'service.phone' (val) {
         if (!!val && this.phoneError) {
           this.phoneError = false
+        }
+      },
+      'service.returnTime' (val) {
+        if (!!val && this.returnTimeError) {
+          this.returnTimeError = false
         }
       }
     },
@@ -478,7 +484,15 @@
           this.addHeight -= 240
         }
       },
+      moreSwitch () {
+        this.moreSwitchNo = !this.moreSwitchNo
+        this.changeSwitchBox(this.moreSwitchNo)
+      },
       addDistance () {
+        if (this.loading) {
+          return
+        }
+        this.loading = true
         if (!this.service.origin) {
           this.originError = true
         }
@@ -491,23 +505,25 @@
         if (!this.service.number || !isInteger(this.service.number)) {
           this.numberError = true
         }
-        if ((!this.service.price && isMoney(this.service.price)) || this.service.price !== '面议') {
+        if (this.service.price !== '面议' && !isMoney(this.service.price)) {
           this.priceError = true
         }
         if (!this.service.phone || !isMobile(this.service.phone)) {
           this.phoneError = true
         }
-
+        if (this.moreSwitchNo && this.service.type === 2) {
+          if (this.service.returnTime !== '无返程' && !isAfterNow(parseDate(this.service.returnTime))) {
+            this.returnTimeError = true
+          }
+        }
         if (this.originError || this.destError ||
           this.timeError || this.numberError ||
-          this.priceError || this.phoneError) {
+          this.priceError || this.phoneError ||
+          this.returnTimeError) {
+          this.loading = false
           return
         }
-        if (this.moreSwitchNo || this.service.type === 2) {
-          // TODO 验证返程时间
-        }
 
-        this.loading = true
         const travel = {
           type: this.service.type,
           origin: this.service.origin,
@@ -516,18 +532,52 @@
           num: this.service.number,
           price: this.service.price === '面议' ? '-1' : this.service.price,
           mobileNo: this.service.phone,
-          returnTime: this.service.returnTime === '无返程' ? '' : parseDate(this.service.returnTime),
-          via: this.service.via,
-          remarks: this.service.remarks
+          returnTime: this.moreSwitchNo ? (this.service.returnTime === '无返程' ? '' : parseDate(this.service.returnTime)) : '',
+          via: this.moreSwitchNo ? this.service.via : '',
+          remarks: this.moreSwitchNo ? this.service.remarks : ''
         }
-
         add(travel).then(res => {
-          const url = '../index/main'
-          wx.navigateTo({ url })
           this.loading = false
+          if (res.meta.code === 2000) {
+            wx.showToast({
+              title: '添加成功',
+              icon: 'success',
+              duration: 1300
+            })
+            setTimeout(() => {
+              this.clearFrom()
+              const url = '../index/main'
+              wx.navigateTo({ url })
+            }, 1500)
+          } else {
+            wx.showToast({
+              title: '添加失败',
+              icon: 'none',
+              duration: 1300
+            })
+          }
         }).catch(e => {
           this.loading = false
+          wx.showToast({
+            title: '似乎没有网络~~',
+            icon: 'none',
+            duration: 1300
+          })
         })
+      },
+      clearFrom () {
+        this.service = {
+          type: 1,
+          origin: '',
+          dest: '',
+          time: '',
+          number: '',
+          price: '',
+          phone: '',
+          returnTime: '',
+          via: '',
+          remarks: ''
+        }
       },
       dayChange (e) {
         this.dayVal = e.mp.detail.value
@@ -544,6 +594,10 @@
       moreSwitchState (e) {
         const val = e.mp.detail.value
         this.moreSwitchNo = val
+        this.changeSwitchBox(val)
+        this.hidePicker()
+      },
+      changeSwitchBox (val) {
         if (val) {
           if (this.isPassenger) {
             this.addHeight += 330
@@ -561,7 +615,6 @@
           this.summaryShow = false
           this.menuBottomRadius = '10rpx'
         }
-        this.hidePicker()
       },
       moreSwitchOff (type) {
         if (this.moreSwitchNo) {
