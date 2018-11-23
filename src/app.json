@@ -1,17 +1,15 @@
 {
   "pages": [
     "pages/index/main",
+    "pages/filter/main",
     "pages/add/main",
+    "pages/list/main",
     "pages/button/main",
     "pages/lbs/main",
-    "pages/list/main",
     "pages/draw/main",
     "pages/drawImg/main",
     "pages/refresh/main",
-    "pages/test/main",
-    "pages/filter/main",
-    "pages/logs/main",
-    "pages/counter/main"
+    "pages/test/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

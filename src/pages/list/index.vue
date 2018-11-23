@@ -135,7 +135,7 @@
           number: ''
         },
         page: {
-          pageSize: 1,
+          pageNum: 1,
           count: 10,
           totalNum: 0,
           hasMore: true
@@ -169,6 +169,10 @@
             item.time = formatDate(item.time)
             return item
           })
+          if (res.data.pageNum * res.data.pageSize >= res.data.totalNum) {
+            this.page.hasMore = false
+            this.bottomText = '没有找到，发布一个 >'
+          }
         })
       },
 
@@ -193,7 +197,6 @@
           phoneNumber: phone
         })
       },
-
       filterHandler () {
         const url = '../filter/main'
         wx.navigateTo({ url })
@@ -240,18 +243,8 @@
         wx.navigateTo({ url })
       },
       loadMore () {
-        list(this.service, this.page).then(res => {
-          res.data.list.forEach(item => {
-            item['distTime'] = formatTime(item.time)
-            item.time = formatDate(item.time)
-            this.list.splice(this.list.length, 0, item)
-          })
-          if (this.page.pageSize * res.data.count > res.data.totalNum) {
-            this.page.hasMore = false
-            this.bottomText = '没有找到，发布一个 >'
-          }
-          this.page.pageSize += 1
-        })
+        this.page.pageNum += 1
+        this.getList()
       },
       createShareImg (val) {
         wx.showLoading({
@@ -394,6 +387,8 @@
       this.windowHeightPx = clientHeight
       this.windowWidthPx = clientWidth
       this.canvasWidthPx = Math.ceil(clientWidth * 0.9)
+
+      console.log(this.$root.$mp.query)
     }
   }
 </script>

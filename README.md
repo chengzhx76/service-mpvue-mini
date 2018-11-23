@@ -115,3 +115,6 @@ for (var i = 0; i < title.length; i++) {
 eslint的基础使用
 
 https://segmentfault.com/a/1190000011451121
+
+
+https://godbasin.github.io/2018/09/08/wxapp-page-and-navigate/
