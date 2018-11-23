@@ -174,12 +174,14 @@
         let url = '../list/main'
         if (val !== 'all') {
           const type = this.filter.type === '全部' ? '' : this.filter.type
-          const date = this.filter.date === '不限' ? '' : parseDate(this.filter.date)
+          const date = this.filter.date === '不限' ? '' : parseDate(this.filter.date).getTime()
           const number = this.filter.number === '不限' ? '' : this.filter.number
-          url = `${url}?origin=${this.filter.origin}&dest=${this.filter.dest}&type=${type}&time=${date}&number=${number}`
+          url = `${url}?origin=${this.filter.origin}&dest=${this.filter.dest}&type=${type}&time=${date}&num=${number}`
         }
+        setTimeout(() => {
+          this.clearFrom()
+        }, 1000)
         wx.redirectTo({ url })
-        this.clearFrom()
       },
       clearFrom () {
         this.filter = {

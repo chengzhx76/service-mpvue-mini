@@ -73,7 +73,7 @@
         </view>
 
         <view class="footer">
-          <text class="call-phone" @click="phoneCall(item.mobileNo)">联系TA</text>
+          <text class="call-phone" hover-class="btn-hover" @click="phoneCall(item.mobileNo)">联系TA</text>
         </view>
       </view>
 
@@ -244,7 +244,22 @@
       },
       loadMore () {
         this.page.pageNum += 1
-        this.getList()
+        list(this.service, this.page).then(res => {
+          const newList = res.data.list.map(item => {
+            item['distTime'] = formatTime(item.time)
+            item.time = formatDate(item.time)
+            return item
+          })
+          newList.forEach(item => {
+            this.list.splice(this.list.length, 0, item)
+          })
+          console.log(res.data.pageNum * res.data.pageSize)
+          console.log(res.data.totalNum)
+          if (res.data.pageNum * res.data.pageSize >= res.data.totalNum) {
+            this.page.hasMore = false
+            this.bottomText = '没有找到，发布一个 >'
+          }
+        })
       },
       createShareImg (val) {
         wx.showLoading({
