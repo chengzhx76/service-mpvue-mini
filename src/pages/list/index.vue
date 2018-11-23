@@ -387,10 +387,46 @@
             console.log(res)
           }
         })
+      },
+      initFrom () {
+        this.service.type = 0
+        this.service.origin = ''
+        this.service.dest = ''
+        this.service.date = ''
+        this.service.number = ''
+        this.blockHeight = 0
+        this.preScrollTop = 0
+        this.show = false
+        this.loading = false
+        this.text = '下拉加载~~~'
+        this.showShareImg = false
+        this.tabs = [
+          {
+            name: '全部',
+            class: 'all',
+            type: 0,
+            isActive: true
+          },
+          {
+            name: '乘客',
+            class: 'passenger',
+            type: 1,
+            isActive: false
+          },
+          {
+            name: '车主',
+            class: 'driver',
+            type: 2,
+            isActive: false
+          }
+        ]
+        this.getList()
       }
     },
     created () {
       this.getList()
+    },
+    onUnload () {
     },
     mounted () {
       const res = wx.getSystemInfoSync()
@@ -404,6 +440,7 @@
       this.canvasWidthPx = Math.ceil(clientWidth * 0.9)
 
       console.log(this.$root.$mp.query)
+      this.initFrom()
     }
   }
 </script>

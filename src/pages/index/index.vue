@@ -400,10 +400,46 @@
             console.log(res)
           }
         })
+      },
+      initFrom () {
+        this.service = {
+          type: 0,
+          origin: '',
+          dest: ''
+        }
+        this.page = {
+          pageNum: 1,
+          count: 6,
+          totalNum: 0
+        }
+        this.tabs = [
+          {
+            name: '全部',
+            class: 'all',
+            type: 0,
+            isActive: true
+          },
+          {
+            name: '乘客',
+            class: 'passenger',
+            type: 1,
+            isActive: false
+          },
+          {
+            name: '车主',
+            class: 'driver',
+            type: 2,
+            isActive: false
+          }
+        ]
+        this.showShareImg = false
+        this.getList()
       }
     },
     created () {
       this.getList()
+    },
+    onUnload () {
     },
     mounted () {
       const res = wx.getSystemInfoSync()
@@ -412,6 +448,7 @@
       this.windowHeightPx = clientHeight
       this.windowWidthPx = clientWidth
       this.canvasWidthPx = Math.ceil(clientWidth * 0.9)
+      this.initFrom()
     },
     onPullDownRefresh () {
       wx.showNavigationBarLoading()
