@@ -109,8 +109,8 @@
         typeVal: [0]
       }
     },
-    onShow () {
-      for (let i = 1; i <= 24; i++) {
+    created () {
+      for (let i = 0; i <= 24; i++) {
         this.times.push(formatNumber(i))
       }
       for (let i = 0; i < 60; i++) {
@@ -124,6 +124,11 @@
       this.filter.date = this.day === '不限' ? '不限' : `${this.day} ${this.time}:${this.minute}`
       this.filter.number = this.nums[this.numVal[0]]
       this.filter.type = this.types[this.typeVal[0]]
+    },
+    onUnload () {
+    },
+    mounted () {
+      this.initFrom()
     },
     watch: {
       dayVal (val) {
@@ -178,19 +183,7 @@
           const number = this.filter.number === '不限' ? '' : this.filter.number
           url = `${url}?origin=${this.filter.origin}&dest=${this.filter.dest}&type=${type}&time=${date}&num=${number}`
         }
-        setTimeout(() => {
-          this.clearFrom()
-        }, 1000)
-        wx.redirectTo({ url })
-      },
-      clearFrom () {
-        this.filter = {
-          origin: '',
-          dest: '',
-          date: '',
-          number: '',
-          type: ''
-        }
+        wx.navigateTo({ url })
       },
       typeChange (e) {
         this.typeVal = e.mp.detail.value
@@ -203,6 +196,31 @@
       },
       numChange (e) {
         this.numVal = e.mp.detail.value
+      },
+      initFrom () {
+        this.filter = {
+          origin: '',
+          dest: '',
+          date: '',
+          number: '',
+          type: ''
+        }
+        this.showTypePicker = false
+        this.showTimePicker = false
+        this.showNumPicker = false
+        this.day = ''
+        this.time = ''
+        this.minute = ''
+        this.dayVal = [0]
+        this.timeVal = [0, 0]
+        this.numVal = [0]
+        this.typeVal = [0]
+        this.day = this.days[this.dayVal[0]]
+        this.time = this.times[this.timeVal[0]]
+        this.minute = this.minutes[this.timeVal[1]]
+        this.filter.date = this.day === '不限' ? '不限' : `${this.day} ${this.time}:${this.minute}`
+        this.filter.number = this.nums[this.numVal[0]]
+        this.filter.type = this.types[this.typeVal[0]]
       }
     }
   }
