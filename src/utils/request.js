@@ -20,9 +20,12 @@ service.interceptors.response.use(
     return response.data
   },
   error => {
-    wx.stopPullDownRefresh()
-    wx.hideNavigationBarLoading()
     console.log('err' + error)
+    wx.showToast({
+      title: '似乎没有网络~~',
+      icon: 'none',
+      duration: 1300
+    })
     return Promise.reject(error)
   }
 )
