@@ -210,6 +210,11 @@
     },
     methods: {
       tabsSwitch (clazz, type) {
+        this.service = {
+          type: 0,
+          origin: '',
+          dest: ''
+        }
         this.service.type = type
         this.getList()
         this.tabs.forEach(tab => {
@@ -224,7 +229,7 @@
         }
       },
       searchHandler () {
-        const url = `../list/main?origin=${this.service.origin}&dest=${this.service.dest}`
+        const url = `../list/main?type=${this.service.type}&origin=${this.service.origin}&dest=${this.service.dest}`
         wx.navigateTo({ url })
       },
 
@@ -239,14 +244,17 @@
       },
 
       addHandler () {
+        this.initFrom()
         const url = '../add/main'
         wx.navigateTo({ url })
       },
       myHandler () {
+        this.initFrom()
         const url = '../draw/main'
         wx.navigateTo({ url })
       },
       moreHandler () {
+        this.initFrom()
         const url = '../list/main'
         wx.navigateTo({ url })
       },
@@ -433,10 +441,10 @@
           }
         ]
         this.showShareImg = false
-        this.getList()
       }
     },
-    created () {
+    onLoad () {
+      Object.assign(this.$data, this.$options.data())
       this.getList()
     },
     onUnload () {
@@ -448,10 +456,10 @@
       this.windowHeightPx = clientHeight
       this.windowWidthPx = clientWidth
       this.canvasWidthPx = Math.ceil(clientWidth * 0.9)
-      this.initFrom()
     },
     onPullDownRefresh () {
       wx.showNavigationBarLoading()
+      this.initFrom()
       list(this.service, this.page).then(res => {
         this.list = res.data.list.map(item => {
           item['distTime'] = formatTime(item.time)

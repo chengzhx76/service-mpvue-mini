@@ -1,9 +1,9 @@
 {
   "pages": [
     "pages/index/main",
-    "pages/filter/main",
     "pages/add/main",
     "pages/list/main",
+    "pages/filter/main",
     "pages/button/main",
     "pages/lbs/main",
     "pages/draw/main",

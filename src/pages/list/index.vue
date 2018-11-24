@@ -131,7 +131,7 @@
           type: 0,
           origin: '',
           dest: '',
-          date: '',
+          time: '',
           number: ''
         },
         page: {
@@ -392,7 +392,7 @@
         this.service.type = 0
         this.service.origin = ''
         this.service.dest = ''
-        this.service.date = ''
+        this.service.time = ''
         this.service.number = ''
         this.blockHeight = 0
         this.preScrollTop = 0
@@ -420,13 +420,13 @@
             isActive: false
           }
         ]
-        this.getList()
       }
     },
-    created () {
-      this.getList()
+    onLoad () {
+      Object.assign(this.$data, this.$options.data())
     },
     onUnload () {
+      this.initFrom()
     },
     mounted () {
       const res = wx.getSystemInfoSync()
@@ -439,8 +439,19 @@
       this.windowWidthPx = clientWidth
       this.canvasWidthPx = Math.ceil(clientWidth * 0.9)
 
-      console.log(this.$root.$mp.query)
-      this.initFrom()
+      // console.log(this.$root.$mp.query)
+      const { origin, dest, type, time, num } = this.$root.$mp.query
+      this.service = {
+        type: !type ? 0 : parseInt(type),
+        origin: origin,
+        dest: dest,
+        time: time,
+        number: num
+      }
+      this.tabs.forEach(tab => {
+        tab.isActive = this.service.type === tab.type
+      })
+      this.getList()
     }
   }
 </script>
