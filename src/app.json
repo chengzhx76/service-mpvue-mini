@@ -3,19 +3,13 @@
     "pages/index/main",
     "pages/add/main",
     "pages/list/main",
-    "pages/filter/main",
-    "pages/button/main",
-    "pages/lbs/main",
-    "pages/draw/main",
-    "pages/drawImg/main",
-    "pages/refresh/main",
-    "pages/test/main"
+    "pages/filter/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F0F0F0",
     "backgroundColor": "#F0F0F0",
-    "navigationBarTitleText": "程",
+    "navigationBarTitleText": "拼车",
     "navigationBarTextStyle": "black",
     "debug": true
   }
