@@ -17,7 +17,7 @@
                   :key="tab.class"
                   hover-class="tab-hover">{{ tab.name }}</view>
           </view>
-          <view class="my" hover-class="tab-hover" @click="myHandler()">个人中心</view>
+          <view class="my" hover-class="tab-hover"></view>
         </view>
       </view>
       <view class="search">
@@ -150,15 +150,11 @@
         imgs: [
           {
             id: '1',
-            src: 'https://dummyimage.com/240x150/50B347&text=Hello1'
+            src: 'https://chengzhx76.picp.vip/1.jpg'
           },
           {
             id: '2',
-            src: 'https://dummyimage.com/240x150/4A7BF7&text=Hello2'
-          },
-          {
-            id: '3',
-            src: 'https://dummyimage.com/240x150/894FC4&text=Hello3'
+            src: 'https://chengzhx76.picp.vip/2.jpg'
           }
         ],
         indicatorDots: true,
