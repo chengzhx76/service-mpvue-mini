@@ -140,6 +140,9 @@
   border-top: #{$width}rpx solid $borderColor;
 }
 
+@mixin border-top($width, $color) {
+  border-top: #{$width}rpx solid $color;
+}
 @mixin border-bottom($width, $color) {
   border-bottom: #{$width}rpx solid $color;
 }
