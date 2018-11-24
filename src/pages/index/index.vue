@@ -468,6 +468,9 @@
         })
         wx.stopPullDownRefresh()
         wx.hideNavigationBarLoading()
+      }).catch(e => {
+        wx.stopPullDownRefresh()
+        wx.hideNavigationBarLoading()
       })
     }
   }

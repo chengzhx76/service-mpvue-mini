@@ -564,11 +564,6 @@
           }
         }).catch(e => {
           this.loading = false
-          wx.showToast({
-            title: '似乎没有网络~~',
-            icon: 'none',
-            duration: 1300
-          })
         })
       },
       dayChange (e) {
