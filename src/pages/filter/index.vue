@@ -36,7 +36,7 @@
           <view class="warp" hover-class="choose-hover" @click="chooseTime">
             <view class="label">出发时间</view>
             <view class="input">
-              <input placeholder-class="placeholder-color" placeholder="选择出发时间" disabled v-model="filter.date"/>
+              <input placeholder-class="placeholder-color" placeholder="选择出发时间" disabled v-model="filter.time"/>
             </view>
           </view>
           <view class="choose-picker" v-if="showTimePicker">
@@ -88,7 +88,7 @@
         filter: {
           origin: '',
           dest: '',
-          date: '',
+          time: '',
           number: '',
           type: ''
         },
@@ -109,7 +109,8 @@
         typeVal: [0]
       }
     },
-    created () {
+    onLoad () {
+      Object.assign(this.$data, this.$options.data())
       for (let i = 0; i <= 24; i++) {
         this.times.push(formatNumber(i))
       }
@@ -121,24 +122,22 @@
       this.day = this.days[this.dayVal[0]]
       this.time = this.times[this.timeVal[0]]
       this.minute = this.minutes[this.timeVal[1]]
-      this.filter.date = this.day === '不限' ? '不限' : `${this.day} ${this.time}:${this.minute}`
+      this.filter.time = this.day === '不限' ? '不限' : `${this.day} ${this.time}:${this.minute}`
       this.filter.number = this.nums[this.numVal[0]]
       this.filter.type = this.types[this.typeVal[0]]
     },
     onUnload () {
-    },
-    mounted () {
-      this.initFrom()
+      Object.assign(this.$data, this.$options.data())
     },
     watch: {
       dayVal (val) {
         this.day = this.days[val[0]]
-        this.filter.date = this.day === '不限' ? '不限' : `${this.day} ${this.time}:${this.minute}`
+        this.filter.time = this.day === '不限' ? '不限' : `${this.day} ${this.time}:${this.minute}`
       },
       timeVal (val) {
         this.time = this.times[val[0]]
         this.minute = this.minutes[val[1]]
-        this.filter.date = this.day === '不限' ? '不限' : `${this.day} ${this.time}:${this.minute}`
+        this.filter.time = this.day === '不限' ? '不限' : `${this.day} ${this.time}:${this.minute}`
       },
       numVal (val) {
         this.filter.number = this.nums[val[0]]
@@ -178,12 +177,12 @@
       searchHandler (val) {
         let url = '../list/main'
         if (val !== 'all') {
-          const type = this.filter.type === '全部' ? '' : this.filter.type
-          const date = this.filter.date === '不限' ? '' : parseDate(this.filter.date).getTime()
+          const type = this.filter.type === '全部' ? 0 : (this.filter.type === '人找车' ? 1 : 2)
+          const time = this.filter.time === '不限' ? '' : parseDate(this.filter.time).getTime()
           const number = this.filter.number === '不限' ? '' : this.filter.number
-          url = `${url}?origin=${this.filter.origin}&dest=${this.filter.dest}&type=${type}&time=${date}&num=${number}`
+          url = `${url}?origin=${this.filter.origin}&dest=${this.filter.dest}&type=${type}&time=${time}&num=${number}`
         }
-        wx.navigateTo({ url })
+        wx.redirectTo({ url })
       },
       typeChange (e) {
         this.typeVal = e.mp.detail.value
@@ -196,31 +195,6 @@
       },
       numChange (e) {
         this.numVal = e.mp.detail.value
-      },
-      initFrom () {
-        this.filter = {
-          origin: '',
-          dest: '',
-          date: '',
-          number: '',
-          type: ''
-        }
-        this.showTypePicker = false
-        this.showTimePicker = false
-        this.showNumPicker = false
-        this.day = ''
-        this.time = ''
-        this.minute = ''
-        this.dayVal = [0]
-        this.timeVal = [0, 0]
-        this.numVal = [0]
-        this.typeVal = [0]
-        this.day = this.days[this.dayVal[0]]
-        this.time = this.times[this.timeVal[0]]
-        this.minute = this.minutes[this.timeVal[1]]
-        this.filter.date = this.day === '不限' ? '不限' : `${this.day} ${this.time}:${this.minute}`
-        this.filter.number = this.nums[this.numVal[0]]
-        this.filter.type = this.types[this.typeVal[0]]
       }
     }
   }

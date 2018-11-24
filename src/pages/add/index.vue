@@ -202,6 +202,7 @@
   import { add } from '@/api/api'
   import { formatNumber, getDay, parseDate } from '@/utils/index'
   import { isInteger, isMoney, isAfterNow, isMobile } from '@/utils/validate'
+  const now = new Date()
   export default {
     data () {
       return {
@@ -255,7 +256,7 @@
         time: '',
         minute: '',
         dayVal: [0],
-        timeVal: [new Date().getHours(), new Date().getMinutes()],
+        timeVal: [now.getHours(), now.getMinutes()],
         numVal: [0],
         payVal: [0],
         retDay: '',
@@ -271,7 +272,8 @@
         pays: ['面议', '自定义']
       }
     },
-    created () {
+    onLoad () {
+      Object.assign(this.$data, this.$options.data())
       for (let i = 0; i <= 24; i++) {
         this.times.push(formatNumber(i))
       }
@@ -296,6 +298,8 @@
     },
     onUnload () {
       // TODO 保存本地
+
+      Object.assign(this.$data, this.$options.data())
     },
     mounted () {
       const res = wx.getSystemInfoSync()
@@ -303,7 +307,6 @@
       const clientWidth = res.windowWidth
       const rpxR = 750 / clientWidth
       this.addHeight = clientHeight * rpxR + 160 + 60
-      this.clearFrom()
     },
     watch: {
       dayVal (val) {
@@ -549,9 +552,8 @@
               duration: 1300
             })
             setTimeout(() => {
-              this.clearFrom()
               const url = '../index/main'
-              wx.navigateTo({ url })
+              wx.redirectTo({ url })
             }, 1500)
           } else {
             wx.showToast({
@@ -625,76 +627,6 @@
       },
       retTimeChange (e) {
         this.retTimeVal = e.mp.detail.value
-      },
-      clearFrom () {
-        this.loading = false
-        this.tabs = [
-          {
-            name: '乘客',
-            class: 'passenger',
-            type: 1,
-            isActive: true
-          },
-          {
-            name: '车主',
-            class: 'driver',
-            type: 2,
-            isActive: false
-          }
-        ]
-        this.service = {
-          type: 1,
-          origin: '',
-          dest: '',
-          time: '',
-          number: '',
-          price: '',
-          phone: '',
-          returnTime: '',
-          via: '',
-          remarks: ''
-        }
-        this.numberTitle = '人数'
-        this.originError = false
-        this.destError = false
-        this.timeError = false
-        this.numberError = false
-        this.priceError = false
-        this.phoneError = false
-        this.returnTimeError = false
-        this.isPassenger = true
-        this.showTimePicker = false
-        this.showNumPicker = false
-        this.showPayPicker = false
-        this.priceDisabled = true
-        this.showRetTimePicker = false
-        this.summaryShow = false
-        this.moreSwitchNo = false
-        this.menuBottomRadius = '10rpx'
-        this.day = ''
-        this.time = ''
-        this.minute = ''
-        this.dayVal = [0]
-        this.timeVal = [new Date().getHours(), new Date().getMinutes()]
-        this.numVal = [0]
-        this.payVal = [0]
-        this.retDay = ''
-        this.retTime = ''
-        this.retMinute = ''
-        this.retDayVal = [0]
-        this.retTimeVal = [0, 0]
-
-        this.day = this.days[this.dayVal[0]]
-        this.time = this.times[this.timeVal[0]]
-        this.minute = this.minutes[this.timeVal[1]]
-        this.service.time = `${this.day} ${this.time}:${this.minute}`
-        this.service.number = this.nums[this.numVal[0]]
-        this.service.price = this.pays[this.payVal[0]]
-        this.priceDisabled = this.pays[this.payVal[0]] === '面议'
-        this.retDay = this.retDays[this.retDayVal[0]]
-        this.retTime = this.times[this.retTimeVal[0]]
-        this.retMinute = this.minutes[this.retTimeVal[1]]
-        this.service.returnTime = this.retDay === '无返程' ? '无返程' : `${this.retDay} ${this.retTime}:${this.retMinute}`
       }
     }
   }

@@ -118,3 +118,22 @@ https://segmentfault.com/a/1190000011451121
 
 
 https://godbasin.github.io/2018/09/08/wxapp-page-and-navigate/
+
+
+https://github.com/Meituan-Dianping/mpvue/issues/140
+
+  import _ from 'lodash'
+created () {
+      // 第一次进入页面 先把原始数据备份
+      defaultData = _.cloneDeep(this.$data)
+    },
+    // 进入页面
+    onLoad () {
+      Object.assign(this.$data, defaultData)
+      this.getList()
+    },
+    // 页面卸载 返回按钮
+    onUnload () {
+      // 退出页面 回复原始数据
+      Object.assign(this.$data, defaultData)
+    },
