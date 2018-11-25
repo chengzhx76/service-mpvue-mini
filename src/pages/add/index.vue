@@ -18,7 +18,7 @@
                 <view class="icon">
                   <text class="fa fa-car gray-icon"/>
                 </view>
-                <text :class="['label', { error: originError }]">起点</text>
+                <text :class="['label', { error: formValidate.origin }]">起点</text>
               </view>
               <view class="input">
                 <input placeholder-class="placeholder-color" placeholder="出发地" @focus="hidePicker" v-model="service.origin"/>
@@ -29,7 +29,7 @@
                 <view class="icon">
                   <text class="fa fa-lg fa-map-marker gray-icon"/>
                 </view>
-                <text :class="['label', { error: destError }]">终点</text>
+                <text :class="['label', { error: formValidate.dest }]">终点</text>
               </view>
               <view class="input">
                 <input placeholder-class="placeholder-color" placeholder="目的地" @focus="hidePicker" v-model="service.dest"/>
@@ -41,7 +41,7 @@
                   <view class="icon">
                     <text class="fa fa-clock-o gray-icon"/>
                   </view>
-                  <text :class="['label', { error: timeError }]">时间</text>
+                  <text :class="['label', { error: formValidate.time }]">时间</text>
                 </view>
                 <view class="input">
                   <input placeholder-class="placeholder-color" placeholder="乘车时间" disabled v-model="service.time"/>
@@ -69,7 +69,7 @@
                   <view class="icon">
                     <text class="fa fa-heart-o gray-icon"/>
                   </view>
-                  <text :class="['label', { error: numberError }]">{{ numberTitle }}</text>
+                  <text :class="['label', { error: formValidate.number }]">{{ numberTitle }}</text>
                 </view>
                 <view class="input">
                   <input placeholder-class="placeholder-color" placeholder="座位数" disabled v-model="service.number"/>
@@ -90,7 +90,7 @@
                   <view class="icon">
                     <text class="fa fa-jpy gray-icon"/>
                   </view>
-                  <text :class="['label', { error: priceError }]">价格</text>
+                  <text :class="['label', { error: formValidate.price }]">价格</text>
                 </view>
 
                 <view class="input" @click="chooseInputPay">
@@ -116,7 +116,7 @@
                 <view class="icon">
                   <text class="fa fa-lg fa-mobile gray-icon"/>
                 </view>
-                <text :class="['label', { error: phoneError }]">手机</text>
+                <text :class="['label', { error: formValidate.phone }]">手机</text>
               </view>
               <view class="input">
                 <input type="number" maxlength="11"
@@ -159,7 +159,7 @@
                     <view class="icon">
                       <text class="fa fa-clock-o gray-icon"/>
                     </view>
-                    <text :class="['label', { error: returnTimeError }]">返程</text>
+                    <text :class="['label', { error: formValidate.returnTime }]">返程</text>
                   </view>
                   <view class="input">
                     <input placeholder-class="placeholder-color" placeholder="返程时间" disabled v-model="service.returnTime"/>
@@ -236,13 +236,15 @@
           via: '',
           remarks: ''
         },
-        originError: false,
-        destError: false,
-        timeError: false,
-        numberError: false,
-        priceError: false,
-        phoneError: false,
-        returnTimeError: false,
+        formValidate: {
+          origin: false,
+          dest: false,
+          time: false,
+          number: false,
+          price: false,
+          phone: false,
+          returnTime: false
+        },
         isPassenger: true,
         showTimePicker: false,
         showNumPicker: false,
@@ -338,38 +340,43 @@
         this.addHeightRpx = `${val}rpx`
       },
       'service.origin' (val) {
-        if (!!val && this.originError) {
-          this.originError = false
+        if (!!val && this.formValidate.origin) {
+          this.formValidate.origin = false
         }
       },
       'service.dest' (val) {
-        if (!!val && this.destError) {
-          this.destError = false
+        if (!!val && this.formValidate.dest) {
+          this.formValidate.dest = false
         }
       },
       'service.time' (val) {
-        if (!!val && this.timeError) {
-          this.timeError = false
+        if (!!val && this.formValidate.time) {
+          this.formValidate.time = false
         }
       },
       'service.number' (val) {
-        if (!!val && this.numberError) {
-          this.numberError = false
+        if (!!val && this.formValidate.number) {
+          this.formValidate.number = false
         }
       },
       'service.price' (val) {
-        if (!!val && this.priceError) {
-          this.priceError = false
+        if (!!val && this.formValidate.price) {
+          this.formValidate.price = false
         }
       },
       'service.phone' (val) {
-        if (!!val && this.phoneError) {
-          this.phoneError = false
+        if (!!val && this.formValidate.phone) {
+          this.formValidate.phone = false
+        }
+      },
+      moreSwitchNo (val) {
+        if (!val) {
+          this.formValidate.returnTime = false
         }
       },
       'service.returnTime' (val) {
-        if (!!val && this.returnTimeError) {
-          this.returnTimeError = false
+        if (!!val && this.formValidate.returnTime) {
+          this.formValidate.returnTime = false
         }
       }
     },
@@ -501,32 +508,32 @@
         }
         this.loading = true
         if (!this.service.origin) {
-          this.originError = true
+          this.formValidate.origin = true
         }
         if (!this.service.dest) {
-          this.destError = true
+          this.formValidate.dest = true
         }
         if (!this.service.time || !isAfterNow(parseDate(this.service.time))) {
-          this.timeError = true
+          this.formValidate.time = true
         }
         if (!this.service.number || !isInteger(this.service.number)) {
-          this.numberError = true
+          this.formValidate.number = true
         }
         if (this.service.price !== '面议' && !isMoney(this.service.price)) {
-          this.priceError = true
+          this.formValidate.price = true
         }
         if (!this.service.phone || !isMobile(this.service.phone)) {
-          this.phoneError = true
+          this.formValidate.phone = true
         }
         if (this.moreSwitchNo && this.service.type === 2) {
           if (this.service.returnTime !== '无返程' && !isAfterNow(parseDate(this.service.returnTime))) {
-            this.returnTimeError = true
+            this.formValidate.returnTime = true
           }
         }
-        if (this.originError || this.destError ||
-          this.timeError || this.numberError ||
-          this.priceError || this.phoneError ||
-          this.returnTimeError) {
+        if (this.formValidate.origin || this.formValidate.dest ||
+          this.formValidate.time || this.formValidate.number ||
+          this.formValidate.price || this.formValidate.phone ||
+          this.formValidate.returnTime) {
           this.loading = false
           return
         }
