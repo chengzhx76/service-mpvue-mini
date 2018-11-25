@@ -240,17 +240,14 @@
       },
 
       addHandler () {
-        this.initFrom()
         const url = '../add/main'
         wx.navigateTo({ url })
       },
       myHandler () {
-        this.initFrom()
         const url = '../draw/main'
         wx.navigateTo({ url })
       },
       moreHandler () {
-        this.initFrom()
         const url = '../list/main'
         wx.navigateTo({ url })
       },
