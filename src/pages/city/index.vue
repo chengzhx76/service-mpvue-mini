@@ -18,22 +18,15 @@
 </template>
 
 <script>
-  import QQMapWX from '@/libs/qqmap-wx-jssdk'
+  import { getCites } from '@/api/api'
   import { mapKey } from '@/utils/config'
+  import QQMapWX from '@/libs/qqmap-wx-jssdk'
 
   export default {
     data () {
       return {
-        cites: [
-          '11134',
-          '22222255',
-          '北京市',
-          '菏泽市',
-          '郑州市',
-          '商丘市',
-          '济南市'
-        ],
         list: null,
+        map: null,
         selectCity: ''
       }
     },
@@ -41,10 +34,11 @@
       input (e) {
         const cursor = e.mp.detail.cursor
         const value = e.mp.detail.value
-        console.log(value)
         if (cursor > 1) {
-          this.list = this.cites.filter(item => {
-            return item.indexOf(value) !== -1
+          getCites(value).then(res => {
+            res.data.forEach(item => {
+              this.list.push(item.city)
+            })
           })
         }
       },
@@ -70,7 +64,6 @@
         key: mapKey
       })
     }
-
   }
 </script>
 
