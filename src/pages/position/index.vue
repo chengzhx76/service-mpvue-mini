@@ -51,7 +51,7 @@
             region: this.selectCity,
             region_fix: 1,
             success (res) {
-              self.listHeight = res.data.length * 131
+              self.listHeight = res.data.length * 135
               self.positions = []
               res.data.forEach(item => {
                 self.positions.push({
@@ -103,7 +103,7 @@
   @import "@/styles/mixin.scss";
   @import "@/styles/variables.scss";
   #position {
-    @include height-width-100;
+    width: 100%;
     @include column-align-center;
     background: $white;
   }
@@ -115,11 +115,12 @@
     .city {
       height: 100rpx;
       min-width: 20rpx;
-      line-height: 100rpx;
+      line-height: 104rpx;
       padding-left: 15rpx;
       padding-right: 20rpx;
+      font-size: 30rpx;
       &:after {
-        @include arrow-bottom-left(16, 6, -8);
+        @include arrow-bottom-left(16, 6, -6);
       }
     }
     .local {
@@ -152,14 +153,15 @@
         overflow:hidden;
         text-overflow:ellipsis;
         white-space:nowrap;
-        font-size: 36rpx;
+        font-size: 34rpx;
       }
       .address {
         @include height-width-100-text(40, left);
         overflow:hidden;
         text-overflow:ellipsis;
         white-space:nowrap;
-        font-size: 28rpx;
+        font-size: 26rpx;
+        color: $unimpColor;
       }
     }
     .icon {
