@@ -5,11 +5,12 @@
       <input placeholder-class="placeholder-color" @input="input" placeholder="请输入城市名称" v-model="selectCity"/>
     </view>
     <view class="list">
-      <view v-for="(city, index) in list"
-            class="city"
-            @click="select(city)"
-            :key="index"
-            hover-class="choose-hover">{{ city }}</view>
+      <navigator v-for="(city, index) in list"
+                 :url="'../position/main?city=' + city"
+                 open-type="redirect"
+                 hover-class="choose-hover"
+                 class="city"
+                 :key="index">{{ city }}</navigator>
     </view>
     <button @click="testBtn">搜索</button>
   </view>

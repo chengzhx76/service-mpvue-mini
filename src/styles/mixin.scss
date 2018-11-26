@@ -136,6 +136,10 @@
   border-bottom: #{$width}rpx solid $borderColor;
 }
 
+@mixin border-left-width($width) {
+  border-left: #{$width}rpx solid $borderColor;
+}
+
 @mixin border-top-width($width) {
   border-top: #{$width}rpx solid $borderColor;
 }
@@ -192,5 +196,19 @@
   position: absolute;
   right: #{$right}rpx;
   top: #{$top}rpx;
+}
+
+@mixin arrow-bottom-left($val, $right, $top) {
+  content: " ";
+  display: inline-block;
+  height: #{$val}rpx;
+  width: #{$val}rpx;
+  border-right: 4rpx solid $arrowColor;
+  border-bottom: 4rpx solid $arrowColor;
+  transform: rotate(45deg);
+  position: relative;
+  right: #{$right}rpx;
+  top: #{$top}rpx;
+  margin-left: 20rpx;
 }
 
