@@ -19,3 +19,7 @@ export function list (service, page) {
 export function add (service) {
   return postRequest('mp/add', service)
 }
+
+export function getCites (city) {
+  return getRequest(`mp/cites?city=${city}`)
+}
