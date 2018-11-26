@@ -2,7 +2,7 @@
 
   <view id="city">
     <view class="select">
-      <input placeholder-class="placeholder-color" @input="input" placeholder="请输入城市名称" v-model="selectCity"/>
+      <input placeholder-class="placeholder-color" @input="input" placeholder="请输入城市名称"/>
     </view>
     <view class="list">
       <navigator v-for="(city, index) in list"
@@ -12,7 +12,7 @@
                  class="city"
                  :key="index">{{ city }}</navigator>
     </view>
-    <button @click="testBtn">搜索</button>
+    <!--<button @click="testBtn">搜索</button>-->
   </view>
 
 </template>
@@ -25,9 +25,8 @@
   export default {
     data () {
       return {
-        list: null,
-        map: null,
-        selectCity: ''
+        list: [],
+        map: null
       }
     },
     methods: {
@@ -35,17 +34,13 @@
         const cursor = e.mp.detail.cursor
         const value = e.mp.detail.value
         if (cursor > 1) {
+          this.list = []
           getCites(value).then(res => {
             res.data.forEach(item => {
               this.list.push(item.city)
             })
           })
         }
-      },
-      select (city) {
-        this.list = []
-        console.log(city)
-        this.selectCity = city
       },
       testBtn () {
         this.map.getCityList({
@@ -58,6 +53,12 @@
           }
         })
       }
+    },
+    onLoad () {
+      this.list = []
+    },
+    onUnload () {
+      this.list = []
     },
     created () {
       this.map = new QQMapWX({
@@ -76,7 +77,7 @@
     background: $white;
   }
   .select {
-    @include height-rpx-width-100(110);
+    @include height-rpx-width-100(98);
     @include border-top-width(1);
     @include border-bottom-width(1);
     input {
@@ -88,7 +89,7 @@
   .list {
     width: 100%;
     .city {
-      @include height-width-percent-text(89, 95%, left);
+      @include height-width-percent-text(109, 95%, left);
       @include border-bottom-width(1);
       margin-left: 5%;
     }

@@ -20,8 +20,8 @@
                 </view>
                 <text :class="['label', { error: formValidate.origin }]">起点</text>
               </view>
-              <view class="input">
-                <input placeholder-class="placeholder-color" placeholder="出发地" @focus="hidePicker" v-model="service.origin"/>
+              <view class="input" @click="chooseOrigin">
+                <input placeholder-class="placeholder-color" placeholder="出发地" disabled v-model="service.origin"/>
               </view>
             </view>
             <view class="dest info">
@@ -31,8 +31,8 @@
                 </view>
                 <text :class="['label', { error: formValidate.dest }]">终点</text>
               </view>
-              <view class="input">
-                <input placeholder-class="placeholder-color" placeholder="目的地" @focus="hidePicker" v-model="service.dest"/>
+              <view class="input" @click="chooseDest">
+                <input placeholder-class="placeholder-color" placeholder="目的地" disabled v-model="service.dest"/>
               </view>
             </view>
             <view class="time info">
@@ -309,6 +309,14 @@
       const clientWidth = res.windowWidth
       const rpxR = 750 / clientWidth
       this.addHeight = clientHeight * rpxR + 160 + 60
+      const { type, position, lat, lng } = this.$root.$mp.query
+      console.log(type, position, lat, lng)
+      if (type === '1') {
+        this.service.origin = position
+      } else if (type === '2') {
+        this.service.dest = position
+      }
+      console.log(this.service)
     },
     watch: {
       dayVal (val) {
@@ -410,6 +418,16 @@
         this.showNumPicker = false
         this.showPayPicker = false
         this.showRetTimePicker = false
+      },
+      chooseOrigin () {
+        this.hidePicker()
+        const url = '../position/main?type=1'
+        wx.navigateTo({ url })
+      },
+      chooseDest () {
+        this.hidePicker()
+        const url = '../position/main?type=2'
+        wx.navigateTo({ url })
       },
       chooseTime () {
         if (this.showNumPicker) {

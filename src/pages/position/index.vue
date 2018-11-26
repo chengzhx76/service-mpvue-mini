@@ -1,18 +1,20 @@
 <template>
   <view id="position">
     <view class="header">
-      <view class="city">{{ selectCity }}</view>
+      <navigator class="city" url="../city/main"
+                 open-type="navigate"
+                 hover-class="choose-hover">{{ selectCity }}</navigator>
       <view class="local">
         <input placeholder-class="placeholder-color" @input="input" placeholder="请输入地点" v-model="city"/>
       </view>
     </view>
     <view class="list" :style="{height: listHeight + 'rpx'}">
-      <view v-for="(position, index) in positions"
-        class="position"
-        @click="select(position)"
-        :key="index"
-        hover-class="choose-hover"
-      >
+      <navigator v-for="(position, index) in positions"
+                 :url="'../add/main?type=' + type + '&position=' + position.title + '&lat=' + position.location.lat + '&lng=' + position.location.lng"
+                 open-type="redirect"
+                 class="position"
+                 hover-class="choose-hover"
+                 :key="index">
         <view class="place">
           <view class="title">{{ position.title }}</view>
           <view class="address">{{ position.address }}</view>
@@ -20,7 +22,7 @@
         <view class="icon">
           <text class="fa fa-lg fa-map-marker gray-icon"/>
         </view>
-      </view>
+      </navigator>
     </view>
   </view>
 </template>
@@ -34,6 +36,7 @@
       return {
         selectCity: '菏泽市',
         city: '',
+        type: 1,
         listHeight: 0,
         map: null,
         positions: []
@@ -47,7 +50,7 @@
           const self = this
           this.map.getSuggestion({
             keyword: value,
-            region: this.selectCity,
+            region: self.selectCity,
             region_fix: 1,
             success (res) {
               self.listHeight = res.data.length * 135
@@ -85,15 +88,26 @@
       }
     },
     mounted () {
-      const { city } = this.$root.$mp.query
+      const { city, type } = this.$root.$mp.query
       if (city) {
         this.selectCity = city
+      }
+      if (type) {
+        this.type = type
       }
     },
     created () {
       this.map = new QQMapWX({
         key: mapKey
       })
+    },
+    onLoad () {
+      this.city = ''
+      this.positions = []
+    },
+    onUnload () {
+      this.city = ''
+      this.positions = []
     }
   }
 </script>
