@@ -21,7 +21,6 @@
           <text class="fa fa-lg fa-map-marker gray-icon"/>
         </view>
       </view>
-
     </view>
   </view>
 </template>
