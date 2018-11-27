@@ -309,14 +309,6 @@
       const clientWidth = res.windowWidth
       const rpxR = 750 / clientWidth
       this.addHeight = clientHeight * rpxR + 160 + 60
-      const { type, position, lat, lng } = this.$root.$mp.query
-      console.log(type, position, lat, lng)
-      if (type === '1') {
-        this.service.origin = position
-      } else if (type === '2') {
-        this.service.dest = position
-      }
-      console.log(this.service)
     },
     watch: {
       dayVal (val) {
@@ -390,6 +382,22 @@
     },
     components: {
     },
+    onShow () {
+      if (this.$mp.page.data && this.$mp.page.data.extend && this.$mp.page.data.extend.position) {
+        const posType = this.$mp.page.data.extend.posType
+        const title = this.$mp.page.data.extend.position.title
+        // const lat = this.$mp.page.data.extend.position.lat
+        // const lng = this.$mp.page.data.extend.position.lng
+        if (posType === '1') {
+          this.service.origin = title
+        } else if (posType === '2') {
+          this.service.dest = title
+        }
+        this.$mp.page.setData({
+          extend: null
+        })
+      }
+    },
     methods: {
       tabsSwitch (clazz) {
         this.tabs.forEach(tab => {
@@ -421,12 +429,12 @@
       },
       chooseOrigin () {
         this.hidePicker()
-        const url = '../position/main?type=1'
+        const url = '../position/main?posType=1'
         wx.navigateTo({ url })
       },
       chooseDest () {
         this.hidePicker()
-        const url = '../position/main?type=2'
+        const url = '../position/main?posType=2'
         wx.navigateTo({ url })
       },
       chooseTime () {
@@ -663,121 +671,6 @@
     color: $white;
   }
 
-  .more {
-    width: 100%;
-    @include justify-align-center;
-    margin-top: 25rpx;
-    .menu {
-      @include height-rpx-width-100(90);
-      @include justify-space-between;
-      @include border-radius-top(10);
-      @include border-top-width(1);
-      @include border-bottom-width(1);
-      background: $white;
-      .title {
-        @include height-width(90, 200);
-        font-size: 30rpx;
-        line-height: 90rpx;
-        text-indent: 10rpx;
-        color: $unimpColor;
-        /*background: darkgray;*/
-      }
-      .switch {
-        @include height-width(90, 115);
-        @include justify-align-center;
-        /*background: darkcyan;*/
-      }
-    }
-    .summary {
-      width: 100%;
-      background: $white;
-      @include border-radius-bottom(10);
-      .via {
-        height: 120rpx;
-      }
-      .remarks {
-        height: 120rpx;
-        @include border-radius-bottom(10);
-        input {
-          @include height-width-100;
-          font-size: 36rpx;
-          padding-left: 20rpx;
-          color: $inputColor;
-        }
-      }
-    }
-  }
-
-  .distance, .more {
-    .info {
-      width: 100%;
-      @include justify-start-align-center;
-      @include border-bottom-width(1);
-      .warp {
-        width: 100%;
-        @include justify-start-align-center;
-      }
-      .title {
-        @include height-rpx-width-percent(120, 40%);
-        color: $titleColor;
-        @include justify-start-align-center;
-        .icon {
-          @include height-width(120, 80);
-          @include justify-align-center;
-        }
-        .label {
-          height: 120rpx;
-          line-height: 115rpx;
-          font-size: 34rpx;
-        }
-      }
-      .input {
-        height: 120rpx;
-        width: 60%;
-        input {
-          height: 120rpx;
-          text-align: right;
-          padding-right: 47rpx;
-        }
-      }
-    }
-    .time, .return-time, .via {
-      .input {
-        font-size: 32rpx;
-        color: $inputUnimpColor;
-      }
-    }
-    .time, .return-time {
-      min-height: 120rpx;
-      .input {
-        position: relative;
-      }
-      .input:after {
-        @include arrow(16, 25, 52);
-      }
-      .choose-picker {
-        .left {
-          width: 60%;
-        }
-        .right {
-          width: 40%;
-        }
-      }
-    }
-    .choose-picker {
-      @include height-rpx-width-100(240);
-      display: flex;
-      .picker {
-        @include height-rpx-width-100(240);
-      }
-      .item {
-        width: 100%;
-        line-height: 75rpx;
-        text-align: center
-      }
-    }
-  }
-
   #add {
     width: 100%;
     @include column-align-center;
@@ -837,14 +730,16 @@
             color: $inputColor;
           }
         }
-        .number, .price, .phone, {
+        .number, .price {
+          min-height: 120rpx;
+        }
+        .number, .price, .phone {
           .input {
             font-size: 32rpx;
             color: $inputUnimpColor;
           }
         }
-        .number, .price {
-          min-height: 120rpx;
+        .origin, .dest, .number, .price {
           .input {
             position: relative;
           }
@@ -887,6 +782,122 @@
     }
 
   }
+
+  .more {
+    width: 100%;
+    @include justify-align-center;
+    margin-top: 25rpx;
+    .menu {
+      @include height-rpx-width-100(90);
+      @include justify-space-between;
+      @include border-radius-top(10);
+      @include border-top-width(1);
+      @include border-bottom-width(1);
+      background: $white;
+      .title {
+        @include height-width(90, 200);
+        font-size: 30rpx;
+        line-height: 90rpx;
+        text-indent: 10rpx;
+        color: $unimpColor;
+        /*background: darkgray;*/
+      }
+      .switch {
+        @include height-width(90, 115);
+        @include justify-align-center;
+        /*background: darkcyan;*/
+      }
+    }
+    .summary {
+      width: 100%;
+      background: $white;
+      @include border-radius-bottom(10);
+      .via {
+        height: 120rpx;
+      }
+      .remarks {
+        height: 120rpx;
+        @include border-radius-bottom(10);
+        input {
+          @include height-width-100;
+          font-size: 36rpx;
+          padding-left: 20rpx;
+          color: $inputColor;
+        }
+      }
+    }
+  }
+
+  .distance, .more {
+    .info {
+      width: 100%;
+      @include justify-start-align-center;
+      @include border-bottom-width(1);
+      .warp {
+        width: 100%;
+        @include justify-start-align-center;
+      }
+      .title {
+        @include height-rpx-width-percent(120, 25%);
+        color: $titleColor;
+        @include justify-start-align-center;
+        .icon {
+          @include height-width(120, 80);
+          @include justify-align-center;
+        }
+        .label {
+          height: 120rpx;
+          line-height: 115rpx;
+          font-size: 34rpx;
+        }
+      }
+      .input {
+        height: 120rpx;
+        width: 75%;
+        input {
+          height: 120rpx;
+          text-align: right;
+          padding-right: 47rpx;
+        }
+      }
+    }
+    .time, .return-time, .via {
+      .input {
+        font-size: 32rpx;
+        color: $inputUnimpColor;
+      }
+    }
+    .time, .return-time {
+      min-height: 120rpx;
+      .input {
+        position: relative;
+      }
+      .input:after {
+        @include arrow(16, 25, 52);
+      }
+      .choose-picker {
+        .left {
+          width: 60%;
+        }
+        .right {
+          width: 40%;
+        }
+      }
+    }
+    .choose-picker {
+      @include height-rpx-width-100(240);
+      display: flex;
+      .picker {
+        @include height-rpx-width-100(240);
+      }
+      .item {
+        width: 100%;
+        line-height: 75rpx;
+        text-align: center
+      }
+    }
+  }
+
   .release {
     @include height-rpx-width-100(160);
     position: fixed;

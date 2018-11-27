@@ -185,6 +185,12 @@
   border-bottom-left-radius: #{$val}rpx;
 }
 
+@mixin over-hidden {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 @mixin arrow($val, $right, $top) {
   content: " ";
   display: inline-block;

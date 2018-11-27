@@ -2,3 +2,6 @@ build/*.js
 config/*.js
 src/libs/*.js
 src/utils/*.js
+src/pages/city/*
+src/pages/position/*
+src/pages/filter/*
