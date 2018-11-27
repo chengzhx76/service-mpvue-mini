@@ -90,9 +90,9 @@
     @include border-top-width(1);
     @include border-bottom-width(1);
     input {
-      @include height-width-100;
+      @include height-100-width-percent(98%);
       font-size: 36rpx;
-      padding-left: 20rpx;
+      margin-left: 2%;
     }
   }
   .list {

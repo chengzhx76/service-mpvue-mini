@@ -31,7 +31,7 @@
               <view class="icon">
                 <view class="nav">起</view>
               </view>
-              <view class="text">{{ item.origin }}</view>
+              <text class="text">{{ item.origin }}</text>
             </view>
             <view class="road address" v-if="!!item.via">
               <view class="icon">
@@ -43,13 +43,13 @@
               <view class="icon">
                 <view class="nav">终</view>
               </view>
-              <view class="text">{{ item.dest }}</view>
+              <text class="text">{{ item.dest }}</text>
             </view>
             <view class="time address">
               <view class="icon">
                 <view class="nav">时</view>
               </view>
-              <view class="text">{{ item.time }}</view>
+              <text class="text">{{ item.time }}</text>
             </view>
           </view>
 
@@ -65,7 +65,7 @@
               <view class="note">{{ item.distTime }}</view>
             </view>
             <view class="share">
-              <view class="icon" @click="chooseShare(item)">
+              <view class="icon" hover-class="btn-hover" @click="chooseShare(item)">
                 <text class="fa blue-icon fa-sm fa-share-alt"/>
               </view>
             </view>
@@ -156,7 +156,7 @@
     },
     methods: {
       tabsSwitch (clazz, type) {
-        this.service.type = type
+        this.service.type = type === 0 ? 0 : type === 1 ? 2 : 1
         this.getList()
         this.tabs.forEach(tab => {
           tab.isActive = clazz === tab.class
@@ -440,27 +440,26 @@
       this.canvasWidthPx = Math.ceil(clientWidth * 0.9)
 
       // console.log(this.$root.$mp.query)
-      /*
-      const { origin, dest, type, time, num } = this.$root.$mp.query
-      this.service = {
-        type: !type ? 0 : parseInt(type),
-        origin: origin,
-        dest: dest,
-        time: time,
-        number: num
+      const { origin, dest, type } = this.$root.$mp.query
+      let newType = !type ? 0 : parseInt(type) === 1 ? 2 : 1
+      if (!!origin || !!dest || !!type) {
+        this.service = {
+          type: newType,
+          origin: origin,
+          dest: dest
+        }
+        this.tabs.forEach(tab => {
+          tab.isActive = parseInt(type) === tab.type
+        })
+        this.getList()
       }
-      this.tabs.forEach(tab => {
-        tab.isActive = this.service.type === tab.type
-      })
-      this.getList()
-      */
     },
     onShow () {
       if (this.$mp.page.data && this.$mp.page.data.extend) {
-        console.log(this.$mp.page.data.extend)
         const { origin, dest, type, time, num } = this.$mp.page.data.extend
+        let newType = !type ? 0 : parseInt(type) === 1 ? 2 : 1
         this.service = {
-          type: !type ? 0 : parseInt(type),
+          type: newType,
           origin: origin,
           dest: dest,
           time: time,
@@ -470,7 +469,7 @@
           extend: null
         })
         this.tabs.forEach(tab => {
-          tab.isActive = this.service.type === tab.type
+          tab.isActive = parseInt(type) === tab.type
         })
       }
       this.getList()
