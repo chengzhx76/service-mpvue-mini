@@ -1,9 +1,9 @@
 {
   "pages": [
     "pages/index/main",
+    "pages/city/main",
     "pages/add/main",
     "pages/position/main",
-    "pages/city/main",
     "pages/list/main",
     "pages/filter/main"
   ],

@@ -72,7 +72,7 @@
               <view class="icon">
                 <view class="nav">起</view>
               </view>
-              <view class="text">{{ item.origin }}</view>
+              <text class="text">{{ item.origin }}</text>
             </view>
             <view class="road address" v-if="!!item.via">
               <view class="icon">
@@ -84,13 +84,13 @@
               <view class="icon">
                 <view class="nav">终</view>
               </view>
-              <view class="text">{{ item.dest }}</view>
+              <text class="text">{{ item.dest }}</text>
             </view>
             <view class="time address">
               <view class="icon">
                 <view class="nav">时</view>
               </view>
-              <view class="text">{{ item.time }}</view>
+              <text class="text">{{ item.time }}</text>
             </view>
           </view>
           <view class="right">
@@ -105,7 +105,7 @@
               <view class="note">{{ item.distTime }}</view>
             </view>
             <view class="share">
-              <view class="icon" @click="chooseShare(item)">
+              <view class="icon" hover-class="btn-hover" @click="chooseShare(item)">
                 <text class="fa blue-icon fa-sm fa-share-alt"/>
               </view>
             </view>
@@ -211,7 +211,7 @@
           origin: '',
           dest: ''
         }
-        this.service.type = type
+        this.service.type = type === 0 ? 0 : type === 1 ? 2 : 1
         this.getList()
         this.tabs.forEach(tab => {
           tab.isActive = clazz === tab.class
@@ -225,7 +225,8 @@
         }
       },
       searchHandler () {
-        const url = `../list/main?type=${this.service.type}&origin=${this.service.origin}&dest=${this.service.dest}`
+        let type = this.service.type === 0 ? 0 : this.service.type === 1 ? 2 : 1
+        const url = `../list/main?type=${type}&origin=${this.service.origin}&dest=${this.service.dest}`
         wx.navigateTo({ url })
       },
 
