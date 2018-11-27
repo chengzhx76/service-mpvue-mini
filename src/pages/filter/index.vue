@@ -175,14 +175,24 @@
         this.showTimePicker = !this.showTimePicker
       },
       searchHandler (val) {
-        let url = '../list/main'
+        const self = this
+        const pages = getCurrentPages()
+        const prevPage = pages[pages.length - 2]
         if (val !== 'all') {
           const type = this.filter.type === '全部' ? 0 : (this.filter.type === '人找车' ? 1 : 2)
           const time = this.filter.time === '不限' ? '' : parseDate(this.filter.time).getTime()
           const number = this.filter.number === '不限' ? '' : this.filter.number
-          url = `${url}?origin=${this.filter.origin}&dest=${this.filter.dest}&type=${type}&time=${time}&num=${number}`
+          prevPage.setData({
+            'extend.origin': self.filter.origin,
+            'extend.dest': self.filter.dest,
+            'extend.type': type,
+            'extend.time': time,
+            'extend.num': number
+          })
         }
-        wx.redirectTo({ url })
+        wx.navigateBack({
+          delta: 1
+        })
       },
       typeChange (e) {
         this.typeVal = e.mp.detail.value

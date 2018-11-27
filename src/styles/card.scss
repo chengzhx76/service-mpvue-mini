@@ -69,10 +69,11 @@
           }
           .text {
             @include height-rpx-width-percent(65, 90%);
+            @include justify-start-align-center;
+            @include over-hidden;
             font-size: 32rpx;
             line-height: 60rpx;
             text-indent: 5rpx;
-            @include justify-start-align-center;
           }
         }
         .start {

@@ -5,14 +5,13 @@
       <input placeholder-class="placeholder-color" @input="input" placeholder="请输入城市名称"/>
     </view>
     <view class="list">
-      <navigator v-for="(city, index) in list"
-                 :url="'../position/main?city=' + city"
-                 open-type="redirect"
+      <view v-for="(city, index) in list"
+                 @click="selectCity(city)"
                  hover-class="choose-hover"
                  class="city"
-                 :key="index">{{ city }}</navigator>
+                 :key="index">{{ city }}</view>
     </view>
-    <!--<button @click="testBtn">搜索</button>-->
+    <!--<button @click="testBtn">搜索:url="'../position/main?city=' + city"</button>-->
   </view>
 
 </template>
@@ -41,6 +40,16 @@
             })
           })
         }
+      },
+      selectCity (city) {
+        const pages = getCurrentPages();
+        const prevPage = pages[pages.length - 2]
+        prevPage.setData({
+          'extend.selectCity': city,
+        })
+        wx.navigateBack({
+          delta: 1
+        })
       },
       testBtn () {
         this.map.getCityList({

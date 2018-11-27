@@ -440,6 +440,7 @@
       this.canvasWidthPx = Math.ceil(clientWidth * 0.9)
 
       // console.log(this.$root.$mp.query)
+      /*
       const { origin, dest, type, time, num } = this.$root.$mp.query
       this.service = {
         type: !type ? 0 : parseInt(type),
@@ -451,6 +452,27 @@
       this.tabs.forEach(tab => {
         tab.isActive = this.service.type === tab.type
       })
+      this.getList()
+      */
+    },
+    onShow () {
+      if (this.$mp.page.data && this.$mp.page.data.extend) {
+        console.log(this.$mp.page.data.extend)
+        const { origin, dest, type, time, num } = this.$mp.page.data.extend
+        this.service = {
+          type: !type ? 0 : parseInt(type),
+          origin: origin,
+          dest: dest,
+          time: time,
+          number: num
+        }
+        this.$mp.page.setData({
+          extend: null
+        })
+        this.tabs.forEach(tab => {
+          tab.isActive = this.service.type === tab.type
+        })
+      }
       this.getList()
     }
   }

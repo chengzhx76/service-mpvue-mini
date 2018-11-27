@@ -5,13 +5,12 @@
                  open-type="navigate"
                  hover-class="choose-hover">{{ selectCity }}</navigator>
       <view class="local">
-        <input placeholder-class="placeholder-color" @input="input" placeholder="请输入地点" v-model="city"/>
+        <input placeholder-class="placeholder-color" @input="input" placeholder="请输入地点"/>
       </view>
     </view>
     <view class="list" :style="{height: listHeight + 'rpx'}">
-      <navigator v-for="(position, index) in positions"
-                 :url="'../add/main?type=' + type + '&position=' + position.title + '&lat=' + position.location.lat + '&lng=' + position.location.lng"
-                 open-type="redirect"
+      <view v-for="(position, index) in positions"
+                 @click="selectPosition(position)"
                  class="position"
                  hover-class="choose-hover"
                  :key="index">
@@ -22,8 +21,9 @@
         <view class="icon">
           <text class="fa fa-lg fa-map-marker gray-icon"/>
         </view>
-      </navigator>
+      </view>
     </view>
+    <!--<button @click="testBtn">ddd</button>-->
   </view>
 </template>
 
@@ -35,8 +35,7 @@
     data () {
       return {
         selectCity: '菏泽市',
-        city: '',
-        type: 1,
+        posType: 1,
         listHeight: 0,
         map: null,
         positions: []
@@ -72,7 +71,21 @@
           this.listHeight = 0
         }
       },
+      selectPosition (position) {
+        const self = this
+        const pages = getCurrentPages()
+        const prevPage = pages[pages.length - 2]
+        prevPage.setData({
+          'extend.posType': self.posType,
+          'extend.position': position
+        })
+        wx.navigateBack({
+          delta: 1
+        })
+      },
       testBtn () {
+        console.log(this.$mp.page)
+        /*
         this.map.getSuggestion({
           keyword: '成武',
           region: this.selectCity,
@@ -85,15 +98,18 @@
             console.log(res)
           }
         })
+        */
       }
     },
     mounted () {
-      const { city, type } = this.$root.$mp.query
-      if (city) {
-        this.selectCity = city
+      const { posType } = this.$root.$mp.query
+      if (posType) {
+        this.posType = posType
       }
-      if (type) {
-        this.type = type
+    },
+    onShow () {
+      if (this.$mp.page.data && this.$mp.page.data.extend) {
+        this.selectCity = this.$mp.page.data.extend.selectCity
       }
     },
     created () {
@@ -102,11 +118,9 @@
       })
     },
     onLoad () {
-      this.city = ''
       this.positions = []
     },
     onUnload () {
-      this.city = ''
       this.positions = []
     }
   }
@@ -163,16 +177,12 @@
       @include height-rpx-width-percent(129, 80%);
       .title {
         @include height-width-100-text-line(69, left, 80);
-        overflow:hidden;
-        text-overflow:ellipsis;
-        white-space:nowrap;
+        @include over-hidden;
         font-size: 34rpx;
       }
       .address {
         @include height-width-100-text(40, left);
-        overflow:hidden;
-        text-overflow:ellipsis;
-        white-space:nowrap;
+        @include over-hidden;
         font-size: 26rpx;
         color: $unimpColor;
       }
