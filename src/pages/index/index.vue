@@ -315,7 +315,7 @@
         const self = this
         let qr = new Promise(function (resolve, reject) {
           wx.getImageInfo({
-            src: '../../img/gh_e3d8966d446b_258.jpg',
+            src: '../../img/gh_a53167bbfa26_258.jpg',
             success: function (res) {
               resolve(res)
             },
@@ -373,7 +373,7 @@
               ctx.setFillStyle('#ACACAC')
               ctx.setFontSize(14)
               ctx.fillText('长按识别小程序码，联系TA', self.canvasWidthPx * 0.08, 200)
-              ctx.fillText('分享来自「花生拼车」', self.canvasWidthPx * 0.08, 226)
+              ctx.fillText('分享来自「成武拼车」', self.canvasWidthPx * 0.08, 226)
 
               ctx.drawImage('../../' + res[0].path, self.canvasWidthPx - 80, 180, 70, 70)
               ctx.draw()
