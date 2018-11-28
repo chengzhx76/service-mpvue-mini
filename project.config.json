@@ -20,13 +20,28 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 0,
+			"list": [
+				{
+					"id": 0,
+					"name": "右上角分享打开",
+					"pathName": "pages/index/main",
+					"query": "",
+					"scene": "1036",
+					"referrerInfo": {
+						"appId": "wx0addf6b1a931fbcb"
+					}
+				}
+			]
 		}
 	}
 }
