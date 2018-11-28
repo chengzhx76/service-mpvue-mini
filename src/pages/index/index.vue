@@ -466,6 +466,13 @@
         wx.stopPullDownRefresh()
         wx.hideNavigationBarLoading()
       })
+    },
+    onShareAppMessage (res) {
+      console.log(res)
+      return {
+        title: '向你推荐成武拼车，快来试试~',
+        path: 'pages/index/main'
+      }
     }
   }
 </script>
