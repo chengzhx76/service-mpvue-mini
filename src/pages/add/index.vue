@@ -386,12 +386,20 @@
       if (this.$mp.page.data && this.$mp.page.data.extend && this.$mp.page.data.extend.position) {
         const posType = this.$mp.page.data.extend.posType
         const title = this.$mp.page.data.extend.position.title
-        // const lat = this.$mp.page.data.extend.position.lat
-        // const lng = this.$mp.page.data.extend.position.lng
+        const lat = this.$mp.page.data.extend.position.lat
+        const lng = this.$mp.page.data.extend.position.lng
         if (posType === '1') {
-          this.service.origin = title
+          this.service.origin = {
+            title: title,
+            lat: lat,
+            lng: lng
+          }
         } else if (posType === '2') {
-          this.service.dest = title
+          this.service.dest = {
+            title: title,
+            lat: lat,
+            lng: lng
+          }
         }
         this.$mp.page.setData({
           extend: null
