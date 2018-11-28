@@ -21,7 +21,7 @@
                 <text :class="['label', { error: formValidate.origin }]">起点</text>
               </view>
               <view class="input" @click="chooseOrigin">
-                <input placeholder-class="placeholder-color" placeholder="出发地" disabled v-model="service.origin"/>
+                <input placeholder-class="placeholder-color" placeholder="出发地" disabled v-model="service.origin.title"/>
               </view>
             </view>
             <view class="dest info">
@@ -32,7 +32,7 @@
                 <text :class="['label', { error: formValidate.dest }]">终点</text>
               </view>
               <view class="input" @click="chooseDest">
-                <input placeholder-class="placeholder-color" placeholder="目的地" disabled v-model="service.dest"/>
+                <input placeholder-class="placeholder-color" placeholder="目的地" disabled v-model="service.dest.title"/>
               </view>
             </view>
             <view class="time info">
@@ -386,8 +386,7 @@
       if (this.$mp.page.data && this.$mp.page.data.extend && this.$mp.page.data.extend.position) {
         const posType = this.$mp.page.data.extend.posType
         const title = this.$mp.page.data.extend.position.title
-        const lat = this.$mp.page.data.extend.position.lat
-        const lng = this.$mp.page.data.extend.position.lng
+        const { lat, lng } = this.$mp.page.data.extend.position.location
         if (posType === '1') {
           this.service.origin = {
             title: title,
@@ -577,9 +576,9 @@
           origin: this.service.origin,
           dest: this.service.dest,
           time: parseDate(this.service.time),
-          num: this.service.number,
+          number: this.service.number,
           price: this.service.price === '面议' ? '-1' : this.service.price,
-          mobileNo: this.service.phone,
+          phone: this.service.phone,
           returnTime: this.moreSwitchNo ? (this.service.returnTime === '无返程' ? '' : parseDate(this.service.returnTime)) : '',
           via: this.moreSwitchNo ? this.service.via : '',
           remarks: this.moreSwitchNo ? this.service.remarks : ''

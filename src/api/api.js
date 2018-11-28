@@ -17,6 +17,7 @@ export function list (service, page) {
 }
 
 export function add (service) {
+  console.log(service)
   const travel = {
     type: service.type,
     origin: service.origin.title,

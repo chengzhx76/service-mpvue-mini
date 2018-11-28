@@ -5,11 +5,9 @@
 </template>
 
 <script>
-
   export default {
     data () {
       return {
-        map: null
       }
     },
     methods: {
