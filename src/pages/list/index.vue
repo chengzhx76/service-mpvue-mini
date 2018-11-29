@@ -179,11 +179,9 @@
       chooseShare (item) {
         const self = this
         wx.showActionSheet({
-          itemList: ['分享到好友', '生成图片 保存分享'],
+          itemList: ['生成图片 保存分享'],
           success (res) {
             if (res.tapIndex === 0) {
-              console.log('分享给好友')
-            } else if (res.tapIndex === 1) {
               self.createShareImg(item)
             }
           },
@@ -441,10 +439,9 @@
 
       // console.log(this.$root.$mp.query)
       const { origin, dest, type } = this.$root.$mp.query
-      let newType = !type ? 0 : parseInt(type) === 1 ? 2 : 1
       if (!!origin || !!dest || !!type) {
         this.service = {
-          type: newType,
+          type: !type ? 0 : parseInt(type) === 1 ? 2 : 1,
           origin: origin,
           dest: dest
         }
@@ -457,9 +454,8 @@
     onShow () {
       if (this.$mp.page.data && this.$mp.page.data.extend) {
         const { origin, dest, type, time, num } = this.$mp.page.data.extend
-        let newType = !type ? 0 : parseInt(type) === 1 ? 2 : 1
         this.service = {
-          type: newType,
+          type: !type ? 0 : parseInt(type) === 1 ? 2 : 1,
           origin: origin,
           dest: dest,
           time: time,

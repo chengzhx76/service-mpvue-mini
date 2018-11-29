@@ -226,8 +226,16 @@
         numberTitle: '人数',
         service: {
           type: 1,
-          origin: '',
-          dest: '',
+          origin: {
+            title: '',
+            lat: '',
+            lng: ''
+          },
+          dest: {
+            title: '',
+            lat: '',
+            lng: ''
+          },
           time: '',
           number: '',
           price: '',
@@ -540,10 +548,10 @@
           return
         }
         this.loading = true
-        if (!this.service.origin) {
+        if (!this.service.origin.title) {
           this.formValidate.origin = true
         }
-        if (!this.service.dest) {
+        if (!this.service.dest.title) {
           this.formValidate.dest = true
         }
         if (!this.service.time || !isAfterNow(parseDate(this.service.time))) {

@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/map/main",
     "pages/index/main",
+    "pages/map/main",
     "pages/city/main",
     "pages/add/main",
     "pages/position/main",
