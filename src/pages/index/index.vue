@@ -142,21 +142,12 @@
 </template>
 
 <script>
-  import { list } from '@/api/api'
+  import { list, config } from '@/api/api'
   import { formatTime, formatDate } from '@/utils/index'
   export default {
     data () {
       return {
-        imgs: [
-          {
-            id: '1',
-            src: 'https://chengzhx76.picp.vip/1.jpg'
-          },
-          {
-            id: '2',
-            src: 'https://chengzhx76.picp.vip/2.jpg'
-          }
-        ],
+        imgs: [],
         indicatorDots: true,
         vertical: false,
         autoplay: true,
@@ -236,6 +227,17 @@
             item['distTime'] = formatTime(item.time)
             item.time = formatDate(item.time)
             return item
+          })
+        })
+      },
+      getConfig () {
+        this.imgs = []
+        config(1).then(res => {
+          res.data.forEach(item => {
+            this.imgs.push({
+              id: item.configKey,
+              src: item.configValue
+            })
           })
         })
       },
@@ -439,6 +441,7 @@
     },
     onLoad () {
       Object.assign(this.$data, this.$options.data())
+      this.getConfig()
       this.getList()
     },
     onUnload () {
@@ -470,7 +473,7 @@
     onShareAppMessage (res) {
       console.log(res)
       return {
-        title: '向你推荐成武拼车，快来试试~',
+        title: '推荐成武拼车，快来试试~',
         path: 'pages/index/main'
       }
     }

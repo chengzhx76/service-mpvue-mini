@@ -40,3 +40,7 @@ export function add (service) {
 export function getCites (city) {
   return getRequest(`mp/cites?city=${city}`)
 }
+
+export function config (type) {
+  return getRequest(`mp/config?type=${type}`)
+}
