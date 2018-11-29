@@ -105,7 +105,7 @@
         minutes: [],
         nums: ['不限', 1, 2, 3, 4, 5, 6],
         numVal: [0],
-        types: ['全部', '人找车', '车找人'],
+        types: ['全部', '我是乘客', '我是车主'],
         typeVal: [0]
       }
     },
@@ -179,7 +179,7 @@
         const pages = getCurrentPages()
         const prevPage = pages[pages.length - 2]
         if (val !== 'all') {
-          const type = this.filter.type === '全部' ? 0 : (this.filter.type === '人找车' ? 1 : 2)
+          const type = this.filter.type === '全部' ? 0 : (this.filter.type === '我是乘客' ? 1 : 2)
           const time = this.filter.time === '不限' ? '' : parseDate(this.filter.time).getTime()
           const number = this.filter.number === '不限' ? '' : this.filter.number
           prevPage.setData({

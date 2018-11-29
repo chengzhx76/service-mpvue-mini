@@ -48,7 +48,7 @@
 
           </view>
           <view class="search-btn">
-            <button class="search-button" @click="searchHandler">搜索顺路车程</button>
+            <button class="search-button" hover-class="btn-hover" @click="searchHandler">搜索顺路车程</button>
           </view>
 
         </view>
@@ -216,7 +216,7 @@
         }
       },
       searchHandler () {
-        let type = this.service.type === 0 ? 0 : this.service.type === 1 ? 2 : 1
+        let type = this.service.type === 0 ? 0 : this.service.type === 2 ? 1 : 2
         const url = `../list/main?type=${type}&origin=${this.service.origin}&dest=${this.service.dest}`
         wx.navigateTo({ url })
       },
@@ -258,11 +258,10 @@
       chooseShare (item) {
         const self = this
         wx.showActionSheet({
-          itemList: ['分享到好友', '生成图片 保存分享'],
+          itemList: ['生成图片 保存分享'],
           success (res) {
             if (res.tapIndex === 0) {
               console.log('分享给好友')
-            } else if (res.tapIndex === 1) {
               self.createShareImg(item)
             }
           },
@@ -561,6 +560,10 @@
         .search-btn {
           @include height-rpx-width-100(113);
           @include justify-align-center;
+          .search-button {
+            color: $white;
+            background: $light-blue;
+          }
         }
       }
     }
