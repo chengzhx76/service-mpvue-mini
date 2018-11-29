@@ -1,5 +1,9 @@
 <template>
   <view id="map">
+    <button id="share" open-type="share">转发</button>
+
+    <button @click="testBtn">Test</button>
+
   </view>
 
 </template>
@@ -11,6 +15,17 @@
       }
     },
     methods: {
+      testBtn () {
+        let btn = document.getElementById('share')
+        btn.click()
+      }
+    },
+    onShareAppMessage (res) {
+      console.log(res)
+      return {
+        title: '快来试试~',
+        path: 'pages/index/main'
+      }
     }
   }
 </script>
@@ -18,28 +33,10 @@
 <style rel="stylesheet/scss" lang="scss" scoped>
   @import "@/styles/mixin.scss";
   @import "@/styles/variables.scss";
-  #city {
+  #map {
     @include height-width-100;
     @include column-align-center;
     background: $white;
-  }
-  .select {
-    @include height-rpx-width-100(98);
-    @include border-top-width(1);
-    @include border-bottom-width(1);
-    input {
-      @include height-width-100;
-      font-size: 36rpx;
-      padding-left: 20rpx;
-    }
-  }
-  .list {
-    width: 100%;
-    .city {
-      @include height-width-percent-text(109, 95%, left);
-      @include border-bottom-width(1);
-      margin-left: 5%;
-    }
   }
 
 </style>
