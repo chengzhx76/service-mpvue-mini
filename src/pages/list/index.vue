@@ -15,67 +15,7 @@
       <view class="refresh" v-if="show">{{ text }}</view>
       <view :style="{height: blockHeight + 'rpx'}"></view>
 
-      <view class="card" v-for="(item, index) in list" :key="item.id">
-        <view class="header">
-          <view :class="[item.type === 2 ? 'driver' : 'passenger', 'nav-block']"></view>
-          <view class="nav-info">
-            <view class="tag">{{ item.type === 2 ? '车找人' : '人找车'}}</view>
-            <view class="seats" v-if="item.type === 2">剩余{{ item.num }}座</view>
-            <view class="seats" v-if="item.type === 1">{{ item.num }}人</view>
-          </view>
-        </view>
-        <view class="content">
-
-          <view class="left">
-            <view class="start address">
-              <view class="icon">
-                <view class="nav">起</view>
-              </view>
-              <text class="text">{{ item.origin }}</text>
-            </view>
-            <view class="road address" v-if="!!item.via">
-              <view class="icon">
-                <view class="nav">经</view>
-              </view>
-              <text class="text">{{ item.via }}</text>
-            </view>
-            <view class="end address">
-              <view class="icon">
-                <view class="nav">终</view>
-              </view>
-              <text class="text">{{ item.dest }}</text>
-            </view>
-            <view class="time address">
-              <view class="icon">
-                <view class="nav">时</view>
-              </view>
-              <text class="text">{{ item.time }}</text>
-            </view>
-          </view>
-
-          <view class="right">
-            <view class="summary">
-              <view class="price" v-if="item.price !== '-1'">
-                <text class="money">{{ item.price }}</text>
-                <text class="unit">/人</text>
-              </view>
-              <view class="price" v-else>
-                <text class="money">面议</text>
-              </view>
-              <view class="note">{{ item.distTime }}</view>
-            </view>
-            <view class="share">
-              <view class="icon" hover-class="btn-hover" @click="chooseShare(item)">
-                <text class="fa blue-icon fa-sm fa-share-alt"/>
-              </view>
-            </view>
-          </view>
-        </view>
-
-        <view class="footer">
-          <text class="call-phone" hover-class="btn-hover" @click="phoneCall(item.mobileNo)">联系TA</text>
-        </view>
-      </view>
+      <base-card v-for="(travel, index) in list" :travel="travel" :key="travel.id"/>
 
       <view class="bottom-block" hover-class="btn-hover" @click="bottomHandler">{{ bottomText }}</view>
       <view class="block"></view>
@@ -96,11 +36,13 @@
 </template>
 
 <script>
+  import BaseCard from '@/components/BaseCard/index'
   import { list } from '@/api/api'
   import { formatTime, formatDate } from '@/utils/index'
 
   export default {
     components: {
+      BaseCard
     },
 
     data () {
@@ -173,26 +115,6 @@
             this.page.hasMore = false
             this.bottomText = '没有找到，发布一个 >'
           }
-        })
-      },
-
-      chooseShare (item) {
-        const self = this
-        wx.showActionSheet({
-          itemList: ['生成图片 保存分享'],
-          success (res) {
-            if (res.tapIndex === 0) {
-              self.createShareImg(item)
-            }
-          },
-          fail (res) {
-            console.log(res.errMsg)
-          }
-        })
-      },
-      phoneCall (phone) {
-        wx.makePhoneCall({
-          phoneNumber: phone
         })
       },
       filterHandler () {
@@ -476,7 +398,6 @@
 <style rel="stylesheet/scss" lang="scss" scoped>
   @import "@/styles/mixin.scss";
   @import "@/styles/variables.scss";
-  @import "@/styles/card.scss";
   #list {
     @include height-width-100;
     @include column-align-center;
@@ -527,19 +448,17 @@
       font-size: 32rpx;
       color: $refreshColor;
     }
-    .card {
-      @include height-rpx-width-percent(360, 96%);
-      margin-left: 2%;
-    }
-    .card:nth-last-child(3) {
-      @include border-radius-bottom(0);
-      .footer {
-        @include border-radius-bottom(0);
-      }
-    }
+
     .bottom-block {
       @include height-rpx-width-percent(89, 96%);
       margin-left: 2%;
+      line-height: 89rpx;
+      font-size: 34rpx;
+      color: $light-blue;
+      text-align: center;
+      @include border-top-width(1);
+      @include border-radius-bottom(10);
+      background: $white;
     }
     .block {
       @include height-rpx-width-100(50)

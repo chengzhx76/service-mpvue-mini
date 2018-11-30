@@ -1,7 +1,97 @@
-@import "@/styles/mixin.scss";
-@import "@/styles/variables.scss";
+<template>
+  <view class="card">
+    <view class="header">
+      <view :class="[travel.type === 2 ? 'driver' : 'passenger', 'nav-block']"></view>
+      <view class="nav-info">
+        <view class="tag">{{ travel.type === 2 ? '车找人' : '人找车'}}</view>
+        <view class="seats" v-if="travel.type === 2">剩余{{ travel.num }}座</view>
+        <view class="seats" v-if="travel.type === 1">{{ travel.num }}人</view>
+      </view>
+    </view>
+    <view class="content">
+      <view class="left">
+        <view class="start address">
+          <view class="icon">
+            <view class="nav">起</view>
+          </view>
+          <text class="text">{{ travel.origin }}</text>
+        </view>
+        <view class="road address" v-if="!!travel.via">
+          <view class="icon">
+            <view class="nav">经</view>
+          </view>
+          <text class="text">{{ travel.via }}</text>
+        </view>
+        <view class="end address">
+          <view class="icon">
+            <view class="nav">终</view>
+          </view>
+          <text class="text">{{ travel.dest }}</text>
+        </view>
+        <view class="time address">
+          <view class="icon">
+            <view class="nav">时</view>
+          </view>
+          <text class="text">{{ travel.time }}</text>
+        </view>
+      </view>
+      <view class="right">
+        <view class="summary">
+          <view class="price" v-if="travel.price !== '-1'">
+            <text class="money">{{ travel.price }}</text>
+            <text class="unit">/人</text>
+          </view>
+          <view class="price" v-else>
+            <text class="money">面议</text>
+          </view>
+          <view class="note">{{ travel.distTime }}</view>
+        </view>
+        <view class="share">
+          <view class="icon" hover-class="btn-hover" @click="chooseShare(item)">
+            <text class="fa blue-icon fa-sm fa-share-alt"/>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="footer">
+      <!--<text class="call-phone" hover-class="btn-hover" @click="phoneCall(travel.mobileNo)">联系TA</text>-->
+      <button class="call-phone" size="mini" hover-class="btn-hover" @click="phoneCall(travel.mobileNo)">联系TA</button>
+    </view>
+  </view>
+</template>
 
-.list {
+<script>
+  export default {
+    props: {
+      travel: {
+        type: Object,
+        required: true
+      }
+    },
+    methods: {
+      phoneCall (phone) {
+        wx.makePhoneCall({
+          phoneNumber: phone
+        })
+      },
+      chooseShare (item) {
+        const self = this
+        wx.showActionSheet({
+          itemList: ['生成图片 保存分享'],
+          success (res) {
+            if (res.tapIndex === 0) {
+              self.createShareImg(item)
+            }
+          }
+        })
+      }
+    }
+  }
+</script>
+
+<style rel="stylesheet/scss" lang="scss" scoped>
+  @import "@/styles/mixin.scss";
+  @import "@/styles/variables.scss";
   .card {
     @include border-radius-top(10);
     @include border-radius-bottom(10);
@@ -160,29 +250,10 @@
         height: 50rpx;
         font-size: 32rpx;
         line-height: 50rpx;
-        color: $white;
-        padding: 0 10rpx;
+        color: $cardBtnFontColor;
+        padding: 0 15rpx;
         margin-right: 15rpx;
-        @include border-radius(5);
-        background: $light-blue;
       }
     }
   }
-  .card:nth-last-child(2) {
-    @include border-radius-bottom(0);
-    .footer {
-      @include border-radius-bottom(0);
-    }
-  }
-  .bottom-block {
-    line-height: 89rpx;
-    font-size: 34rpx;
-    color: $light-blue;
-    text-align: center;
-    @include border-top-width(1);
-    @include border-radius-bottom(10);
-    background: $white;
-  }
-
-}
-
+</style>
