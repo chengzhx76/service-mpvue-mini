@@ -1,11 +1,11 @@
 {
   "pages": [
     "pages/index/main",
+    "pages/list/main",
     "pages/map/main",
     "pages/city/main",
     "pages/add/main",
     "pages/position/main",
-    "pages/list/main",
     "pages/filter/main"
   ],
   "window": {

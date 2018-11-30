@@ -35,27 +35,17 @@ button::after {
 }
 
 /* 单独页面的自定义 */
-#index {
-  .card {
-    @include height-rpx-width-percent(360, 98%);
-    &:nth-last-child(2) {
-      @include border-radius-bottom(0);
-      .footer {
-        @include border-radius-bottom(0);
-      }
-    }
+#index, #list {
+  .bottom-block {
+    @include height-width-percent-text-center(89, 98%);
+    margin-left: 1%;
+    font-size: 34rpx;
+    color: $light-blue;
+    @include border-top-width(1);
+    @include border-radius-bottom(10);
+    background: $white;
   }
-}
-
-#list {
-  .card {
-    @include height-rpx-width-percent(360, 96%);
-    margin-left: 2%;
-    &:nth-last-child(3) {
-      @include border-radius-bottom(0);
-      .footer {
-        @include border-radius-bottom(0);
-      }
-    }
+  .block {
+    @include height-rpx-width-100(50)
   }
 }

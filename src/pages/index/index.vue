@@ -56,13 +56,9 @@
 
     </view>
     <view class="list">
-
       <card-list :travels="list"/>
-
-      <view class="bottom-block" hover-class="btn-hover" @click="moreHandler">
-        查看更多 >
-      </view>
-
+      <view class="bottom-block" hover-class="btn-hover" @click="moreHandler">查看更多 ></view>
+      <view class="block"></view>
     </view>
 
     <view class="add" hover-class="btn-hover" @click="addHandler">
@@ -115,13 +111,7 @@
             type: 2,
             isActive: false
           }
-        ],
-        showShareImg: false,
-        src: '',
-        canvasHeightPx: 260,
-        canvasWidthPx: 200,
-        windowHeightPx: 0,
-        windowWidthPx: 0
+        ]
       }
     },
     components: {
@@ -215,7 +205,6 @@
             isActive: false
           }
         ]
-        this.showShareImg = false
       }
     },
     onLoad () {
@@ -356,22 +345,7 @@
   }
   .list {
     width: 100%;
-    min-height: 490rpx;
-    margin-bottom: 50rpx;
-    @include justify-center;
-    .bottom-block {
-      @include height-rpx-width-percent(89, 98%);
-      margin-bottom: 50rpx;
-      line-height: 89rpx;
-      font-size: 34rpx;
-      color: $light-blue;
-      text-align: center;
-      @include border-top-width(1);
-      @include border-radius-bottom(10);
-      background: $white;
-    }
   }
-
   .add {
     @include height-width(100, 100);
     position: fixed;
