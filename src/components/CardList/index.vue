@@ -1,64 +1,63 @@
 <template>
   <view id="card">
     <view class="card" v-for="(travel, index) in travels" :travel="travel" :key="travel.id">
-    <view class="header">
-      <view :class="[travel.type === 2 ? 'driver' : 'passenger', 'nav-block']"></view>
-      <view class="nav-info">
-        <view class="tag">{{ travel.type === 2 ? '车找人' : '人找车'}}</view>
-        <view class="seats" v-if="travel.type === 2">剩余{{ travel.num }}座</view>
-        <view class="seats" v-if="travel.type === 1">{{ travel.num }}人</view>
-      </view>
-    </view>
-    <view class="content">
-      <view class="left">
-        <view class="start address">
-          <view class="icon">
-            <view class="nav">起</view>
-          </view>
-          <text class="text">{{ travel.origin }}</text>
-        </view>
-        <view class="road address" v-if="!!travel.via">
-          <view class="icon">
-            <view class="nav">经</view>
-          </view>
-          <text class="text">{{ travel.via }}</text>
-        </view>
-        <view class="end address">
-          <view class="icon">
-            <view class="nav">终</view>
-          </view>
-          <text class="text">{{ travel.dest }}</text>
-        </view>
-        <view class="time address">
-          <view class="icon">
-            <view class="nav">时</view>
-          </view>
-          <text class="text">{{ travel.time }}</text>
+      <view class="header">
+        <view :class="[travel.type === 2 ? 'driver' : 'passenger', 'nav-block']"></view>
+        <view class="nav-info">
+          <view class="tag">{{ travel.type === 2 ? '车找人' : '人找车'}}</view>
+          <view class="seats" v-if="travel.type === 2">剩余{{ travel.num }}座</view>
+          <view class="seats" v-if="travel.type === 1">{{ travel.num }}人</view>
         </view>
       </view>
-      <view class="right">
-        <view class="summary">
-          <view class="price" v-if="travel.price !== '-1'">
-            <text class="money">{{ travel.price }}</text>
-            <text class="unit">/人</text>
+      <view class="content">
+        <view class="left">
+          <view class="start address">
+            <view class="icon">
+              <view class="nav">起</view>
+            </view>
+            <text class="text">{{ travel.origin }}</text>
           </view>
-          <view class="price" v-else>
-            <text class="money">面议</text>
+          <view class="road address" v-if="!!travel.via">
+            <view class="icon">
+              <view class="nav">经</view>
+            </view>
+            <text class="text">{{ travel.via }}</text>
           </view>
-          <view class="note">{{ travel.distTime }}</view>
+          <view class="end address">
+            <view class="icon">
+              <view class="nav">终</view>
+            </view>
+            <text class="text">{{ travel.dest }}</text>
+          </view>
+          <view class="time address">
+            <view class="icon">
+              <view class="nav">时</view>
+            </view>
+            <text class="text">{{ travel.time }}</text>
+          </view>
         </view>
-        <view class="share">
-          <view class="icon" hover-class="btn-hover" @click="chooseShare(travel)">
-            <text class="fa blue-icon fa-sm fa-share-alt"/>
+        <view class="right">
+          <view class="summary">
+            <view class="price" v-if="travel.price !== '-1'">
+              <text class="money">{{ travel.price }}</text>
+              <text class="unit">/人</text>
+            </view>
+            <view class="price" v-else>
+              <text class="money">面议</text>
+            </view>
+            <view class="note">{{ travel.distTime }}</view>
+          </view>
+          <view class="share">
+            <view class="icon" hover-class="btn-hover" @click="chooseShare(travel)">
+              <text class="fa blue-icon fa-sm fa-share-alt"/>
+            </view>
           </view>
         </view>
       </view>
+      <view class="footer">
+        <button class="call-phone" size="mini" hover-class="btn-hover" @click="phoneCall(travel.mobileNo)">联系TA</button>
+      </view>
     </view>
-    <view class="footer">
-      <!--<text class="call-phone" hover-class="btn-hover" @click="phoneCall(travel.mobileNo)">联系TA</text>-->
-      <button class="call-phone" size="mini" hover-class="btn-hover" @click="phoneCall(travel.mobileNo)">联系TA</button>
-    </view>
-  </view>
     <view style="position: absolute; top: -9999px; left: -9999px;">
       <canvas canvas-id="shareImg" :style="{height: canvasHeightPx + 'px', width: canvasWidthPx + 'px'}"/>
     </view>
@@ -80,6 +79,16 @@
         type: Array,
         required: true,
         default: () => []
+      }
+    },
+    data () {
+      return {
+        showShareImg: false,
+        src: '',
+        canvasHeightPx: 260,
+        canvasWidthPx: 200,
+        windowHeightPx: 0,
+        windowWidthPx: 0
       }
     },
     methods: {
@@ -122,8 +131,7 @@
               content: '图片已保存到相册',
               showCancel: false,
               confirmText: '好的',
-              confirmColor: '#72B9C3',
-              success: function (res) {
+              success (res) {
                 if (res.confirm) {
                 }
               }
@@ -133,19 +141,19 @@
       },
       drawImg (type, origin, dest, time) {
         const self = this
-        let qr = new Promise(function (resolve, reject) {
+        let qr = new Promise((resolve, reject) => {
           wx.getImageInfo({
             src: '../../img/gh_a53167bbfa26_258.jpg',
-            success: function (res) {
+            success (res) {
               resolve(res)
             },
-            fail: function (error) {
+            fail (error) {
               console.error(error)
             }
           })
         })
 
-        return new Promise(function (resolve, reject) {
+        return new Promise((resolve, reject) => {
           try {
             Promise.all([qr]).then(res => {
               const ctx = wx.createCanvasContext('shareImg')
@@ -206,7 +214,6 @@
         })
       },
       createImg () {
-        console.log('---createImg---')
         let self = this
         wx.canvasToTempFilePath({
           x: 0,
@@ -216,10 +223,10 @@
           destWidth: self.canvasWidthPx * 2,
           destHeight: self.canvasHeightPx * 2,
           canvasId: 'shareImg',
-          success: function (res) {
+          success (res) {
             self.src = res.tempFilePath
           },
-          fail: function (res) {
+          fail (res) {
             console.log(res)
           }
         })
@@ -227,6 +234,14 @@
       closeShareImgMode () {
         this.showShareImg = false
       }
+    },
+    mounted () {
+      const res = wx.getSystemInfoSync()
+      const clientHeight = res.windowHeight
+      const clientWidth = res.windowWidth
+      this.windowHeightPx = clientHeight
+      this.windowWidthPx = clientWidth
+      this.canvasWidthPx = Math.ceil(clientWidth * 0.9)
     }
   }
 </script>
@@ -238,12 +253,21 @@
     width: 100%;
   }
   .card {
+    width: 98%;
+    height: 360rpx;
+    margin-left: 1%;
     @include border-radius-top(10);
     @include border-radius-bottom(10);
     @include justify-align-center;
     margin-top: 15rpx;
     background: $white;
     @include box-shadow;
+    &:nth-last-child(2) {
+      @include border-radius-bottom(0);
+      .footer {
+        @include border-radius-bottom(0);
+      }
+    }
     .header {
       @include height-rpx-width-100(60);
       display: flex;
@@ -410,8 +434,7 @@
     background:rgba(0, 0, 0, 0.5);
     @include justify-align-center;
     .share-warp {
-      @include column-between;
-      height: 680rpx;
+      @include column-align-center;
       .share-img {
         image {
           @include height-width-100;
@@ -421,6 +444,7 @@
       .save-img-btn {
         @include height-width-text-center(80, 240)
         @include border-radius(30);
+        margin-top: 50rpx;
         color: #446C9D;
         font-size: 32rpx;
         background: #ffffff;

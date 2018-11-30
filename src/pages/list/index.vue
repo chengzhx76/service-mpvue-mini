@@ -75,13 +75,7 @@
         preScrollTop: 0,
         show: false,
         loading: false,
-        text: '下拉加载~~~',
-        showShareImg: false,
-        src: '',
-        canvasHeightPx: 260,
-        canvasWidthPx: 200,
-        windowHeightPx: 0,
-        windowWidthPx: 0
+        text: '下拉加载~~~'
       }
     },
     methods: {
@@ -180,7 +174,6 @@
         this.show = false
         this.loading = false
         this.text = '下拉加载~~~'
-        this.showShareImg = false
         this.tabs = [
           {
             name: '全部',
@@ -216,15 +209,11 @@
       const rpxR = 750 / clientWidth
       const height = clientHeight * rpxR - 90
       this.listHeight = `${height}rpx`
-      this.windowHeightPx = clientHeight
-      this.windowWidthPx = clientWidth
-      this.canvasWidthPx = Math.ceil(clientWidth * 0.9)
-
       // console.log(this.$root.$mp.query)
       const { origin, dest, type } = this.$root.$mp.query
       if (!!origin || !!dest || !!type) {
         this.service = {
-          type: !type ? 0 : parseInt(type) === 1 ? 2 : 1,
+          type: !parseInt(type) ? 0 : parseInt(type) === 1 ? 2 : 1,
           origin: origin,
           dest: dest
         }
@@ -238,7 +227,7 @@
       if (this.$mp.page.data && this.$mp.page.data.extend) {
         const { origin, dest, type, time, num } = this.$mp.page.data.extend
         this.service = {
-          type: !type ? 0 : parseInt(type) === 1 ? 2 : 1,
+          type: !parseInt(type) ? 0 : parseInt(type) === 1 ? 2 : 1,
           origin: origin,
           dest: dest,
           time: time,
@@ -291,16 +280,14 @@
     }
   }
 
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    color: transparent;
+  }
   .list {
     width: 100%;
     margin-top: 90rpx;
-    @include justify-center;
-    position: relative;
-    ::-webkit-scrollbar {
-      width: 0;
-      height: 0;
-      color: transparent;
-    }
     .refresh {
       @include height-width-percent-lineHeight-text-center(60, 80);
       position: absolute;
@@ -308,21 +295,6 @@
       top: 0;
       font-size: 32rpx;
       color: $refreshColor;
-    }
-
-    .bottom-block {
-      @include height-rpx-width-percent(89, 96%);
-      margin-left: 2%;
-      line-height: 89rpx;
-      font-size: 34rpx;
-      color: $light-blue;
-      text-align: center;
-      @include border-top-width(1);
-      @include border-radius-bottom(10);
-      background: $white;
-    }
-    .block {
-      @include height-rpx-width-100(50)
     }
   }
   .share-preview {
