@@ -57,64 +57,7 @@
     </view>
     <view class="list">
 
-      <view class="card" v-for="(item, index) in list" :key="item.id">
-        <view class="header">
-          <view :class="[item.type === 2 ? 'driver' : 'passenger', 'nav-block']"></view>
-          <view class="nav-info">
-            <view class="tag">{{ item.type === 2 ? '车找人' : '人找车'}}</view>
-            <view class="seats" v-if="item.type === 2">剩余{{ item.num }}座</view>
-            <view class="seats" v-if="item.type === 1">{{ item.num }}人</view>
-          </view>
-        </view>
-        <view class="content">
-          <view class="left">
-            <view class="start address">
-              <view class="icon">
-                <view class="nav">起</view>
-              </view>
-              <text class="text">{{ item.origin }}</text>
-            </view>
-            <view class="road address" v-if="!!item.via">
-              <view class="icon">
-                <view class="nav">经</view>
-              </view>
-              <text class="text">{{ item.via }}</text>
-            </view>
-            <view class="end address">
-              <view class="icon">
-                <view class="nav">终</view>
-              </view>
-              <text class="text">{{ item.dest }}</text>
-            </view>
-            <view class="time address">
-              <view class="icon">
-                <view class="nav">时</view>
-              </view>
-              <text class="text">{{ item.time }}</text>
-            </view>
-          </view>
-          <view class="right">
-            <view class="summary">
-              <view class="price" v-if="item.price !== '-1'">
-                <text class="money">{{ item.price }}</text>
-                <text class="unit">/人</text>
-              </view>
-              <view class="price" v-else>
-                <text class="money">面议</text>
-              </view>
-              <view class="note">{{ item.distTime }}</view>
-            </view>
-            <view class="share">
-              <view class="icon" hover-class="btn-hover" @click="chooseShare(item)">
-                <text class="fa blue-icon fa-sm fa-share-alt"/>
-              </view>
-            </view>
-          </view>
-        </view>
-        <view class="footer">
-          <text class="call-phone" hover-class="btn-hover" @click="phoneCall(item.mobileNo)">联系TA</text>
-        </view>
-      </view>
+      <base-card v-for="(travel, index) in list" :travel="travel" :key="travel.id"/>
 
       <view class="bottom-block" hover-class="btn-hover" @click="moreHandler">
         查看更多 >
@@ -124,7 +67,6 @@
 
     <view class="add" hover-class="btn-hover" @click="addHandler">
       <text class="icon">+</text>
-      <!--<text class="fa fa-plus fa-2x"/>-->
     </view>
 
     <view style="position: absolute; top: -9999px; left: -9999px;">
@@ -142,6 +84,7 @@
 </template>
 
 <script>
+  import BaseCard from '@/components/BaseCard/index'
   import { list, config } from '@/api/api'
   import { formatTime, formatDate } from '@/utils/index'
   export default {
@@ -194,6 +137,7 @@
       }
     },
     components: {
+      BaseCard
     },
     methods: {
       tabsSwitch (clazz, type) {
@@ -254,29 +198,6 @@
         const url = '../list/main'
         wx.navigateTo({ url })
       },
-
-      chooseShare (item) {
-        const self = this
-        wx.showActionSheet({
-          itemList: ['生成图片 保存分享'],
-          success (res) {
-            if (res.tapIndex === 0) {
-              console.log('分享给好友')
-              self.createShareImg(item)
-            }
-          },
-          fail (res) {
-            console.log(res.errMsg)
-          }
-        })
-      },
-
-      phoneCall (phone) {
-        wx.makePhoneCall({
-          phoneNumber: phone
-        })
-      },
-
       createShareImg (val) {
         wx.showLoading({
           title: '加载中...'
@@ -482,7 +403,6 @@
 <style rel="stylesheet/scss" lang="scss" scoped>
   @import "@/styles/mixin.scss";
   @import "@/styles/variables.scss";
-  @import "@/styles/card.scss";
   #index {
     @include height-width-100;
   }
@@ -561,6 +481,8 @@
           @include height-rpx-width-100(113);
           @include justify-align-center;
           .search-button {
+            @include height-width-percent-text-center(80);
+            font-size: 32rpx;
             color: $white;
             background: $light-blue;
           }
@@ -578,12 +500,16 @@
     min-height: 490rpx;
     margin-bottom: 50rpx;
     @include justify-center;
-    .card {
-      @include height-rpx-width-percent(360, 98%);
-    }
     .bottom-block {
       @include height-rpx-width-percent(89, 98%);
       margin-bottom: 50rpx;
+      line-height: 89rpx;
+      font-size: 34rpx;
+      color: $light-blue;
+      text-align: center;
+      @include border-top-width(1);
+      @include border-radius-bottom(10);
+      background: $white;
     }
   }
 
