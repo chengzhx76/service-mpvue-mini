@@ -17,7 +17,7 @@
                   :key="tab.class"
                   hover-class="tab-hover">{{ tab.name }}</view>
           </view>
-          <view class="my" hover-class="tab-hover"></view>
+          <view class="my" @click="myHandler" hover-class="tab-hover">个人中心</view>
         </view>
       </view>
       <view class="search">
@@ -167,7 +167,7 @@
         wx.navigateTo({ url })
       },
       myHandler () {
-        const url = '../draw/main'
+        const url = '../my/main'
         wx.navigateTo({ url })
       },
       moreHandler () {
