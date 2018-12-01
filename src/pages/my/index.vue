@@ -6,7 +6,7 @@
         <view class="avatar">
           <img :src="avatar"/>
         </view>
-        <view class="nickname">{{ nickname }}</view>
+        <view class="nickname">{{ nickName }}</view>
 
       </view>
 
@@ -48,18 +48,19 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   export default {
     data () {
       return {
-        avatar: 'http://himg.bdimg.com/sys/portrait/item/71596368656e677a68783736ff02.jpg',
-        nickname: 'Cheng'
       }
     },
     methods: {
-      testBtn () {
-        let btn = document.getElementById('share')
-        btn.click()
-      }
+    },
+    computed: {
+      ...mapGetters([
+        'avatar',
+        'nickName'
+      ])
     },
     onShareAppMessage (res) {
       console.log(res)

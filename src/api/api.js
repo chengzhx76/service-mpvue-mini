@@ -44,3 +44,7 @@ export function getCites (city) {
 export function config (type) {
   return getRequest(`mp/config?type=${type}`)
 }
+
+export function saveUser (user) {
+  return postRequest('mp/user', user)
+}
