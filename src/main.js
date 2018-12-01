@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App'
+import './store'
 
 import './iconfont/fontawesome.css'
 import './styles/index.scss'

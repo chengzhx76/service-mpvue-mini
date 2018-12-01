@@ -17,7 +17,14 @@
                   :key="tab.class"
                   hover-class="tab-hover">{{ tab.name }}</view>
           </view>
-          <view class="my" @click="myHandler" hover-class="tab-hover">个人中心</view>
+          <view class="my">
+            <button class="user-info" hover-class="tab-hover" open-type="getUserInfo" @getuserinfo="userInfo">
+              <view class="avatar-warp">
+                <open-data class="avatar" type="userAvatarUrl"></open-data>
+              </view>
+              <view class="text">我的</view>
+            </button>
+          </view>
         </view>
       </view>
       <view class="search">
@@ -68,6 +75,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   import CardList from '@/components/CardList/index'
   import { list, config } from '@/api/api'
   import { formatTime, formatDate } from '@/utils/index'
@@ -166,13 +174,31 @@
         const url = '../add/main'
         wx.navigateTo({ url })
       },
-      myHandler () {
-        const url = '../my/main'
-        wx.navigateTo({ url })
-      },
       moreHandler () {
         const url = '../list/main'
         wx.navigateTo({ url })
+      },
+      userInfo (info) {
+        console.log(this.nickName)
+        if (this.nickName) {
+          const url = '../my/main'
+          wx.navigateTo({ url })
+        } else {
+          if (info.mp.detail.errMsg.indexOf('ok') !== -1) {
+            this.$store.dispatch('AddUser', info.mp.detail.userInfo).then(() => {
+              const url = '../my/main'
+              wx.navigateTo({ url })
+            }).catch(error => {
+              console.log(error)
+            })
+          } else {
+            wx.showToast({
+              title: '您拒绝了，无法获取您的信息！',
+              icon: 'none',
+              duration: 1300
+            })
+          }
+        }
       },
       initFrom () {
         this.service = {
@@ -221,6 +247,11 @@
       this.windowHeightPx = clientHeight
       this.windowWidthPx = clientWidth
       this.canvasWidthPx = Math.ceil(clientWidth * 0.9)
+    },
+    computed: {
+      ...mapGetters([
+        'nickName'
+      ])
     },
     onPullDownRefresh () {
       wx.showNavigationBarLoading()
@@ -286,7 +317,35 @@
           }
         }
         .my {
-          @include height-width-text-center(75, 200);
+          /*@include height-width(75, 220);*/
+           height: 75rpx;
+          .user-info {
+            height: 75rpx;
+            @include justify-start-align-center;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-align: center;
+            text-decoration: none;
+            line-height: 75rpx;
+            border-radius: 0;
+            -webkit-tap-highlight-color: transparent;
+            overflow: hidden;
+            background-color: $white;
+            .avatar-warp {
+              @include height-width(55, 55);
+              @include border-radius-percent(50%);
+              overflow: hidden;
+            }
+            .text {
+              height: 75rpx;
+              padding-left: 10rpx;
+              padding-right: 20rpx;
+              line-height: 75rpx;
+              font-size: 36rpx;
+              color: $navColor;
+            }
+          }
         }
       }
     }
