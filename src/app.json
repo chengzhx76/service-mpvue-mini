@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/main",
+    "pages/my/main",
     "pages/list/main",
     "pages/map/main",
     "pages/city/main",

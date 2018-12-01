@@ -12,6 +12,10 @@
   height: $height;
   width: $percent-100;
 }
+@mixin height-100-width-rpx($width) {
+  height: $percent-100;
+  width: #{$width}rpx;
+}
 @mixin height-100-width-percent($width) {
   height: $percent-100;
   width: $width;
@@ -129,6 +133,10 @@
 @mixin column-align-center {
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+@mixin align-center {
+  display: flex;
   align-items: center;
 }
 
