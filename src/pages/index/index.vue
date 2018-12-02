@@ -200,6 +200,22 @@
           }
         }
       },
+      getUserInfo () {
+        wx.getSetting({
+          success (res) {
+            if (res.authSetting['scope.userInfo']) {
+              wx.getUserInfo({
+                success (info) {
+                  this.$store.dispatch('AddUser', info.mp.detail.userInfo).then(() => {
+                  }).catch(error => {
+                    console.log(error)
+                  })
+                }
+              })
+            }
+          }
+        })
+      },
       initFrom () {
         this.service = {
           type: 0,
@@ -235,6 +251,7 @@
     },
     onLoad () {
       Object.assign(this.$data, this.$options.data())
+      this.getUserInfo()
       this.getConfig()
       this.getList()
     },
