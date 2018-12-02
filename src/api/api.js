@@ -45,6 +45,10 @@ export function config (type) {
   return getRequest(`mp/config?type=${type}`)
 }
 
+export function authorization (code) {
+  return postRequest('mp/auth', { code })
+}
+
 export function saveUser (user) {
   return postRequest('mp/user', user)
 }

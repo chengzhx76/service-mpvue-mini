@@ -1,12 +1,13 @@
 const Fly = require('flyio/dist/npm/wx')
 const service = new Fly()
+import store from '@/store'
 
 service.config.timeout = 60000
 service.config.baseURL = 'https://chengzhx76.picp.vip/service/'
 
 service.interceptors.request.use(
   config => {
-    config.headers['X-Token'] = 'xxx'
+    config.headers['X-Token'] = store.getters.token
     return config
   },
   error => {

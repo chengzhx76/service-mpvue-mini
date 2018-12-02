@@ -137,3 +137,6 @@ https://github.com/Meituan-Dianping/mpvue/issues/20
 #登陆
 https://www.jianshu.com/p/d9996cafdb31
 https://juejin.im/post/5ac9b72cf265da23906c486a
+https://abigaleyu.co/2017/08/11/miniprograms-signin/
+
+https://segmentfault.com/q/1010000013878678
