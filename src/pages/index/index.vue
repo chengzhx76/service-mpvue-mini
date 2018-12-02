@@ -18,7 +18,7 @@
                   hover-class="tab-hover">{{ tab.name }}</view>
           </view>
           <view class="my">
-            <button class="user-info" hover-class="tab-hover" open-type="getUserInfo" @getuserinfo="userInfo">
+            <button class="user-info" hover-class="tab-hover" open-type="getUserInfo" @getuserinfo="showUserInfo">
               <view class="avatar-warp">
                 <open-data class="avatar" type="userAvatarUrl"></open-data>
               </view>
@@ -178,7 +178,46 @@
         const url = '../list/main'
         wx.navigateTo({ url })
       },
-      userInfo (info) {
+      wxLogin () {
+        const self = this
+        wx.login({
+          success (res) {
+            console.log('===>index.wxLogin')
+            console.log(res)
+            if (res.code) {
+              self.$store.dispatch('AuthUser', res.code).then(() => {
+                self.getWxUserInfo()
+              }).catch(error => {
+                console.log(error)
+              })
+            } else {
+              console.log('登录失败！' + res.errMsg)
+            }
+          }
+        })
+      },
+      getWxUserInfo () {
+        const self = this
+        wx.getSetting({
+          success (res) {
+            console.log('===>index.getSetting')
+            console.log(res)
+            if (res.authSetting['scope.userInfo']) {
+              wx.getUserInfo({
+                success (info) {
+                  console.log('===>index.getWxUserInfo')
+                  console.log(info)
+                  self.$store.dispatch('AddUser', info.userInfo).then(() => {
+                  }).catch(error => {
+                    console.log(error)
+                  })
+                }
+              })
+            }
+          }
+        })
+      },
+      showUserInfo (info) {
         console.log(this.nickName)
         if (this.nickName) {
           const url = '../my/main'
@@ -199,22 +238,6 @@
             })
           }
         }
-      },
-      getUserInfo () {
-        wx.getSetting({
-          success (res) {
-            if (res.authSetting['scope.userInfo']) {
-              wx.getUserInfo({
-                success (info) {
-                  this.$store.dispatch('AddUser', info.mp.detail.userInfo).then(() => {
-                  }).catch(error => {
-                    console.log(error)
-                  })
-                }
-              })
-            }
-          }
-        })
       },
       initFrom () {
         this.service = {
@@ -251,7 +274,7 @@
     },
     onLoad () {
       Object.assign(this.$data, this.$options.data())
-      this.getUserInfo()
+      this.wxLogin()
       this.getConfig()
       this.getList()
     },
