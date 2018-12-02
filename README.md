@@ -120,10 +120,10 @@ created () {
     
     https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&announce_id=11536230584k14IW&version=&lang=zh_CN&token=423781999
     
-Map
+#Map
 https://www.cnblogs.com/imgss/p/9700617.html
 
-// 开放数据
+#开放数据
 https://developers.weixin.qq.com/miniprogram/dev/component/open-data.html
 https://www.jianshu.com/p/a314a74288fc
 https://blog.csdn.net/qq_41473887/article/details/80176362
@@ -131,6 +131,9 @@ https://blog.csdn.net/qq_41473887/article/details/80176362
 #Demo
 https://github.com/wechat-miniprogram/miniprogram-demo
 
-Vuex
-
+#Vuex
 https://github.com/Meituan-Dianping/mpvue/issues/20
+
+#登陆
+https://www.jianshu.com/p/d9996cafdb31
+https://juejin.im/post/5ac9b72cf265da23906c486a
