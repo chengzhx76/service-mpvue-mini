@@ -312,7 +312,8 @@
       console.log(res)
       return {
         title: '推荐成武拼车，快来试试~',
-        path: 'pages/index/main'
+        path: 'pages/index/main',
+        imageUrl: 'https://chengzhx76.picp.vip/share-1.jpg'
       }
     }
   }
