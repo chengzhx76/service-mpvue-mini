@@ -181,37 +181,38 @@
       wxLogin () {
         const self = this
         wx.login({
-          success (res) {
+          success (loginRes) {
             console.log('===>index.wxLogin')
-            console.log(res)
-            if (res.code) {
-              self.$store.dispatch('AuthUser', res.code).then(() => {
-                self.getWxUserInfo(res.code)
-              }).catch(error => {
-                console.log(error)
+            console.log(loginRes)
+            if (loginRes.code) {
+              wx.getSetting({
+                success (settRes) {
+                  if (settRes.authSetting['scope.userInfo']) {
+                    self.getWxUserInfo(loginRes.code)
+                  } else {
+                    self.$store.dispatch('AuthUser', loginRes.code).then(() => {
+                    }).catch(error => {
+                      console.log(error)
+                    })
+                  }
+                }
               })
             } else {
-              console.log('登录失败！' + res.errMsg)
+              console.log('登录失败！' + loginRes.errMsg)
             }
           }
         })
       },
       getWxUserInfo (code) {
         const self = this
-        wx.getSetting({
-          success (res) {
-            if (res.authSetting['scope.userInfo']) {
-              wx.getUserInfo({
-                success (info) {
-                  console.log('===>index.getWxUserInfo')
-                  console.log(info)
-                  self.$store.dispatch('GetUser', { code, info }).then(() => {
-                  }).catch(error => {
-                    console.log(error)
-                  })
-                }
-              })
-            }
+        wx.getUserInfo({
+          success (info) {
+            console.log('===>index.getWxUserInfo')
+            console.log(info)
+            self.$store.dispatch('GetUser', { code, info }).then(() => {
+            }).catch(error => {
+              console.log(error)
+            })
           }
         })
       },
