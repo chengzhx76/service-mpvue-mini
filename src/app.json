@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/main",
+    "pages/admin/main",
     "pages/my/main",
     "pages/list/main",
     "pages/map/main",
@@ -13,7 +14,7 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F0F0F0",
     "backgroundColor": "#F0F0F0",
-    "navigationBarTitleText": "拼车",
+    "navigationBarTitleText": "成武拼车",
     "navigationBarTextStyle": "black",
     "debug": true
   }
