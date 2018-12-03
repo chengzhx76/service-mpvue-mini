@@ -182,8 +182,6 @@
         const self = this
         wx.login({
           success (loginRes) {
-            console.log('===>index.wxLogin')
-            console.log(loginRes)
             if (loginRes.code) {
               wx.getSetting({
                 success (settRes) {
@@ -207,8 +205,6 @@
         const self = this
         wx.getUserInfo({
           success (info) {
-            console.log('===>index.getWxUserInfo')
-            console.log(info)
             self.$store.dispatch('GetUser', { code, info }).then(() => {
             }).catch(error => {
               console.log(error)

@@ -11,30 +11,37 @@
       </view>
 
       <view class="setting">
-        <text class="fa fa-cog fa-lg gray-icon"/>
+        <button class="wx-setting" open-type="openSetting">
+          <text class="fa fa-cog fa-lg gray-icon"/>
+        </button>
       </view>
     </view>
 
     <view class="content">
       <view class="record">
         <view class="left" hover-class="tab-hover">
-          <view class="num">6</view>
-          <view class="desc">我约到的</view>
+          <view class="warp">
+            <view class="num">6</view>
+            <view class="desc">我约到的</view>
+          </view>
         </view>
-        <view class="line"></view>
         <view class="right" hover-class="tab-hover">
-          <view class="num">12</view>
-          <view class="desc">我发布的</view>
+          <view class="warp">
+            <view class="num">12</view>
+            <view class="desc">我发布的</view>
+          </view>
         </view>
       </view>
 
       <view class="bar" hover-class="tab-hover">
-        <view class="icon">
-          <text class="fa fa-share-alt fa-lg gray-icon"/>
-        </view>
-        <text class="text">推荐给朋友</text>
+        <button class="share-btn" open-type="share">
+          <view class="icon">
+            <text class="fa fa-share-alt fa-lg gray-icon"/>
+          </view>
+          <text class="text">推荐给朋友</text>
+        </button>
       </view>
-      <view class="bar" hover-class="tab-hover">
+      <view class="bar" @click="admin()" hover-class="tab-hover">
         <view class="icon">
           <text class="fa fa-toggle-off fa-lg gray-icon"/>
         </view>
@@ -55,6 +62,10 @@
       }
     },
     methods: {
+      admin () {
+        const url = '../admin/main'
+        wx.navigateTo({ url })
+      }
     },
     computed: {
       ...mapGetters([
@@ -65,8 +76,9 @@
     onShareAppMessage (res) {
       console.log(res)
       return {
-        title: '快来试试~',
-        path: 'pages/index/main'
+        title: '推荐成武拼车，快来试试~',
+        path: 'pages/index/main',
+        imageUrl: 'https://chengzhx76.picp.vip/share-1.jpg'
       }
     }
   }
@@ -106,6 +118,19 @@
     .setting {
       @include height-width-text-center(80, 120);
       color: $unimpColor;
+      .wx-setting {
+        @include height-width-text-center(80, 120);
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        text-align: center;
+        text-decoration: none;
+        line-height: 80rpx;
+        border-radius: 0;
+        -webkit-tap-highlight-color: transparent;
+        overflow: hidden;
+        background-color: $dark-yellow;
+      }
     }
   }
   .content {
@@ -117,21 +142,26 @@
       @include justify-start-align-center;
       background: $white;
       .left, .right {
-        @include height-rpx-width-percent(140, 49%);
-        .num {
-          @include height-width-percent-text-center(80);
-          font-size: 50rpx;
-          color: $unimpColor;
-        }
-        .desc {
-          @include height-width-percent-text-center(60);
-          font-size: 36rpx;
-          color: $tipColor;
+        @include height-rpx-width-percent(200, 50%);
+        .warp {
+          @include height-rpx-width-percent(140, 100%);
+          margin-top: 30rpx;
+          .num {
+            @include height-width-percent-text-center(80);
+            font-size: 50rpx;
+            color: $unimpColor;
+          }
+          .desc {
+            @include height-width-percent-text-center(60);
+            font-size: 36rpx;
+            color: $tipColor;
+          }
         }
       }
-      .line {
-        @include height-rpx-width-percent(150, 1%);
-        @include border-left-width(1);
+      .left {
+        .warp {
+          @include border-right-width(1);
+        }
       }
     }
     .bar {
@@ -140,11 +170,26 @@
       margin-top: 30rpx;
       position: relative;
       background: $white;
+      .share-btn {
+        @include height-rpx-width-100(110);
+        @include justify-start-align-center;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        text-align: center;
+        text-decoration: none;
+        line-height: 110rpx;
+        border-radius: 0;
+        -webkit-tap-highlight-color: transparent;
+        overflow: hidden;
+        background-color: $white;
+      }
       .icon {
         width: 60rpx;
         margin-left: 20rpx;
       }
       .text {
+        font-size: 18px;
         color: $titleColor;
       }
       &:after {

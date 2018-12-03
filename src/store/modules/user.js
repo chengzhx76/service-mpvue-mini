@@ -19,8 +19,6 @@ const user = {
   },
   actions: {
     AuthUser ({ commit }, code) {
-      console.log('===>store.user.AuthUser')
-      console.log(code)
       return new Promise((resolve, reject) => {
         authorization('', '', code).then(res => {
           commit('SET_TOKEN', res.data.token)
@@ -31,9 +29,6 @@ const user = {
       })
     },
     GetUser ({ state, commit }, data) {
-      console.log('===>store.user.GetUser')
-      console.log(data.code)
-      console.log(data.info)
       return new Promise((resolve, reject) => {
         authorization(data.info, state.token, data.code).then(res => {
           commit('SET_USER', res.data)
@@ -45,8 +40,6 @@ const user = {
       })
     },
     AddUser ({ state, commit }, userInfo) {
-      console.log('===>store.user.AddUser')
-      console.log(userInfo)
       return new Promise((resolve, reject) => {
         authorization({ userInfo }, state.token).then(res => {
           commit('SET_USER', res.data)
