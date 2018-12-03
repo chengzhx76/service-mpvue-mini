@@ -1,4 +1,4 @@
-import { saveUser, authorization } from '@/api/api'
+import { authorization } from '@/api/api'
 
 const user = {
   state: {
@@ -18,25 +18,39 @@ const user = {
     }
   },
   actions: {
-    // 用户名登录
-    AddUser ({ commit }, userInfo) {
-      console.log('===>store.user.AddUser')
-      console.log(userInfo)
+    AuthUser ({ commit }, code) {
+      console.log('===>store.user.AuthUser')
+      console.log(code)
       return new Promise((resolve, reject) => {
-        saveUser().then(res => {
-          commit('SET_USER', userInfo)
+        authorization('', '', code).then(res => {
+          commit('SET_TOKEN', res.data.token)
           resolve()
         }).catch(error => {
           reject(error)
         })
       })
     },
-    AuthUser ({ commit }, code) {
-      console.log('===>store.user.AuthUser')
-      console.log(code)
+    GetUser ({ state, commit }, data) {
+      console.log('===>store.user.GetUser')
+      console.log(data.code)
+      console.log(data.info)
       return new Promise((resolve, reject) => {
-        authorization(code).then(res => {
-          commit('SET_TOKEN', res.data)
+        authorization(data.info, state.token, data.code).then(res => {
+          commit('SET_USER', res.data)
+          commit('SET_TOKEN', res.data.token)
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    AddUser ({ state, commit }, userInfo) {
+      console.log('===>store.user.AddUser')
+      console.log(userInfo)
+      return new Promise((resolve, reject) => {
+        authorization({ userInfo }, state.token).then(res => {
+          commit('SET_USER', res.data)
+          commit('SET_TOKEN', res.data.token)
           resolve()
         }).catch(error => {
           reject(error)

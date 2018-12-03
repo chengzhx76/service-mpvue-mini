@@ -186,7 +186,7 @@
             console.log(res)
             if (res.code) {
               self.$store.dispatch('AuthUser', res.code).then(() => {
-                self.getWxUserInfo()
+                self.getWxUserInfo(res.code)
               }).catch(error => {
                 console.log(error)
               })
@@ -196,18 +196,16 @@
           }
         })
       },
-      getWxUserInfo () {
+      getWxUserInfo (code) {
         const self = this
         wx.getSetting({
           success (res) {
-            console.log('===>index.getSetting')
-            console.log(res)
             if (res.authSetting['scope.userInfo']) {
               wx.getUserInfo({
                 success (info) {
                   console.log('===>index.getWxUserInfo')
                   console.log(info)
-                  self.$store.dispatch('AddUser', info.userInfo).then(() => {
+                  self.$store.dispatch('GetUser', { code, info }).then(() => {
                   }).catch(error => {
                     console.log(error)
                   })

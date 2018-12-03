@@ -45,10 +45,16 @@ export function config (type) {
   return getRequest(`mp/config?type=${type}`)
 }
 
-export function authorization (code) {
-  return postRequest('mp/auth', { code })
-}
+export function authorization (data, token, code) {
+  const loginForm = {
+    encryptedData: data ? data.encryptedData : '',
+    iv: data ? data.iv : '',
+    rawData: data ? data.rawData : '',
+    signature: data ? data.signature : '',
+    userInfo: data ? data.userInfo : '',
+    token,
+    code
+  }
 
-export function saveUser (user) {
-  return postRequest('mp/user', user)
+  return postRequest('mp/auth', loginForm)
 }
