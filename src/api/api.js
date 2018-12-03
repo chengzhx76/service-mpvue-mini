@@ -52,8 +52,8 @@ export function authorization (data, token, code) {
     rawData: data ? data.rawData : '',
     signature: data ? data.signature : '',
     userInfo: data ? data.userInfo : '',
-    token,
-    code
+    token: token,
+    code: code
   }
 
   return postRequest('mp/auth', loginForm)
