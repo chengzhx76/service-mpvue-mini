@@ -40,10 +40,6 @@ export function getCites (city) {
   return getRequest(`mp/cites?city=${city}`)
 }
 
-export function config (type) {
-  return getRequest(`mp/config?type=${type}`)
-}
-
 export function authorization (data, token, code) {
   const loginForm = {
     encryptedData: data ? data.encryptedData : '',

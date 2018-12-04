@@ -5,6 +5,7 @@ export default {
   },
   onLaunch (options) {
     console.log('miniapp onLaunch!!!')
+    console.log(options)
   },
   onError (msg) {
     console.log(msg)
