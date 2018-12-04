@@ -36,7 +36,7 @@
         <button class="submit" type="primary">提交</button>
       </view>
     </view>
-
+    <button @click="refreshConfig()" type="primary">刷新</button>
   </view>
 
 </template>
@@ -51,6 +51,8 @@
     methods: {
       addSwitch (e) {
         console.log(e)
+      },
+      refreshConfig () {
       }
     },
     onLoad () {

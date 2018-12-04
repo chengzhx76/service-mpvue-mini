@@ -41,7 +41,7 @@
           <text class="text">推荐给朋友</text>
         </button>
       </view>
-      <view class="bar" @click="admin()" hover-class="tab-hover">
+      <view class="bar" v-if="isAdmin" @click="admin()" hover-class="tab-hover">
         <view class="icon">
           <text class="fa fa-toggle-off fa-lg gray-icon"/>
         </view>
@@ -70,7 +70,9 @@
     computed: {
       ...mapGetters([
         'avatar',
-        'nickName'
+        'nickName',
+        'isAdmin',
+        'shareImgIndex'
       ])
     },
     onShareAppMessage (res) {
@@ -78,7 +80,7 @@
       return {
         title: '推荐成武拼车，快来试试~',
         path: 'pages/index/main',
-        imageUrl: 'https://chengzhx76.picp.vip/share-1.jpg'
+        imageUrl: this.shareImgIndex
       }
     }
   }
