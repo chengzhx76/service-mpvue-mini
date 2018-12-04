@@ -8,7 +8,7 @@ export default {
   },
   onError (msg) {
     console.log(msg)
-  },
+  }
 }
 </script>
 

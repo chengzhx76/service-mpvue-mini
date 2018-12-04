@@ -68,7 +68,7 @@
       <view class="block"></view>
     </view>
 
-    <view class="add" hover-class="btn-hover" @click="addHandler">
+    <view class="add" v-if="switchAdd" hover-class="btn-hover" @click="addHandler">
       <text class="icon">+</text>
     </view>
   </view>
@@ -82,13 +82,6 @@
   export default {
     data () {
       return {
-        imgs: [],
-        indicatorDots: true,
-        vertical: false,
-        autoplay: true,
-        circular: false,
-        interval: 10000,
-        duration: 500,
         service: {
           type: 0,
           origin: '',
@@ -96,7 +89,7 @@
         },
         page: {
           pageNum: 1,
-          count: 6,
+          pageSize: 6,
           totalNum: 0
         },
         list: [],
@@ -151,7 +144,7 @@
         wx.navigateTo({ url })
       },
       getList () {
-        list(this.service, this.page).then(res => {
+        list(this.service, this.page, this.pageSizeIndex).then(res => {
           this.list = res.data.list.map(item => {
             item['distTime'] = formatTime(item.time)
             item.time = formatDate(item.time)
@@ -240,11 +233,8 @@
           origin: '',
           dest: ''
         }
-        this.page = {
-          pageNum: 1,
-          count: 6,
-          totalNum: 0
-        }
+        this.page.pageNum = 1
+        this.page.totalNum = 0
         this.tabs = [
           {
             name: '全部',
@@ -285,7 +275,17 @@
     },
     computed: {
       ...mapGetters([
-        'nickName'
+        'nickName',
+        'switchAdd',
+        'pageSizeIndex',
+        'shareImgIndex',
+        'imgs',
+        'indicatorDots',
+        'vertical',
+        'autoplay',
+        'circular',
+        'interval',
+        'duration'
       ])
     },
     onPullDownRefresh () {
@@ -309,7 +309,7 @@
       return {
         title: '推荐成武拼车，快来试试~',
         path: 'pages/index/main',
-        imageUrl: 'https://chengzhx76.picp.vip/index-share.jpg'
+        imageUrl: this.shareImgIndex
       }
     }
   }

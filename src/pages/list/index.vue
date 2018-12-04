@@ -24,6 +24,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   import CardList from '@/components/CardList/index'
   import { list } from '@/api/api'
   import { formatTime, formatDate } from '@/utils/index'
@@ -66,7 +67,6 @@
         },
         page: {
           pageNum: 1,
-          count: 10,
           totalNum: 0,
           hasMore: true
         },
@@ -87,7 +87,7 @@
         })
       },
       getList () {
-        list(this.service, this.page).then(res => {
+        list(this.service, this.page, this.pageSizeIndex).then(res => {
           this.list = res.data.list.map(item => {
             item['distTime'] = formatTime(item.time)
             item.time = formatDate(item.time)
@@ -113,7 +113,7 @@
             this.show = true
             this.blockHeight = 60
             setTimeout(() => {
-              list(this.service, this.page).then(res => {
+              list(this.service, this.page, this.pageSizeList).then(res => {
                 this.list = res.data.list.map(item => {
                   item['distTime'] = formatTime(item.time)
                   item.time = formatDate(item.time)
@@ -146,7 +146,7 @@
       },
       loadMore () {
         this.page.pageNum += 1
-        list(this.service, this.page).then(res => {
+        list(this.service, this.page, this.pageSizeList).then(res => {
           const newList = res.data.list.map(item => {
             item['distTime'] = formatTime(item.time)
             item.time = formatDate(item.time)
@@ -195,6 +195,12 @@
           }
         ]
       }
+    },
+    computed: {
+      ...mapGetters([
+        'switchAdd',
+        'listSizeIndex'
+      ])
     },
     onLoad () {
       Object.assign(this.$data, this.$options.data())
