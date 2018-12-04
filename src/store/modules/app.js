@@ -2,11 +2,18 @@ import { getConfig } from '@/api/api'
 
 const app = {
   state: {
-    addSwitch: true,
-    indexPageNum: 6,
-    listPageNum: 10,
-    indexShareImg: '',
-    indexSwiper: {
+    switch: {
+      add: true,
+    },
+    pageNum: {
+      index: 6,
+      list: 10,
+    },
+    shareImg: {
+      index: ''
+    },
+    swiper: {
+      imgs: [],
       indicatorDots: true,
       vertical: false,
       autoplay: true,
@@ -16,25 +23,24 @@ const app = {
     }
   },
   mutations: {
-    SET_ADD_SWITCH: (state, addSwitch) => {
-      state.addSwitch = addSwitch
+    SET_SWITCH: (state, { add }) => {
+      state.switch.add = add
     },
-    SET_INDEX_PAGE_NUM: (state, indexPageNum) => {
-      state.indexPageNum = indexPageNum
+    SET_PAGE_NUM: (state, { index, list }) => {
+      state.pageNum.index = index
+      state.pageNum.list = list
     },
-    SET_LIST_PAGE_NUM: (state, listPageNum) => {
-      state.listPageNum = listPageNum
+    SET_SHARE_IMG: (state, index) => {
+      state.shareImg.index = index
     },
-    SET_INDEX_SHARE_IMG: (state, indexShareImg) => {
-      state.indexShareImg = indexShareImg
-    },
-    SET_INDEX_SWIPER: (state, { indicatorDots, vertical, autoplay, circular, interval, duration }) => {
-      state.indexSwiper.indicatorDots = indicatorDots
-      state.indexSwiper.vertical = vertical
-      state.indexSwiper.autoplay = autoplay
-      state.indexSwiper.circular = circular
-      state.indexSwiper.interval = interval
-      state.indexSwiper.duration = duration
+    SET_INDEX_SWIPER: (state, { imgs, indicatorDots, vertical, autoplay, circular, interval, duration }) => {
+      state.swiper.imgs = imgs
+      state.swiper.indicatorDots = indicatorDots
+      state.swiper.vertical = vertical
+      state.swiper.autoplay = autoplay
+      state.swiper.circular = circular
+      state.swiper.interval = interval
+      state.swiper.duration = duration
     }
   },
   actions: {

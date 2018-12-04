@@ -5,7 +5,8 @@ const user = {
     avatar: '',
     gender: 0,
     nickName: '',
-    token: ''
+    token: '',
+    isAdmin: false
   },
   mutations: {
     SET_USER: (state, user) => {
