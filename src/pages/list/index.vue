@@ -87,7 +87,8 @@
         })
       },
       getList () {
-        list(this.service, this.page, this.pageSizeIndex).then(res => {
+        console.log()
+        list(this.service, this.page, this.pageSizeList).then(res => {
           this.list = res.data.list.map(item => {
             item['distTime'] = formatTime(item.time)
             item.time = formatDate(item.time)
@@ -145,7 +146,6 @@
         wx.navigateTo({ url })
       },
       loadMore () {
-        this.page.pageNum += 1
         list(this.service, this.page, this.pageSizeList).then(res => {
           const newList = res.data.list.map(item => {
             item['distTime'] = formatTime(item.time)
@@ -199,7 +199,7 @@
     computed: {
       ...mapGetters([
         'switchAdd',
-        'listSizeIndex'
+        'pageSizeList'
       ])
     },
     onLoad () {

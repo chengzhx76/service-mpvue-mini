@@ -3,17 +3,20 @@ import { getConfig, updateConfig, refreshConfig } from '@/api/config'
 const app = {
   state: {
     switch: {
-      add: true,
+      add: true
     },
     pageSize: {
       index: 6,
-      list: 10,
+      list: 10
     },
     shareImg: {
-      index: ''
+      index: 'https://chengzhx76.picp.vip/index-share.jpg'
     },
     swiper: {
-      imgs: [],
+      imgs: [
+        'https://chengzhx76.picp.vip/1.jpg',
+        'https://chengzhx76.picp.vip/2.jpg'
+      ],
       indicatorDots: true,
       vertical: false,
       autoplay: true,
@@ -33,14 +36,16 @@ const app = {
     SET_SHARE_IMG: (state, index) => {
       state.shareImg.index = index
     },
-    SET_INDEX_SWIPER: (state, { imgs, indicatorDots, vertical, autoplay, circular, interval, duration }) => {
-      state.swiper.imgs = imgs
-      state.swiper.indicatorDots = !!indicatorDots
-      state.swiper.vertical = !!vertical
-      state.swiper.autoplay = !!autoplay
-      state.swiper.circular = !!circular
-      state.swiper.interval = interval
-      state.swiper.duration = duration
+    SET_INDEX_SWIPER: (state, swiper) => {
+      state.swiper.imgs = swiper.SwiperShowImg.map(item => {
+        return item.SwiperShowImg
+      })
+      state.swiper.indicatorDots = !!swiper.SwiperIndicatorDots
+      state.swiper.vertical = !!swiper.SwiperVertical
+      state.swiper.autoplay = !!swiper.SwiperAutoplay
+      state.swiper.circular = !!swiper.SwiperCircular
+      state.swiper.interval = swiper.SwiperInterval
+      state.swiper.duration = swiper.SwiperDuration
     }
   },
   actions: {
@@ -50,14 +55,7 @@ const app = {
           commit('SET_SWITCH', res.data.SWITCH.SwitchAdd)
           commit('SET_PAGE_SIZE', { index: res.data.PAGE_SIZE.PageSizeIndex, list: res.data.PAGE_SIZE.PageSizeList })
           commit('SET_SHARE_IMG', res.data.SHARE_IMG.ShareImgIndex)
-          const imgs = res.data.SWIPER.SwiperShowImg
-          const indicatorDots = res.data.SWIPER.SwiperIndicatorDots
-          const vertical = res.data.SWIPER.SwiperVertical
-          const autoplay = res.data.SWIPER.SwiperAutoplay
-          const circular = res.data.SWIPER.SwiperCircular
-          const interval = res.data.SWIPER.SwiperInterval
-          const duration = res.data.SWIPER.SwiperDuration
-          commit('SET_INDEX_SWIPER', { imgs, indicatorDots, vertical, autoplay, circular, interval, duration })
+          commit('SET_INDEX_SWIPER', res.data.SWIPER)
           resolve()
         }).catch(error => {
           reject(error)
@@ -70,14 +68,7 @@ const app = {
           commit('SET_SWITCH', res.data.SWITCH.SwitchAdd)
           commit('SET_PAGE_SIZE', { index: res.data.PAGE_SIZE.PageSizeIndex, list: res.data.PAGE_SIZE.PageSizeList })
           commit('SET_SHARE_IMG', res.data.SHARE_IMG.ShareImgIndex)
-          const imgs = res.data.SWIPER.SwiperShowImg
-          const indicatorDots = res.data.SWIPER.SwiperIndicatorDots
-          const vertical = res.data.SWIPER.SwiperVertical
-          const autoplay = res.data.SWIPER.SwiperAutoplay
-          const circular = res.data.SWIPER.SwiperCircular
-          const interval = res.data.SWIPER.SwiperInterval
-          const duration = res.data.SWIPER.SwiperDuration
-          commit('SET_INDEX_SWIPER', { imgs, indicatorDots, vertical, autoplay, circular, interval, duration })
+          commit('SET_INDEX_SWIPER', res.data.SWIPER)
           resolve()
         }).catch(error => {
           reject(error)
@@ -90,14 +81,7 @@ const app = {
           commit('SET_SWITCH', res.data.SWITCH.SwitchAdd)
           commit('SET_PAGE_SIZE', { index: res.data.PAGE_SIZE.PageSizeIndex, list: res.data.PAGE_SIZE.PageSizeList })
           commit('SET_SHARE_IMG', res.data.SHARE_IMG.ShareImgIndex)
-          const imgs = res.data.SWIPER.SwiperShowImg
-          const indicatorDots = res.data.SWIPER.SwiperIndicatorDots
-          const vertical = res.data.SWIPER.SwiperVertical
-          const autoplay = res.data.SWIPER.SwiperAutoplay
-          const circular = res.data.SWIPER.SwiperCircular
-          const interval = res.data.SWIPER.SwiperInterval
-          const duration = res.data.SWIPER.SwiperDuration
-          commit('SET_INDEX_SWIPER', { imgs, indicatorDots, vertical, autoplay, circular, interval, duration })
+          commit('SET_INDEX_SWIPER', res.data.SWIPER)
           resolve()
         }).catch(error => {
           reject(error)

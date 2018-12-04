@@ -5,8 +5,8 @@
       <view class="section-header">
         <swiper class="swiper-main" :indicator-dots="indicatorDots" :autoplay="autoplay" :circular="circular"
                 :vertical="vertical" :interval="interval" :duration="duration">
-          <swiper-item class="swiper-item" v-for="item in imgs" :key="item.id">
-            <image class="swiper-img" mode="scaleToFill" :src="item.src"/>
+          <swiper-item class="swiper-item" v-for="(item, index) in imgs" :key="index">
+            <image class="swiper-img" mode="scaleToFill" :src="item"/>
           </swiper-item>
         </swiper>
         <view class="nav-main">
@@ -77,7 +77,7 @@
 <script>
   import { mapGetters } from 'vuex'
   import CardList from '@/components/CardList/index'
-  import { list, config } from '@/api/api'
+  import { list } from '@/api/api'
   import { formatTime, formatDate } from '@/utils/index'
   export default {
     data () {
@@ -89,7 +89,6 @@
         },
         page: {
           pageNum: 1,
-          pageSize: 6,
           totalNum: 0
         },
         list: [],
@@ -149,17 +148,6 @@
             item['distTime'] = formatTime(item.time)
             item.time = formatDate(item.time)
             return item
-          })
-        })
-      },
-      getConfig () {
-        this.imgs = []
-        config(1).then(res => {
-          res.data.forEach(item => {
-            this.imgs.push({
-              id: item.configKey,
-              src: item.configValue
-            })
           })
         })
       },
@@ -260,7 +248,6 @@
     onLoad () {
       Object.assign(this.$data, this.$options.data())
       this.wxLogin()
-      this.getConfig()
       this.getList()
     },
     onUnload () {
