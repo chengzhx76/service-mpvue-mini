@@ -1,30 +1,44 @@
 <template>
   <view id="map">
-    <button id="share" open-type="share">转发</button>
-
-    <button @click="testBtn">Test</button>
+    <map id="myMap"
+        style="width: 100%; height: 300px;"
+        :subkey="subkey"
+         :markers="markers"
+         :include-points="markers"
+         @tap="bindtap"
+    ></map>
 
   </view>
 
 </template>
 
 <script>
+  // https://lbs.qq.com/qqmap_wx_jssdk/method-direction.html
   export default {
     data () {
       return {
+        subkey: 'LT5BZ-BLKW3-MKP3M-YB3AY-IQSWK-GUFLN',
+        markers: [
+          {
+            id: 1,
+            latitude: 34.935959,
+            longitude: 115.915123,
+            title: '成武汽车总站',
+            iconPath: './location.png'
+          },
+          {
+            id: 2,
+            latitude: 34.86444,
+            longitude: 115.95544,
+            title: '成武县孙寺镇中心小学',
+            iconPath: './location.png'
+          }
+        ]
       }
     },
     methods: {
-      testBtn () {
-        let btn = document.getElementById('share')
-        btn.click()
-      }
-    },
-    onShareAppMessage (res) {
-      console.log(res)
-      return {
-        title: '快来试试~',
-        path: 'pages/index/main'
+      bindtap (e) {
+        console.log(e)
       }
     }
   }
