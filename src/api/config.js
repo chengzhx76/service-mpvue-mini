@@ -1,6 +1,7 @@
 import { getRequest, postRequest } from '@/utils/request'
 
 export function getConfig (type) {
+  type = !type ? '' : type
   return getRequest(`mp/config?type=${type}`)
 }
 
@@ -14,4 +15,8 @@ export function updateConfig (key, value) {
 
 export function refreshConfig () {
   return postRequest('mp/refresh')
+}
+
+export function authAdmin (code) {
+  return postRequest('mp/auth-admin', { code })
 }

@@ -3,9 +3,9 @@
 
     <view class="main">
       <view class="section-header">
-        <swiper class="swiper-main" :indicator-dots="indicatorDots" :autoplay="autoplay" :circular="circular"
-                :vertical="vertical" :interval="interval" :duration="duration">
-          <swiper-item class="swiper-item" v-for="(item, index) in imgs" :key="index">
+        <swiper class="swiper-main" :indicator-dots="swiper.indicatorDots" :autoplay="swiper.autoplay" :circular="swiper.circular"
+                :vertical="swiper.vertical" :interval="swiper.interval" :duration="swiper.duration">
+          <swiper-item class="swiper-item" v-for="(item, index) in swiper.imgs" :key="index">
             <image class="swiper-img" mode="scaleToFill" :src="item"/>
           </swiper-item>
         </swiper>
@@ -68,7 +68,7 @@
       <view class="block"></view>
     </view>
 
-    <view class="add" v-if="switchAdd" hover-class="btn-hover" @click="addHandler">
+    <view class="add" v-if="switches.add" hover-class="btn-hover" @click="addHandler">
       <text class="icon">+</text>
     </view>
   </view>
@@ -143,7 +143,7 @@
         wx.navigateTo({ url })
       },
       getList () {
-        list(this.service, this.page, this.pageSizeIndex).then(res => {
+        list(this.service, this.page, this.pageSize.index).then(res => {
           this.list = res.data.list.map(item => {
             item['distTime'] = formatTime(item.time)
             item.time = formatDate(item.time)
@@ -194,7 +194,6 @@
         })
       },
       showUserInfo (info) {
-        console.log(this.nickName)
         if (this.nickName) {
           const url = '../my/main'
           wx.navigateTo({ url })
@@ -263,16 +262,10 @@
     computed: {
       ...mapGetters([
         'nickName',
-        'switchAdd',
-        'pageSizeIndex',
-        'shareImgIndex',
-        'imgs',
-        'indicatorDots',
-        'vertical',
-        'autoplay',
-        'circular',
-        'interval',
-        'duration'
+        'switches',
+        'pageSize',
+        'swiper',
+        'shareImg'
       ])
     },
     onPullDownRefresh () {
@@ -296,7 +289,7 @@
       return {
         title: '推荐成武拼车，快来试试~',
         path: 'pages/index/main',
-        imageUrl: this.shareImgIndex
+        imageUrl: this.shareImg.index
       }
     }
   }

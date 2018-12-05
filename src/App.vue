@@ -1,11 +1,10 @@
 <script>
 export default {
-  created () {
-    console.log('miniapp created!!!')
-  },
   onLaunch (options) {
-    console.log('miniapp onLaunch!!!')
-    console.log(options)
+    this.$store.dispatch('GetConfig').then(() => {
+    }).catch(error => {
+      console.log(error)
+    })
   },
   onError (msg) {
     console.log(msg)

@@ -2,7 +2,7 @@ import { getConfig, updateConfig, refreshConfig } from '@/api/config'
 
 const app = {
   state: {
-    switch: {
+    switches: {
       add: true
     },
     pageSize: {
@@ -27,7 +27,7 @@ const app = {
   },
   mutations: {
     SET_SWITCH: (state, add) => {
-      state.switch.add = add
+      state.switches.add = !!parseInt(add)
     },
     SET_PAGE_SIZE: (state, { index, list }) => {
       state.pageSize.index = index
@@ -40,49 +40,49 @@ const app = {
       state.swiper.imgs = swiper.SwiperShowImg.map(item => {
         return item.SwiperShowImg
       })
-      state.swiper.indicatorDots = !!swiper.SwiperIndicatorDots
-      state.swiper.vertical = !!swiper.SwiperVertical
-      state.swiper.autoplay = !!swiper.SwiperAutoplay
-      state.swiper.circular = !!swiper.SwiperCircular
-      state.swiper.interval = swiper.SwiperInterval
-      state.swiper.duration = swiper.SwiperDuration
+      state.swiper.indicatorDots = !!parseInt(swiper.SwiperIndicatorDots)
+      state.swiper.vertical = !!parseInt(swiper.SwiperVertical)
+      state.swiper.autoplay = !!parseInt(swiper.SwiperAutoplay)
+      state.swiper.circular = !!parseInt(swiper.SwiperCircular)
+      state.swiper.interval = parseInt(swiper.SwiperInterval)
+      state.swiper.duration = parseInt(swiper.SwiperDuration)
     }
   },
   actions: {
-    getConfig ({ commit }) {
+    GetConfig ({ commit }) {
       return new Promise((resolve, reject) => {
         getConfig().then(res => {
           commit('SET_SWITCH', res.data.SWITCH.SwitchAdd)
           commit('SET_PAGE_SIZE', { index: res.data.PAGE_SIZE.PageSizeIndex, list: res.data.PAGE_SIZE.PageSizeList })
           commit('SET_SHARE_IMG', res.data.SHARE_IMG.ShareImgIndex)
           commit('SET_INDEX_SWIPER', res.data.SWIPER)
-          resolve()
+          resolve(res)
         }).catch(error => {
           reject(error)
         })
       })
     },
-    updateConfig ({ commit }, { key, value }) {
+    UpdateConfig ({ commit }, { key, value }) {
       return new Promise((resolve, reject) => {
         updateConfig(key, value).then(res => {
           commit('SET_SWITCH', res.data.SWITCH.SwitchAdd)
           commit('SET_PAGE_SIZE', { index: res.data.PAGE_SIZE.PageSizeIndex, list: res.data.PAGE_SIZE.PageSizeList })
           commit('SET_SHARE_IMG', res.data.SHARE_IMG.ShareImgIndex)
           commit('SET_INDEX_SWIPER', res.data.SWIPER)
-          resolve()
+          resolve(res)
         }).catch(error => {
           reject(error)
         })
       })
     },
-    refreshConfig ({ commit }) {
+    RefreshConfig ({ commit }) {
       return new Promise((resolve, reject) => {
         refreshConfig().then(res => {
           commit('SET_SWITCH', res.data.SWITCH.SwitchAdd)
           commit('SET_PAGE_SIZE', { index: res.data.PAGE_SIZE.PageSizeIndex, list: res.data.PAGE_SIZE.PageSizeList })
           commit('SET_SHARE_IMG', res.data.SHARE_IMG.ShareImgIndex)
           commit('SET_INDEX_SWIPER', res.data.SWIPER)
-          resolve()
+          resolve(res)
         }).catch(error => {
           reject(error)
         })

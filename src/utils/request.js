@@ -4,6 +4,7 @@ import store from '@/store'
 
 service.config.timeout = 60000
 service.config.baseURL = 'https://chengzhx76.picp.vip/service/'
+// service.config.baseURL = 'http://localhost:8086/service/'
 
 service.interceptors.request.use(
   config => {

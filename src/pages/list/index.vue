@@ -88,7 +88,7 @@
       },
       getList () {
         console.log()
-        list(this.service, this.page, this.pageSizeList).then(res => {
+        list(this.service, this.page, this.pageSize.list).then(res => {
           this.list = res.data.list.map(item => {
             item['distTime'] = formatTime(item.time)
             item.time = formatDate(item.time)
@@ -114,7 +114,7 @@
             this.show = true
             this.blockHeight = 60
             setTimeout(() => {
-              list(this.service, this.page, this.pageSizeList).then(res => {
+              list(this.service, this.page, this.pageSize.list).then(res => {
                 this.list = res.data.list.map(item => {
                   item['distTime'] = formatTime(item.time)
                   item.time = formatDate(item.time)
@@ -146,7 +146,7 @@
         wx.navigateTo({ url })
       },
       loadMore () {
-        list(this.service, this.page, this.pageSizeList).then(res => {
+        list(this.service, this.page, this.pageSize.list).then(res => {
           const newList = res.data.list.map(item => {
             item['distTime'] = formatTime(item.time)
             item.time = formatDate(item.time)
@@ -198,8 +198,7 @@
     },
     computed: {
       ...mapGetters([
-        'switchAdd',
-        'pageSizeList'
+        'pageSize'
       ])
     },
     onLoad () {
