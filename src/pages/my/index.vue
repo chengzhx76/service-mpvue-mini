@@ -41,7 +41,7 @@
           <text class="text">推荐给朋友</text>
         </button>
       </view>
-      <view class="bar" v-if="isAdmin" @click="admin()" hover-class="tab-hover">
+      <view class="bar" v-if="admin" @click="manger()" hover-class="tab-hover">
         <view class="icon">
           <text class="fa fa-toggle-off fa-lg gray-icon"/>
         </view>
@@ -62,7 +62,7 @@
       }
     },
     methods: {
-      admin () {
+      manger () {
         const url = '../admin/main'
         wx.navigateTo({ url })
       }
@@ -71,8 +71,8 @@
       ...mapGetters([
         'avatar',
         'nickName',
-        'isAdmin',
-        'shareImgIndex'
+        'admin',
+        'shareImg'
       ])
     },
     onShareAppMessage (res) {
@@ -80,7 +80,7 @@
       return {
         title: '推荐成武拼车，快来试试~',
         path: 'pages/index/main',
-        imageUrl: this.shareImgIndex
+        imageUrl: this.shareImg.index
       }
     }
   }

@@ -6,7 +6,7 @@ const user = {
     gender: 0,
     nickName: '',
     token: '',
-    isAdmin: true
+    admin: false
   },
   mutations: {
     SET_USER: (state, user) => {
@@ -16,6 +16,9 @@ const user = {
     },
     SET_TOKEN: (state, token) => {
       state.token = token
+    },
+    SET_IS_ADMIN: (state, admin) => {
+      state.admin = admin
     }
   },
   actions: {
@@ -23,6 +26,7 @@ const user = {
       return new Promise((resolve, reject) => {
         authorization('', '', code).then(res => {
           commit('SET_TOKEN', res.data.token)
+          commit('SET_IS_ADMIN', res.data.admin)
           resolve()
         }).catch(error => {
           reject(error)
@@ -34,6 +38,7 @@ const user = {
         authorization(data.info, state.token, data.code).then(res => {
           commit('SET_USER', res.data)
           commit('SET_TOKEN', res.data.token)
+          commit('SET_IS_ADMIN', res.data.admin)
           resolve()
         }).catch(error => {
           reject(error)
@@ -45,6 +50,7 @@ const user = {
         authorization({ userInfo }, state.token).then(res => {
           commit('SET_USER', res.data)
           commit('SET_TOKEN', res.data.token)
+          commit('SET_IS_ADMIN', res.data.admin)
           resolve()
         }).catch(error => {
           reject(error)
