@@ -1,10 +1,11 @@
 {
   "pages": [
+    "pages/driving/main",
+    "pages/map/main",
     "pages/index/main",
     "pages/my/main",
     "pages/admin/main",
     "pages/list/main",
-    "pages/map/main",
     "pages/city/main",
     "pages/add/main",
     "pages/position/main",
