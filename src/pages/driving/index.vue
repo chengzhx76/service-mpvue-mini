@@ -18,14 +18,64 @@
 
 <script>
   // https://lbs.qq.com/qqmap_wx_jssdk/method-direction.html
+  import QQMapWX from '@/libs/qqmap-wx-jssdk'
+  import { mapKey } from '@/utils/config'
   export default {
     data () {
       return {
+        map: null,
         subkey: 'LT5BZ-BLKW3-MKP3M-YB3AY-IQSWK-GUFLN',
         polyline: []
       }
     },
     methods: {
+
+      direction () {
+        const self = this
+        this.map.getSuggestion({
+          mode: value,
+          form: {
+            latitude: 39.989221,
+            longitude: 116.306076
+          },
+          to: {
+            latitude: 39.828050,
+            longitude: 116.436195
+          },
+          success (res) {
+            const ret = res.data
+            // 服务异常处理
+            if (ret.status !== 0) {
+              return
+            }
+            const coors = ret.result.routes[0].polyline
+            const pl = []
+            // 坐标解压（返回的点串坐标，通过前向差分进行压缩）
+            const kr = 1000000
+            for (let i = 2; i < coors.length; i++) {
+              coors[i] = Number(coors[i - 2]) + Number(coors[i]) / kr
+            }
+            // 将解压后的坐标放入点串数组pl中
+            for (let j = 0; j < coors.length; j += 2) {
+              pl.push({
+                latitude: coors[j],
+                longitude: coors[j + 1]
+              })
+            }
+            // 设置polyline属性，将路线显示出来
+            console.log(pl)
+            self.polyline = [{
+              points: pl,
+              color: '#FF0000',
+              width: 2
+            }]
+          },
+          fail (res) {
+            console.log(res)
+          }
+        })
+      },
+
       driving () {
         var _this = this
         // 网络请求设置
@@ -61,7 +111,12 @@
         }
         wx.request(opt)
       }
-    }
+    },
+    onLoad () {
+      this.map = new QQMapWX({
+        key: mapKey
+      })
+    },
   }
 </script>
 
