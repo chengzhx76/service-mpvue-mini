@@ -473,9 +473,6 @@ class QQMapWX {
 
       Utils.polyfillParam(options);
 
-      if (!Utils.checkKeyword(options)) {
-        return;
-      }
       if (Utils.checkParamKeyEmpty(options, 'mode')
         || Utils.checkParamKeyEmpty(options, 'from')
         || Utils.checkParamKeyEmpty(options, 'to')) {
@@ -483,7 +480,6 @@ class QQMapWX {
       }
 
       var requestParam = {
-        mode: options.mode,
         output: 'json',
         key: that.key
       };
