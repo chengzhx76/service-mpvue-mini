@@ -1,8 +1,6 @@
 <template>
   <view id="map">
-    <!--绑定点击事件-->
-    <button @click="driving">路线规划</button>
-    <!--地图容器-->
+    <button @click="direction">路线规划</button>
     <map
       id="myMap"
       style="width: 100%; height: 300px;"
@@ -31,9 +29,9 @@
 
       direction () {
         const self = this
-        this.map.getSuggestion({
-          mode: value,
-          form: {
+        this.map.direction({
+          mode: 'driving',
+          from: {
             latitude: 39.989221,
             longitude: 116.306076
           },
@@ -42,12 +40,12 @@
             longitude: 116.436195
           },
           success (res) {
-            const ret = res.data
+            console.log(res)
             // 服务异常处理
-            if (ret.status !== 0) {
+            if (res.status !== 0) {
               return
             }
-            const coors = ret.result.routes[0].polyline
+            const coors = res.result.routes[0].polyline
             const pl = []
             // 坐标解压（返回的点串坐标，通过前向差分进行压缩）
             const kr = 1000000
@@ -115,7 +113,7 @@
       this.map = new QQMapWX({
         key: mapKey
       })
-    },
+    }
   }
 </script>
 

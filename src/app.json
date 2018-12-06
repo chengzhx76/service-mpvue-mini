@@ -1,8 +1,8 @@
 {
   "pages": [
-    "pages/driving/main",
-    "pages/map/main",
     "pages/index/main",
+    "pages/map/main",
+    "pages/driving/main",
     "pages/my/main",
     "pages/admin/main",
     "pages/list/main",

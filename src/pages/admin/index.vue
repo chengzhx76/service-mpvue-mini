@@ -48,6 +48,7 @@
       </view>
     </view>
     <button @click="refreshConfig()" type="primary">刷新</button>
+    <button @click="map()" type="primary">map</button>
   </view>
 
 </template>
@@ -138,6 +139,10 @@
             duration: 1300
           })
         }
+      },
+      map () {
+        const url = '../map/main'
+        wx.navigateTo({ url })
       }
     },
     computed: {
