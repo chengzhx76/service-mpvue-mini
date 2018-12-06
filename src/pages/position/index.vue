@@ -112,12 +112,10 @@
         this.selectCity = this.$mp.page.data.extend.selectCity
       }
     },
-    created () {
+    onLoad () {
       this.map = new QQMapWX({
         key: mapKey
       })
-    },
-    onLoad () {
       this.positions = []
     },
     onUnload () {
