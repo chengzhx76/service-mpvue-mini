@@ -262,6 +262,7 @@
     computed: {
       ...mapGetters([
         'nickName',
+        'token',
         'switches',
         'pageSize',
         'swiper',

@@ -36,6 +36,10 @@ export function add (service) {
   return postRequest('mp/add', travel)
 }
 
+export function getTravel (travelId) {
+  return getRequest(`mp/travel/${travelId}`)
+}
+
 export function getCites (city) {
   return getRequest(`mp/cites?city=${city}`)
 }

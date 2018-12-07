@@ -19,40 +19,50 @@
   // https://blog.csdn.net/tianchengwei09/article/details/79680146
   import QQMapWX from '@/libs/qqmap-wx-jssdk'
   import { mapKey } from '@/utils/config'
+  import { getTravel } from '@/api/api'
   export default {
     data () {
       return {
-        subkey: 'LT5BZ-BLKW3-MKP3M-YB3AY-IQSWK-GUFLN',
-        markers: [
-          {
-            id: 1,
-            latitude: 34.935959,
-            longitude: 115.915123
-          },
-          {
-            id: 2,
-            latitude: 34.86444,
-            longitude: 115.95544
-          }
-        ],
+        subkey: mapKey,
+        markers: [],
         polyline: [],
         map: null
       }
     },
     methods: {
+      getDetail (id) {
+        getTravel(id).then(res => {
+          const travel = res.data
+          this.markers.push(
+            {
+              id: 1,
+              latitude: parseFloat(travel.originLat),
+              longitude: parseFloat(travel.originLng),
+              title: travel.origin
+            },
+            {
+              id: 2,
+              latitude: parseFloat(travel.destLat),
+              longitude: parseFloat(travel.destLng),
+              title: travel.dest
+            }
+          )
+          this.direction(travel)
+        })
+      },
       bindtap (e) {
       },
-      direction () {
+      direction (travel) {
         const self = this
         this.map.direction({
           mode: 'driving',
           from: {
-            latitude: 34.935959,
-            longitude: 115.915123
+            latitude: parseFloat(travel.originLat),
+            longitude: parseFloat(travel.originLng)
           },
           to: {
-            latitude: 34.86444,
-            longitude: 115.95544
+            latitude: parseFloat(travel.destLat),
+            longitude: parseFloat(travel.destLng)
           },
           success (res) {
             // 服务异常处理
@@ -87,22 +97,11 @@
       }
     },
     mounted () {
-      this.mapCtx = wx.createMapContext('myMap')
-      /*
-      const self = this
-      this.mapCtx.getCenterLocation({
-        success (res) {
-          console.log(res.longitude)
-          console.log(res.latitude)
-          self.markers.push({
-            id: 0,
-            latitude: res.latitude,
-            longitude: res.longitude,
-            iconPath: './location.png'
-          })
-        }
-      })
-      */
+      // this.mapCtx = wx.createMapContext('myMap')
+      const { id } = this.$root.$mp.query
+      if (id) {
+        this.getDetail(id)
+      }
     },
     onLoad () {
       this.map = new QQMapWX({
