@@ -1,6 +1,6 @@
 <template>
   <view id="card">
-    <view class="card" v-for="(travel, index) in travels" :travel="travel" :key="travel.id">
+    <view class="card" @click="detail(travel.id)" v-for="(travel, index) in travels" :travel="travel" :key="travel.id">
       <view class="header">
         <view :class="[travel.type === 2 ? 'driver' : 'passenger', 'nav-block']"></view>
         <view class="nav-info">
@@ -48,14 +48,14 @@
             <view class="note">{{ travel.distTime }}</view>
           </view>
           <view class="share">
-            <view class="icon" hover-class="btn-hover" @click="chooseShare(travel)">
+            <view class="icon" hover-class="btn-hover" @click.stop="chooseShare(travel)">
               <text class="fa blue-icon fa-sm fa-share-alt"/>
             </view>
           </view>
         </view>
       </view>
       <view class="footer">
-        <button class="call-phone" size="mini" hover-class="btn-hover" @click="phoneCall(travel.mobileNo)">联系TA</button>
+        <button class="call-phone" size="mini" hover-class="btn-hover" @click.stop="phoneCall(travel.mobileNo)">联系TA</button>
       </view>
     </view>
     <view style="position: absolute; top: -9999px; left: -9999px;">
@@ -92,6 +92,10 @@
       }
     },
     methods: {
+      detail (id) {
+        const url = `../map/main?id=${id}`
+        wx.navigateTo({ url })
+      },
       phoneCall (phone) {
         wx.makePhoneCall({
           phoneNumber: phone

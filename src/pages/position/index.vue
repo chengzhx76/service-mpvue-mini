@@ -72,6 +72,7 @@
         }
       },
       selectPosition (position) {
+        console.log(position)
         const self = this
         const pages = getCurrentPages()
         const prevPage = pages[pages.length - 2]
