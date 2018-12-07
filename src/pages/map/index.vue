@@ -1,15 +1,14 @@
 <template>
   <view id="map">
-    <map id="myMap"
-        style="width: 100%; height: 300px;"
-        :subkey="subkey"
+    <map id="travelMap"
+         class="travel-map"
+         :subkey="subkey"
          :markers="markers"
          :include-points="markers"
          @tap="bindtap"
          :polyline="polyline"
          show-location
     ></map>
-    <button @click="direction">路线规划</button>
   </view>
 
 </template>
@@ -38,13 +37,21 @@
               id: 1,
               latitude: parseFloat(travel.originLat),
               longitude: parseFloat(travel.originLng),
-              title: travel.origin
+              title: travel.origin,
+              iconPath: 'origin.png',
+              zIndex: 99,
+              width: '30px',
+              height: '30px'
             },
             {
               id: 2,
               latitude: parseFloat(travel.destLat),
               longitude: parseFloat(travel.destLng),
-              title: travel.dest
+              title: travel.dest,
+              iconPath: 'dest.png',
+              zIndex: 99,
+              width: '30px',
+              height: '30px'
             }
           )
           this.direction(travel)
@@ -86,12 +93,9 @@
             // 设置polyline属性，将路线显示出来
             self.polyline = [{
               points: pl,
-              color: '#3D94FE',
-              width: 4
+              color: '#79C89B',
+              width: 5
             }]
-          },
-          fail (res) {
-            console.log(res)
           }
         })
       }
@@ -104,9 +108,13 @@
       }
     },
     onLoad () {
+      Object.assign(this.$data, this.$options.data())
       this.map = new QQMapWX({
         key: mapKey
       })
+    },
+    onUnload () {
+      Object.assign(this.$data, this.$options.data())
     }
   }
 </script>
@@ -118,6 +126,9 @@
     @include height-width-100;
     @include column-align-center;
     background: $white;
+  }
+  .travel-map {
+    @include height-rpx-width-100(600);
   }
 
 </style>
