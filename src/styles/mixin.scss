@@ -72,6 +72,12 @@
   text-align: $position;
   line-height: #{$height}rpx;
 }
+@mixin height-width-rpx-text-line($height, $width, $lineHeight, $position) {
+  height: #{$height}rpx;
+  width: #{$width}rpx;
+  text-align: $position;
+  line-height: #{$lineHeight}rpx;
+}
 @mixin height-width-percent-text-line($height, $width, $position, $lineHeight) {
   height: #{$height}rpx;
   width: $width;
