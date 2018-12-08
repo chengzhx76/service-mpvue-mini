@@ -55,7 +55,7 @@
             </view>
             <view class="via address" v-if="travel.via">
               <view class="icon">
-                <text class="fa fa-lg fa-map-marker gray-icon"/>
+                <text class="fa fa-sm fa-level-up gray-icon"/>
               </view>
               <text class="text">{{ travel.via }}</text>
             </view>
@@ -65,7 +65,7 @@
               </view>
               <text class="text">{{ travel.time }}</text>
             </view>
-            <view class="remark address" v-if="travel.remarks">{{ travel.remarks }}</view>
+            <view class="remark address" v-if="travel.remarks">备注：{{ travel.remarks }}</view>
           </view>
         </view>
       </view>
@@ -316,8 +316,9 @@
               text-indent: 5rpx;
             }
           }
-          .time {
+          .via, .time {
             .text {
+              font-size: 34rpx;
               color: $unimpColor;
             }
           }
@@ -345,12 +346,6 @@
     z-index: 999;
     @include justify-align-center;
     background: $white;
-    .shared {
-      @include height-rpx-width-percent(100, 90%);
-      line-height: 100rpx;
-      text-align: center;
-      background: darkseagreen;
-    }
     .share {
       @include height-width-percent-text-center(100, 90%);
       background: $gray-blue;
