@@ -72,6 +72,10 @@
   text-align: $position;
   line-height: #{$height}rpx;
 }
+@mixin height-line($height, $lineHeight) {
+  height: #{$height}rpx;
+  line-height: #{$lineHeight}rpx;
+}
 @mixin height-width-rpx-text-line($height, $width, $lineHeight, $position) {
   height: #{$height}rpx;
   width: #{$width}rpx;
@@ -181,6 +185,12 @@
 
 @mixin border($width) {
   border: #{$width}rpx solid $borderColor;
+}
+@mixin border-color($width, $color) {
+  border: #{$width}rpx solid $color;
+}
+@mixin border-color($width, $color) {
+  border: #{$width}rpx solid $color;
 }
 @mixin border-none($position) {
   border-#{$position}: none;
