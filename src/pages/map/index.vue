@@ -9,10 +9,12 @@
          :polyline="polyline"
          show-location
     ></map>
-    <view class="switch">
+    <view class="switch" hover-class="choose-hover">
       <view class="slider"></view>
     </view>
-    <view class="nav-text">车找人</view>
+    <view class="nav-text">
+      {{ travel.type === 2 ? '车找人' : '人找车'}}
+    </view>
     <view class="service">
       <view class="header">
         <view class="user">
@@ -23,13 +25,53 @@
             Cheng
           </view>
         </view>
-        <view class="contact">
-
+        <view class="contact" hover-class="btn-hover">
+          <view class="icon">
+            <text class="fa fa-phone white-icon"/>
+          </view>
+          <view class="text" @click.stop="phoneCall(travel.mobileNo)">联系TA</view>
         </view>
       </view>
       <view class="content">
-
+        <view class="top">
+          <view class="seats" v-if="travel.type === 2">剩余{{ travel.num }}座</view>
+          <view class="seats" v-if="travel.type === 1">{{ travel.num }}人乘车</view>
+          <view class="price" v-if="travel.price !== '-1'">&yen{{ travel.price }}/人</view>
+          <view class="price" v-else>价格面议</view>
+        </view>
+        <view class="travel">
+          <view class="detail">
+            <view class="start address">
+              <view class="icon">
+                <text class="fa fa-car gray-icon"/>
+              </view>
+              <text class="text">{{ travel.origin }}</text>
+            </view>
+            <view class="dest address">
+              <view class="icon">
+                <text class="fa fa-lg fa-map-marker gray-icon"/>
+              </view>
+              <text class="text">{{ travel.dest }}</text>
+            </view>
+            <view class="via address" v-if="travel.via">
+              <view class="icon">
+                <text class="fa fa-lg fa-map-marker gray-icon"/>
+              </view>
+              <text class="text">{{ travel.via }}</text>
+            </view>
+            <view class="time address">
+              <view class="icon">
+                <text class="fa fa-clock-o gray-icon"/>
+              </view>
+              <text class="text">{{ travel.time }}</text>
+            </view>
+            <view class="remark address" v-if="travel.remarks">{{ travel.remarks }}</view>
+          </view>
+        </view>
       </view>
+    </view>
+    <view class="footer">
+      <view class="share" hover-class="btn-hover">分享</view>
     </view>
   </view>
 
@@ -41,19 +83,34 @@
   import QQMapWX from '@/libs/qqmap-wx-jssdk'
   import { mapKey } from '@/utils/config'
   import { getTravel } from '@/api/api'
+  import { formatDate } from '@/utils/index'
   export default {
     data () {
       return {
         subkey: mapKey,
         markers: [],
         polyline: [],
-        map: null
+        map: null,
+        travel: {
+          type: 0,
+          origin: '',
+          dest: '',
+          time: '',
+          mobileNo: '',
+          num: '',
+          price: '',
+          via: '',
+          remarks: '',
+          returnId: ''
+        }
       }
     },
     methods: {
       getDetail (id) {
         getTravel(id).then(res => {
-          const travel = res.data
+          let travel = null
+          this.travel = travel = res.data
+          this.travel.time = formatDate(travel.time)
           this.markers.push(
             {
               id: 1,
@@ -77,6 +134,11 @@
             }
           )
           this.direction(travel)
+        })
+      },
+      phoneCall (phone) {
+        wx.makePhoneCall({
+          phoneNumber: phone
         })
       },
       bindtap (e) {
@@ -156,7 +218,7 @@
   .switch {
     @include height-rpx-width-100(50);
     @include justify-align-center;
-    background: darkorange;
+    background: $white;
     .slider {
       @include height-width(16, 60);
       @include border-top-bottom-width(5);
@@ -165,25 +227,22 @@
   .nav-text {
     @include height-width-percent-text(80, 100%, left);
     padding-left: 20rpx;
-    background: darkkhaki;
+    background: $cardHeaderBgColor;
   }
   .service {
     width: 100%;
     @include justify-center;
-    background: greenyellow;
     .header {
       @include height-rpx-width-percent(119, 96%);
       @include justify-space-between-align-center;
       @include border-bottom-width(1);
-      background: firebrick;
+      background: $white;
       .user {
         @include height-100-width-rpx(300);
         display: flex;
-        background: darkorange;
         .avatar {
           @include height-100-width-rpx(100);
           @include align-center;
-          background: darkgrey;
           img {
             @include height-width(100, 100);
             @include border-radius-percent(50%);
@@ -194,18 +253,110 @@
           padding-left: 15rpx;
           font-size: 32rpx;
           @include over-hidden;
-          background: bisque;
         }
       }
       .contact {
-        @include height-width(80, 180);
+        @include height-width(80, 240);
+        @include border-radius(80);
+        @include justify-start-align-center;
         margin-right: 20rpx;
-        background: darkgoldenrod;
+        background: $light-blue;
+        color: $white;
+        .icon {
+          @include height-100-width-rpx(79);
+          @include border-radius(79);
+          @include border-color(1, $white);
+          @include justify-align-center;
+        }
+        .text {
+          text-indent: 10rpx;
+        }
       }
     }
     .content {
-      @include height-rpx-width-percent(400, 96%);
-      background: darkgreen;
+      width: 96%;
+      margin-bottom: 150rpx;
+      .top {
+        @include height-rpx-width-100(100);
+        @include justify-space-between-align-center;
+        font-weight: bold;
+        .seats {
+          @include height-line(100, 120);
+          color: $unimpColor;
+        }
+        .price {
+          @include height-line(100, 120);
+          color: $priceColor;
+        }
+      }
+      .travel {
+        width: 100%;
+        background: $detailBgColor;
+        @include justify-center;
+        @include border-radius(10);
+        .detail {
+          width: 90%;
+          margin-top: 30rpx;
+          margin-bottom: 30rpx;
+          .address {
+            min-height: 80rpx;
+            width: 100%;
+            @include justify-start-align-center;
+            .icon {
+              min-height: 80rpx;
+              width: 15%;
+              @include justify-align-center;
+            }
+            .text {
+              min-height: 80rpx;
+              width: 85%;
+              @include over-hidden;
+              font-size: 38rpx;
+              line-height: 80rpx;
+              text-indent: 5rpx;
+            }
+          }
+          .time {
+            .text {
+              color: $unimpColor;
+            }
+          }
+          .remark {
+            min-height: 90rpx;
+            text-indent: 10rpx;
+            padding: 6rpx 0;
+            margin-top: 10rpx;
+            font-size: 34rpx;
+            background: #FEF6E3;
+            @include border-color(1, #D1CBBF)
+            @include border-radius(10);
+            color: $unimpColor;
+          }
+        }
+      }
+    }
+  }
+  .footer {
+    @include height-rpx-width-100(129);
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    @include border-top-width(1);
+    z-index: 999;
+    @include justify-align-center;
+    background: $white;
+    .shared {
+      @include height-rpx-width-percent(100, 90%);
+      line-height: 100rpx;
+      text-align: center;
+      background: darkseagreen;
+    }
+    .share {
+      @include height-width-percent-text-center(100, 90%);
+      background: $gray-blue;
+      border-radius: 60rpx;
+      font-size: 38rpx;
+      color: $white;
     }
   }
 

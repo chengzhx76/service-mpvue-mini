@@ -916,7 +916,7 @@
   }
 
   .release {
-    @include height-rpx-width-100(160);
+    @include height-rpx-width-100(159);
     position: fixed;
     left: 0;
     bottom: 0;
