@@ -1,13 +1,13 @@
 <template>
   <view id="bottom-dialog">
-    <view class="modals modals-bottom-dialog" v-if="!hidden">
+    <view class="modals modals-bottom-dialog" v-if="!hidden" catchtouchmove='true'>
       <view class="modals-cancel" @click="hideModal"></view>
       <view class="bottom-dialog-body bottom-pos"
             :animation="animationData"
             :style="{ borderTopLeftRadius: topRadius + 'rpx', borderTopRightRadius: topRadius + 'rpx' }">
         <view class="header" v-if="showHeader">
-          <view class="cancel">取消</view>
-          <view class="confirm">确定</view>
+          <view class="cancel" @click="cancel">取消</view>
+          <view class="confirm" @click="confirm">确定</view>
         </view>
         <view class="main">
           <slot></slot>
@@ -19,20 +19,36 @@
 
 <script>
   export default {
+    props: {
+      duration: {
+        type: Number,
+        default: 400
+      },
+      showHeader: {
+        type: Boolean,
+        default: false
+      }
+    },
     data () {
       return {
         animationData: null,
         animation: null,
         hidden: true,
-        topRadius: 10,
-        showHeader: false
+        topRadius: 10
       }
     },
     methods: {
+      cancel () {
+        this.hideModal()
+      },
+      confirm () {
+        this.hideModal()
+      },
       showModal () {
+        const self = this
         this.hidden = false
         this.animation = wx.createAnimation({
-          duration: 200,
+          duration: self.duration,
           timingFunction: 'ease'
         })
         setTimeout(() => {
@@ -40,8 +56,9 @@
         }, 200)
       },
       hideModal () {
+        const self = this
         this.animation = wx.createAnimation({
-          duration: 200,
+          duration: self.duration,
           timingFunction: 'ease'
         })
         this.fadeDown()

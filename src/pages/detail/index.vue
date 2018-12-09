@@ -65,7 +65,8 @@
               </view>
               <text class="text">{{ travel.time }}</text>
             </view>
-            <view class="remark address" v-if="travel.remarks">备注：{{ travel.remarks }}</view>
+            <!--<view class="remark address" v-if="travel.remarks">备注：{{ travel.remarks }}</view>-->
+            <view class="remark address">备注：ddd挡风沙对方是否撒挡风挡</view>
           </view>
         </view>
       </view>
@@ -82,6 +83,7 @@
   // https://lbs.qq.com/qqmap_wx_jssdk/method-direction.html
   // https://blog.csdn.net/tianchengwei09/article/details/79680146
   import QQMapWX from '@/libs/qqmap-wx-jssdk'
+  import { mapGetters } from 'vuex'
   import { mapKey } from '@/utils/config'
   import { getTravel } from '@/api/api'
   import { formatDate } from '@/utils/index'
@@ -198,6 +200,11 @@
       if (id) {
         this.getDetail(id)
       }
+    },
+    computed: {
+      ...mapGetters([
+        'shareImg'
+      ])
     },
     onLoad () {
       Object.assign(this.$data, this.$options.data())
