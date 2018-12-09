@@ -71,8 +71,9 @@
       </view>
     </view>
     <view class="footer">
-      <view class="share" hover-class="btn-hover">分享</view>
+      <view class="share" @click="share" hover-class="btn-hover">分享</view>
     </view>
+    <action-sheet ref="actionSheet"></action-sheet>
   </view>
 
 </template>
@@ -84,6 +85,7 @@
   import { mapKey } from '@/utils/config'
   import { getTravel } from '@/api/api'
   import { formatDate } from '@/utils/index'
+  import ActionSheet from '@/components/ActionSheet/index'
   export default {
     data () {
       return {
@@ -104,6 +106,9 @@
           returnId: ''
         }
       }
+    },
+    components: {
+      ActionSheet
     },
     methods: {
       getDetail (id) {
@@ -140,6 +145,9 @@
         wx.makePhoneCall({
           phoneNumber: phone
         })
+      },
+      share () {
+        this.$refs.actionSheet.showActionSheet()
       },
       bindtap (e) {
       },
@@ -199,6 +207,14 @@
     },
     onUnload () {
       Object.assign(this.$data, this.$options.data())
+    },
+    onShareAppMessage (res) {
+      console.log(res)
+      return {
+        title: '推荐成武拼车，快来试试~',
+        path: 'pages/index/main',
+        imageUrl: this.shareImg.index
+      }
     }
   }
 </script>
