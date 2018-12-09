@@ -69,10 +69,12 @@
         <view class="save-img-btn" @click="saveShareImg()">保存图片</view>
       </view>
     </view>
+    <action-sheet ref="actionSheet" @shareImg="createShareImg"></action-sheet>
   </view>
 </template>
 
 <script>
+  import ActionSheet from '@/components/ActionSheet/index'
   export default {
     props: {
       travels: {
@@ -88,12 +90,16 @@
         canvasHeightPx: 260,
         canvasWidthPx: 200,
         windowHeightPx: 0,
-        windowWidthPx: 0
+        windowWidthPx: 0,
+        tempTravel: null
       }
+    },
+    components: {
+      ActionSheet
     },
     methods: {
       detail (id) {
-        const url = `../map/main?id=${id}`
+        const url = `../detail/main?id=${id}`
         wx.navigateTo({ url })
       },
       phoneCall (phone) {
@@ -102,6 +108,9 @@
         })
       },
       chooseShare (item) {
+        this.tempTravel = item
+        this.$refs.actionSheet.showActionSheet()
+        /*
         const self = this
         wx.showActionSheet({
           itemList: ['生成图片 保存分享'],
@@ -111,8 +120,10 @@
             }
           }
         })
+        */
       },
-      createShareImg (val) {
+      createShareImg () {
+        let val = this.tempTravel
         wx.showLoading({
           title: '加载中...'
         })
@@ -130,6 +141,7 @@
         wx.saveImageToPhotosAlbum({
           filePath: self.src,
           success (res) {
+            self.tempTravel = null
             self.showShareImg = false
             wx.showModal({
               content: '图片已保存到相册',
@@ -236,6 +248,7 @@
         })
       },
       closeShareImgMode () {
+        this.tempTravel = null
         this.showShareImg = false
       }
     },
