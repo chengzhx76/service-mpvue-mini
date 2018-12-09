@@ -65,8 +65,7 @@
               </view>
               <text class="text">{{ travel.time }}</text>
             </view>
-            <!--<view class="remark address" v-if="travel.remarks">备注：{{ travel.remarks }}</view>-->
-            <view class="remark address">备注：ddd挡风沙对方是否撒挡风挡</view>
+            <view class="remark address" v-if="travel.remarks">备注：{{ travel.remarks }}</view>
           </view>
         </view>
       </view>

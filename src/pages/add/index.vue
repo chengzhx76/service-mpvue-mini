@@ -13,25 +13,25 @@
 
         <view class="service">
           <view class="distance">
-            <view class="origin info">
+            <view class="origin info" @click="chooseOrigin" hover-class="choose-hover">
               <view class="title">
                 <view class="icon">
                   <text class="fa fa-car gray-icon"/>
                 </view>
                 <text :class="['label', { error: formValidate.origin }]">起点</text>
               </view>
-              <view class="input" @click="chooseOrigin">
+              <view class="input">
                 <input placeholder-class="placeholder-color" placeholder="出发地" disabled v-model="service.origin.title"/>
               </view>
             </view>
-            <view class="dest info">
+            <view class="dest info" @click="chooseDest" hover-class="choose-hover">
               <view class="title">
                 <view class="icon">
                   <text class="fa fa-lg fa-map-marker gray-icon"/>
                 </view>
                 <text :class="['label', { error: formValidate.dest }]">终点</text>
               </view>
-              <view class="input" @click="chooseDest">
+              <view class="input">
                 <input placeholder-class="placeholder-color" placeholder="目的地" disabled v-model="service.dest.title"/>
               </view>
             </view>
