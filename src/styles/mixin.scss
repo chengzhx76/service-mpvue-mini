@@ -189,9 +189,6 @@
 @mixin border-color($width, $color) {
   border: #{$width}rpx solid $color;
 }
-@mixin border-color($width, $color) {
-  border: #{$width}rpx solid $color;
-}
 @mixin border-none($position) {
   border-#{$position}: none;
 }
