@@ -2,6 +2,7 @@
   <view id="map">
     <map id="travelMap"
          class="travel-map"
+         :style="{ height: mapHeight + 'rpx' }"
          :subkey="subkey"
          :markers="markers"
          :include-points="markers"
@@ -11,7 +12,7 @@
     ></map>
     <view class="nav">
       <view class="left">{{ travel.type === 2 ? '车找人' : '人找车'}}</view>
-      <view class="switch">
+      <view class="switch" @click="mapSwitch">
         <view class="slider"></view>
       </view>
       <view class="right" @click="modify(travel.id)" hover-class="tab-hover">修改</view>
@@ -34,7 +35,7 @@
           <view class="text" @click.stop="phoneCall(travel.mobileNo)">联系TA</view>
         </view>
       </view>
-      <view class="content">
+      <view class="content" v-if="!bigMap">
         <view class="top">
           <view class="seats" v-if="travel.type === 2">剩余{{ travel.num }}座</view>
           <view class="seats" v-if="travel.type === 1">{{ travel.num }}人乘车</view>
@@ -96,6 +97,9 @@
         markers: [],
         polyline: [],
         map: null,
+        mapHeight: 500,
+        clientHeight: 1000,
+        bigMap: false,
         travel: {
           type: 0,
           origin: '',
@@ -114,6 +118,29 @@
       ActionSheet
     },
     methods: {
+      mapSwitch () {
+        if (this.bigMap) {
+          this.bigMap = false
+          this.mapHeight = 500
+        } else {
+          this.bigMap = true
+          this.mapHeight = parseInt(this.clientHeight - 330)
+        }
+      },
+      modify (travelId) {
+        const url = `../add/main?travelId=${travelId}`
+        wx.navigateTo({ url })
+      },
+      phoneCall (phone) {
+        wx.makePhoneCall({
+          phoneNumber: phone
+        })
+      },
+      share () {
+        this.$refs.actionSheet.showActionSheet()
+      },
+      bindtap (e) {
+      },
       getDetail (id) {
         getTravel(id).then(res => {
           let travel = null
@@ -143,20 +170,6 @@
           )
           this.direction(travel)
         })
-      },
-      modify (travelId) {
-        const url = `../add/main?travelId=${travelId}`
-        wx.navigateTo({ url })
-      },
-      phoneCall (phone) {
-        wx.makePhoneCall({
-          phoneNumber: phone
-        })
-      },
-      share () {
-        this.$refs.actionSheet.showActionSheet()
-      },
-      bindtap (e) {
       },
       direction (travel) {
         const self = this
@@ -201,6 +214,11 @@
     },
     mounted () {
       // this.mapCtx = wx.createMapContext('myMap')
+      const res = wx.getSystemInfoSync()
+      const clientHeight = res.windowHeight
+      const clientWidth = res.windowWidth
+      const rpxR = 750 / clientWidth
+      this.clientHeight = clientHeight * rpxR
       const { id } = this.$root.$mp.query
       if (id) {
         this.getDetail(id)
@@ -241,7 +259,8 @@
     background: $white;
   }
   .travel-map {
-    @include height-rpx-width-100(500);
+    /*@include height-rpx-width-100(500);*/
+    width: 100%;
   }
   .nav {
     @include height-rpx-width-100(80);
@@ -270,7 +289,6 @@
     .header {
       @include height-rpx-width-percent(119, 96%);
       @include justify-space-between-align-center;
-      @include border-bottom-width(1);
       background: $white;
       .user {
         @include height-100-width-rpx(300);
@@ -311,6 +329,7 @@
     .content {
       width: 96%;
       margin-bottom: 150rpx;
+      @include border-top-width(1);
       .top {
         @include height-rpx-width-100(100);
         @include justify-space-between-align-center;

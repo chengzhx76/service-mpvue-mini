@@ -1,6 +1,6 @@
 <template>
   <view id="bottom-dialog">
-    <view class="modals modals-bottom-dialog" v-if="!hidden" :animation="animationMask" catchtouchmove='true'>
+    <view class="modals modals-bottom-dialog" v-if="!hidden" catchtouchmove='true'>
       <view class="modals-cancel" :animation="animationMask" @click="hideModal"></view>
       <view class="bottom-dialog-body bottom-pos"
             :animation="animationModal"
@@ -56,16 +56,6 @@
           this.fadeIn()
         }, 200)
       },
-      showMask () {
-        this.hidden = false
-        const animation = wx.createAnimation({
-          duration: 200,
-          timingFunction: 'ease'
-        })
-        animation.opacity(0.5).step()
-        this.animationMask = animation.export()
-      },
-
       hideModal () {
         const self = this
         this.animation = wx.createAnimation({
@@ -75,16 +65,25 @@
         this.fadeDown()
         setTimeout(() => {
           this.hideMask()
-        }, 500)
+        }, 300)
+      },
+      showMask () {
+        this.hidden = false
+        const animation = wx.createAnimation({
+          duration: 400,
+          timingFunction: 'ease'
+        })
+        animation.opacity(0.3).step()
+        this.animationMask = animation.export()
       },
       hideMask () {
-        this.hidden = true
         const animation = wx.createAnimation({
-          duration: 200,
+          duration: 400,
           timingFunction: 'ease'
         })
         animation.opacity(0).step()
         this.animationMask = animation.export()
+        this.hidden = true
       },
       fadeIn () {
         this.animation.translateY(0).step()
@@ -119,7 +118,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,0);
+    background-color: black;
   }
   .bottom-dialog-body {
     position: absolute;
