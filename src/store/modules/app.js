@@ -1,5 +1,13 @@
 import { getConfig, updateConfig, refreshConfig } from '@/api/config'
 
+function setMutations(commit, data) {
+  commit('SET_SWITCH', data.SWITCH.SwitchAdd)
+  commit('SET_PAGE_SIZE', { index: data.PAGE_SIZE.PageSizeIndex, list: data.PAGE_SIZE.PageSizeList })
+  commit('SET_SHARE_IMG', data.SHARE_IMG.ShareImgIndex)
+  commit('SET_SHARE_TEXT', data.SHARE_TEXT.ShareTextIndex)
+  commit('SET_INDEX_SWIPER', data.SWIPER)
+}
+
 const app = {
   state: {
     switches: {
@@ -11,6 +19,9 @@ const app = {
     },
     shareImg: {
       index: 'https://chengzhx76.picp.vip/index-share.jpg'
+    },
+    shareText: {
+      index: '推荐成武拼车，快来试试~'
     },
     swiper: {
       imgs: [
@@ -33,8 +44,11 @@ const app = {
       state.pageSize.index = index
       state.pageSize.list = list
     },
-    SET_SHARE_IMG: (state, index) => {
-      state.shareImg.index = index
+    SET_SHARE_IMG: (state, img) => {
+      state.shareImg.index = img
+    },
+    SET_SHARE_TEXT: (state, text) => {
+      state.shareText.index = text
     },
     SET_INDEX_SWIPER: (state, swiper) => {
       state.swiper.imgs = swiper.SwiperShowImg.map(item => {
@@ -52,10 +66,7 @@ const app = {
     GetConfig ({ commit }) {
       return new Promise((resolve, reject) => {
         getConfig().then(res => {
-          commit('SET_SWITCH', res.data.SWITCH.SwitchAdd)
-          commit('SET_PAGE_SIZE', { index: res.data.PAGE_SIZE.PageSizeIndex, list: res.data.PAGE_SIZE.PageSizeList })
-          commit('SET_SHARE_IMG', res.data.SHARE_IMG.ShareImgIndex)
-          commit('SET_INDEX_SWIPER', res.data.SWIPER)
+          setMutations(commit, res.data)
           resolve(res)
         }).catch(error => {
           reject(error)
@@ -65,10 +76,7 @@ const app = {
     UpdateConfig ({ commit }, { key, value }) {
       return new Promise((resolve, reject) => {
         updateConfig(key, value).then(res => {
-          commit('SET_SWITCH', res.data.SWITCH.SwitchAdd)
-          commit('SET_PAGE_SIZE', { index: res.data.PAGE_SIZE.PageSizeIndex, list: res.data.PAGE_SIZE.PageSizeList })
-          commit('SET_SHARE_IMG', res.data.SHARE_IMG.ShareImgIndex)
-          commit('SET_INDEX_SWIPER', res.data.SWIPER)
+          setMutations(commit, res.data)
           resolve(res)
         }).catch(error => {
           reject(error)
@@ -78,10 +86,7 @@ const app = {
     RefreshConfig ({ commit }) {
       return new Promise((resolve, reject) => {
         refreshConfig().then(res => {
-          commit('SET_SWITCH', res.data.SWITCH.SwitchAdd)
-          commit('SET_PAGE_SIZE', { index: res.data.PAGE_SIZE.PageSizeIndex, list: res.data.PAGE_SIZE.PageSizeList })
-          commit('SET_SHARE_IMG', res.data.SHARE_IMG.ShareImgIndex)
-          commit('SET_INDEX_SWIPER', res.data.SWIPER)
+          setMutations(commit, res.data)
           resolve(res)
         }).catch(error => {
           reject(error)
