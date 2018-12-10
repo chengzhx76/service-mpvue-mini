@@ -159,29 +159,6 @@
         const url = '../list/main'
         wx.navigateTo({ url })
       },
-      wxLogin () {
-        const self = this
-        wx.login({
-          success (loginRes) {
-            if (loginRes.code) {
-              wx.getSetting({
-                success (settRes) {
-                  if (settRes.authSetting['scope.userInfo']) {
-                    self.getWxUserInfo(loginRes.code)
-                  } else {
-                    self.$store.dispatch('AuthUser', loginRes.code).then(() => {
-                    }).catch(error => {
-                      console.log(error)
-                    })
-                  }
-                }
-              })
-            } else {
-              console.log('登录失败！' + loginRes.errMsg)
-            }
-          }
-        })
-      },
       getWxUserInfo (code) {
         const self = this
         wx.getUserInfo({
@@ -246,7 +223,6 @@
     },
     onLoad () {
       Object.assign(this.$data, this.$options.data())
-      this.wxLogin()
       this.getList()
     },
     onUnload () {
