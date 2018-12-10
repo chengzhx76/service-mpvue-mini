@@ -24,6 +24,17 @@ export default {
         }
       })
     },
+    getWxUserInfo (code) {
+      const self = this
+      wx.getUserInfo({
+        success (info) {
+          self.$store.dispatch('GetUser', { code, info }).then(() => {
+          }).catch(error => {
+            console.log(error)
+          })
+        }
+      })
+    },
     loadConfig () {
       this.$store.dispatch('GetConfig').then(() => {
       }).catch(error => {

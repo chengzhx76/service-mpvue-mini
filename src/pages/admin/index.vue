@@ -47,6 +47,17 @@
         <button class="submit" type="primary" @click="update('ShareImgIndex', shareImg.index)">提交</button>
       </view>
     </view>
+    <view class="cell share-text-index">
+      <view class="content">
+        <view class="label">首页分享文案</view>
+        <view class="operate">
+          <input placeholder="内容" v-model="shareText.index"/>
+        </view>
+      </view>
+      <view class="btn">
+        <button class="submit" type="primary" @click="update('ShareTextIndex', shareText.index)">提交</button>
+      </view>
+    </view>
     <button @click="refreshConfig()" type="primary">刷新</button>
   </view>
 
@@ -66,6 +77,9 @@
         },
         shareImg: {
           index: ''
+        },
+        shareText: {
+          index: ''
         }
       }
     },
@@ -79,6 +93,7 @@
           this.pageSize.index = parseInt(res.data.PAGE_SIZE.PageSizeIndex)
           this.pageSize.list = parseInt(res.data.PAGE_SIZE.PageSizeList)
           this.shareImg.index = res.data.SHARE_IMG.ShareImgIndex
+          this.shareText.index = res.data.SHARE_TEXT.ShareTextIndex
         }).catch(error => {
           console.log(error)
         })

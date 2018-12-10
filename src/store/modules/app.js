@@ -1,6 +1,6 @@
 import { getConfig, updateConfig, refreshConfig } from '@/api/config'
 
-function setMutations(commit, data) {
+function setMutations (commit, data) {
   commit('SET_SWITCH', data.SWITCH.SwitchAdd)
   commit('SET_PAGE_SIZE', { index: data.PAGE_SIZE.PageSizeIndex, list: data.PAGE_SIZE.PageSizeList })
   commit('SET_SHARE_IMG', data.SHARE_IMG.ShareImgIndex)
