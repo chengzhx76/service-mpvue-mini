@@ -9,13 +9,6 @@
          :polyline="polyline"
          show-location
     ></map>
-    <view class="switch" hover-class="choose-hover">
-      <view class="slider"></view>
-    </view>
-   <!-- <view class="nav-text">
-      {{ travel.type === 2 ? '车找人' : '人找车'}}
-    </view>-->
-
     <view class="nav">
       <view class="left">{{ travel.type === 2 ? '车找人' : '人找车'}}</view>
       <view class="switch">
@@ -151,7 +144,7 @@
           this.direction(travel)
         })
       },
-      modify(travelId) {
+      modify (travelId) {
         const url = `../add/main?travelId=${travelId}`
         wx.navigateTo({ url })
       },
@@ -250,35 +243,21 @@
   .travel-map {
     @include height-rpx-width-100(500);
   }
-
-  .switch {
-    @include height-rpx-width-100(50);
-    @include justify-align-center;
-    background: $white;
-    .slider {
-      @include height-width(16, 60);
-      @include border-top-bottom-width(5);
-    }
-  }
-  .nav-text {
-    @include height-width-percent-text(80, 100%, left);
-    padding-left: 20rpx;
-    background: $cardHeaderBgColor;
-  }
   .nav {
-    @include height-width-percent-text(80, 100%, left);
+    @include height-rpx-width-100(80);
     @include justify-space-between-align-center;
+    font-size: 34rpx;
     background: $cardHeaderBgColor;
-    .left, .right {
-      @include height-width-text-center(80, 100);
+    .left {
+      @include height-width-text-center(80, 150);
     }
     .right {
+      @include height-width-text-center(80, 130);
       color: $light-blue;
     }
     .switch {
-      @include height-rpx-width-100(80);
+      @include height-width(80, 120);
       @include justify-align-center;
-      background: $white;
       .slider {
         @include height-width(16, 60);
         @include border-top-bottom-width(5);

@@ -159,17 +159,6 @@
         const url = '../list/main'
         wx.navigateTo({ url })
       },
-      getWxUserInfo (code) {
-        const self = this
-        wx.getUserInfo({
-          success (info) {
-            self.$store.dispatch('GetUser', { code, info }).then(() => {
-            }).catch(error => {
-              console.log(error)
-            })
-          }
-        })
-      },
       showUserInfo (info) {
         if (this.nickName) {
           const url = '../my/main'

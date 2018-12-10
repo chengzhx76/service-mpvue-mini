@@ -1,9 +1,9 @@
 <template>
   <view id="bottom-dialog">
-    <view class="modals modals-bottom-dialog" v-if="!hidden" catchtouchmove='true'>
-      <view class="modals-cancel" @click="hideModal"></view>
+    <view class="modals modals-bottom-dialog" v-if="!hidden" :animation="animationMask" catchtouchmove='true'>
+      <view class="modals-cancel" :animation="animationMask" @click="hideModal"></view>
       <view class="bottom-dialog-body bottom-pos"
-            :animation="animationData"
+            :animation="animationModal"
             :style="{ borderTopLeftRadius: topRadius + 'rpx', borderTopRightRadius: topRadius + 'rpx' }">
         <view class="header" v-if="showHeader">
           <view class="cancel" @click="cancel">取消</view>
@@ -31,7 +31,8 @@
     },
     data () {
       return {
-        animationData: null,
+        animationModal: null,
+        animationMask: null,
         animation: null,
         hidden: true,
         topRadius: 10
@@ -46,7 +47,7 @@
       },
       showModal () {
         const self = this
-        this.hidden = false
+        this.showMask()
         this.animation = wx.createAnimation({
           duration: self.duration,
           timingFunction: 'ease'
@@ -55,6 +56,16 @@
           this.fadeIn()
         }, 200)
       },
+      showMask () {
+        this.hidden = false
+        const animation = wx.createAnimation({
+          duration: 200,
+          timingFunction: 'ease'
+        })
+        animation.opacity(0.5).step()
+        this.animationMask = animation.export()
+      },
+
       hideModal () {
         const self = this
         this.animation = wx.createAnimation({
@@ -63,16 +74,25 @@
         })
         this.fadeDown()
         setTimeout(() => {
-          this.hidden = true
+          this.hideMask()
         }, 500)
+      },
+      hideMask () {
+        this.hidden = true
+        const animation = wx.createAnimation({
+          duration: 200,
+          timingFunction: 'ease'
+        })
+        animation.opacity(0).step()
+        this.animationMask = animation.export()
       },
       fadeIn () {
         this.animation.translateY(0).step()
-        this.animationData = this.animation.export()
+        this.animationModal = this.animation.export()
       },
       fadeDown () {
         this.animation.translateY(300).step()
-        this.animationData = this.animation.export()
+        this.animationModal = this.animation.export()
       }
     }
   }
@@ -99,7 +119,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,.5);
+    background-color: rgba(0,0,0,0);
   }
   .bottom-dialog-body {
     position: absolute;
