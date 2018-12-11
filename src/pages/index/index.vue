@@ -231,6 +231,7 @@
         'switches',
         'pageSize',
         'swiper',
+        'shareText',
         'shareImg'
       ])
     },
@@ -251,7 +252,6 @@
       })
     },
     onShareAppMessage (res) {
-      console.log(res)
       return {
         title: this.shareText.index,
         path: 'pages/index/main',
@@ -400,32 +400,6 @@
       @include height-width-line-height-text-center(90, 90, 75);
       font-size: 80rpx;
       color: $white;
-    }
-  }
-  .share-preview {
-    @include height-width-100;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 999;
-    background:rgba(0, 0, 0, 0.5);
-    @include justify-align-center;
-    .share-warp {
-      @include column-between;
-      height: 680rpx;
-      .share-img {
-        image {
-          @include height-width-100;
-          @include border-radius(5);
-        }
-      }
-      .save-img-btn {
-        @include height-width-text-center(80, 240);
-        @include border-radius(30);
-        color: #446C9D;
-        font-size: 32rpx;
-        background: #ffffff;
-      }
     }
   }
 </style>

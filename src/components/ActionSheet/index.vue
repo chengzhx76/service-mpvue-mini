@@ -25,7 +25,7 @@
         this.$refs.bottomDialog.showModal()
       },
       shareActionSheet () {
-        this.$emit('shareImg')
+        this.$emit('shareImg', true)
         this.chooseActionSheet()
       },
       chooseActionSheet () {

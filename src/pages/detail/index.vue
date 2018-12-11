@@ -76,7 +76,8 @@
     <view class="footer">
       <view class="share" @click="share" hover-class="btn-hover">分享</view>
     </view>
-    <action-sheet ref="actionSheet"></action-sheet>
+    <action-sheet ref="actionSheet" @shareImg="createShareImg"></action-sheet>
+    <share-img ref="shareImgCom" @shareImgUrl="getShareImgUrl"></share-img>
   </view>
 
 </template>
@@ -90,6 +91,7 @@
   import { getTravel } from '@/api/api'
   import { formatDate } from '@/utils/index'
   import ActionSheet from '@/components/ActionSheet/index'
+  import ShareImg from '@/components/ShareImg/index'
   export default {
     data () {
       return {
@@ -111,11 +113,14 @@
           via: '',
           remarks: '',
           returnId: ''
-        }
+        },
+        shareDetailText: '发布了新行程，快来看看吧~',
+        shareDetailImg: this.$store.getters.shareImg.index
       }
     },
     components: {
-      ActionSheet
+      ActionSheet,
+      ShareImg
     },
     methods: {
       mapSwitch () {
@@ -139,6 +144,13 @@
       share () {
         this.$refs.actionSheet.showActionSheet()
       },
+      createShareImg (showImg) {
+        this.$refs.shareImgCom.createShareImg(this.travel, showImg)
+      },
+      getShareImgUrl (url) {
+        this.shareDetailImg = url
+      },
+
       bindtap (e) {
       },
       getDetail (id) {
@@ -168,6 +180,7 @@
               height: '30px'
             }
           )
+          this.createShareImg(false)
           this.direction(travel)
         })
       },
@@ -226,8 +239,7 @@
     },
     computed: {
       ...mapGetters([
-        'shareText',
-        'shareImg'
+        'shareText'
       ])
     },
     onLoad () {
@@ -242,9 +254,9 @@
     onShareAppMessage (res) {
       console.log(res)
       return {
-        title: this.shareText.index,
+        title: this.shareDetailText,
         path: 'pages/index/main',
-        imageUrl: this.shareImg.index
+        imageUrl: this.shareDetailImg
       }
     }
   }
