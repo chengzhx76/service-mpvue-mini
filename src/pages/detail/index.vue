@@ -15,18 +15,18 @@
       <view class="switch" @click="mapSwitch">
         <view class="slider"></view>
       </view>
-      <view class="right" @click="modify(travel.id)" hover-class="tab-hover">修改</view>
+      <view class="right">
+        <view class="modify" v-if="travel.uid === uid" @click="modify(travel.id)" hover-class="tab-hover">修改</view>
+      </view>
     </view>
 
     <view class="service">
       <view class="header">
         <view class="user">
           <view class="avatar">
-            <img src="https://wx.qlogo.cn/mmopen/vi_32/Q3auHgzwzM58ZD0kZT40Kd3KuAfGqefkJ5rf8toThR3UqibPib2PoyAKjfgr6nBRCOxeV0TeibC1pAwICdF2paeFg/132"/>
+            <img :src="avatar"/>
           </view>
-          <view class="nickname">
-            Cheng
-          </view>
+          <view class="nickname">{{ nickName }}</view>
         </view>
         <view class="contact" hover-class="btn-hover">
           <view class="icon">
@@ -37,10 +37,15 @@
       </view>
       <view class="content" v-if="!bigMap">
         <view class="top">
-          <view class="seats" v-if="travel.type === 2">剩余{{ travel.num }}座</view>
-          <view class="seats" v-if="travel.type === 1">{{ travel.num }}人乘车</view>
-          <view class="price" v-if="travel.price !== '-1'">&yen{{ travel.price }}/人</view>
-          <view class="price" v-else>价格面议</view>
+          <view class="left">
+            <view class="seats" v-if="travel.type === 1">{{ travel.num }}人乘车</view>
+            <view class="seats" v-else>剩余{{ travel.num }}座</view>
+            <view class="price" v-if="travel.price !== '-1'">&yen{{ travel.price }}/人</view>
+            <view class="price" v-else>价格面议</view>
+          </view>
+          <view class="right">
+            <view class="return" v-if="travel.returnId !== ''" @click="returnDetail(travel.returnId)" hover-class="btn-hover">返</view>
+          </view>
         </view>
         <view class="travel">
           <view class="detail">
@@ -88,7 +93,7 @@
   import QQMapWX from '@/libs/qqmap-wx-jssdk'
   import { mapGetters } from 'vuex'
   import { mapKey } from '@/utils/config'
-  import { getTravel } from '@/api/api'
+  import { getTravel, getUserByUid } from '@/api/api'
   import { formatDate } from '@/utils/index'
   import ActionSheet from '@/components/ActionSheet/index'
   import ShareImg from '@/components/ShareImg/index'
@@ -102,7 +107,10 @@
         mapHeight: 500,
         clientHeight: 1000,
         bigMap: false,
+        avatar: '',
+        nickName: '',
         travel: {
+          id: '',
           type: 0,
           origin: '',
           dest: '',
@@ -141,6 +149,10 @@
           phoneNumber: phone
         })
       },
+      returnDetail (returnId) {
+        const url = `../detail/main?id=${returnId}`
+        wx.redirectTo({ url })
+      },
       share () {
         this.$refs.actionSheet.showActionSheet()
       },
@@ -166,8 +178,8 @@
               title: travel.origin,
               iconPath: 'origin.png',
               zIndex: 99,
-              width: '30px',
-              height: '30px'
+              width: 30,
+              height: 30
             },
             {
               id: 2,
@@ -176,12 +188,21 @@
               title: travel.dest,
               iconPath: 'dest.png',
               zIndex: 99,
-              width: '30px',
-              height: '30px'
+              width: 30,
+              height: 30
             }
           )
           this.createShareImg(false)
+          this.getUser(travel.uid)
           this.direction(travel)
+        })
+      },
+      getUser (uid) {
+        getUserByUid(uid).then(res => {
+          if (res.meta.code === 2000) {
+            this.avatar = res.data.avatarUrl
+            this.nickName = res.data.nickName
+          }
         })
       },
       direction (travel) {
@@ -234,11 +255,13 @@
       this.clientHeight = clientHeight * rpxR
       const { id } = this.$root.$mp.query
       if (id) {
+        this.travel.id = id
         this.getDetail(id)
       }
     },
     computed: {
       ...mapGetters([
+        'uid',
         'shareText'
       ])
     },
@@ -252,10 +275,9 @@
       Object.assign(this.$data, this.$options.data())
     },
     onShareAppMessage (res) {
-      console.log(res)
       return {
         title: this.shareDetailText,
-        path: 'pages/index/main',
+        path: `pages/index/main?id=${this.id}`,
         imageUrl: this.shareDetailImg
       }
     }
@@ -284,7 +306,10 @@
     }
     .right {
       @include height-width-text-center(80, 130);
-      color: $light-blue;
+      .modify {
+        @include height-width-100;
+        color: $light-blue;
+      }
     }
     .switch {
       @include height-width(80, 120);
@@ -340,19 +365,35 @@
     }
     .content {
       width: 96%;
-      margin-bottom: 150rpx;
+      margin-bottom: 200rpx;
       @include border-top-width(1);
       .top {
         @include height-rpx-width-100(100);
         @include justify-space-between-align-center;
-        font-weight: bold;
-        .seats {
-          @include height-line(100, 120);
-          color: $unimpColor;
+        .left {
+          @include justify-start-align-center;
+          font-weight: bold;
+          .seats {
+            @include height-line(100, 110);
+            color: $unimpColor;
+            padding-right: 20rpx;
+          }
+          .price {
+            @include height-line(100, 110);
+            padding-left: 20rpx;
+            color: $priceColor;
+          }
         }
-        .price {
-          @include height-line(100, 120);
-          color: $priceColor;
+        .right {
+          @include height-width(100, 100);
+          @include justify-align-center;
+          .return {
+            @include height-width(60, 60);
+            @include border-color(1, $dark-blue);
+            @include justify-align-center;
+            @include border-radius(5);
+            color: $unimpColor;
+          }
         }
       }
       .travel {

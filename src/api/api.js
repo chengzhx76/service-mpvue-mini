@@ -57,3 +57,7 @@ export function authorization (data, token, code) {
 
   return postRequest('mp/auth', loginForm)
 }
+
+export function getUserByUid (uid) {
+  return getRequest(`mp/user/${uid}`)
+}
