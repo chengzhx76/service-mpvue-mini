@@ -2,6 +2,7 @@ import { authorization } from '@/api/api'
 
 const user = {
   state: {
+    uid: '',
     avatar: '',
     gender: 0,
     nickName: '',
@@ -10,6 +11,7 @@ const user = {
   },
   mutations: {
     SET_USER: (state, user) => {
+      state.uid = user.openid
       state.avatar = user.avatarUrl
       state.gender = user.gender
       state.nickName = user.nickName

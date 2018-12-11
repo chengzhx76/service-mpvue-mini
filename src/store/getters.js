@@ -1,4 +1,5 @@
 const getters = {
+  uid: state => state.user.uid,
   avatar: state => state.user.avatar,
   gender: state => state.user.gender,
   nickName: state => state.user.nickName,
