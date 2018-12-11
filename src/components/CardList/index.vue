@@ -110,17 +110,6 @@
       chooseShare (item) {
         this.tempTravel = item
         this.$refs.actionSheet.showActionSheet()
-        /*
-        const self = this
-        wx.showActionSheet({
-          itemList: ['生成图片 保存分享'],
-          success (res) {
-            if (res.tapIndex === 0) {
-              self.createShareImg(item)
-            }
-          }
-        })
-        */
       },
       createShareImg () {
         let val = this.tempTravel
