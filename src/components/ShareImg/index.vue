@@ -15,6 +15,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   export default {
     props: {
     },
@@ -28,6 +29,12 @@
         windowHeightPx: 0,
         windowWidthPx: 0
       }
+    },
+    computed: {
+      ...mapGetters([
+        'uid',
+        'shareImg'
+      ])
     },
     methods: {
       createShareImg (val, showImg) {
@@ -54,7 +61,7 @@
         const self = this
         let bg = new Promise((resolve, reject) => {
           wx.getImageInfo({
-            src: 'https://chengzhx76.picp.vip/share-bg.jpg',
+            src: self.shareImg.detail,
             success (res) {
               resolve(res)
             },

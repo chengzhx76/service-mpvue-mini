@@ -33,6 +33,9 @@
           this.$refs.bottomDialog.hideModal()
         }, 50)
       }
+    },
+    onShow () {
+      this.chooseActionSheet()
     }
   }
 </script>
