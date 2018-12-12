@@ -16,8 +16,7 @@
         <view class="slider"></view>
       </view>
       <view class="right">
-        <!--<view class="modify" v-if="travel.uid === uid" @click="modify(travel.id)" hover-class="tab-hover">修改</view>-->
-        <view class="modify" @click="modify(travel.id)" hover-class="tab-hover">修改</view>
+        <view class="modify" v-if="travel.uid === uid" @click="modify(travel.id)" hover-class="tab-hover">修改</view>
       </view>
     </view>
 
