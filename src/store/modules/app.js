@@ -18,10 +18,12 @@ const app = {
       list: 10
     },
     shareImg: {
-      index: 'https://chengzhx76.picp.vip/index-share.jpg'
+      index: 'https://chengzhx76.picp.vip/index-share.jpg',
+      detail: 'https://chengzhx76.picp.vip/share-bg.jpg'
     },
     shareText: {
-      index: '推荐成武拼车，快来试试~'
+      index: '推荐成武拼车，快来试试~',
+      detail: '发布了新行程，快来看看吧~'
     },
     swiper: {
       imgs: [

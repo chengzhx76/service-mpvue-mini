@@ -122,7 +122,6 @@
           remarks: '',
           returnId: ''
         },
-        shareDetailText: '发布了新行程，快来看看吧~',
         shareDetailImg: this.$store.getters.shareImg.index
       }
     },
@@ -141,8 +140,15 @@
         }
       },
       modify (travelId) {
-        const url = `../add/main?travelId=${travelId}`
-        wx.navigateTo({ url })
+        wx.showModal({
+          content: '功能正在开发中~',
+          showCancel: false,
+          confirmText: '好的',
+          success (res) {
+            if (res.confirm) {
+            }
+          }
+        })
       },
       phoneCall (phone) {
         wx.makePhoneCall({
@@ -162,7 +168,6 @@
       getShareImgUrl (url) {
         this.shareDetailImg = url
       },
-
       bindtap (e) {
       },
       getDetail (id) {
@@ -276,8 +281,8 @@
     },
     onShareAppMessage (res) {
       return {
-        title: this.shareDetailText,
-        path: `pages/index/main?id=${this.id}`,
+        title: this.shareText.detail,
+        path: `pages/detail/main?id=${this.travel.id}`,
         imageUrl: this.shareDetailImg
       }
     }
