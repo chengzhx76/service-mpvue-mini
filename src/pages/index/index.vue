@@ -223,6 +223,12 @@
       this.windowHeightPx = clientHeight
       this.windowWidthPx = clientWidth
       this.canvasWidthPx = Math.ceil(clientWidth * 0.9)
+
+      const { travelId } = this.$root.$mp.query
+      if (travelId) {
+        const url = `../detail/main?travelId=${travelId}`
+        wx.navigateTo({ url })
+      }
     },
     computed: {
       ...mapGetters([

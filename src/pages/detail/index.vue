@@ -16,7 +16,8 @@
         <view class="slider"></view>
       </view>
       <view class="right">
-        <view class="modify" v-if="travel.uid === uid" @click="modify(travel.id)" hover-class="tab-hover">修改</view>
+        <!--<view class="modify" v-if="travel.uid === uid" @click="modify(travel.id)" hover-class="tab-hover">修改</view>-->
+        <view class="modify" @click="modify(travel.id)" hover-class="tab-hover">修改</view>
       </view>
     </view>
 
@@ -269,10 +270,10 @@
       const clientWidth = res.windowWidth
       const rpxR = 750 / clientWidth
       this.clientHeight = clientHeight * rpxR
-      const { id } = this.$root.$mp.query
-      if (id) {
-        this.travel.id = id
-        this.getDetail(id, true)
+      const { travelId } = this.$root.$mp.query
+      if (travelId) {
+        this.travel.id = travelId
+        this.getDetail(travelId, true)
       }
     },
     computed: {
@@ -293,7 +294,7 @@
     onShareAppMessage (res) {
       return {
         title: this.shareText.detail,
-        path: `pages/detail/main?id=${this.travel.id}`,
+        path: `pages/index/main?travelId=${this.travel.id}`,
         imageUrl: this.shareDetailImg
       }
     }
