@@ -43,8 +43,9 @@
             <view class="price" v-if="travel.price !== '-1'">&yen{{ travel.price }}/人</view>
             <view class="price" v-else>价格面议</view>
           </view>
-          <view class="right">
-            <view class="return" v-if="travel.returnId !== ''" @click="returnDetail(travel.returnId)" hover-class="btn-hover">返</view>
+          <view class="right" hover-class="btn-hover">
+            <view class="return" v-if="travel.returnId !== ''" @click="returnDetail(travel.returnId)">返</view>
+            <view class="return" v-else-if="travel.initialId !== ''" @click="travelDetail(travel.initialId)">原</view>
           </view>
         </view>
         <view class="travel">
@@ -120,6 +121,7 @@
           price: '',
           via: '',
           remarks: '',
+          initialId: '',
           returnId: ''
         },
         shareDetailImg: this.$store.getters.shareImg.index
@@ -156,8 +158,14 @@
         })
       },
       returnDetail (returnId) {
+        /*
         const url = `../detail/main?id=${returnId}`
         wx.redirectTo({ url })
+        */
+        this.getDetail(returnId, false)
+      },
+      travelDetail (travelId) {
+        this.getDetail(travelId, false)
       },
       share () {
         this.$refs.actionSheet.showActionSheet()
@@ -170,11 +178,12 @@
       },
       bindtap (e) {
       },
-      getDetail (id) {
+      getDetail (id, loadUser) {
         getTravel(id).then(res => {
           let travel = null
           this.travel = travel = res.data
           this.travel.time = formatDate(travel.time)
+          this.markers = []
           this.markers.push(
             {
               id: 1,
@@ -198,7 +207,9 @@
             }
           )
           this.createShareImg(false)
-          this.getUser(travel.uid)
+          if (loadUser) {
+            this.getUser(travel.uid)
+          }
           this.direction(travel)
         })
       },
@@ -261,7 +272,7 @@
       const { id } = this.$root.$mp.query
       if (id) {
         this.travel.id = id
-        this.getDetail(id)
+        this.getDetail(id, true)
       }
     },
     computed: {
