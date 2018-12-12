@@ -11,10 +11,13 @@ const user = {
   },
   mutations: {
     SET_USER: (state, user) => {
-      state.uid = user.openid
+      state.uid = user.uid
       state.avatar = user.avatarUrl
       state.gender = user.gender
       state.nickName = user.nickName
+    },
+    SET_UID: (state, uid) => {
+      state.uid = uid
     },
     SET_TOKEN: (state, token) => {
       state.token = token
@@ -28,6 +31,7 @@ const user = {
       return new Promise((resolve, reject) => {
         authorization('', '', code).then(res => {
           commit('SET_TOKEN', res.data.token)
+          commit('SET_UID', res.data.uid)
           commit('SET_IS_ADMIN', res.data.admin)
           resolve()
         }).catch(error => {
