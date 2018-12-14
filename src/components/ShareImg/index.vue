@@ -48,7 +48,7 @@
           })
           this.showShareImg = true
         }
-        this.drawImg(val.type, val.origin, val.dest, val.time, val.mobileNo).then(() => {
+        this.drawImg(val.type, val.origin, val.dest, val.time, val.mobileNo, val.qrCode).then(() => {
           setTimeout(() => {
             this.createImg()
             if (this.showImg) {
@@ -57,7 +57,7 @@
           }, 500)
         })
       },
-      drawImg (type, origin, dest, time, mobileNo) {
+      drawImg (type, origin, dest, time, mobileNo, qrCode) {
         const self = this
         let bg = new Promise((resolve, reject) => {
           wx.getImageInfo({
@@ -72,7 +72,7 @@
         })
         let qr = new Promise((resolve, reject) => {
           wx.getImageInfo({
-            src: val.qrCode,
+            src: qrCode,
             success (res) {
               resolve(res)
             },

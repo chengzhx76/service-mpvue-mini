@@ -274,11 +274,11 @@
     @include height-width-100;
   }
   .main {
-    @include height-rpx-width-100(725);
+    width: 100%;
     .section-header {
-      @include height-rpx-width-100(405);
+      @include height-rpx-width-100(410);
       @include justify-align-center;
-      margin-bottom: 20rpx;
+      margin-bottom: 15rpx;
       .swiper-main {
         @include height-rpx-width-100(330);
         .swiper-item {
@@ -289,14 +289,15 @@
         }
       }
       .nav-main {
-        @include height-rpx-width-100(75);
+        @include height-rpx-width-100(80);
         @include justify-space-between;
         background: $white;
         .nav {
-          @include height-width(75, 300);
+          @include height-width(80, 300);
+          font-size: 36rpx;
           display: flex;
           .btn {
-            @include height-width-line-height-text-center(71, 100, 85);
+            @include height-width-line-height-text-center(76, 100, 90);
             margin-left: 15rpx;
           }
           .active {
@@ -306,30 +307,30 @@
         }
         .my {
           /*@include height-width(75, 220);*/
-           height: 75rpx;
+           height: 80rpx;
           .user-info {
-            height: 75rpx;
+            height: 80rpx;
             @include justify-start-align-center;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             text-align: center;
             text-decoration: none;
-            line-height: 75rpx;
+            line-height: 80rpx;
             border-radius: 0;
             -webkit-tap-highlight-color: transparent;
             overflow: hidden;
             background-color: $white;
             .avatar-warp {
-              @include height-width(55, 55);
+              @include height-width(60, 60);
               @include border-radius-percent(50%);
               overflow: hidden;
             }
             .text {
-              height: 75rpx;
+              height: 80rpx;
               padding-left: 10rpx;
               padding-right: 20rpx;
-              line-height: 75rpx;
+              line-height: 80rpx;
               font-size: 36rpx;
               color: $navColor;
             }

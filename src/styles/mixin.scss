@@ -72,9 +72,14 @@
   text-align: $position;
   line-height: #{$height}rpx;
 }
-@mixin height-line($height, $lineHeight) {
+@mixin height-line($height, $lineHeight:$height) {
   height: #{$height}rpx;
   line-height: #{$lineHeight}rpx;
+}
+@mixin height-line-center($height, $lineHeight:$height) {
+  height: #{$height}rpx;
+  line-height: #{$lineHeight}rpx;
+  text-align: center;
 }
 @mixin height-width-rpx-text-line($height, $width, $lineHeight, $position) {
   height: #{$height}rpx;
@@ -139,6 +144,11 @@
 }
 @mixin justify-end {
   display: flex;
+  justify-content: flex-end;
+}
+@mixin justify-end-align-center {
+  display: flex;
+  align-items: center;
   justify-content: flex-end;
 }
 @mixin justify-center {
