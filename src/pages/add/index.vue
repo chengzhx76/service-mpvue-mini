@@ -192,13 +192,14 @@
         </view>
       </view>
     <view class="release">
-      <button class="release-button" @click="addDistance" :loading="loading" hover-class="btn-hover">发布行程</button>
+      <button class="release-button" @click="addDistance" :loading="loading" :disabled="!switches.add" hover-class="btn-hover">发布行程</button>
     </view>
 
   </view>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   import { add } from '@/api/api'
   import { formatNumber, getDay, parseDate } from '@/utils/index'
   import { isInteger, isMoney, isAfterNow, isMobile } from '@/utils/validate'
@@ -673,6 +674,11 @@
       retTimeChange (e) {
         this.retTimeVal = e.mp.detail.value
       }
+    },
+    computed: {
+      ...mapGetters([
+        'switches'
+      ])
     }
   }
 </script>

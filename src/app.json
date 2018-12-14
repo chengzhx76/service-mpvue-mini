@@ -1,14 +1,15 @@
 {
   "pages": [
     "pages/index/main",
+    "pages/release/main",
+    "pages/add/main",
+    "pages/admin/main",
     "pages/detail/main",
     "pages/sheet/main",
     "pages/driving/main",
     "pages/my/main",
-    "pages/admin/main",
     "pages/list/main",
     "pages/city/main",
-    "pages/add/main",
     "pages/position/main",
     "pages/filter/main"
   ],

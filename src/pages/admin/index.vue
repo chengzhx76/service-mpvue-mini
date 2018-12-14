@@ -2,7 +2,7 @@
 
   <view id="admin">
 
-    <view class="cell add-switch">
+    <view class="cells cell add-switch">
       <view class="content">
         <view class="label">添加行程</view>
         <view class="operate">
@@ -13,7 +13,7 @@
         <button class="submit" type="primary" @click="update('SwitchAdd', switches.add)">提交</button>
       </view>
     </view>
-    <view class="cell page-size-index">
+    <view class="cells cell page-size-index">
       <view class="content">
         <view class="label">首页显示</view>
         <view class="operate">
@@ -25,7 +25,7 @@
       </view>
     </view>
 
-    <view class="cell page-size-list">
+    <view class="cells cell page-size-list">
       <view class="content">
         <view class="label">列表页显示</view>
         <view class="operate">
@@ -36,27 +36,49 @@
         <button class="submit" type="primary" @click="update('PageSizeList', pageSize.list)">提交</button>
       </view>
     </view>
-    <view class="cell share-img-index">
-      <view class="content">
-        <view class="label">首页分享图</view>
-        <view class="operate">
-          <input type="number" placeholder="url" v-model="shareImg.index"/>
+    <view class="cells cell-area share-img-index">
+      <form @submit="submitTextarea">
+        <view class="content">
+          <view class="label">首页分享图</view>
+          <view class="btn">
+            <button class="submit" form-type="submit" type="primary">提交</button>
+          </view>
         </view>
-      </view>
-      <view class="btn">
-        <button class="submit" type="primary" @click="update('ShareImgIndex', shareImg.index)">提交</button>
-      </view>
+        <textarea class="textarea" auto-height placeholder="首页分享图" name="shareImgIndex" :value="shareImg.index"/>
+      </form>
     </view>
-    <view class="cell share-text-index">
-      <view class="content">
-        <view class="label">首页分享文案</view>
-        <view class="operate">
-          <input placeholder="内容" v-model="shareText.index"/>
+    <view class="cells cell-area share-text-index">
+      <form @submit="submitTextarea">
+        <view class="content">
+          <view class="label">首页分享文案</view>
+          <view class="btn">
+            <button class="submit" form-type="submit" type="primary">提交</button>
+          </view>
         </view>
-      </view>
-      <view class="btn">
-        <button class="submit" type="primary" @click="update('ShareTextIndex', shareText.index)">提交</button>
-      </view>
+        <textarea class="textarea" auto-height placeholder="首页分享文案" name="shareTextIndex" :value="shareText.index"/>
+      </form>
+    </view>
+    <view class="cells cell-area share-img-detail">
+      <form @submit="submitTextarea">
+        <view class="content">
+          <view class="label">详情页分享图</view>
+          <view class="btn">
+            <button class="submit" form-type="submit" type="primary">提交</button>
+          </view>
+        </view>
+        <textarea class="textarea" auto-height placeholder="详情页分享图" name="shareImgDetail" :value="shareImg.detail"/>
+      </form>
+    </view>
+    <view class="cells cell-area share-text-detail">
+      <form @submit="submitTextarea">
+        <view class="content">
+          <view class="label">详情页分享文案</view>
+          <view class="btn">
+            <button class="submit" form-type="submit" type="primary">提交</button>
+          </view>
+        </view>
+        <textarea class="textarea" auto-height placeholder="详情页分享文案" name="shareTextDetail" :value="shareText.detail"/>
+      </form>
     </view>
     <button @click="refreshConfig()" type="primary">刷新</button>
   </view>
@@ -76,10 +98,12 @@
           list: ''
         },
         shareImg: {
-          index: ''
+          index: '',
+          detail: ''
         },
         shareText: {
-          index: ''
+          index: '',
+          detail: ''
         }
       }
     },
@@ -93,7 +117,9 @@
           this.pageSize.index = parseInt(res.data.PAGE_SIZE.PageSizeIndex)
           this.pageSize.list = parseInt(res.data.PAGE_SIZE.PageSizeList)
           this.shareImg.index = res.data.SHARE_IMG.ShareImgIndex
+          this.shareImg.detail = res.data.SHARE_IMG.ShareImgDetail
           this.shareText.index = res.data.SHARE_TEXT.ShareTextIndex
+          this.shareText.detail = res.data.SHARE_TEXT.ShareTextDetail
         }).catch(error => {
           console.log(error)
         })
@@ -106,18 +132,36 @@
         })
       },
       update (key, value) {
-        console.log(value)
-        console.log(value === true)
+        if ((typeof value) === 'boolean') {
+          value = value === true ? 1 : 0
+        }
+        if (key === 'ShareTextIndex') {
+          value = this.shareText.index
+        }
         const data = {
           key,
-          value: value === true ? 1 : 0
+          value
         }
         this.$store.dispatch('UpdateConfig', data).then(res => {
-          console.log(res)
           this.showToast(res.meta.code, res.meta.msg)
         }).catch(error => {
           console.log(error)
         })
+      },
+      submitTextarea (e) {
+        const value = e.mp.detail.value
+        if (value.shareImgIndex) {
+          this.update('ShareImgIndex', value.shareImgIndex)
+        }
+        if (value.shareTextIndex) {
+          this.update('ShareTextIndex', value.shareTextIndex)
+        }
+        if (value.shareImgDetail) {
+          this.update('ShareTextIndex', value.shareImgDetail)
+        }
+        if (value.shareTextDetail) {
+          this.update('ShareTextIndex', value.shareTextDetail)
+        }
       },
       wxAuth () {
         const self = this
@@ -174,33 +218,56 @@
   }
   .cell {
     @include height-rpx-width-100(100);
-    @include border-top-bottom-width(1);
     @include justify-start-align-center;
-    margin-bottom: 10rpx;
     background: $white;
     .content {
       @include height-rpx-width-percent(100, 80%);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      @include justify-space-between-align-center;
       .label {
-        height: 100rpx;
-        width: 280rpx;
-        padding-right: 10rpx;
-        line-height: 100rpx;
-        padding-left: 15rpx;
+        @include height-width-percent-text(100, 60%, left);
       }
       .operate {
+        @include height-rpx-width-percent(100, 40%);
+        @include justify-end-align-center;
         switch {
-          margin-right: 20rpx;
+          padding-right: 10rpx;
         }
         input {
-          height: 100rpx;
-          line-height: 100rpx;
-          text-align: right;
-          padding-right: 30rpx;
+          @include height-width-100-text(100, right);
+          padding-right: 20rpx;
         }
       }
+    }
+  }
+  .cell-area {
+    width: 100%;
+    @include justify-align-center;
+    @include border-top-bottom-width(1);
+    background: $white;
+    form {
+      width: 100%;
+      .content {
+        width: 100%;
+        @include justify-space-between-align-center;
+        .label {
+          @include height-width-percent-text(99, 80%, left);
+          @include border-bottom-width(1);
+        }
+      }
+      .textarea {
+        width: 100%;
+        min-height: 120rpx;
+        padding-left: 15rpx;
+        @include border-bottom-width(1);
+        background: $white;
+      }
+    }
+  }
+  .cells {
+    margin-bottom: 10rpx;
+    .label {
+      text-indent: 10rpx;
+      color: $unimpColor;
     }
     .btn {
       @include height-rpx-width-percent(100, 20%);

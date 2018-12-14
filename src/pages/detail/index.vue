@@ -44,8 +44,8 @@
             <view class="price" v-else>价格面议</view>
           </view>
           <view class="right" hover-class="btn-hover">
-            <view class="return" v-if="travel.returnId !== ''" @click="returnDetail(travel.returnId)">返</view>
-            <view class="return" v-else-if="travel.initialId !== ''" @click="travelDetail(travel.initialId)">原</view>
+            <view class="return" v-if="travel.returnId !== ''" @click="returnDetail(travel.returnId)">原</view>
+            <view class="return" v-else-if="travel.initialId !== ''" @click="travelDetail(travel.initialId)">返</view>
           </view>
         </view>
         <view class="travel">
@@ -146,7 +146,7 @@
         wx.showModal({
           content: '功能正在开发中~',
           showCancel: false,
-          confirmText: '好的',
+          confirmText: '敬请期待',
           success (res) {
             if (res.confirm) {
             }

@@ -19,13 +19,13 @@
 
     <view class="content">
       <view class="record">
-        <view class="left" hover-class="tab-hover">
+        <view class="left" hover-class="tab-hover"  @click="collect()">
           <view class="warp">
-            <view class="num">6</view>
-            <view class="desc">我约到的</view>
+            <view class="num">0</view>
+            <view class="desc">我收藏的</view>
           </view>
         </view>
-        <view class="right" hover-class="tab-hover">
+        <view class="right" hover-class="tab-hover" @click="release()">
           <view class="warp">
             <view class="num">12</view>
             <view class="desc">我发布的</view>
@@ -62,6 +62,21 @@
       }
     },
     methods: {
+      collect () {
+        wx.showModal({
+          content: '功能正在开发中~',
+          showCancel: false,
+          confirmText: '敬请期待',
+          success (res) {
+            if (res.confirm) {
+            }
+          }
+        })
+      },
+      release () {
+        const url = '../release/main'
+        wx.navigateTo({ url })
+      },
       manger () {
         const url = '../admin/main'
         wx.navigateTo({ url })
