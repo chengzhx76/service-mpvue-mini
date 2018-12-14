@@ -122,7 +122,8 @@
           via: '',
           remarks: '',
           initialId: '',
-          returnId: ''
+          returnId: '',
+          qrCode: ''
         },
         shareDetailImg: this.$store.getters.shareImg.index
       }
@@ -269,10 +270,10 @@
       const clientWidth = res.windowWidth
       const rpxR = 750 / clientWidth
       this.clientHeight = clientHeight * rpxR
-      const { travelId } = this.$root.$mp.query
-      if (travelId) {
-        this.travel.id = travelId
-        this.getDetail(travelId, true)
+      const { tid } = this.$root.$mp.query
+      if (tid) {
+        this.travel.id = tid
+        this.getDetail(tid, true)
       }
     },
     computed: {
@@ -293,7 +294,7 @@
     onShareAppMessage (res) {
       return {
         title: this.shareText.detail,
-        path: `pages/index/main?travelId=${this.travel.id}`,
+        path: `pages/index/main?tid=${this.travel.id}`,
         imageUrl: this.shareDetailImg
       }
     }
