@@ -224,9 +224,9 @@
       this.windowWidthPx = clientWidth
       this.canvasWidthPx = Math.ceil(clientWidth * 0.9)
 
-      const { travelId } = this.$root.$mp.query
-      if (travelId) {
-        const url = `../detail/main?travelId=${travelId}`
+      const { tid } = this.$root.$mp.query
+      if (tid) {
+        const url = `../detail/main?tid=${tid}`
         wx.navigateTo({ url })
       }
     },

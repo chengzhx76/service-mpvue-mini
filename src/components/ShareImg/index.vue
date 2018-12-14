@@ -72,7 +72,7 @@
         })
         let qr = new Promise((resolve, reject) => {
           wx.getImageInfo({
-            src: '../../img/gh_a53167bbfa26_258.jpg',
+            src: val.qrCode,
             success (res) {
               resolve(res)
             },
@@ -152,7 +152,7 @@
                 ctx.fillText('分享来自「成武拼车」', self.canvasWidthPx * 0.08, 226)
 
                 // 小程序码
-                ctx.drawImage('../../' + res[1].path, self.canvasWidthPx - 80, 180, 70, 70)
+                ctx.drawImage(res[1].path, self.canvasWidthPx - 80, 180, 70, 70)
               }
               ctx.draw()
               resolve()
