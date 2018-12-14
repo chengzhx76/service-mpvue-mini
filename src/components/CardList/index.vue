@@ -85,7 +85,7 @@
     },
     methods: {
       detail (id) {
-        const url = `../detail/main?travelId=${id}`
+        const url = `../detail/main?tid=${id}`
         wx.navigateTo({ url })
       },
       phoneCall (phone) {
