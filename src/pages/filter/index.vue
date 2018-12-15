@@ -111,7 +111,7 @@
     },
     onLoad () {
       Object.assign(this.$data, this.$options.data())
-      for (let i = 0; i <= 24; i++) {
+      for (let i = 0; i <= 23; i++) {
         this.times.push(formatNumber(i))
       }
       for (let i = 0; i < 60; i++) {

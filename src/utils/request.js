@@ -1,10 +1,10 @@
 const Fly = require('flyio/dist/npm/wx')
 const service = new Fly()
 import store from '@/store'
+import { serverUrl } from './config'
 
 service.config.timeout = 60000
-service.config.baseURL = 'https://chengzhx76.picp.vip/service/'
-// service.config.baseURL = 'http://localhost:8086/service/'
+service.config.baseURL = serverUrl
 
 service.interceptors.request.use(
   config => {

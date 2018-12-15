@@ -16,6 +16,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import { fileUrl } from '@/utils/config'
   export default {
     props: {
     },
@@ -66,17 +67,19 @@
               resolve(res)
             },
             fail (error) {
+              wx.hideLoading()
               console.error(error)
             }
           })
         })
         let qr = new Promise((resolve, reject) => {
           wx.getImageInfo({
-            src: qrCode,
+            src: `${fileUrl}${qrCode}`,
             success (res) {
               resolve(res)
             },
             fail (error) {
+              wx.hideLoading()
               console.error(error)
             }
           })
@@ -159,6 +162,7 @@
             })
           } catch (error) {
             console.log(error)
+            wx.hideLoading()
             reject(error)
           }
         })
