@@ -24,7 +24,7 @@ export function formatTime (time) {
 // ------------------------------------------------------------
 const weeks = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
 
-export function formatDate (timestamp) {
+export function formatDateTime (timestamp) {
   const date = new Date(timestamp)
   const month = date.getMonth() + 1
   const day = date.getDate()
@@ -34,6 +34,18 @@ export function formatDate (timestamp) {
   const minute = date.getMinutes()
 
   return formatNumber(month) + '月' + formatNumber(day) + '日 （' + weeks[week] + '）' + formatNumber(hour) + ':' + formatNumber(minute)
+}
+
+export function formatDate (timestamp) {
+  const date = new Date(timestamp)
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+  const week = date.getDay()
+
+  const hour = date.getHours()
+  const minute = date.getMinutes()
+
+  return formatNumber(month) + '月' + formatNumber(day) + '日'
 }
 
 export function parseDate (timeCn) {

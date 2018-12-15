@@ -1,53 +1,39 @@
 <template>
   <view id="release">
-    <view class="tip">进行中</view>
-    <view class="list list-start">
-      <view class="travel" hover-class="choose-hover">
+    <view class="tip" v-if="hasStaring">进行中</view>
+    <view class="list list-start" v-if="hasStaring">
+      <view class="travel" @click="detail(travel.id)" v-for="(travel, index) in listStart" :key="travel.id" hover-class="choose-hover">
         <view class="info">
           <view class="date">
             <view class="icon">
               <view class="nav">时</view>
             </view>
-            <text class="text">12月31日（周六） 18:00</text>
+            <text class="text">{{ travel.time }}</text>
           </view>
-          <view class="type car">我是车主</view>
+          <view :class="[travel.type === 2 ? 'driver' : 'passenger', 'type']">我是{{ travel.type === 2 ? '车主' : '乘客' }}</view>
         </view>
         <view class="origin address">
           <view class="icon">
             <view class="nav">起</view>
           </view>
-          <text class="text">菏泽</text>
+          <text class="text">{{ travel.origin }}</text>
         </view>
         <view class="dest address">
           <view class="icon">
             <view class="nav">终</view>
           </view>
-          <text class="text">北京</text>
+          <text class="text">{{ travel.dest }}</text>
         </view>
       </view>
     </view>
-    <view class="tip">已结束</view>
-    <view class="list list-end">
-      <view class="travel" hover-class="choose-hover">
-        <view class="type car">车</view>
-        <view class="origin">菏泽站</view>
+    <view class="tip" v-if="hasEnd">已结束</view>
+    <view class="list list-end" v-if="hasEnd">
+      <view class="travel" @click="detail(travel.id)" v-for="(travel, index) in listEnd" :key="travel.id" hover-class="choose-hover">
+        <view :class="[travel.type === 2 ? 'driver' : 'passenger', 'type']">{{ travel.type === 2 ? '车' : '人' }}</view>
+        <view class="origin">{{ travel.origin }}</view>
         <view class="conversion-icon">-></view>
-        <view class="dest">北京</view>
-        <view class="date">12月31日</view>
-      </view>
-      <view class="travel" hover-class="choose-hover">
-        <view class="type car">车</view>
-        <view class="origin">菏泽学院</view>
-        <view class="conversion-icon">-></view>
-        <view class="dest">孙寺中心小学</view>
-        <view class="date">12月01日</view>
-      </view>
-      <view class="travel" hover-class="choose-hover">
-        <view class="type people">人</view>
-        <view class="origin">菏泽学院</view>
-        <view class="conversion-icon">-></view>
-        <view class="dest">孙寺中心小学</view>
-        <view class="date">12月01日</view>
+        <view class="dest">{{ travel.dest }}</view>
+        <view class="date">{{ travel.time }}</view>
       </view>
     </view>
   </view>
@@ -55,15 +41,57 @@
 </template>
 
 <script>
+  import { getRelease } from '@/api/api'
+  import { formatDate, formatDateTime } from '@/utils/index'
+  const now = new Date()
   export default {
     data () {
       return {
         listStart: [],
-        listEnd: []
+        listEnd: [],
+        page: {
+          pageNum: 1,
+          totalNum: 0,
+          hasMore: true,
+          lastTime: 0
+        }
       }
     },
     methods: {
-
+      detail (id) {
+        const url = `../detail/main?tid=${id}`
+        wx.navigateTo({ url })
+      },
+      myRelease () {
+        getRelease(this.lastTime, this.page.pageNum, 5).then(res => {
+          if (res.meta.code === 2000) {
+            this.list = res.data.list.forEach(item => {
+              this.lastTime = item.time
+              if (now.getTime() > item.time) {
+                item.time = formatDate(item.time)
+                this.listEnd.push(item)
+              } else {
+                item.time = formatDateTime(item.time)
+                this.listStart.push(item)
+              }
+            })
+            if (res.data.pageNum * res.data.pageSize >= res.data.totalNum) {
+              this.page.hasMore = false
+            }
+          }
+        })
+      }
+    },
+    computed: {
+      hasStaring () {
+        return this.listStart.length > 0
+      },
+      hasEnd () {
+        return this.listEnd.length > 0
+      }
+    },
+    onLoad () {
+      this.myRelease()
     }
   }
 </script>
@@ -91,10 +119,10 @@
       margin-left: 2%;
       margin-bottom: 10rpx;
       background: $releaseCellBgColor;
-      .car {
+      .driver {
         @include border-color(1, $dark-blue);
       }
-      .people {
+      .passenger {
         @include border-color(1, $dark-yellow);
       }
     }

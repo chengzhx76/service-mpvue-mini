@@ -95,7 +95,7 @@
   import { mapGetters } from 'vuex'
   import { mapKey } from '@/utils/config'
   import { getTravel, getUserByUid } from '@/api/api'
-  import { formatDate } from '@/utils/index'
+  import { formatDateTime } from '@/utils/index'
   import ActionSheet from '@/components/ActionSheet/index'
   import ShareImg from '@/components/ShareImg/index'
   export default {
@@ -183,7 +183,7 @@
         getTravel(id).then(res => {
           let travel = null
           this.travel = travel = res.data
-          this.travel.time = formatDate(travel.time)
+          this.travel.time = formatDateTime(travel.time)
           this.markers = []
           this.markers.push(
             {
