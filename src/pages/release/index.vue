@@ -63,10 +63,10 @@
         wx.navigateTo({ url })
       },
       myRelease () {
-        getRelease(this.lastTime, this.page.pageNum, 5).then(res => {
+        getRelease(this.page.lastTime, this.page.pageNum, 5).then(res => {
           if (res.meta.code === 2000) {
             this.list = res.data.list.forEach(item => {
-              this.lastTime = item.time
+              this.page.lastTime = item.time
               if (now.getTime() > item.time) {
                 item.time = formatDate(item.time)
                 this.listEnd.push(item)
@@ -91,7 +91,11 @@
       }
     },
     onLoad () {
+      Object.assign(this.$data, this.$options.data())
       this.myRelease()
+    },
+    onUnload () {
+      Object.assign(this.$data, this.$options.data())
     }
   }
 </script>
@@ -107,7 +111,7 @@
     @include height-width-100-text(75, left);
     font-size: 28rpx;
     color: $tipColor;
-    padding-left: 20rpx;
+    text-indent: 20rpx;
   }
   .list {
     width: 100%;
@@ -131,6 +135,7 @@
     margin-bottom: 20rpx;
     .travel {
       @include height-rpx-width-percent(200, 96%);
+      padding: 15rpx 0;
       .info {
         @include height-rpx-width-100(70);
         @include justify-space-between-align-center;
