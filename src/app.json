@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/index/main",
     "pages/release/main",
+    "pages/index/main",
     "pages/add/main",
     "pages/admin/main",
     "pages/detail/main",
