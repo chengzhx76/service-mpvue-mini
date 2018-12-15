@@ -120,7 +120,7 @@
     margin-top: 15rpx;
     background: $white;
     @include box-shadow;
-    &:nth-last-child(2) {
+    &:nth-last-child(3) {
       @include border-radius-bottom(0);
       .footer {
         @include border-radius-bottom(0);

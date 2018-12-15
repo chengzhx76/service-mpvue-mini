@@ -17,7 +17,7 @@
 
       <card-list :travels="list"/>
 
-      <view class="bottom-block" hover-class="btn-hover" @click="bottomHandler">{{ bottomText }}</view>
+      <view class="bottom-block" v-if="switches.add" hover-class="btn-hover" @click="bottomHandler">{{ bottomText }}</view>
       <view class="block"></view>
     </scroll-view>
   </view>
@@ -198,6 +198,7 @@
     computed: {
       ...mapGetters([
         'pageSize',
+        'switches',
         'shareText',
         'shareImg'
       ])

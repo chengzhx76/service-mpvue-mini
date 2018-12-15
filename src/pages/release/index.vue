@@ -36,6 +36,7 @@
         <view class="date">{{ travel.time }}</view>
       </view>
     </view>
+    <view class="load-more" @click="loadMore" v-if="page.hasMore" hover-class="btn-hover">加载更多~</view>
   </view>
 
 </template>
@@ -63,6 +64,12 @@
         wx.navigateTo({ url })
       },
       myRelease () {
+        this.getRelease()
+      },
+      loadMore () {
+        this.getRelease()
+      },
+      getRelease () {
         getRelease(this.page.lastTime, this.page.pageNum, 5).then(res => {
           if (res.meta.code === 2000) {
             this.list = res.data.list.forEach(item => {
@@ -91,8 +98,7 @@
       }
     },
     onLoad () {
-      Object.assign(this.$data, this.$options.data())
-      this.myRelease()
+      this.getRelease()
     },
     onUnload () {
       Object.assign(this.$data, this.$options.data())
@@ -104,8 +110,13 @@
   @import "@/styles/mixin.scss";
   @import "@/styles/variables.scss";
   #release {
-    @include height-width-100;
+    width: 100%;
     @include column-align-center;
+  }
+  .load-more {
+    @include height-width-percent-lineHeight-text-center(100, 50);
+    font-size: 32rpx;
+    color: $gray-blue;
   }
   .tip {
     @include height-width-100-text(75, left);
@@ -115,6 +126,7 @@
   }
   .list {
     width: 100%;
+    margin-bottom: 15rpx;
     .travel {
       @include border-radius(8);
       @include justify-align-center;
@@ -132,7 +144,6 @@
     }
   }
   .list-start {
-    margin-bottom: 20rpx;
     .travel {
       @include height-rpx-width-percent(200, 96%);
       padding: 15rpx 0;

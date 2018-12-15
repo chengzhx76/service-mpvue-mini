@@ -91,9 +91,8 @@
       ])
     },
     onShareAppMessage (res) {
-      console.log(res)
       return {
-        title: '推荐成武拼车，快来试试~',
+        title: this.shareText.index,
         path: 'pages/index/main',
         imageUrl: this.shareImg.index
       }
