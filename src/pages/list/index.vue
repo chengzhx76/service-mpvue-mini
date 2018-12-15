@@ -27,7 +27,7 @@
   import { mapGetters } from 'vuex'
   import CardList from '@/components/CardList/index'
   import { list } from '@/api/api'
-  import { formatTime, formatDate } from '@/utils/index'
+  import { formatTime, formatDateTime } from '@/utils/index'
 
   export default {
     components: {
@@ -87,11 +87,10 @@
         })
       },
       getList () {
-        console.log()
         list(this.service, this.page, this.pageSize.list).then(res => {
           this.list = res.data.list.map(item => {
             item['distTime'] = formatTime(item.time)
-            item.time = formatDate(item.time)
+            item.time = formatDateTime(item.time)
             return item
           })
           if (res.data.pageNum * res.data.pageSize >= res.data.totalNum) {
@@ -117,7 +116,7 @@
               list(this.service, this.page, this.pageSize.list).then(res => {
                 this.list = res.data.list.map(item => {
                   item['distTime'] = formatTime(item.time)
-                  item.time = formatDate(item.time)
+                  item.time = formatDateTime(item.time)
                   return item
                 })
                 this.text = '加载完成~~~'
@@ -149,7 +148,7 @@
         list(this.service, this.page, this.pageSize.list).then(res => {
           const newList = res.data.list.map(item => {
             item['distTime'] = formatTime(item.time)
-            item.time = formatDate(item.time)
+            item.time = formatDateTime(item.time)
             return item
           })
           newList.forEach(item => {

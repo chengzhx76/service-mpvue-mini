@@ -78,7 +78,7 @@
   import { mapGetters } from 'vuex'
   import CardList from '@/components/CardList/index'
   import { list } from '@/api/api'
-  import { formatTime, formatDate } from '@/utils/index'
+  import { formatTime, formatDateTime } from '@/utils/index'
   export default {
     data () {
       return {
@@ -146,7 +146,7 @@
         list(this.service, this.page, this.pageSize.index).then(res => {
           this.list = res.data.list.map(item => {
             item['distTime'] = formatTime(item.time)
-            item.time = formatDate(item.time)
+            item.time = formatDateTime(item.time)
             return item
           })
         })
@@ -247,7 +247,7 @@
       list(this.service, this.page).then(res => {
         this.list = res.data.list.map(item => {
           item['distTime'] = formatTime(item.time)
-          item.time = formatDate(item.time)
+          item.time = formatDateTime(item.time)
           return item
         })
         wx.stopPullDownRefresh()
