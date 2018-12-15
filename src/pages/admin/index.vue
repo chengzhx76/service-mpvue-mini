@@ -255,7 +255,7 @@
         }
       }
       .textarea {
-        width: 100%;
+        width: calc(100% - 15rpx);;
         min-height: 120rpx;
         padding-left: 15rpx;
         @include border-bottom-width(1);
