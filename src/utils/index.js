@@ -33,7 +33,7 @@ export function formatDateTime (timestamp) {
   const hour = date.getHours()
   const minute = date.getMinutes()
 
-  return formatNumber(month) + '月' + formatNumber(day) + '日 （' + weeks[week] + '）' + formatNumber(hour) + ':' + formatNumber(minute)
+  return formatNumber(month) + '月' + formatNumber(day) + '日（' + weeks[week] + '）' + formatNumber(hour) + ':' + formatNumber(minute)
 }
 
 export function formatDate (timestamp) {
