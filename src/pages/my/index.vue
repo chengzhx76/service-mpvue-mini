@@ -27,7 +27,7 @@
         </view>
         <view class="right" hover-class="tab-hover" @click="release()">
           <view class="warp">
-            <view class="num">12</view>
+            <view class="num">{{ releaseCount }}</view>
             <view class="desc">我发布的</view>
           </view>
         </view>
@@ -55,10 +55,12 @@
 </template>
 
 <script>
+  import { getReleaseCount } from '@/api/api'
   import { mapGetters } from 'vuex'
   export default {
     data () {
       return {
+        releaseCount: 0
       }
     },
     methods: {
@@ -80,13 +82,24 @@
       manger () {
         const url = '../admin/main'
         wx.navigateTo({ url })
+      },
+      getReleaseCount () {
+        getReleaseCount().then(res => {
+          if (res.meta.code === 2000) {
+            this.releaseCount = res.data
+          }
+        })
       }
+    },
+    onLoad () {
+      this.getReleaseCount()
     },
     computed: {
       ...mapGetters([
         'avatar',
         'nickName',
         'admin',
+        'shareText',
         'shareImg'
       ])
     },

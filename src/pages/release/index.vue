@@ -25,7 +25,9 @@
           <text class="text">{{ travel.dest }}</text>
         </view>
       </view>
+      <view class="load-more" @click="loadMoreStaring" v-if="pageStaring.hasMore" hover-class="btn-hover">加载更多~</view>
     </view>
+
     <view class="tip" v-if="hasEnd">已结束</view>
     <view class="list list-end" v-if="hasEnd">
       <view class="travel" @click="detail(travel.id)" v-for="(travel, index) in listEnd" :key="travel.id" hover-class="choose-hover">
@@ -35,8 +37,9 @@
         <view class="dest">{{ travel.dest }}</view>
         <view class="date">{{ travel.time }}</view>
       </view>
+      <view class="load-more" @click="loadMoreEnd" v-if="pageEnd.hasMore" hover-class="btn-hover">加载更多~</view>
     </view>
-    <view class="load-more" @click="loadMore" v-if="page.hasMore" hover-class="btn-hover">加载更多~</view>
+
   </view>
 
 </template>
@@ -50,11 +53,17 @@
       return {
         listStart: [],
         listEnd: [],
-        page: {
+        pageStaring: {
           pageNum: 1,
           totalNum: 0,
           hasMore: true,
-          lastTime: 0
+          lastTime: now.getTime()
+        },
+        pageEnd: {
+          pageNum: 1,
+          totalNum: 0,
+          hasMore: true,
+          lastTime: now.getTime()
         }
       }
     },
@@ -63,27 +72,38 @@
         const url = `../detail/main?tid=${id}`
         wx.navigateTo({ url })
       },
-      myRelease () {
-        this.getRelease()
+      myReleaseStaring () {
+        this.getRelease(this.pageStaring.lastTime, 1, this.pageStaring.pageNum, 3)
       },
-      loadMore () {
-        this.getRelease()
+      myReleaseEnd () {
+        this.getRelease(this.pageEnd.lastTime, 2, this.pageEnd.pageNum, 5)
       },
-      getRelease () {
-        getRelease(this.page.lastTime, this.page.pageNum, 5).then(res => {
+      loadMoreStaring () {
+        this.getRelease(this.pageStaring.lastTime, 1, this.pageStaring.pageNum, 3)
+      },
+      loadMoreEnd () {
+        this.getRelease(this.pageEnd.lastTime, 2, this.pageEnd.pageNum, 5)
+      },
+      getRelease (lastTime, type, pageNum, count) {
+        getRelease(lastTime, type, pageNum, count).then(res => {
           if (res.meta.code === 2000) {
-            this.list = res.data.list.forEach(item => {
-              this.page.lastTime = item.time
-              if (now.getTime() > item.time) {
-                item.time = formatDate(item.time)
-                this.listEnd.push(item)
-              } else {
+            res.data.list.forEach(item => {
+              if (type === 1) {
+                this.pageStaring.lastTime = item.time
                 item.time = formatDateTime(item.time)
                 this.listStart.push(item)
+              } else {
+                this.pageEnd.lastTime = item.time
+                item.time = formatDate(item.time)
+                this.listEnd.push(item)
               }
             })
             if (res.data.pageNum * res.data.pageSize >= res.data.totalNum) {
-              this.page.hasMore = false
+              if (type === 1) {
+                this.pageStaring.hasMore = false
+              } else {
+                this.pageEnd.hasMore = false
+              }
             }
           }
         })
@@ -98,7 +118,8 @@
       }
     },
     onLoad () {
-      this.getRelease()
+      this.myReleaseStaring()
+      this.myReleaseEnd()
     },
     onUnload () {
       Object.assign(this.$data, this.$options.data())
@@ -113,11 +134,6 @@
     width: 100%;
     @include column-align-center;
   }
-  .load-more {
-    @include height-width-percent-lineHeight-text-center(100, 50);
-    font-size: 32rpx;
-    color: $gray-blue;
-  }
   .tip {
     @include height-width-100-text(75, left);
     font-size: 28rpx;
@@ -126,7 +142,7 @@
   }
   .list {
     width: 100%;
-    margin-bottom: 15rpx;
+    margin-bottom: 40rpx;
     .travel {
       @include border-radius(8);
       @include justify-align-center;
@@ -141,6 +157,12 @@
       .passenger {
         @include border-color(1, $dark-yellow);
       }
+    }
+    .load-more {
+      @include height-width-percent-lineHeight-text-center(50, 50);
+      font-size: 32rpx;
+      color: $gray-blue;
+      margin-top: 20rpx;
     }
   }
   .list-start {
