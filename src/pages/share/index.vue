@@ -180,7 +180,7 @@
       this.windowWidthPx = clientWidth
       this.canvasWidthPx = Math.ceil(clientWidth * 0.9)
       // const { tid } = this.$root.$mp.query
-      const tid = '5c1512410cf25b677990c17e'
+      const tid = ''
       if (tid) {
         this.getTravel(tid)
       }
