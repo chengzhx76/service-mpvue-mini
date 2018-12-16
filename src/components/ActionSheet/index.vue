@@ -3,8 +3,8 @@
     <bottom-dialog ref="bottomDialog" :duration="200">
       <view class="sheets">
         <button class="sheet cancel" @click="chooseActionSheet" hover-class="btn-hover">取消</button>
-        <button class="sheet" open-type="share" hover-class="btn-hover">分享给朋友</button>
-        <button class="sheet" hover-class="btn-hover" @click="shareActionSheet">生成图片分享</button>
+        <button class="sheet" open-type="share" hover-class="btn-hover">分享给微信好友</button>
+        <button class="sheet" hover-class="btn-hover" @click="shareActionSheet">生成分享图</button>
       </view>
     </bottom-dialog>
   </view>
