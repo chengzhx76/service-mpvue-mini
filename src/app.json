@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/share/main",
     "pages/index/main",
     "pages/release/main",
     "pages/add/main",
