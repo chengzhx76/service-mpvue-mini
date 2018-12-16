@@ -62,6 +62,10 @@ export function getUserByUid (uid) {
   return getRequest(`mp/user/${uid}`)
 }
 
-export function getRelease (time, pageNum, pageSize) {
-  return getRequest(`mp/user/release?time=${time === undefined ? '' : time}&page=${pageNum === undefined ? '' : pageNum}&count=${pageSize === undefined ? '' : pageSize}`)
+export function getRelease (time, type, pageNum, pageSize) {
+  return getRequest(`mp/user/release?time=${time === undefined ? '' : time}&type=${type === undefined ? '' : type}&page=${pageNum === undefined ? '' : pageNum}&count=${pageSize === undefined ? '' : pageSize}`)
+}
+
+export function getReleaseCount () {
+  return getRequest('mp/user/release/count')
 }
