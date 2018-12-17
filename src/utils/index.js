@@ -80,8 +80,17 @@ export function getDay (day) {
   return days
 }
 
+export function errorToast (title) {
+  wx.showToast({
+    title,
+    icon: 'none',
+    duration: 1300
+  })
+}
+
 export default {
   formatNumber,
   formatTime,
-  getDay
+  getDay,
+  errorToast
 }

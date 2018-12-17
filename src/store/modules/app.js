@@ -1,7 +1,7 @@
 import { getConfig, updateConfig, refreshConfig } from '@/api/config'
 
 function setMutations (commit, data) {
-  commit('SET_SWITCH', data.SWITCH.SwitchAdd)
+  commit('SET_SWITCH', { add: data.SWITCH.SwitchAdd, callPhone: data.SWITCH.SwitchCallPhone })
   commit('SET_PAGE_SIZE', { index: data.PAGE_SIZE.PageSizeIndex, list: data.PAGE_SIZE.PageSizeList })
   commit('SET_SHARE_IMG', data.SHARE_IMG.ShareImgIndex)
   commit('SET_SHARE_TEXT', data.SHARE_TEXT.ShareTextIndex)
@@ -11,7 +11,8 @@ function setMutations (commit, data) {
 const app = {
   state: {
     switches: {
-      add: true
+      add: true,
+      callPhone: true
     },
     pageSize: {
       index: 6,
@@ -39,8 +40,9 @@ const app = {
     }
   },
   mutations: {
-    SET_SWITCH: (state, add) => {
+    SET_SWITCH: (state, { add, callPhone }) => {
       state.switches.add = !!parseInt(add)
+      state.switches.callPhone = !!parseInt(callPhone)
     },
     SET_PAGE_SIZE: (state, { index, list }) => {
       state.pageSize.index = index

@@ -95,7 +95,7 @@
   import { mapGetters } from 'vuex'
   import { mapKey } from '@/utils/config'
   import { getTravel, getUserByUid } from '@/api/api'
-  import { formatDateTime } from '@/utils/index'
+  import { formatDateTime, errorToast } from '@/utils/index'
   import ActionSheet from '@/components/ActionSheet/index'
   import ShareImg from '@/components/ShareImg/index'
   export default {
@@ -154,9 +154,13 @@
         })
       },
       phoneCall (phone) {
-        wx.makePhoneCall({
-          phoneNumber: phone
-        })
+        if (this.switches.callPhone) {
+          wx.makePhoneCall({
+            phoneNumber: phone
+          })
+        } else {
+          errorToast('暂时不可用')
+        }
       },
       returnDetail (returnId) {
         /*
@@ -279,6 +283,7 @@
     computed: {
       ...mapGetters([
         'uid',
+        'switches',
         'shareText'
       ])
     },
