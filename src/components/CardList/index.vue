@@ -64,6 +64,8 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+  import { errorToast } from '@/utils/index'
   import ActionSheet from '@/components/ActionSheet/index'
   import ShareImg from '@/components/ShareImg/index'
   export default {
@@ -89,9 +91,13 @@
         wx.navigateTo({ url })
       },
       phoneCall (phone) {
-        wx.makePhoneCall({
-          phoneNumber: phone
-        })
+        if (this.switches.callPhone) {
+          wx.makePhoneCall({
+            phoneNumber: phone
+          })
+        } else {
+          errorToast('暂时不可用')
+        }
       },
       chooseShare (item) {
         this.tempTravel = item
@@ -100,6 +106,11 @@
       createShareImg () {
         this.$refs.shareImgCom.createShareImg(this.tempTravel)
       }
+    },
+    computed: {
+      ...mapGetters([
+        'switches'
+      ])
     }
   }
 </script>

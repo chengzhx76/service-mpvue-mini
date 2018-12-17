@@ -13,6 +13,17 @@
         <button class="submit" type="primary" @click="update('SwitchAdd', switches.add)">提交</button>
       </view>
     </view>
+    <view class="cells cell call-phone-switch">
+      <view class="content">
+        <view class="label">拨打电话</view>
+        <view class="operate">
+          <switch :checked="switches.callPhone" @change="callPhoneSwitch" color="#76ABEF"/>
+        </view>
+      </view>
+      <view class="btn">
+        <button class="submit" type="primary" @click="update('SwitchCallPhone', switches.callPhone)">提交</button>
+      </view>
+    </view>
     <view class="cells cell page-size-index">
       <view class="content">
         <view class="label">首页显示</view>
@@ -24,7 +35,6 @@
         <button class="submit" type="primary" @click="update('PageSizeIndex', pageSize.index)">提交</button>
       </view>
     </view>
-
     <view class="cells cell page-size-list">
       <view class="content">
         <view class="label">列表页显示</view>
@@ -91,7 +101,8 @@
     data () {
       return {
         switches: {
-          add: ''
+          add: '',
+          callPhone: ''
         },
         pageSize: {
           index: '',
@@ -111,9 +122,13 @@
       addSwitch (e) {
         this.switches.add = e.mp.detail.value
       },
+      callPhoneSwitch (e) {
+        this.switches.callPhone = e.mp.detail.value
+      },
       getConfig () {
         getConfig().then(res => {
           this.switches.add = !!parseInt(res.data.SWITCH.SwitchAdd)
+          this.switches.callPhone = !!parseInt(res.data.SWITCH.SwitchCallPhone)
           this.pageSize.index = parseInt(res.data.PAGE_SIZE.PageSizeIndex)
           this.pageSize.list = parseInt(res.data.PAGE_SIZE.PageSizeList)
           this.shareImg.index = res.data.SHARE_IMG.ShareImgIndex
@@ -157,10 +172,10 @@
           this.update('ShareTextIndex', value.shareTextIndex)
         }
         if (value.shareImgDetail) {
-          this.update('ShareTextIndex', value.shareImgDetail)
+          this.update('ShareImgDetail', value.shareImgDetail)
         }
         if (value.shareTextDetail) {
-          this.update('ShareTextIndex', value.shareTextDetail)
+          this.update('ShareTextDetail', value.shareTextDetail)
         }
       },
       wxAuth () {
@@ -214,7 +229,8 @@
   @import "@/styles/mixin.scss";
   @import "@/styles/variables.scss";
   #admin {
-    @include height-width-100;
+    width: 100%;
+    margin-bottom: 30rpx;
   }
   .cell {
     @include height-rpx-width-100(100);
