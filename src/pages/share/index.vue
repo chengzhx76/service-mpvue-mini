@@ -19,14 +19,14 @@
 <script>
   import { mapGetters } from 'vuex'
   import { getTravel } from '@/api/api'
-  import { fileUrl } from '@/utils/config'
+  // import { fileUrl } from '@/utils/config'
   import { formatDateTime } from '@/utils/index'
   export default {
     data () {
       return {
         src: '',
-        canvasHeightPx: 260,
-        canvasWidthPx: 200,
+        canvasHeightPx: 1962,
+        canvasWidthPx: 1080,
         windowHeightPx: 0,
         windowWidthPx: 0
       }
@@ -37,7 +37,7 @@
         wx.showLoading({
           title: '加载中...'
         })
-        this.drawImg(val.type, val.origin, val.dest, val.time, val.qrCode).then(() => {
+        this.drawImg(1, '成武', '菏泽', 1545055958000, '').then(() => {
           setTimeout(() => {
             this.createImg()
             wx.hideLoading()
@@ -48,7 +48,7 @@
         const self = this
         let bg = new Promise((resolve, reject) => {
           wx.getImageInfo({
-            src: self.shareImg.detail,
+            src: './bg-02.jpg',
             success (res) {
               resolve(res)
             },
@@ -60,7 +60,7 @@
         })
         let qr = new Promise((resolve, reject) => {
           wx.getImageInfo({
-            src: `${fileUrl}${qrCode}`,
+            src: './qr.jpg',
             success (res) {
               resolve(res)
             },
@@ -70,7 +70,6 @@
             }
           })
         })
-
         return new Promise((resolve, reject) => {
           try {
             Promise.all([bg, qr]).then(res => {
@@ -79,12 +78,12 @@
               // ctx.setFillStyle('#F8FCFF')
               // ctx.fillRect(0, 0, self.canvasWidthPx, 170)
 
-              ctx.drawImage(res[0].path, 0, 0, self.canvasWidthPx, 170)
+              ctx.drawImage('../../' + res[0].path, 0, 0, self.canvasWidthPx, 1962)
 
               // 底部view
-              ctx.beginPath()
-              ctx.setFillStyle('#FFFFFF')
-              ctx.fillRect(0, 170, self.canvasWidthPx, 90)
+              // ctx.beginPath()
+              // ctx.setFillStyle('#FFFFFF')
+              // ctx.fillRect(0, 170, self.canvasWidthPx, 90)
 
               // 中间的灰线
               // ctx.beginPath()
@@ -97,40 +96,37 @@
               // 头部信息
               ctx.beginPath()
               ctx.setTextAlign('center')
-              ctx.setFillStyle('#26548D')
-              ctx.setFontSize(22)
+              ctx.setFillStyle('#ffffff')
+              ctx.setFontSize(46)
               if (type === 1) {
-                ctx.fillText('人找车', self.canvasWidthPx * 0.5, 35)
-              } else {
-                ctx.fillText('车找人', self.canvasWidthPx * 0.5, 35)
+                ctx.fillText('Cheng发布了人找车', self.canvasWidthPx * 0.5, 530)
               }
-
               // 行程信息
               ctx.beginPath()
               ctx.setTextAlign('right')
               ctx.setFillStyle('#26548D')
-              ctx.setFontSize(18)
-              ctx.fillText('起点：', self.canvasWidthPx * 0.25, 70)
-              ctx.fillText('终点：', self.canvasWidthPx * 0.25, 100)
-              ctx.fillText('时间：', self.canvasWidthPx * 0.25, 130)
+              ctx.setFontSize(50)
+              ctx.fillText('起点：', self.canvasWidthPx * 0.26, 670)
+              ctx.fillText('终点：', self.canvasWidthPx * 0.26, 780)
+              ctx.fillText('时间：', self.canvasWidthPx * 0.26, 900)
 
               ctx.beginPath()
               ctx.setTextAlign('left')
               ctx.setFillStyle('#0A1519')
-              ctx.setFontSize(18)
-              ctx.fillText(origin, self.canvasWidthPx * 0.25, 70)
-              ctx.fillText(dest, self.canvasWidthPx * 0.25, 100)
-              ctx.fillText(formatDateTime(time), self.canvasWidthPx * 0.25, 130)
+              ctx.setFontSize(50)
+              ctx.fillText(origin, self.canvasWidthPx * 0.26, 670)
+              ctx.fillText(dest, self.canvasWidthPx * 0.26, 780)
+              ctx.fillText(formatDateTime(time), self.canvasWidthPx * 0.26, 900)
               // 底部信息
               ctx.beginPath()
-              ctx.setTextAlign('left')
+              ctx.setTextAlign('center')
               ctx.setFillStyle('#ACACAC')
-              ctx.setFontSize(14)
-              ctx.fillText('长按识别小程序码，联系TA', self.canvasWidthPx * 0.08, 200)
-              ctx.fillText('分享来自「成武拼车」', self.canvasWidthPx * 0.08, 226)
+              ctx.setFontSize(50)
+              ctx.fillText('长按识别小程序码，联系TA', self.canvasWidthPx * 0.5, 1400)
+              ctx.fillText('分享来自「成武拼车」', self.canvasWidthPx * 0.5, 1500)
 
               // 小程序码
-              ctx.drawImage(res[1].path, self.canvasWidthPx - 80, 180, 70, 70)
+              ctx.drawImage('../../' + res[1].path, 400, 1050, 270, 270)
               ctx.draw()
               resolve()
             })
@@ -178,12 +174,13 @@
       const clientWidth = res.windowWidth
       this.windowHeightPx = clientHeight
       this.windowWidthPx = clientWidth
-      this.canvasWidthPx = Math.ceil(clientWidth * 0.9)
+      // this.canvasWidthPx = Math.ceil(clientWidth * 0.9)
       // const { tid } = this.$root.$mp.query
       const tid = ''
       if (tid) {
         this.getTravel(tid)
       }
+      this.createShareImg('')
     }
   }
 </script>
