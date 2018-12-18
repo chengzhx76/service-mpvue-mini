@@ -163,10 +163,6 @@
         }
       },
       returnDetail (returnId) {
-        /*
-        const url = `../detail/main?id=${returnId}`
-        wx.redirectTo({ url })
-        */
         this.getDetail(returnId, false)
       },
       travelDetail (travelId) {
@@ -176,7 +172,12 @@
         this.$refs.actionSheet.showActionSheet()
       },
       createShareImg (showImg) {
-        this.$refs.shareImgCom.createShareImg(this.travel, showImg)
+        if (showImg) {
+          const url = `../share/main?tid=${this.travel.id}`
+          wx.navigateTo({ url })
+        } else {
+          this.$refs.shareImgCom.createShareImg(this.travel, showImg)
+        }
       },
       getShareImgUrl (url) {
         this.shareDetailImg = url

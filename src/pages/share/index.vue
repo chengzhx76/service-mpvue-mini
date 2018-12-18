@@ -10,7 +10,7 @@
       </view>
     </view>
     <view class="footer">
-      <view class="save">保存到手机相册</view>
+      <view class="save" @click="saveShareImg()">保存到手机相册</view>
     </view>
   </view>
 
@@ -19,16 +19,14 @@
 <script>
   import { mapGetters } from 'vuex'
   import { getTravel } from '@/api/api'
-  // import { fileUrl } from '@/utils/config'
+  import { fileUrl } from '@/utils/config'
   import { formatDateTime } from '@/utils/index'
   export default {
     data () {
       return {
         src: '',
-        canvasHeightPx: 1962,
-        canvasWidthPx: 1080,
-        windowHeightPx: 0,
-        windowWidthPx: 0
+        canvasHeightPx: 400,
+        canvasWidthPx: 500
       }
     },
     methods: {
@@ -37,7 +35,7 @@
         wx.showLoading({
           title: '加载中...'
         })
-        this.drawImg(1, '成武', '菏泽', 1545055958000, '').then(() => {
+        this.drawImg(val.type, val.origin, val.dest, val.time, val.qrCode).then(() => {
           setTimeout(() => {
             this.createImg()
             wx.hideLoading()
@@ -48,7 +46,7 @@
         const self = this
         let bg = new Promise((resolve, reject) => {
           wx.getImageInfo({
-            src: './bg-02.jpg',
+            src: self.shareImg.detail,
             success (res) {
               resolve(res)
             },
@@ -60,7 +58,7 @@
         })
         let qr = new Promise((resolve, reject) => {
           wx.getImageInfo({
-            src: './qr.jpg',
+            src: `${fileUrl}${qrCode}`,
             success (res) {
               resolve(res)
             },
@@ -78,7 +76,7 @@
               // ctx.setFillStyle('#F8FCFF')
               // ctx.fillRect(0, 0, self.canvasWidthPx, 170)
 
-              ctx.drawImage('../../' + res[0].path, 0, 0, self.canvasWidthPx, 1962)
+              ctx.drawImage(res[0].path, 0, 0, self.canvasWidthPx, 400)
 
               // 底部view
               // ctx.beginPath()
@@ -96,37 +94,39 @@
               // 头部信息
               ctx.beginPath()
               ctx.setTextAlign('center')
-              ctx.setFillStyle('#ffffff')
-              ctx.setFontSize(46)
+              ctx.setFillStyle('#26548D')
+              ctx.setFontSize(28)
               if (type === 1) {
-                ctx.fillText('Cheng发布了人找车', self.canvasWidthPx * 0.5, 530)
+                ctx.fillText('人找车', self.canvasWidthPx * 0.5, 78)
+              } else {
+                ctx.fillText('车找人', self.canvasWidthPx * 0.5, 78)
               }
               // 行程信息
               ctx.beginPath()
               ctx.setTextAlign('right')
               ctx.setFillStyle('#26548D')
-              ctx.setFontSize(50)
-              ctx.fillText('起点：', self.canvasWidthPx * 0.26, 670)
-              ctx.fillText('终点：', self.canvasWidthPx * 0.26, 780)
-              ctx.fillText('时间：', self.canvasWidthPx * 0.26, 900)
+              ctx.setFontSize(26)
+              ctx.fillText('起点：', self.canvasWidthPx * 0.26, 140)
+              ctx.fillText('终点：', self.canvasWidthPx * 0.26, 180)
+              ctx.fillText('时间：', self.canvasWidthPx * 0.26, 220)
 
               ctx.beginPath()
               ctx.setTextAlign('left')
               ctx.setFillStyle('#0A1519')
-              ctx.setFontSize(50)
-              ctx.fillText(origin, self.canvasWidthPx * 0.26, 670)
-              ctx.fillText(dest, self.canvasWidthPx * 0.26, 780)
-              ctx.fillText(formatDateTime(time), self.canvasWidthPx * 0.26, 900)
+              ctx.setFontSize(26)
+              ctx.fillText(origin, self.canvasWidthPx * 0.26, 140)
+              ctx.fillText(dest, self.canvasWidthPx * 0.26, 180)
+              ctx.fillText(formatDateTime(time), self.canvasWidthPx * 0.26, 220)
               // 底部信息
               ctx.beginPath()
-              ctx.setTextAlign('center')
+              ctx.setTextAlign('left')
               ctx.setFillStyle('#ACACAC')
-              ctx.setFontSize(50)
-              ctx.fillText('长按识别小程序码，联系TA', self.canvasWidthPx * 0.5, 1400)
-              ctx.fillText('分享来自「成武拼车」', self.canvasWidthPx * 0.5, 1500)
+              ctx.setFontSize(24)
+              ctx.fillText('长按识别小程序码，联系TA', self.canvasWidthPx * 0.04, 325)
+              ctx.fillText('分享来自「成武拼车」', self.canvasWidthPx * 0.04, 360)
 
               // 小程序码
-              ctx.drawImage('../../' + res[1].path, 400, 1050, 270, 270)
+              ctx.drawImage(res[1].path, self.canvasWidthPx - 110, 295, 100, 100)
               ctx.draw()
               resolve()
             })
@@ -155,6 +155,26 @@
           }
         })
       },
+      saveShareImg () {
+        const self = this
+        wx.saveImageToPhotosAlbum({
+          filePath: self.src,
+          success (res) {
+            wx.showModal({
+              content: '图片已保存到相册',
+              showCancel: false,
+              confirmText: '好的',
+              success (res) {
+                if (res.confirm) {
+                }
+              }
+            })
+          },
+          fail (res) {
+            console.log(res)
+          }
+        })
+      },
       getTravel (id) {
         getTravel(id).then(res => {
           if (res.meta.code === 2000) {
@@ -169,18 +189,10 @@
       ])
     },
     mounted () {
-      const res = wx.getSystemInfoSync()
-      const clientHeight = res.windowHeight
-      const clientWidth = res.windowWidth
-      this.windowHeightPx = clientHeight
-      this.windowWidthPx = clientWidth
-      // this.canvasWidthPx = Math.ceil(clientWidth * 0.9)
-      // const { tid } = this.$root.$mp.query
-      const tid = ''
+      const { tid } = this.$root.$mp.query
       if (tid) {
         this.getTravel(tid)
       }
-      this.createShareImg('')
     }
   }
 </script>
@@ -191,17 +203,15 @@
   #share {
     @include height-width-100;
     @include column-align-center;
-    background: $white;
   }
   .main {
-    height: calc(100% - 130rpx);
+    /*height: calc(100% - 300rpx);*/
+    height: 800rpx;
     width: 100%;
-    background: darkkhaki;
     @include justify-align-center;
     .share-img {
       width: 90%;
       height: 90%;
-      background: darkred;
       image {
         @include height-width-100;
         @include border-radius(5);

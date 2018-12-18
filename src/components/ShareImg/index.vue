@@ -4,8 +4,8 @@
       <canvas canvas-id="shareImg" :style="{height: canvasHeightPx + 'px', width: canvasWidthPx + 'px'}"/>
     </view>
     <view class='share-preview' v-if="showShareImg" @click="closeShareImgMode()" catchtouchmove='true'>
-      <view class="share-warp" :style="{width: canvasWidthPx + 'px'}">
-        <view class="share-img" :style="{height: canvasHeightPx + 'px', width: canvasWidthPx + 'px'}">
+      <view class="share-warp">
+        <view class="share-img">
           <image :src='src'/>
         </view>
         <view class="save-img-btn" @click="saveShareImg()">保存图片</view>
@@ -25,10 +25,8 @@
         showShareImg: false,
         showImg: true,
         src: '',
-        canvasHeightPx: 260,
-        canvasWidthPx: 200,
-        windowHeightPx: 0,
-        windowWidthPx: 0
+        canvasHeightPx: 400,
+        canvasWidthPx: 500
       }
     },
     computed: {
@@ -93,9 +91,10 @@
               // ctx.setFillStyle('#F8FCFF')
               // ctx.fillRect(0, 0, self.canvasWidthPx, 170)
 
+              ctx.drawImage(res[0].path, 0, 0, self.canvasWidthPx, 400)
+              /*
               if (self.showImg) {
                 ctx.drawImage(res[0].path, 0, 0, self.canvasWidthPx, 170)
-
                 // 底部view
                 ctx.beginPath()
                 ctx.setFillStyle('#FFFFFF')
@@ -103,7 +102,7 @@
               } else {
                 ctx.drawImage(res[0].path, 0, 0, self.canvasWidthPx, 260)
               }
-
+              */
               // 中间的灰线
               // ctx.beginPath()
               // ctx.setStrokeStyle('#E5E5E5')
@@ -116,11 +115,11 @@
               ctx.beginPath()
               ctx.setTextAlign('center')
               ctx.setFillStyle('#26548D')
-              ctx.setFontSize(22)
+              ctx.setFontSize(28)
               if (type === 1) {
-                ctx.fillText('人找车', self.canvasWidthPx * 0.5, 35)
+                ctx.fillText('人找车', self.canvasWidthPx * 0.5, 78)
               } else {
-                ctx.fillText('车找人', self.canvasWidthPx * 0.5, 35)
+                ctx.fillText('车找人', self.canvasWidthPx * 0.5, 78)
               }
 
               // 行程信息
@@ -128,34 +127,28 @@
               ctx.setTextAlign('right')
               ctx.setFillStyle('#26548D')
               ctx.setFontSize(18)
-              ctx.fillText('起点：', self.canvasWidthPx * 0.25, 70)
-              ctx.fillText('终点：', self.canvasWidthPx * 0.25, 100)
-              ctx.fillText('时间：', self.canvasWidthPx * 0.25, 130)
-              if (!self.showImg) {
-                ctx.fillText('手机：', self.canvasWidthPx * 0.25, 160)
-              }
+              ctx.fillText('起点：', self.canvasWidthPx * 0.25, 140)
+              ctx.fillText('终点：', self.canvasWidthPx * 0.25, 180)
+              ctx.fillText('时间：', self.canvasWidthPx * 0.25, 220)
 
               ctx.beginPath()
               ctx.setTextAlign('left')
               ctx.setFillStyle('#0A1519')
               ctx.setFontSize(18)
-              ctx.fillText(origin, self.canvasWidthPx * 0.25, 70)
-              ctx.fillText(dest, self.canvasWidthPx * 0.25, 100)
-              ctx.fillText(time, self.canvasWidthPx * 0.25, 130)
-              if (!self.showImg) {
-                ctx.fillText(mobileNo, self.canvasWidthPx * 0.25, 160)
-              }
+              ctx.fillText(origin, self.canvasWidthPx * 0.25, 140)
+              ctx.fillText(dest, self.canvasWidthPx * 0.25, 180)
+              ctx.fillText(time, self.canvasWidthPx * 0.25, 220)
               if (self.showImg) {
                 // 底部信息
                 ctx.beginPath()
                 ctx.setTextAlign('left')
                 ctx.setFillStyle('#ACACAC')
                 ctx.setFontSize(14)
-                ctx.fillText('长按识别小程序码，联系TA', self.canvasWidthPx * 0.08, 200)
-                ctx.fillText('分享来自「成武拼车」', self.canvasWidthPx * 0.08, 226)
+                ctx.fillText('长按识别小程序码，联系TA', self.canvasWidthPx * 0.04, 325)
+                ctx.fillText('分享来自「成武拼车」', self.canvasWidthPx * 0.04, 360)
 
                 // 小程序码
-                ctx.drawImage(res[1].path, self.canvasWidthPx - 80, 180, 70, 70)
+                ctx.drawImage(res[1].path, self.canvasWidthPx - 110, 295, 100, 100)
               }
               ctx.draw()
               resolve()
@@ -212,12 +205,6 @@
       }
     },
     mounted () {
-      const res = wx.getSystemInfoSync()
-      const clientHeight = res.windowHeight
-      const clientWidth = res.windowWidth
-      this.windowHeightPx = clientHeight
-      this.windowWidthPx = clientWidth
-      this.canvasWidthPx = Math.ceil(clientWidth * 0.9)
     }
   }
 </script>
@@ -226,6 +213,7 @@
   @import "@/styles/mixin.scss";
   @import "@/styles/variables.scss";
   #share-img {
+    @include height-width-100;
   }
   .share-preview {
     @include height-width-100;
@@ -236,8 +224,11 @@
     background:rgba(0, 0, 0, 0.5);
     @include justify-align-center;
     .share-warp {
+      height: 700rpx;
+      width: 90%;
       @include column-align-center;
       .share-img {
+        @include height-width-100;
         image {
           @include height-width-100;
           @include border-radius(5);
