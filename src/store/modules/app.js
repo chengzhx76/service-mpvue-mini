@@ -3,8 +3,8 @@ import { getConfig, updateConfig, refreshConfig } from '@/api/config'
 function setMutations (commit, data) {
   commit('SET_SWITCH', { add: data.SWITCH.SwitchAdd, callPhone: data.SWITCH.SwitchCallPhone })
   commit('SET_PAGE_SIZE', { index: data.PAGE_SIZE.PageSizeIndex, list: data.PAGE_SIZE.PageSizeList })
-  commit('SET_SHARE_IMG', data.SHARE_IMG.ShareImgIndex)
-  commit('SET_SHARE_TEXT', data.SHARE_TEXT.ShareTextIndex)
+  commit('SET_SHARE_IMG', { index: data.SHARE_IMG.ShareImgIndex, detail: data.SHARE_IMG.ShareImgDetail })
+  commit('SET_SHARE_TEXT', { inde: data.SHARE_TEXT.ShareTextIndex, detail: data.SHARE_TEXT.ShareTextDetail })
   commit('SET_INDEX_SWIPER', data.SWIPER)
 }
 
@@ -48,11 +48,13 @@ const app = {
       state.pageSize.index = index
       state.pageSize.list = list
     },
-    SET_SHARE_IMG: (state, img) => {
-      state.shareImg.index = img
+    SET_SHARE_IMG: (state, { index, detail }) => {
+      state.shareImg.index = index
+      state.shareImg.detail = detail
     },
-    SET_SHARE_TEXT: (state, text) => {
-      state.shareText.index = text
+    SET_SHARE_TEXT: (state, { index, detail }) => {
+      state.shareText.index = index
+      state.shareText.detail = detail
     },
     SET_INDEX_SWIPER: (state, swiper) => {
       state.swiper.imgs = swiper.SwiperShowImg.map(item => {
