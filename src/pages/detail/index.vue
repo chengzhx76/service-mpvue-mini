@@ -28,11 +28,11 @@
           </view>
           <view class="nickname">{{ nickName }}</view>
         </view>
-        <view class="contact" hover-class="btn-hover">
+        <view class="contact" @click.stop="phoneCall(travel.mobileNo)" hover-class="btn-hover">
           <view class="icon">
             <text class="fa fa-phone white-icon"/>
           </view>
-          <view class="text" @click.stop="phoneCall(travel.mobileNo)">联系TA</view>
+          <view class="text">联系TA</view>
         </view>
       </view>
       <view class="content" v-if="!bigMap">
@@ -185,7 +185,11 @@
       bindtap (e) {
       },
       getDetail (id, loadUser) {
+        wx.showLoading({
+          title: '加载中...'
+        })
         getTravel(id).then(res => {
+          wx.hideLoading()
           let travel = null
           this.travel = travel = res.data
           this.travel.time = formatDateTime(travel.time)
