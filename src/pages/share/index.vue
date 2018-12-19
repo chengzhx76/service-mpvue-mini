@@ -64,6 +64,7 @@
             },
             fail (error) {
               wx.hideLoading()
+              console.log('--------->qr')
               console.error(error)
             }
           })
@@ -193,6 +194,12 @@
       if (tid) {
         this.getTravel(tid)
       }
+    },
+    onLoad () {
+      Object.assign(this.$data, this.$options.data())
+    },
+    onUnload () {
+      Object.assign(this.$data, this.$options.data())
     }
   }
 </script>
