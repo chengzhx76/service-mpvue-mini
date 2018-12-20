@@ -3,6 +3,7 @@ const getters = {
   avatar: state => state.user.avatar,
   gender: state => state.user.gender,
   nickName: state => state.user.nickName,
+  mobileNo: state => state.user.mobileNo,
   token: state => state.user.token,
   admin: state => state.user.admin,
   freeze: state => state.user.freeze,

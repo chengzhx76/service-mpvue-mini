@@ -240,7 +240,7 @@
           time: '',
           number: '',
           price: '',
-          phone: '',
+          phone: this.$store.getters.mobileNo,
           returnTime: '',
           via: '',
           remarks: ''
