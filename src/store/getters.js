@@ -5,6 +5,7 @@ const getters = {
   nickName: state => state.user.nickName,
   token: state => state.user.token,
   admin: state => state.user.admin,
+  freeze: state => state.user.freeze,
   switches: state => state.app.switches,
   pageSize: state => state.app.pageSize,
   shareImg: state => state.app.shareImg,
