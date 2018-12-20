@@ -47,6 +47,7 @@
       }
     },
     methods: {
+      // 只需要把值给我，所以在这里把值传给我就行了
       choose () {
         this.$emit('choose')
       },
