@@ -87,6 +87,13 @@ export function errorToast (title) {
     duration: 1300
   })
 }
+export function successToast (title) {
+  wx.showToast({
+    title,
+    icon: 'success',
+    duration: 1300
+  })
+}
 
 export default {
   formatNumber,
