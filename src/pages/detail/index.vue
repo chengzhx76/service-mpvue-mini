@@ -154,12 +154,16 @@
         })
       },
       phoneCall (phone) {
-        if (this.switches.callPhone) {
-          wx.makePhoneCall({
-            phoneNumber: phone
-          })
+        if (!this.freeze) {
+          if (this.switches.callPhone) {
+            wx.makePhoneCall({
+              phoneNumber: phone
+            })
+          } else {
+            errorToast('暂时不可用')
+          }
         } else {
-          errorToast('暂时不可用')
+          errorToast('帐号冻结不能操作')
         }
       },
       returnDetail (returnId) {

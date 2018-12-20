@@ -7,7 +7,8 @@ const user = {
     gender: 0,
     nickName: '',
     token: '',
-    admin: false
+    admin: false,
+    freeze: false
   },
   mutations: {
     SET_USER: (state, user) => {
@@ -24,6 +25,9 @@ const user = {
     },
     SET_IS_ADMIN: (state, admin) => {
       state.admin = admin
+    },
+    SET_IS_FREEZE: (state, freeze) => {
+      state.freeze = freeze
     }
   },
   actions: {
@@ -33,6 +37,7 @@ const user = {
           commit('SET_TOKEN', res.data.token)
           commit('SET_UID', res.data.uid)
           commit('SET_IS_ADMIN', res.data.admin)
+          commit('SET_IS_FREEZE', res.data.freeze)
           resolve()
         }).catch(error => {
           reject(error)
@@ -45,6 +50,7 @@ const user = {
           commit('SET_USER', res.data)
           commit('SET_TOKEN', res.data.token)
           commit('SET_IS_ADMIN', res.data.admin)
+          commit('SET_IS_FREEZE', res.data.freeze)
           resolve()
         }).catch(error => {
           reject(error)
@@ -57,6 +63,7 @@ const user = {
           commit('SET_USER', res.data)
           commit('SET_TOKEN', res.data.token)
           commit('SET_IS_ADMIN', res.data.admin)
+          commit('SET_IS_FREEZE', res.data.freeze)
           resolve()
         }).catch(error => {
           reject(error)
