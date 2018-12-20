@@ -13,6 +13,7 @@
 
         <view class="service">
           <view class="distance">
+
             <view class="origin info" @click="chooseOrigin" hover-class="choose-hover">
               <view class="title">
                 <view class="icon">
@@ -24,6 +25,7 @@
                 <input placeholder-class="placeholder-color" placeholder="出发地" disabled v-model="service.origin.title"/>
               </view>
             </view>
+
             <view class="dest info" @click="chooseDest" hover-class="choose-hover">
               <view class="title">
                 <view class="icon">
@@ -192,7 +194,13 @@
         </view>
       </view>
     <view class="release">
-      <button class="release-button" @click="addDistance" :loading="loading" :disabled="!switches.add" hover-class="btn-hover">发布行程</button>
+      <button class="release-button"
+              @click="addDistance"
+              :loading="loading"
+              :disabled="!switches.add"
+              open-type="getUserInfo"
+              @getuserinfo="showUserInfo"
+              hover-class="btn-hover">发布行程</button>
     </view>
 
   </view>
@@ -201,7 +209,7 @@
 <script>
   import { mapGetters } from 'vuex'
   import { add } from '@/api/api'
-  import { formatNumber, getDay, parseDate } from '@/utils/index'
+  import { formatNumber, getDay, parseDate, successToast, errorToast } from '@/utils/index'
   import { isInteger, isMoney, isAfterNow, isMobile } from '@/utils/validate'
   const now = new Date()
   export default {
@@ -593,25 +601,16 @@
           remarks: this.moreSwitchNo ? this.service.remarks : ''
         }
 
-        // TODO 判断是否存在Token
         add(travel).then(res => {
           this.loading = false
           if (res.meta.code === 2000) {
-            wx.showToast({
-              title: '添加成功',
-              icon: 'success',
-              duration: 1300
-            })
+            successToast('添加成功')
             setTimeout(() => {
               const url = '../index/main'
               wx.redirectTo({ url })
             }, 1500)
           } else {
-            wx.showToast({
-              title: '添加失败',
-              icon: 'none',
-              duration: 1300
-            })
+            errorToast('添加失败')
           }
         }).catch(e => {
           this.loading = false
@@ -673,10 +672,26 @@
       },
       retTimeChange (e) {
         this.retTimeVal = e.mp.detail.value
+      },
+      showUserInfo (info) {
+        if (this.nickName) {
+          this.addDistance()
+        } else {
+          if (info.mp.detail.errMsg.indexOf('ok') !== -1) {
+            this.$store.dispatch('AddUser', info.mp.detail.userInfo).then(() => {
+              this.addDistance()
+            }).catch(error => {
+              console.log(error)
+            })
+          } else {
+            errorToast('您拒绝了，无法发布行程！')
+          }
+        }
       }
     },
     computed: {
       ...mapGetters([
+        'nickName',
         'switches'
       ])
     }

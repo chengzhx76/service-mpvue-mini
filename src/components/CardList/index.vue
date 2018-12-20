@@ -100,7 +100,7 @@
             errorToast('暂时不可用')
           }
         } else {
-            errorToast('帐号冻结不能操作')
+          errorToast('帐号冻结不能操作')
         }
       },
       chooseShare (item) {

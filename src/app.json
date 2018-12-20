@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/add/main",
     "pages/index/main",
     "pages/share/main",
     "pages/release/main",
-    "pages/add/main",
     "pages/admin/main",
     "pages/detail/main",
     "pages/sheet/main",
