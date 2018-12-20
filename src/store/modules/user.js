@@ -1,9 +1,18 @@
 import { authorization } from '@/api/api'
 
+function setMutations (commit, data) {
+  commit('SET_TOKEN', data.token)
+  commit('SET_UID', data.uid)
+  commit('SET_MOBILE_NO', data.mobileNo)
+  commit('SET_IS_ADMIN', data.admin)
+  commit('SET_IS_FREEZE', data.freeze)
+}
+
 const user = {
   state: {
     uid: '',
     avatar: '',
+    mobileNo: '',
     gender: 0,
     nickName: '',
     token: '',
@@ -28,16 +37,16 @@ const user = {
     },
     SET_IS_FREEZE: (state, freeze) => {
       state.freeze = freeze
+    },
+    SET_MOBILE_NO: (state, mobileNo) => {
+      state.mobileNo = mobileNo
     }
   },
   actions: {
     AuthUser ({ commit }, code) {
       return new Promise((resolve, reject) => {
         authorization('', '', code).then(res => {
-          commit('SET_TOKEN', res.data.token)
-          commit('SET_UID', res.data.uid)
-          commit('SET_IS_ADMIN', res.data.admin)
-          commit('SET_IS_FREEZE', res.data.freeze)
+          setMutations(commit, res.data)
           resolve()
         }).catch(error => {
           reject(error)
@@ -47,10 +56,7 @@ const user = {
     GetUser ({ state, commit }, data) {
       return new Promise((resolve, reject) => {
         authorization(data.info, state.token, data.code).then(res => {
-          commit('SET_USER', res.data)
-          commit('SET_TOKEN', res.data.token)
-          commit('SET_IS_ADMIN', res.data.admin)
-          commit('SET_IS_FREEZE', res.data.freeze)
+          setMutations(commit, res.data)
           resolve()
         }).catch(error => {
           reject(error)
@@ -60,10 +66,7 @@ const user = {
     AddUser ({ state, commit }, userInfo) {
       return new Promise((resolve, reject) => {
         authorization({ userInfo }, state.token).then(res => {
-          commit('SET_USER', res.data)
-          commit('SET_TOKEN', res.data.token)
-          commit('SET_IS_ADMIN', res.data.admin)
-          commit('SET_IS_FREEZE', res.data.freeze)
+          setMutations(commit, res.data)
           resolve()
         }).catch(error => {
           reject(error)
