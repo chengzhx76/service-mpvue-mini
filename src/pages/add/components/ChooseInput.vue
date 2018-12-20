@@ -3,7 +3,7 @@
     <view class="info" :class="[clazz]" @click="choose" hover-class="choose-hover">
       <view class="title">
         <view class="icon">
-          <text class="fa fa-car" :class="[icon]"/>
+          <text class="fa gray-icon" :class="[icon]"/>
         </view>
         <text :class="['label', { error: validate }]">{{ labelText }}</text>
       </view>
@@ -18,22 +18,28 @@
   export default {
     props: {
       clazz: {
-        type: String
+        type: String,
+        default: ''
       },
       icon: {
-        type: String
+        type: String,
+        default: 'fa-car'
       },
       labelText: {
-        type: String
+        type: String,
+        default: '11'
       },
       validate: {
-        type: Boolean
+        type: Boolean,
+        default: true
       },
       placeholder: {
-        type: String
+        type: String,
+        default: '请11'
       },
       content: {
-        type: String
+        type: String,
+        default: '起点！！！'
       }
     },
     data () {
@@ -41,10 +47,11 @@
       }
     },
     methods: {
-      choose() {
+      choose () {
+        this.$emit('choose')
       },
-      confirm() {
-      },
+      confirm () {
+      }
     }
   }
 </script>
@@ -58,6 +65,7 @@
     width: 100%;
     @include justify-start-align-center;
     @include border-bottom-width(1);
+    background: $white;
     .title {
       @include height-rpx-width-percent(120, 25%);
       color: $titleColor;
@@ -75,6 +83,12 @@
     .input {
       height: 120rpx;
       width: 75%;
+      font-size: 40rpx;
+      color: $inputColor;
+      position: relative;
+      &:after {
+        @include arrow(16, 25, 52);
+      }
       input {
         height: 120rpx;
         text-align: right;

@@ -37,6 +37,7 @@
                 <input placeholder-class="placeholder-color" placeholder="目的地" disabled v-model="service.dest.title"/>
               </view>
             </view>
+
             <view class="time info">
               <view class="warp" hover-class="choose-hover" @click="chooseTime">
                 <view class="title">
@@ -65,6 +66,7 @@
                 </picker-view>
               </view>
             </view>
+
             <view class="number info">
               <view class="warp" hover-class="choose-hover" @click="chooseNumber">
                 <view class="title">
@@ -85,9 +87,9 @@
                 </picker-view>
               </view>
             </view>
+
             <view class="price info">
               <view class="warp">
-
                 <view class="title" hover-class="choose-hover" @click="choosePay">
                   <view class="icon">
                     <text class="fa fa-jpy gray-icon"/>
@@ -103,7 +105,6 @@
                          v-model="service.price"
                          @focus="hidePicker"/>
                 </view>
-
               </view>
               <view class="choose-picker" v-if="showPayPicker">
                 <picker-view class="picker left" indicator-style="height: 50rpx;" :value="payVal" @change="payChange">
@@ -113,6 +114,7 @@
                 </picker-view>
               </view>
             </view>
+
             <view class="phone info">
               <view class="title">
                 <view class="icon">
@@ -892,6 +894,13 @@
       .input {
         height: 120rpx;
         width: 75%;
+        .text {
+          @include height-width-100-text(120, right);
+          height: 120rpx;
+
+          background: darkorange;
+          padding-right: 47rpx;
+        }
         input {
           height: 120rpx;
           text-align: right;
