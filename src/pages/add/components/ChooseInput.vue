@@ -54,8 +54,37 @@
       placeholder () {
         return this.type === 'origin' ? '请选择起点' : '请选择终点'
       }
-    }
+    },
+    /*
+    onShow () {
+      console.log(this)
+      if (this.$parent &&
+        this.$parent.$mp &&
+        this.$parent.$mp.page &&
+        this.$parent.$mp.page.data.extend &&
+        this.$parent.$mp.page.data.extend.position) {
+        const posType = this.$parent.$mp.page.data.extend.posType
+        const title = this.$parent.$mp.page.data.extend.position.title
+        const { lat, lng } = this.$parent.$mp.page.data.extend.position.location
+        const location = {
+          title: title,
+          lat: lat,
+          lng: lng
+        }
+        console.log(posType)
+        if (posType === '1') {
+          this.$emit('addressOrigin', location)
+        } else {
+          console.log('============2')
+          this.$emit('addressDest', location)
+        }
 
+        this.$parent.$mp.page.setData({
+          extend: null
+        })
+      }
+    }
+    */
   }
 </script>
 
