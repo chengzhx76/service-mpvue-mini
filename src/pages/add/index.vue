@@ -894,13 +894,13 @@
       .input {
         height: 120rpx;
         width: 75%;
-        .text {
+        /*.text {
           @include height-width-100-text(120, right);
           height: 120rpx;
 
           background: darkorange;
           padding-right: 47rpx;
-        }
+        }*/
         input {
           height: 120rpx;
           text-align: right;

@@ -2,6 +2,8 @@
   <view id="test">
     <choose-input type="origin" :validate="formValidate.origin" :location="service.origin"/>
     <choose-input type="dest" :validate="formValidate.dest" :location="service.dest"/>
+    <time-input type="time" :validate="formValidate.time" :showPicker="showPicker.time" @choose="chooseTime" @time="getTime"/>
+    <time-input type="retTime" :validate="formValidate.retTime" :showPicker="showPicker.retTime" @choose="chooseTime" @time="getTime"/>
 
     <!--<button @click="submit()">点我</button>-->
   </view>
@@ -9,6 +11,7 @@
 
 <script>
   import ChooseInput from './components/ChooseInput'
+  import TimeInput from './components/TimeInput'
   export default {
     data () {
       return {
@@ -26,16 +29,41 @@
         },
         formValidate: {
           origin: false,
-          dest: false
+          dest: false,
+          time: false,
+          retTime: false
+        },
+        showPicker: {
+          time: false,
+          retTime: false
         }
       }
     },
     components: {
-      ChooseInput
+      ChooseInput,
+      TimeInput
     },
     methods: {
       submit () {
         // this.formValidate.origin = true
+      },
+      chooseTime (type) {
+        console.log('-----------', type)
+        if (type === 'time') {
+          if (this.showPicker.retTime) {
+            this.showPicker.retTime = false
+          }
+          this.showPicker.time = !this.showPicker.time
+        }
+        if (type === 'retTime') {
+          if (this.showPicker.time) {
+            this.showPicker.time = false
+          }
+          this.showPicker.retTime = !this.showPicker.retTime
+        }
+      },
+      getTime (time) {
+        console.log(time)
       }
     },
     onShow () {
