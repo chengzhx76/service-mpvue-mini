@@ -1,6 +1,6 @@
 <template>
   <view id="test">
-    <choose-input type="origin" :validate="formValidate.origin" :location="service.origin"/>
+    <choose-input type="origin" :validate="formValidate.origin" :location="service.origin" @address="getAddress"/>
     <choose-input type="dest" :validate="formValidate.dest" :location="service.dest"/>
 
     <button @click="submit()">点我</button>
@@ -36,6 +36,9 @@
     methods: {
       submit () {
         this.formValidate.origin = true
+      },
+      getAddress (address) {
+        console.log(address)
       }
     },
     onShow () {

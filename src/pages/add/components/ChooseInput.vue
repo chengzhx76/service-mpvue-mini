@@ -55,7 +55,6 @@
         return this.type === 'origin' ? '请选择起点' : '请选择终点'
       }
     },
-    /*
     onShow () {
       console.log(this)
       if (this.$parent &&
@@ -71,20 +70,13 @@
           lat: lat,
           lng: lng
         }
-        console.log(posType)
-        if (posType === '1') {
-          this.$emit('addressOrigin', location)
-        } else {
-          console.log('============2')
-          this.$emit('addressDest', location)
-        }
+        this.$emit('address', { posType, location })
 
         this.$parent.$mp.page.setData({
           extend: null
         })
       }
     }
-    */
   }
 </script>
 
