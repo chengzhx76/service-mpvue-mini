@@ -54,7 +54,9 @@
       placeholder () {
         return this.type === 'origin' ? '请选择起点' : '请选择终点'
       }
-    },
+    }
+    /*
+    ,
     onShow () {
       console.log(this)
       if (this.$parent &&
@@ -77,6 +79,7 @@
         })
       }
     }
+    */
   }
 </script>
 

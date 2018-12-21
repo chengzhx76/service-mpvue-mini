@@ -1,6 +1,6 @@
 <template>
   <view id="test">
-    <choose-input type="origin" :validate="formValidate.origin" :location="service.origin" @address="getAddress"/>
+    <choose-input type="origin" :validate="formValidate.origin" :location="service.origin"/>
     <choose-input type="dest" :validate="formValidate.dest" :location="service.dest"/>
 
     <!--<button @click="submit()">点我</button>-->
@@ -36,21 +36,9 @@
     methods: {
       submit () {
         // this.formValidate.origin = true
-      },
-      getAddress ({ posType, location }) {
-        console.log(posType)
-        console.log(location)
-        if (posType === '1') {
-          this.service.origin = location
-        } else {
-          this.service.dest = location
-        }
       }
-    }
-    /*
-    ,
+    },
     onShow () {
-      console.log(this)
       if (this.$mp &&
         this.$mp.page &&
         this.$mp.page.data.extend &&
@@ -74,7 +62,6 @@
         })
       }
     }
-      */
   }
 </script>
 
