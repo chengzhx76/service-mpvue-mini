@@ -19,30 +19,26 @@
     props: {
       type: {
         type: Number,
-        default: ''
+        required: true
+      },
+      validate: {
+        type: Boolean,
+        required: true
+      },
+      location: {
+        type: Object,
+        required: true
       }
     },
     data () {
       return {
-        validate: true,
-        location: {
-          title: '',
-          lat: '',
-          lng: ''
-        }
       }
     },
     methods: {
-      // 只需要把值给我，所以在这里把值传给我就行了
       choose () {
         const posType = this.type === 'origin' ? '1' : '2'
         const url = `../position/main?posType=${posType}`
         wx.navigateTo({ url })
-      },
-      getAddress () {
-        this.$emit('address', this.location)
-      },
-      confirm () {
       }
     },
     computed: {
@@ -57,26 +53,9 @@
       },
       placeholder () {
         return this.type === 'origin' ? '请选择起点' : '请选择终点'
-      },
-      placeholder () {
-        return this.type === 'origin' ? '请选择起点' : '请选择终点'
       }
-    },
-    onShow () {
-      if (this.$mp.page.data && this.$mp.page.data.extend && this.$mp.page.data.extend.position) {
-        // const posType = this.$mp.page.data.extend.posType
-        const title = this.$mp.page.data.extend.position.title
-        const { lat, lng } = this.$mp.page.data.extend.position.location
-        this.location = {
-          title: title,
-          lat: lat,
-          lng: lng
-        }
-        this.$mp.page.setData({
-          extend: null
-        })
-      }
-    },
+    }
+
   }
 </script>
 
@@ -120,5 +99,7 @@
       }
     }
   }
-
+  .error {
+    color: #CF5B56;
+  }
 </style>
