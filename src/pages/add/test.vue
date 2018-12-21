@@ -1,8 +1,8 @@
 <template>
   <view id="test">
-    <choose-input clazz="origin" icon="fa-car" labelText="起点" validate="true" placeholder="请输入起点" content="成武" @choose="chooseOrigin"/>
+    <choose-input ref="originInput" type="origin" @address="getOrigin"/>
 
-    <!--<button @click="showModal">点我</button>-->
+    <button @click="getAddress">点我</button>
   </view>
 </template>
 
@@ -17,8 +17,11 @@
       ChooseInput
     },
     methods: {
-      chooseOrigin () {
-        console.log('---------------')
+      getAddress () {
+        this.$refs.originInput.getAddress()
+      },
+      getOrigin (address) {
+        console.log('---------------' + address)
       }
     }
   }
