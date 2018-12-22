@@ -89,8 +89,4 @@
   @import "./index.scss";
   #choose-input {
   }
-  .input {
-    font-size: 40rpx;
-    color: $inputColor;
-  }
 </style>

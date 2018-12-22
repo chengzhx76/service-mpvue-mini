@@ -10,6 +10,8 @@
     <price-input type="price" :validate="formValidate.price" :showPicker="showPicker.price" @choose="choosePrice" @number="getPrice"/>
 
     <phone-input type="phone" :validate="formValidate.phone" @number="getPhone"/>
+    <via-input type="via" @via="getVia"/>
+
 
     <!--<button @click="submit()">点我</button>-->
   </view>
@@ -21,6 +23,7 @@
   import NumberInput from './components/NumberInput'
   import PriceInput from './components/PriceInput'
   import PhoneInput from './components/PhoneInput'
+  import ViaInput from './components/ViaInput'
 
   export default {
     data () {
@@ -58,6 +61,7 @@
       TimeInput,
       NumberInput,
       PriceInput,
+      ViaInput,
       PhoneInput
     },
     methods: {
@@ -102,6 +106,9 @@
       },
       getPhone (phone) {
         console.log(phone)
+      },
+      getVia (via) {
+        console.log(via)
       }
     },
     onShow () {

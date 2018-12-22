@@ -85,7 +85,4 @@
   @import "./index.scss";
   #number-input {
   }
-  .info {
-
-  }
 </style>

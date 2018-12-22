@@ -37,16 +37,18 @@
   color: #CF5B56;
 }
 
-#number-input, #time-input, #price-input {
+#choose-input, #phone-input, #via-input  {
   .info {
-    min-height: 120 rpx;
+    height: 120rpx;
+  }
+}
+
+#time-input, #number-input, #price-input {
+  .info {
+    min-height: 120rpx;
     .warp {
       width: 100%;
       @include justify-start-align-center;
-      .input {
-        font-size: 32 rpx;
-        color: $inputUnimpColor;
-      }
     }
     .choose-picker {
       height: 240rpx;
@@ -70,5 +72,19 @@
     .left {
       width: 100%;
     }
+  }
+}
+
+#choose-input {
+  .input {
+    font-size: 40rpx;
+    color: $inputColor;
+  }
+}
+
+#number-input, #price-input, #phone-input {
+  .input {
+    font-size: 32rpx;
+    color: $inputUnimpColor;
   }
 }
