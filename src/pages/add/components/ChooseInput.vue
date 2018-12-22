@@ -8,7 +8,7 @@
         <text :class="['label', { error: validate }]">{{ labelText }}</text>
       </view>
       <view class="input">
-        <input placeholder-class="placeholder-color" :placeholder="placeholder" disabled v-model="location.title"/>
+        <input placeholder-class="placeholder-color" :placeholder="placeholder" disabled v-model.lazy="location.title"/>
       </view>
     </view>
   </view>
@@ -36,8 +36,7 @@
     },
     methods: {
       choose () {
-        const posType = this.type === 'origin' ? '1' : '2'
-        const url = `../position/main?posType=${posType}`
+        const url = `../position/main?posType=${this.type}`
         wx.navigateTo({ url })
       }
     },
@@ -54,11 +53,8 @@
       placeholder () {
         return this.type === 'origin' ? '请选择起点' : '请选择终点'
       }
-    }
-    /*
-    ,
+    },
     onShow () {
-      console.log(this)
       if (this.$parent &&
         this.$parent.$mp &&
         this.$parent.$mp.page &&
@@ -79,7 +75,6 @@
         })
       }
     }
-    */
   }
 </script>
 

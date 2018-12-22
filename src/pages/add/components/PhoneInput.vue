@@ -12,7 +12,7 @@
                placeholder-class="placeholder-color"
                :placeholder="placeholder"
                @focus="hidePicker"
-               v-model="phone"/>
+               v-model.lazy="phone"/>
       </view>
     </view>
   </view>
