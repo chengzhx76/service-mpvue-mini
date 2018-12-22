@@ -37,6 +37,10 @@
       showPicker: {
         type: Boolean,
         required: true
+      },
+      labelText: {
+        type: String,
+        required: true
       }
     },
     data () {
@@ -68,9 +72,6 @@
       },
       icon () {
         return this.type === 'number' ? 'fa-heart-o' : ''
-      },
-      labelText () {
-        return this.type === 'number' ? '人数' : ''
       },
       placeholder () {
         return this.type === 'number' ? '选择人数' : ''
