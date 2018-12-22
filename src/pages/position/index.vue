@@ -35,7 +35,7 @@
     data () {
       return {
         selectCity: '菏泽市',
-        posType: 1,
+        posType: '',
         listHeight: 0,
         map: null,
         positions: []
@@ -72,7 +72,6 @@
         }
       },
       selectPosition (position) {
-        console.log(position)
         const self = this
         const pages = getCurrentPages()
         const prevPage = pages[pages.length - 2]

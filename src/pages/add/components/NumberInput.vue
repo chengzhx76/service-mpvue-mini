@@ -9,7 +9,7 @@
           <text :class="['label', { error: validate }]">{{ labelText }}</text>
         </view>
         <view class="input">
-          <input placeholder-class="placeholder-color" :placeholder="placeholder" disabled v-model="number"/>
+          <input placeholder-class="placeholder-color" :placeholder="placeholder" disabled v-model.lazy="number"/>
         </view>
       </view>
       <view class="choose-picker" v-if="showPicker">

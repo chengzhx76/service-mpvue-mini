@@ -14,7 +14,7 @@
                  placeholder-class="placeholder-color"
                  :placeholder="placeholder"
                  :disabled="priceDisabled"
-                 v-model="price"
+                 v-model.lazy="price"
                  @focus="hidePicker"/>
         </view>
       </view>

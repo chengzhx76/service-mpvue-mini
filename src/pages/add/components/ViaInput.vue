@@ -11,7 +11,7 @@
         <input placeholder-class="placeholder-color"
                :placeholder="placeholder"
                @focus="hidePicker"
-               v-model="via"/>
+               v-model.lazy="via"/>
       </view>
     </view>
   </view>
