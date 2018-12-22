@@ -1,18 +1,17 @@
 <template>
-  <view id="phone-input">
-    <view  class="info" :class="[clazz]">
+  <view id="via-input">
+    <view class="info" :class="[clazz]">
       <view class="title">
         <view class="icon">
-          <text class="fa fa-lg gray-icon" :class="[icon]"/>
+          <text class="fa fa-sm gray-icon" :class="[icon]"/>
         </view>
-        <text :class="['label', { error: validate }]">{{ labelText }}</text>
+        <text class="label">{{ labelText }}</text>
       </view>
       <view class="input">
-        <input type="number" maxlength="11"
-               placeholder-class="placeholder-color"
+        <input placeholder-class="placeholder-color"
                :placeholder="placeholder"
                @focus="hidePicker"
-               v-model="phone"/>
+               v-model="via"/>
       </view>
     </view>
   </view>
@@ -24,33 +23,33 @@
       type: {
         type: String,
         required: true
-      },
-      validate: {
-        type: Boolean,
-        required: true
       }
     },
     data () {
       return {
-        phone: this.$store.getters.mobileNo
+        via: ''
       }
     },
     methods: {
       hidePicker () {
       }
     },
+    watch: {
+      via (val) {
+      }
+    },
     computed: {
       clazz () {
-        return this.type === 'phone' ? 'phone' : ''
+        return this.type === 'via' ? 'via' : ''
       },
       icon () {
-        return this.type === 'phone' ? 'fa-mobile' : ''
+        return this.type === 'via' ? 'fa-level-up' : ''
       },
       labelText () {
-        return this.type === 'phone' ? '手机' : ''
+        return this.type === 'via' ? '途经' : ''
       },
       placeholder () {
-        return this.type === 'phone' ? '联系方式' : ''
+        return this.type === 'via' ? '途经地（选填）' : ''
       }
     }
   }
@@ -60,6 +59,6 @@
   @import "@/styles/mixin.scss";
   @import "@/styles/variables.scss";
   @import "./index.scss";
-  #phone-input {
+  #via-input {
   }
 </style>
