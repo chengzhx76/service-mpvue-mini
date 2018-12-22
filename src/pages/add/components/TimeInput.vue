@@ -1,30 +1,32 @@
 <template>
-  <view class="info" :class="[clazz]">
-    <view class="warp" hover-class="choose-hover" @click="choose">
-      <view class="title">
-        <view class="icon">
-          <text class="fa gray-icon" :class="[icon]"/>
+  <view id="time-input">
+    <view class="info" :class="[clazz]">
+      <view class="warp" hover-class="choose-hover" @click="choose">
+        <view class="title">
+          <view class="icon">
+            <text class="fa gray-icon" :class="[icon]"/>
+          </view>
+          <text :class="['label', { error: validate }]">{{ labelText }}</text>
         </view>
-        <text :class="['label', { error: validate }]">{{ labelText }}</text>
+        <view class="input">
+          <input placeholder-class="placeholder-color" :placeholder="placeholder" disabled v-model="dateTime"/>
+        </view>
       </view>
-      <view class="input">
-        <input placeholder-class="placeholder-color" :placeholder="placeholder" disabled v-model="dateTime"/>
+      <view class="choose-picker" v-if="showPicker">
+        <picker-view class="picker left"  indicator-style="height: 50rpx;" :value="dayVal" @change="dayChange">
+          <picker-view-column>
+            <view class="item" v-for="(day, index) in days" :key="index">{{ day }}</view>
+          </picker-view-column>
+        </picker-view>
+        <picker-view class="picker right" indicator-style="height: 50rpx;" :value="timeVal" @change="timeChange">
+          <picker-view-column>
+            <view class="item" v-for="(time, index) in times" :key="index">{{ time }}</view>
+          </picker-view-column>
+          <picker-view-column>
+            <view class="item" v-for="(minute, index) in minutes" :key="index">{{ minute }}</view>
+          </picker-view-column>
+        </picker-view>
       </view>
-    </view>
-    <view class="choose-picker" v-if="showPicker">
-      <picker-view class="picker left"  indicator-style="height: 50rpx;" :value="dayVal" @change="dayChange">
-        <picker-view-column>
-          <view class="item" v-for="(day, index) in days" :key="index">{{ day }}</view>
-        </picker-view-column>
-      </picker-view>
-      <picker-view class="picker right" indicator-style="height: 50rpx;" :value="timeVal" @change="timeChange">
-        <picker-view-column>
-          <view class="item" v-for="(time, index) in times" :key="index">{{ time }}</view>
-        </picker-view-column>
-        <picker-view-column>
-          <view class="item" v-for="(minute, index) in minutes" :key="index">{{ minute }}</view>
-        </picker-view-column>
-      </picker-view>
     </view>
   </view>
 </template>
@@ -124,50 +126,13 @@
 <style rel="stylesheet/scss" lang="scss" scoped>
   @import "@/styles/mixin.scss";
   @import "@/styles/variables.scss";
+  @import "./index.scss";
   #time-input {
     width: 100%;
   }
   .info {
-    width: 100%;
-    min-height: 120rpx;
-    @include justify-start-align-center;
-    @include border-bottom-width(1);
-    background: $white;
-    .warp {
-      width: 100%;
-      @include justify-start-align-center;
-      .title {
-        @include height-rpx-width-percent(120, 25%);
-        color: $titleColor;
-        @include justify-start-align-center;
-        .icon {
-          @include height-width(120, 80);
-          @include justify-align-center;
-        }
-        .label {
-          height: 120rpx;
-          line-height: 115rpx;
-          font-size: 34rpx;
-        }
-      }
-      .input {
-        height: 120rpx;
-        width: 75%;
-        font-size: 32rpx;
-        color: $inputUnimpColor;
-        position: relative;
-        &:after {
-          @include arrow(16, 25, 52);
-        }
-        input {
-          height: 120rpx;
-          text-align: right;
-          padding-right: 47rpx;
-        }
-      }
-    }
     .choose-picker {
-      @include height-rpx-width-100(240);
+      width: 100%;
       display: flex;
       .left {
         width: 60%;
@@ -175,17 +140,6 @@
       .right {
         width: 40%;
       }
-      .picker {
-        @include height-rpx-width-100(240);
-      }
-      .item {
-        width: 100%;
-        line-height: 75rpx;
-        text-align: center
-      }
     }
-  }
-  .error {
-    color: #CF5B56;
   }
 </style>

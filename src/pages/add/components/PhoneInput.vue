@@ -1,0 +1,72 @@
+<template>
+  <view id="phone-input">
+    <view  class="info" :class="[clazz]">
+      <view class="title">
+        <view class="icon">
+          <text class="fa fa-lg gray-icon" :class="[icon]"/>
+        </view>
+        <text :class="['label', { error: validate }]">{{ labelText }}</text>
+      </view>
+      <view class="input">
+        <input type="number" maxlength="11"
+               placeholder-class="placeholder-color"
+               :placeholder="placeholder"
+               @focus="hidePicker"
+               v-model="phone"/>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  export default {
+    props: {
+      type: {
+        type: String,
+        required: true
+      },
+      validate: {
+        type: Boolean,
+        required: true
+      }
+    },
+    data () {
+      return {
+        phone: this.$store.getters.mobileNo
+      }
+    },
+    methods: {
+      hidePicker () {
+      }
+    },
+    computed: {
+      clazz () {
+        return this.type === 'phone' ? 'phone' : ''
+      },
+      icon () {
+        return this.type === 'phone' ? 'fa-mobile' : ''
+      },
+      labelText () {
+        return this.type === 'phone' ? '手机' : ''
+      },
+      placeholder () {
+        return this.type === 'phone' ? '联系方式' : ''
+      }
+    }
+  }
+</script>
+
+<style rel="stylesheet/scss" lang="scss" scoped>
+  @import "@/styles/mixin.scss";
+  @import "@/styles/variables.scss";
+  @import "./index.scss";
+  #phone-input {
+  }
+  .info {
+    height: 120rpx;
+    .input {
+      font-size: 32rpx;
+      color: $inputUnimpColor;
+    }
+  }
+</style>

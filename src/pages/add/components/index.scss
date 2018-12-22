@@ -1,0 +1,74 @@
+@import "@/styles/mixin.scss";
+@import "@/styles/variables.scss";
+.info {
+  width: 100%;
+  @include justify-start-align-center;
+  @include border-bottom-width(1);
+  background: $white;
+  .title {
+    @include height-rpx-width-percent(120, 25%);
+    color: $titleColor;
+    @include justify-start-align-center;
+    .icon {
+      @include height-width(120, 80);
+      @include justify-align-center;
+    }
+    .label {
+      height: 120rpx;
+      line-height: 115rpx;
+      font-size: 34rpx;
+    }
+  }
+  .input {
+    height: 120rpx;
+    width: 75%;
+    position: relative;
+    &:after {
+      @include arrow(16, 25, 52);
+    }
+    input {
+      height: 120rpx;
+      text-align: right;
+      padding-right: 47rpx;
+    }
+  }
+}
+.error {
+  color: #CF5B56;
+}
+
+#number-input, #time-input, #price-input {
+  .info {
+    min-height: 120 rpx;
+    .warp {
+      width: 100%;
+      @include justify-start-align-center;
+      .input {
+        font-size: 32 rpx;
+        color: $inputUnimpColor;
+      }
+    }
+    .choose-picker {
+      height: 240rpx;
+      .picker {
+        @include height-rpx-width-100(240);
+        .item {
+          width: 100%;
+          line-height: 75rpx;
+          text-align: center
+        }
+      }
+    }
+  }
+}
+
+#number-input, #price-input {
+  .choose-picker {
+    width: 80%;
+    margin-left: 20%;
+    border-left: 1rpx solid $borderColor;
+    .left {
+      width: 100%;
+    }
+  }
+}

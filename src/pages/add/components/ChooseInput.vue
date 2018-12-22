@@ -18,7 +18,7 @@
   export default {
     props: {
       type: {
-        type: Number,
+        type: String,
         required: true
       },
       validate: {
@@ -86,44 +86,11 @@
 <style rel="stylesheet/scss" lang="scss" scoped>
   @import "@/styles/mixin.scss";
   @import "@/styles/variables.scss";
+  @import "./index.scss";
   #choose-input {
   }
-  .info {
-    width: 100%;
-    @include justify-start-align-center;
-    @include border-bottom-width(1);
-    background: $white;
-    .title {
-      @include height-rpx-width-percent(120, 25%);
-      color: $titleColor;
-      @include justify-start-align-center;
-      .icon {
-        @include height-width(120, 80);
-        @include justify-align-center;
-      }
-      .label {
-        height: 120rpx;
-        line-height: 115rpx;
-        font-size: 34rpx;
-      }
-    }
-    .input {
-      height: 120rpx;
-      width: 75%;
-      font-size: 40rpx;
-      color: $inputColor;
-      position: relative;
-      &:after {
-        @include arrow(16, 25, 52);
-      }
-      input {
-        height: 120rpx;
-        text-align: right;
-        padding-right: 47rpx;
-      }
-    }
-  }
-  .error {
-    color: #CF5B56;
+  .input {
+    font-size: 40rpx;
+    color: $inputColor;
   }
 </style>
