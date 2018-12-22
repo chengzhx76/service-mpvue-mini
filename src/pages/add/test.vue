@@ -4,6 +4,7 @@
     <choose-input type="dest" :validate="formValidate.dest"  :location="service.dest" @address="getAddress"/>
     <time-input type="time" :validate="formValidate.time" :showPicker="showPicker.time" @choose="chooseTime" @time="getTime"/>
     <time-input type="retTime" :validate="formValidate.retTime" :showPicker="showPicker.retTime" @choose="chooseTime" @time="getTime"/>
+
     <number-input type="number" :validate="formValidate.number" :showPicker="showPicker.number" @choose="chooseNumber" @number="getNumber"/>
     <price-input type="price" :validate="formValidate.price" :showPicker="showPicker.price" @choose="choosePrice" @number="getPrice"/>
     <phone-input type="phone" :validate="formValidate.phone" @number="getPhone"/>
