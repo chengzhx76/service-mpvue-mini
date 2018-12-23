@@ -4,7 +4,6 @@
   width: 100%;
   @include justify-start-align-center;
   @include border-bottom-width(1);
-  background: $white;
   .title {
     @include height-rpx-width-percent(120, 25%);
     color: $titleColor;
@@ -23,9 +22,6 @@
     height: 120rpx;
     width: 75%;
     position: relative;
-    &:after {
-      @include arrow(16, 25, 52);
-    }
     input {
       height: 120rpx;
       text-align: right;
@@ -86,5 +82,10 @@
   .input {
     font-size: 32rpx;
     color: $inputUnimpColor;
+  }
+}
+#choose-input, #time-input, #number-input, #price-input {
+  .input:after {
+    @include arrow(16, 25, 50);
   }
 }

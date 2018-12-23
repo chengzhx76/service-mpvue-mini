@@ -6,7 +6,7 @@
           <view class="icon">
             <text class="fa gray-icon" :class="[icon]"/>
           </view>
-          <text :class="['label', { error: validate }]">{{ labelText }}</text>
+          <text class="label" :class="{ error: validate }">{{ labelText }}</text>
         </view>
         <view class="input">
           <input placeholder-class="placeholder-color" :placeholder="placeholder" disabled v-model.lazy="dateTime"/>
@@ -71,6 +71,18 @@
       },
       timeChange (e) {
         this.timeVal = e.mp.detail.value
+      },
+      emitTime () {
+        if (this.type === 'time') {
+          if (this.dateTime) {
+            this.$emit('time', { type: this.type, time: this.dateTime })
+          }
+        }
+        if (this.type === 'retTime') {
+          if (this.dateTime === '无返程' || this.dateTime) {
+            this.$emit('time', { type: this.type, time: this.dateTime })
+          }
+        }
       }
     },
     computed: {
@@ -111,13 +123,13 @@
       dayVal (val) {
         this.day = this.days[val[0]]
         this.dateTime = this.day === '无返程' ? '无返程' : `${this.day} ${this.time}:${this.minute}`
-        this.$emit('time', { type: this.type, time: this.dateTime })
+        this.emitTime()
       },
       timeVal (val) {
         this.time = this.times[val[0]]
         this.minute = this.minutes[val[1]]
         this.dateTime = this.day === '无返程' ? '无返程' : `${this.day} ${this.time}:${this.minute}`
-        this.$emit('time', { type: this.type, time: this.dateTime })
+        this.emitTime()
       }
     }
   }

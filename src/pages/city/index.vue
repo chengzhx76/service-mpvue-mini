@@ -32,7 +32,7 @@
       input (e) {
         const cursor = e.mp.detail.cursor
         const value = e.mp.detail.value
-        if (cursor > 1) {
+        if (cursor > 0) {
           this.list = []
           getCites(value).then(res => {
             res.data.forEach(item => {

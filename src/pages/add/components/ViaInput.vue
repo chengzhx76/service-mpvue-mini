@@ -36,6 +36,9 @@
     },
     watch: {
       via (val) {
+        if (val) {
+          this.$emit('via', val)
+        }
       }
     },
     computed: {

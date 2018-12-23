@@ -5,7 +5,7 @@
         <view class="icon">
           <text class="fa fa-lg gray-icon" :class="[icon]"/>
         </view>
-        <text :class="['label', { error: validate }]">{{ labelText }}</text>
+        <text class="label" :class="{ error: validate }">{{ labelText }}</text>
       </view>
       <view class="input">
         <input type="number" maxlength="11"
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+  import { isMobile } from '@/utils/validate'
   export default {
     props: {
       type: {
@@ -33,6 +34,13 @@
     data () {
       return {
         phone: this.$store.getters.mobileNo
+      }
+    },
+    watch: {
+      phone (val) {
+        if (val && isMobile(val)) {
+          this.$emit('phone', val)
+        }
       }
     },
     methods: {

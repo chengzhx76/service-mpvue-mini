@@ -6,7 +6,7 @@
           <view class="icon">
             <text class="fa gray-icon" :class="[icon]"/>
           </view>
-          <text :class="['label', { error: validate }]">{{ labelText }}</text>
+          <text class="label" :class="{ error: validate }">{{ labelText }}</text>
         </view>
 
         <view class="input" @click="chooseInputPay">
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+  import { isMoney } from '@/utils/validate'
   export default {
     props: {
       type: {
@@ -72,11 +73,17 @@
       payVal (val) {
         this.price = this.pays[val[0]] === '自定义' ? '' : this.pays[val[0]]
         this.priceDisabled = this.pays[val[0]] === '面议'
+        if (this.price === '面议' || isMoney(this.price)) {
+          this.$emit('price', this.price)
+        }
       }
     },
     onLoad () {
       this.price = this.pays[this.payVal[0]]
       this.priceDisabled = this.pays[this.payVal[0]] === '面议'
+      if (this.price === '面议' || isMoney(this.price)) {
+        this.$emit('price', this.price)
+      }
     },
     computed: {
       clazz () {
