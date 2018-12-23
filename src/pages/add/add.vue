@@ -112,7 +112,6 @@
           via: '',
           remarks: ''
         },
-        origin: true,
         formValidate: {
           origin: false,
           dest: false,
@@ -218,8 +217,6 @@
         if (this.loading) {
           return
         }
-        console.log('===>this.loading', this.loading)
-        console.log(this.service)
         this.loading = true
         if (!this.service.origin.title) {
           this.formValidate.origin = true
@@ -244,7 +241,6 @@
             this.formValidate.retTime = true
           }
         }
-        console.log('===>2')
         if (this.formValidate.origin || this.formValidate.dest ||
           this.formValidate.time || this.formValidate.number ||
           this.formValidate.price || this.formValidate.phone ||
@@ -267,7 +263,6 @@
         }
         this.loading = false
 
-        console.log(travel)
         add(travel).then(res => {
           this.loading = false
           if (res.meta.code === 2000) {
@@ -302,7 +297,6 @@
           }
         }
       },
-      // ===============================================
       hidePicker (key) {
         if (key === 'time') {
           this.showPicker.retTime = false
