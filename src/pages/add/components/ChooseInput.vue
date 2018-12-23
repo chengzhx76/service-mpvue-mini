@@ -5,7 +5,7 @@
         <view class="icon">
           <text class="fa gray-icon" :class="[icon]"/>
         </view>
-        <text :class="['label', { error: validate }]">{{ labelText }}</text>
+        <text class="label" :class="{ error: validate }">{{ labelText }}</text>
       </view>
       <view class="input">
         <input placeholder-class="placeholder-color" :placeholder="placeholder" disabled v-model.lazy="location.title"/>
@@ -22,7 +22,7 @@
         required: true
       },
       validate: {
-        type: Boolean,
+        type: String,
         required: true
       },
       location: {
@@ -68,7 +68,9 @@
           lat: lat,
           lng: lng
         }
-        this.$emit('address', { posType, location })
+        if (posType && title) {
+          this.$emit('address', { posType, location })
+        }
 
         this.$parent.$mp.page.setData({
           extend: null
@@ -83,5 +85,8 @@
   @import "@/styles/variables.scss";
   @import "./index.scss";
   #choose-input {
+  }
+  .error {
+    color: #CF5B56;
   }
 </style>

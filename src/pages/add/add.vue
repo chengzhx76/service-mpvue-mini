@@ -22,7 +22,7 @@
 
           <number-input type="number" :labelText="numberTitle" :validate="formValidate.number" :showPicker="showPicker.number" @choose="chooseNumber" @number="getNumber"/>
 
-          <price-input type="price" :validate="formValidate.price" :showPicker="showPicker.price" @choose="choosePrice" @number="getPrice"/>
+          <price-input type="price" :validate="formValidate.price" :showPicker="showPicker.price" @choose="choosePrice" @price="getPrice"/>
 
           <phone-input type="phone" :validate="formValidate.phone" @number="getPhone"/>
 
@@ -37,7 +37,7 @@
             </view>
           </view>
 
-          <view class="summary" v-if="summaryShow">
+          <view class="summary" v-if="moreSwitchNo">
             <via-input type="via" @via="getVia" v-if="!isPassenger"/>
 
             <time-input type="retTime" :validate="formValidate.retTime" :showPicker="showPicker.retTime" @choose="chooseTime" @time="getTime" v-if="!isPassenger"/>
@@ -52,7 +52,6 @@
     </view>
     <view class="release">
       <button class="release-button"
-              @click="addDistance"
               :loading="loading"
               :disabled="!switches.add"
               open-type="getUserInfo"
@@ -113,6 +112,7 @@
           via: '',
           remarks: ''
         },
+        origin: true,
         formValidate: {
           origin: false,
           dest: false,
@@ -120,13 +120,11 @@
           number: false,
           price: false,
           phone: false,
-          returnTime: false
+          retTime: false
         },
         isPassenger: true,
-        summaryShow: false,
         moreSwitchNo: false,
         menuBottomRadius: '10rpx',
-        // ======================================
         showPicker: {
           time: false,
           retTime: false,
@@ -142,12 +140,12 @@
       Object.assign(this.$data, this.$options.data())
     },
     watch: {
-      'service.origin' (val) {
+      'service.origin.title' (val) {
         if (!!val && this.formValidate.origin) {
           this.formValidate.origin = false
         }
       },
-      'service.dest' (val) {
+      'service.dest.title' (val) {
         if (!!val && this.formValidate.dest) {
           this.formValidate.dest = false
         }
@@ -174,12 +172,15 @@
       },
       moreSwitchNo (val) {
         if (!val) {
-          this.formValidate.returnTime = false
+          this.formValidate.retTime = false
+          this.menuBottomRadius = '10rpx'
+        } else {
+          this.menuBottomRadius = '0'
         }
       },
       'service.returnTime' (val) {
-        if (!!val && this.formValidate.returnTime) {
-          this.formValidate.returnTime = false
+        if (!!val && this.formValidate.retTime) {
+          this.formValidate.retTime = false
         }
       }
     },
@@ -198,29 +199,27 @@
             if (tab.class === 'passenger') {
               this.isPassenger = true
               this.numberTitle = '人数'
-              this.moreSwitchOff('passenger')
             } else {
               this.isPassenger = false
               this.numberTitle = '余座'
-              this.moreSwitchOff('driver')
             }
             this.service.type = tab.type
             tab.isActive = true
           } else {
             tab.isActive = false
           }
+          this.moreSwitchNo = false
         })
-      },
-      hidePicker () {
       },
       moreSwitch () {
         this.moreSwitchNo = !this.moreSwitchNo
-        this.changeSwitchBox(this.moreSwitchNo)
       },
       addDistance () {
         if (this.loading) {
           return
         }
+        console.log('===>this.loading', this.loading)
+        console.log(this.service)
         this.loading = true
         if (!this.service.origin.title) {
           this.formValidate.origin = true
@@ -242,13 +241,14 @@
         }
         if (this.moreSwitchNo && this.service.type === 2) {
           if (this.service.returnTime !== '无返程' && !isAfterNow(parseDate(this.service.returnTime))) {
-            this.formValidate.returnTime = true
+            this.formValidate.retTime = true
           }
         }
+        console.log('===>2')
         if (this.formValidate.origin || this.formValidate.dest ||
           this.formValidate.time || this.formValidate.number ||
           this.formValidate.price || this.formValidate.phone ||
-          this.formValidate.returnTime) {
+          this.formValidate.retTime) {
           this.loading = false
           return
         }
@@ -265,7 +265,9 @@
           via: this.moreSwitchNo ? this.service.via : '',
           remarks: this.moreSwitchNo ? this.service.remarks : ''
         }
+        this.loading = false
 
+        console.log(travel)
         add(travel).then(res => {
           this.loading = false
           if (res.meta.code === 2000) {
@@ -282,24 +284,7 @@
         })
       },
       moreSwitchState (e) {
-        const val = e.mp.detail.value
-        this.moreSwitchNo = val
-        this.changeSwitchBox(val)
-        this.hidePicker()
-      },
-      changeSwitchBox (val) {
-        if (val) {
-          this.menuBottomRadius = '0'
-          this.summaryShow = true
-        } else {
-          this.summaryShow = false
-          this.menuBottomRadius = '10rpx'
-        }
-      },
-      moreSwitchOff (type) {
-        this.moreSwitchNo = false
-        this.summaryShow = false
-        this.menuBottomRadius = '10rpx'
+        this.moreSwitchNo = e.mp.detail.value
         this.hidePicker()
       },
       showUserInfo (info) {
@@ -318,9 +303,34 @@
         }
       },
       // ===============================================
+      hidePicker (key) {
+        if (key === 'time') {
+          this.showPicker.retTime = false
+          this.showPicker.number = false
+          this.showPicker.price = false
+        } else if (key === 'retTime') {
+          this.showPicker.time = false
+          this.showPicker.number = false
+          this.showPicker.price = false
+        } else if (key === 'number') {
+          this.showPicker.time = false
+          this.showPicker.retTime = false
+          this.showPicker.price = false
+        } else if (key === 'price') {
+          this.showPicker.time = false
+          this.showPicker.retTime = false
+          this.showPicker.number = false
+        } else {
+          this.showPicker = {
+            time: false,
+            retTime: false,
+            number: false,
+            price: false
+          }
+        }
+      },
       getAddress ({ posType, location }) {
-        console.log('===>getAddress')
-        console.log(location)
+        this.hidePicker()
         if (posType === 'origin') {
           this.service.origin = location
         }
@@ -329,21 +339,15 @@
         }
       },
       chooseTime (type) {
+        this.hidePicker(type)
         if (type === 'time') {
-          if (this.showPicker.retTime) {
-            this.showPicker.retTime = false
-          }
           this.showPicker.time = !this.showPicker.time
         }
         if (type === 'retTime') {
-          if (this.showPicker.time) {
-            this.showPicker.time = false
-          }
           this.showPicker.retTime = !this.showPicker.retTime
         }
       },
       getTime ({ type, time }) {
-        console.log(time)
         if (type === 'time') {
           this.service.time = time
         } else {
@@ -351,25 +355,24 @@
         }
       },
       chooseNumber (type) {
+        this.hidePicker(type)
         if (type === 'number') {
           this.showPicker.number = !this.showPicker.number
         }
       },
       getNumber (number) {
-        console.log(number)
         this.service.number = number
       },
       choosePrice (type) {
+        this.hidePicker(type)
         if (type === 'price') {
           this.showPicker.price = !this.showPicker.price
         }
       },
       getPrice (price) {
-        console.log(price)
         this.service.price = price
       },
       getPhone (phone) {
-        console.log(phone)
         this.service.phone = phone
       }
     },
@@ -418,7 +421,8 @@
   .main {
     width: 93%;
     background: $pageBg;
-    .tip {
+    margin-bottom: 600rpx;
+  .tip {
       @include height-rpx-width-100(75);
       line-height: 75rpx;
       font-size: 28rpx;

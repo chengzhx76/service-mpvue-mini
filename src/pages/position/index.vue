@@ -45,7 +45,7 @@
       input (e) {
         const cursor = e.mp.detail.cursor
         const value = e.mp.detail.value
-        if (cursor > 1) {
+        if (cursor > 0) {
           const self = this
           this.map.getSuggestion({
             keyword: value,

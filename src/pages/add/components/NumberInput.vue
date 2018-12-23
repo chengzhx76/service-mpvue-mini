@@ -6,7 +6,7 @@
           <view class="icon">
             <text class="fa gray-icon" :class="[icon]"/>
           </view>
-          <text :class="['label', { error: validate }]">{{ labelText }}</text>
+          <text class="label" :class="{ error: validate }">{{ labelText }}</text>
         </view>
         <view class="input">
           <input placeholder-class="placeholder-color" :placeholder="placeholder" disabled v-model.lazy="number"/>
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+  import { isInteger } from '@/utils/validate'
   export default {
     props: {
       type: {
@@ -61,10 +62,16 @@
     watch: {
       numVal (val) {
         this.number = this.nums[val[0]]
+        if (this.number && isInteger(this.number)) {
+          this.$emit('number', this.number)
+        }
       }
     },
     onLoad () {
       this.number = this.nums[this.numVal[0]]
+      if (this.number && isInteger(this.number)) {
+        this.$emit('number', this.number)
+      }
     },
     computed: {
       clazz () {
