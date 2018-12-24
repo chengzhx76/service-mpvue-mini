@@ -32,6 +32,7 @@
     },
     methods: {
       hidePicker () {
+        this.$emit('input')
       }
     },
     watch: {
