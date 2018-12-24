@@ -45,6 +45,7 @@
     },
     methods: {
       hidePicker () {
+        this.$emit('input')
       }
     },
     computed: {

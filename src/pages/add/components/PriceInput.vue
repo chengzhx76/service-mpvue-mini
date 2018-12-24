@@ -67,6 +67,7 @@
         this.payVal = e.mp.detail.value
       },
       hidePicker () {
+        this.$emit('input')
       }
     },
     watch: {
