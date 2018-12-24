@@ -1,6 +1,7 @@
 import { authorization } from '@/api/api'
 
 function setMutations (commit, data) {
+  commit('SET_USER', data)
   commit('SET_TOKEN', data.token)
   commit('SET_UID', data.uid)
   commit('SET_MOBILE_NO', data.mobileNo)

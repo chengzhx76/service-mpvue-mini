@@ -45,6 +45,8 @@
 </template>
 
 <script>
+  // https://www.jianshu.com/p/14ff77fd71cd
+  // https://github.com/Ewall1106/miniProgramDemo
   import { getRelease } from '@/api/api'
   import { formatDate, formatDateTime } from '@/utils/index'
   const now = new Date()

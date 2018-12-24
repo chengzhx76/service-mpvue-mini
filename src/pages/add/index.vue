@@ -24,7 +24,7 @@
 
           <price-input type="price" :validate="formValidate.price" :showPicker="showPicker.price" @input="hidePicker" @choose="choosePrice" @price="getPrice"/>
 
-          <phone-input type="phone" :validate="formValidate.phone" @input="hidePicker" @number="getPhone"/>
+          <phone-input type="phone" :validate="formValidate.phone" @input="hidePicker" @phone="getPhone"/>
 
         </view>
 
@@ -184,13 +184,6 @@
           this.numberTitle = '人数'
         } else {
           this.numberTitle = '余座'
-        }
-      },
-      moreSwitchNo (val) {
-        if (val) {
-          this.menuBottomRadius = '0'
-        } else {
-          this.menuBottomRadius = '10rpx'
         }
       }
     },
