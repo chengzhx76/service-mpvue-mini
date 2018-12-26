@@ -3,27 +3,42 @@
     <view class="tip" v-if="hasStaring">进行中</view>
     <view class="list list-start" v-if="hasStaring">
       <view class="travel" @click="detail(travel.id)" v-for="(travel, index) in listStart" :key="travel.id" hover-class="choose-hover">
-        <view class="info">
-          <view class="date">
-            <view class="icon">
-              <view class="nav">时</view>
+        <movable-area>
+          <movable-view out-of-bounds="true"
+                        direction="horizontal"
+                        :x="startX"
+                        animation="false"
+                        damping="100"
+                        @change="movableChangeS"
+                        @touchend="touchEndS"
+                        @touchstart="touchStartS">
+            <view class="content">
+              <view class="info">
+                <view class="date">
+                  <view class="icon">
+                    <view class="nav">时</view>
+                  </view>
+                  <text class="text">{{ travel.time }}</text>
+                </view>
+                <view :class="[travel.type === 2 ? 'driver' : 'passenger', 'type']">我是{{ travel.type === 2 ? '车主' : '乘客' }}</view>
+              </view>
+              <view class="origin address">
+                <view class="icon">
+                  <view class="nav">起</view>
+                </view>
+                <text class="text">{{ travel.origin }}</text>
+              </view>
+              <view class="dest address">
+                <view class="icon">
+                  <view class="nav">终</view>
+                </view>
+                <text class="text">{{ travel.dest }}</text>
+              </view>
             </view>
-            <text class="text">{{ travel.time }}</text>
-          </view>
-          <view :class="[travel.type === 2 ? 'driver' : 'passenger', 'type']">我是{{ travel.type === 2 ? '车主' : '乘客' }}</view>
-        </view>
-        <view class="origin address">
-          <view class="icon">
-            <view class="nav">起</view>
-          </view>
-          <text class="text">{{ travel.origin }}</text>
-        </view>
-        <view class="dest address">
-          <view class="icon">
-            <view class="nav">终</view>
-          </view>
-          <text class="text">{{ travel.dest }}</text>
-        </view>
+          </movable-view>
+        </movable-area>
+        <view class="delete">删除</view>
+
       </view>
       <view class="load-more" @click="loadMoreStaring" v-if="pageStaring.hasMore" hover-class="btn-hover">加载更多~</view>
     </view>
@@ -31,11 +46,25 @@
     <view class="tip" v-if="hasEnd">已结束</view>
     <view class="list list-end" v-if="hasEnd">
       <view class="travel" @click="detail(travel.id)" v-for="(travel, index) in listEnd" :key="travel.id" hover-class="choose-hover">
-        <view :class="[travel.type === 2 ? 'driver' : 'passenger', 'type']">{{ travel.type === 2 ? '车' : '人' }}</view>
-        <view class="origin">{{ travel.origin }}</view>
-        <view class="conversion-icon">-></view>
-        <view class="dest">{{ travel.dest }}</view>
-        <view class="date">{{ travel.time }}</view>
+        <movable-area>
+          <movable-view out-of-bounds="true"
+                        direction="horizontal"
+                        :x="endX"
+                        animation="false"
+                        damping="100"
+                        @change="movableChangeE"
+                        @touchend="touchEndE"
+                        @touchstart="touchStartE">
+            <view class="content">
+              <view :class="[travel.type === 2 ? 'driver' : 'passenger', 'type']">{{ travel.type === 2 ? '车' : '人' }}</view>
+              <view class="origin">{{ travel.origin }}</view>
+              <view class="conversion-icon">-></view>
+              <view class="dest">{{ travel.dest }}</view>
+              <view class="date">{{ travel.time }}</view>
+            </view>
+          </movable-view>
+        </movable-area>
+        <view class="delete">删除</view>
       </view>
       <view class="load-more" @click="loadMoreEnd" v-if="pageEnd.hasMore" hover-class="btn-hover">加载更多~</view>
     </view>
@@ -66,7 +95,10 @@
           totalNum: 0,
           hasMore: true,
           lastTime: now.getTime()
-        }
+        },
+        startX: 0,
+        endX: 0,
+        isTouch: true
       }
     },
     methods: {
@@ -109,6 +141,50 @@
             }
           }
         })
+      },
+      movableChangeS (e) {
+        let currentX = e.mp.detail.x
+        if (this.isTouchS) {
+          this.startX = currentX
+        }
+        if (currentX === 0 || currentX === -100) {
+          this.isTouchS = true
+        }
+        console.log(currentX)
+      },
+      touchStartS (e) {
+      },
+      touchEndS () {
+        console.log('-->end')
+        this.isTouchS = false
+        console.log(this.startX)
+        if (this.startX <= -40) {
+          this.startX = -100
+        } else {
+          this.startX = 0
+        }
+      },
+      movableChangeE (e) {
+        let currentX = e.mp.detail.x
+        if (this.isTouchE) {
+          this.endX = currentX
+        }
+        if (currentX === 0 || currentX === -100) {
+          this.isTouchE = true
+        }
+        console.log(currentX)
+      },
+      touchStartE (e) {
+      },
+      touchEndE () {
+        console.log('-->end')
+        this.isTouchE = false
+        console.log(this.endX)
+        if (this.endX <= -40) {
+          this.endX = -100
+        } else {
+          this.endX = 0
+        }
       }
     },
     computed: {
@@ -132,6 +208,19 @@
 <style rel="stylesheet/scss" lang="scss" scoped>
   @import "@/styles/mixin.scss";
   @import "@/styles/variables.scss";
+
+  movable-area {
+    width: calc(100% - 200rpx);
+    z-index: 999;
+    movable-view {
+      width: calc(100% + 200rpx);
+    }
+  }
+  .delete {
+    width: 200rpx;
+    text-align: center;
+  }
+
   #release {
     width: 100%;
     @include column-align-center;
@@ -146,18 +235,22 @@
     width: 100%;
     margin-bottom: 40rpx;
     .travel {
-      @include border-radius(8);
-      @include justify-align-center;
-      @include border(1);
-      @include box-shadow;
+      width: 96%;
       margin-left: 2%;
-      margin-bottom: 10rpx;
-      background: $releaseCellBgColor;
-      .driver {
-        @include border-color(1, $dark-blue);
-      }
-      .passenger {
-        @include border-color(1, $dark-yellow);
+      @include justify-align-center;
+      .content {
+        width: 100%;
+        @include justify-align-center;
+        @include border-radius(8);
+        @include border(1);
+        @include box-shadow;
+        background: $releaseCellBgColor;
+        .driver {
+          @include border-color(1, $dark-blue);
+        }
+        .passenger {
+          @include border-color(1, $dark-yellow);
+        }
       }
     }
     .load-more {
@@ -169,70 +262,83 @@
   }
   .list-start {
     .travel {
-      @include height-rpx-width-percent(200, 96%);
-      padding: 15rpx 0;
-      .info {
-        @include height-rpx-width-100(70);
-        @include justify-space-between-align-center;
-        .type {
-          font-size: 30rpx;
-          margin-right: 15rpx;
-          padding: 5rpx 10rpx;
-          @include border-radius(10);
+      height: 200rpx;
+      margin-bottom: 35rpx;
+      movable-area {
+        height: 200rpx;
+        movable-view {
+          height: 200rpx;
         }
       }
-      .address, .date {
-        @include justify-start-align-center;
-        .icon {
-          @include height-width(65, 60);
-          @include justify-align-center;
-          .nav {
-            @include height-width-text-center(30, 30);
-            font-size: 20rpx;
-            color: $white;
-            @include border-radius-percent(50%);
+      .delete {
+        height: 200rpx;
+        line-height: 200rpx;
+      }
+      .content {
+        padding: 10rpx 0;
+        .info {
+          @include height-rpx-width-100(70);
+          @include justify-space-between-align-center;
+          .type {
+            font-size: 30rpx;
+            margin-right: 15rpx;
+            padding: 5rpx 10rpx;
+            @include border-radius(10);
           }
         }
-        .text {
-          @include height-line(65);
-          @include over-hidden;
-          font-size: 32rpx;
-          text-indent: 5rpx;
-        }
-      }
-      .address {
-        @include height-rpx-width-100(65);
-      }
-      .date {
-        height: 70rpx;
-        color: $timeColor;
-        .icon {
-          .nav {
-            background: $timeColor;
+        .address, .date {
+          @include justify-start-align-center;
+          .icon {
+            @include height-width(65, 60);
+            @include justify-align-center;
+            .nav {
+              @include height-width-text-center(30, 30);
+              font-size: 20rpx;
+              color: $white;
+              @include border-radius-percent(50%);
+            }
+          }
+          .text {
+            @include height-line(65);
+            @include over-hidden;
+            font-size: 32rpx;
+            text-indent: 5rpx;
           }
         }
-        .text {
-          font-size: 32rpx;
+        .address {
+          @include height-rpx-width-100(65);
         }
-      }
-      .origin {
-        .icon {
-          .nav {
-            background: $startColor;
+        .date {
+          height: 70rpx;
+          color: $timeColor;
+          .icon {
+            .nav {
+              background: $timeColor;
+            }
+          }
+          .text {
+            font-size: 32rpx;
           }
         }
-        .text {
-          font-size: 34rpx;
-        }
-      }
-      .dest {
-        .icon {
-          .nav {
-            background: $endColor;
+        .origin {
+          .icon {
+            .nav {
+              background: $startColor;
+            }
+          }
+          .text {
+            font-size: 34rpx;
           }
         }
-        .text {
-          font-size: 34rpx;
+        .dest {
+          .icon {
+            .nav {
+              background: $endColor;
+            }
+          }
+          .text {
+            font-size: 34rpx;
+          }
         }
       }
     }
@@ -240,6 +346,19 @@
   .list-end {
     .travel {
       @include height-rpx-width-percent(100, 96%);
+      margin-bottom: 15rpx;
+      movable-area {
+        height: 100rpx;
+        movable-view {
+          height: 100rpx;
+        }
+      }
+      .delete {
+        height: 100rpx;
+        line-height: 100rpx;
+      }
+      .content {
+      }
       .type {
         @include height-width-text-center(40, 40);
         @include border-radius(50);
