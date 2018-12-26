@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/index/main",
     "pages/release/main",
     "pages/city/main",
-    "pages/index/main",
     "pages/add/main",
     "pages/share/main",
     "pages/admin/main",
