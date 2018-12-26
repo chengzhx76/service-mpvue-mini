@@ -2,7 +2,7 @@
   <view id="release">
     <view class="tip" v-if="hasStaring">进行中</view>
     <view class="list list-start" v-if="hasStaring">
-      <view class="travel" @click="detail(travel.id)" v-for="(travel, index) in listStart" :key="travel.id" hover-class="choose-hover">
+      <view class="travel" v-for="(travel, index) in listStart" :key="travel.id" hover-class="choose-hover">
         <movable-area>
           <movable-view out-of-bounds="true"
                         direction="horizontal"
@@ -12,7 +12,7 @@
                         @change="movableChangeS"
                         @touchend="touchEndS"
                         @touchstart="touchStartS">
-            <view class="content">
+            <view class="content" @click="detail(travel.id)">
               <view class="info">
                 <view class="date">
                   <view class="icon">
@@ -45,7 +45,7 @@
 
     <view class="tip" v-if="hasEnd">已结束</view>
     <view class="list list-end" v-if="hasEnd">
-      <view class="travel" @click="detail(travel.id)" v-for="(travel, index) in listEnd" :key="travel.id" hover-class="choose-hover">
+      <view class="travel" v-for="(travel, index) in listEnd" :key="travel.id" hover-class="choose-hover">
         <movable-area>
           <movable-view out-of-bounds="true"
                         direction="horizontal"
@@ -55,7 +55,7 @@
                         @change="movableChangeE"
                         @touchend="touchEndE"
                         @touchstart="touchStartE">
-            <view class="content">
+            <view class="content" @click="detail(travel.id)">
               <view :class="[travel.type === 2 ? 'driver' : 'passenger', 'type']">{{ travel.type === 2 ? '车' : '人' }}</view>
               <view class="origin">{{ travel.origin }}</view>
               <view class="conversion-icon">-></view>
