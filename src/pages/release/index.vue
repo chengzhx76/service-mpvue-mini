@@ -2,42 +2,42 @@
   <view id="release">
     <view class="tip" v-if="hasStaring">进行中</view>
     <view class="list list-start" v-if="hasStaring">
-      <view class="travel" v-for="(travel, index) in listStart" :key="travel.id" hover-class="choose-hover">
+      <view class="travel" v-for="(item, index) in listStart" :key="item.travel.id">
         <movable-area>
           <movable-view out-of-bounds="true"
                         direction="horizontal"
-                        :x="startX"
+                        :x="item.x"
                         animation="false"
                         damping="100"
-                        @change="movableChangeS"
-                        @touchend="touchEndS"
-                        @touchstart="touchStartS">
-            <view class="content" @click="detail(travel.id)">
+                        @change="movableChangeStart(index, $event)"
+                        @touchend="touchEndStart(index)"
+                        @touchstart="touchStartStart">
+            <view class="content" @click="detail(item.travel.id)" hover-class="choose-hover">
               <view class="info">
                 <view class="date">
                   <view class="icon">
                     <view class="nav">时</view>
                   </view>
-                  <text class="text">{{ travel.time }}</text>
+                  <text class="text">{{ item.travel.time }}</text>
                 </view>
-                <view :class="[travel.type === 2 ? 'driver' : 'passenger', 'type']">我是{{ travel.type === 2 ? '车主' : '乘客' }}</view>
+                <view :class="[item.travel.type === 2 ? 'driver' : 'passenger', 'type']">我是{{ item.travel.type === 2 ? '车主' : '乘客' }}</view>
               </view>
               <view class="origin address">
                 <view class="icon">
                   <view class="nav">起</view>
                 </view>
-                <text class="text">{{ travel.origin }}</text>
+                <text class="text">{{ item.travel.origin }}</text>
               </view>
               <view class="dest address">
                 <view class="icon">
                   <view class="nav">终</view>
                 </view>
-                <text class="text">{{ travel.dest }}</text>
+                <text class="text">{{ item.travel.dest }}</text>
               </view>
             </view>
           </movable-view>
         </movable-area>
-        <view class="delete">删除</view>
+        <view class="delete" @click="deletedStart(item.travel, index)">删除</view>
 
       </view>
       <view class="load-more" @click="loadMoreStaring" v-if="pageStaring.hasMore" hover-class="btn-hover">加载更多~</view>
@@ -45,22 +45,22 @@
 
     <view class="tip" v-if="hasEnd">已结束</view>
     <view class="list list-end" v-if="hasEnd">
-      <view class="travel" v-for="(travel, index) in listEnd" :key="travel.id" hover-class="choose-hover">
+      <view class="travel" v-for="(item, index) in listEnd" :key="item.travel.id">
         <movable-area>
           <movable-view out-of-bounds="true"
                         direction="horizontal"
-                        :x="endX"
+                        :x="item.x"
                         animation="false"
                         damping="100"
                         @change="movableChangeE"
                         @touchend="touchEndE"
                         @touchstart="touchStartE">
-            <view class="content" @click="detail(travel.id)">
-              <view :class="[travel.type === 2 ? 'driver' : 'passenger', 'type']">{{ travel.type === 2 ? '车' : '人' }}</view>
-              <view class="origin">{{ travel.origin }}</view>
+            <view class="content" @click="detail(item.travel.id)" hover-class="choose-hover">
+              <view :class="[item.travel.type === 2 ? 'driver' : 'passenger', 'type']">{{ item.travel.type === 2 ? '车' : '人' }}</view>
+              <view class="origin">{{ item.travel.origin }}</view>
               <view class="conversion-icon">-></view>
-              <view class="dest">{{ travel.dest }}</view>
-              <view class="date">{{ travel.time }}</view>
+              <view class="dest">{{ item.travel.dest }}</view>
+              <view class="date">{{ item.travel.time }}</view>
             </view>
           </movable-view>
         </movable-area>
@@ -98,6 +98,7 @@
         },
         startX: 0,
         endX: 0,
+        isTouchStart: true,
         isTouch: true
       }
     },
@@ -125,11 +126,17 @@
               if (type === 1) {
                 this.pageStaring.lastTime = item.time
                 item.time = formatDateTime(item.time)
-                this.listStart.push(item)
+                this.listStart.push({
+                  x: 0,
+                  travel: item
+                })
               } else {
                 this.pageEnd.lastTime = item.time
                 item.time = formatDate(item.time)
-                this.listEnd.push(item)
+                this.listEnd.push({
+                  x: 0,
+                  travel: item
+                })
               }
             })
             if (res.data.pageNum * res.data.pageSize >= res.data.totalNum) {
@@ -142,27 +149,29 @@
           }
         })
       },
-      movableChangeS (e) {
+      movableChangeStart (index, e) {
         let currentX = e.mp.detail.x
-        if (this.isTouchS) {
-          this.startX = currentX
+        if (this.isTouchStart) {
+          this.listStart[index].x = currentX
         }
         if (currentX === 0 || currentX === -100) {
-          this.isTouchS = true
+          this.isTouchStart = true
         }
-        console.log(currentX)
       },
-      touchStartS (e) {
+      touchStartStart (e) {
       },
-      touchEndS () {
-        console.log('-->end')
-        this.isTouchS = false
-        console.log(this.startX)
-        if (this.startX <= -40) {
-          this.startX = -100
+      touchEndStart (index) {
+        this.isTouchStart = false
+        if (this.listStart[index].x <= -40) {
+          this.listStart[index].x = -100
         } else {
-          this.startX = 0
+          this.listStart[index].x = 0
         }
+      },
+      deletedStart (travel, index) {
+        console.log(travel)
+        console.log(index)
+        this.listStart.splice(index, 1)
       },
       movableChangeE (e) {
         let currentX = e.mp.detail.x
