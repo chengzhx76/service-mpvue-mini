@@ -12,7 +12,7 @@ export function list (service, page, pageSize) {
   const number = service.number
   const pageNum = page.pageNum
 
-  return getRequest(`mp/list/${type}?origin=${origin === undefined ? '' : origin}&dest=${dest === undefined ? '' : dest}&time=${time === undefined ? '' : time}&num=${number === undefined ? '' : number}&page=${pageNum === undefined ? '' : pageNum}&count=${pageSize === undefined ? '' : pageSize}`)
+  return getRequest(`mp/travel/list/${type}?origin=${origin === undefined ? '' : origin}&dest=${dest === undefined ? '' : dest}&time=${time === undefined ? '' : time}&num=${number === undefined ? '' : number}&page=${pageNum === undefined ? '' : pageNum}&count=${pageSize === undefined ? '' : pageSize}`)
 }
 
 export function add (service) {
@@ -32,7 +32,7 @@ export function add (service) {
     via: service.via,
     remarks: service.remarks
   }
-  return postRequest('mp/add', travel)
+  return postRequest('mp/travel/add', travel)
 }
 
 export function getTravel (travelId) {
@@ -54,7 +54,7 @@ export function authorization (data, token, code) {
     code: code
   }
 
-  return postRequest('mp/auth', loginForm)
+  return postRequest('mp/user/auth', loginForm)
 }
 
 export function getUserByUid (uid) {
@@ -67,4 +67,12 @@ export function getRelease (time, type, pageNum, pageSize) {
 
 export function getReleaseCount () {
   return getRequest('mp/user/release/count')
+}
+
+export function deleteRelease (tid) {
+  const deleteForm = {
+    tid
+  }
+
+  return postRequest('mp/travel/delete', deleteForm)
 }

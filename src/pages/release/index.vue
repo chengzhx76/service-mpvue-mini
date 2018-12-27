@@ -76,7 +76,7 @@
 <script>
   // https://www.jianshu.com/p/14ff77fd71cd
   // https://github.com/Ewall1106/miniProgramDemo
-  import { getRelease } from '@/api/api'
+  import { getRelease, deleteRelease } from '@/api/api'
   import { formatDate, formatDateTime } from '@/utils/index'
   const now = new Date()
   export default {
@@ -172,6 +172,8 @@
         console.log(travel)
         console.log(index)
         this.listStart.splice(index, 1)
+        deleteRelease(travel.id).then(res => {
+        })
       },
       movableChangeE (e) {
         let currentX = e.mp.detail.x
