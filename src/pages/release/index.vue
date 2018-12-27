@@ -37,10 +37,12 @@
             </view>
           </movable-view>
         </movable-area>
-        <view class="delete" @click="deletedStart(item.travel, index)">删除</view>
+        <view class="delete" @click="deletedStart(item.travel, index)" hover-class="btn-hover">
+          <text class="fa fa-3x fa-trash-o"/>
+        </view>
 
       </view>
-      <view class="load-more" @click="loadMoreStaring" v-if="pageStaring.hasMore" hover-class="btn-hover">加载更多~</view>
+      <view class="load-more" @click="loadMoreStaring" v-if="pageStaring.hasMore" hover-class="btn-hover">{{ loadingStart }}</view>
     </view>
 
     <view class="tip" v-if="hasEnd">已结束</view>
@@ -52,9 +54,9 @@
                         :x="item.x"
                         animation="false"
                         damping="100"
-                        @change="movableChangeE"
-                        @touchend="touchEndE"
-                        @touchstart="touchStartE">
+                        @change="movableChangeEnd(index, $event)"
+                        @touchend="touchEndEnd(index)"
+                        @touchstart="touchStartEnd">
             <view class="content" @click="detail(item.travel.id)" hover-class="choose-hover">
               <view :class="[item.travel.type === 2 ? 'driver' : 'passenger', 'type']">{{ item.travel.type === 2 ? '车' : '人' }}</view>
               <view class="origin">{{ item.travel.origin }}</view>
@@ -64,9 +66,11 @@
             </view>
           </movable-view>
         </movable-area>
-        <view class="delete">删除</view>
+        <view class="delete" @click="deletedEnd(item.travel, index)" hover-class="btn-hover">
+          <text class="fa fa-2x fa-trash-o"/>
+        </view>
       </view>
-      <view class="load-more" @click="loadMoreEnd" v-if="pageEnd.hasMore" hover-class="btn-hover">加载更多~</view>
+      <view class="load-more" @click="loadMoreEnd" v-if="pageEnd.hasMore" hover-class="btn-hover">{{ loadingEnd }}</view>
     </view>
 
   </view>
@@ -96,10 +100,11 @@
           hasMore: true,
           lastTime: now.getTime()
         },
-        startX: 0,
         endX: 0,
         isTouchStart: true,
-        isTouch: true
+        isTouchEnd: true,
+        loadingStart: '加载更多~',
+        loadingEnd: '加载更多~'
       }
     },
     methods: {
@@ -114,13 +119,16 @@
         this.getRelease(this.pageEnd.lastTime, 2, this.pageEnd.pageNum, 5)
       },
       loadMoreStaring () {
+        this.loadingStart = '加载中~'
         this.getRelease(this.pageStaring.lastTime, 1, this.pageStaring.pageNum, 3)
       },
       loadMoreEnd () {
+        this.loadingEnd = '加载中~'
         this.getRelease(this.pageEnd.lastTime, 2, this.pageEnd.pageNum, 5)
       },
       getRelease (lastTime, type, pageNum, count) {
         getRelease(lastTime, type, pageNum, count).then(res => {
+          this.loadingStart = this.loadingEnd = '加载更多~'
           if (res.meta.code === 2000) {
             res.data.list.forEach(item => {
               if (type === 1) {
@@ -169,33 +177,33 @@
         }
       },
       deletedStart (travel, index) {
-        console.log(travel)
-        console.log(index)
-        this.listStart.splice(index, 1)
         deleteRelease(travel.id).then(res => {
+          this.listStart.splice(index, 1)
         })
       },
-      movableChangeE (e) {
+      movableChangeEnd (index, e) {
         let currentX = e.mp.detail.x
-        if (this.isTouchE) {
-          this.endX = currentX
+        if (this.isTouchEnd) {
+          this.listEnd[index].x = currentX
         }
         if (currentX === 0 || currentX === -100) {
-          this.isTouchE = true
+          this.isTouchEnd = true
         }
-        console.log(currentX)
       },
-      touchStartE (e) {
+      touchStartEnd (e) {
       },
-      touchEndE () {
-        console.log('-->end')
-        this.isTouchE = false
-        console.log(this.endX)
-        if (this.endX <= -40) {
-          this.endX = -100
+      touchEndEnd (index) {
+        this.isTouchEnd = false
+        if (this.listEnd[index].x <= -40) {
+          this.listEnd[index].x = -100
         } else {
-          this.endX = 0
+          this.listEnd[index].x = 0
         }
+      },
+      deletedEnd (travel, index) {
+        deleteRelease(travel.id).then(res => {
+          this.listEnd.splice(index, 1)
+        })
       }
     },
     computed: {
@@ -229,7 +237,10 @@
   }
   .delete {
     width: 200rpx;
-    text-align: center;
+    @include justify-align-center;
+    .fa {
+      color: #FFCCCC;
+    }
   }
 
   #release {
