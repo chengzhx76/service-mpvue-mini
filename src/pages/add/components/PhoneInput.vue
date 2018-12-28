@@ -19,6 +19,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   import { isMobile } from '@/utils/validate'
   export default {
     props: {
@@ -33,11 +34,12 @@
     },
     data () {
       return {
-        phone: this.$store.getters.mobileNo
+        phone: ''
       }
     },
     onLoad () {
       Object.assign(this.$data, this.$options.data())
+      this.phone = this.mobileNo
     },
     onUnload () {
       Object.assign(this.$data, this.$options.data())
@@ -55,6 +57,9 @@
       }
     },
     computed: {
+      ...mapGetters([
+        'mobileNo'
+      ]),
       clazz () {
         return this.type === 'phone' ? 'phone' : ''
       },
