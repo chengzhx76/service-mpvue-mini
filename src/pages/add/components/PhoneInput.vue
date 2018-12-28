@@ -36,6 +36,12 @@
         phone: this.$store.getters.mobileNo
       }
     },
+    onLoad () {
+      Object.assign(this.$data, this.$options.data())
+    },
+    onUnload () {
+      Object.assign(this.$data, this.$options.data())
+    },
     watch: {
       phone (val) {
         if (val && isMobile(val)) {

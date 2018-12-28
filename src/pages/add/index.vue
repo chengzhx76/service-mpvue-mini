@@ -274,7 +274,7 @@
               wx.redirectTo({ url })
             }, 1500)
           } else {
-            errorToast('添加失败')
+            errorToast(res.meta.msg)
           }
         }).catch(e => {
           this.loading = false
