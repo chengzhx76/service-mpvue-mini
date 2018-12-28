@@ -54,6 +54,12 @@
         return this.type === 'origin' ? '请选择起点' : '请选择终点'
       }
     },
+    onLoad () {
+      Object.assign(this.$data, this.$options.data())
+    },
+    onUnload () {
+      Object.assign(this.$data, this.$options.data())
+    },
     onShow () {
       if (this.$parent &&
         this.$parent.$mp &&

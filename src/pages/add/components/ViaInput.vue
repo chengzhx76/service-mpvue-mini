@@ -42,6 +42,12 @@
         }
       }
     },
+    onLoad () {
+      Object.assign(this.$data, this.$options.data())
+    },
+    onUnload () {
+      Object.assign(this.$data, this.$options.data())
+    },
     computed: {
       clazz () {
         return this.type === 'via' ? 'via' : ''
