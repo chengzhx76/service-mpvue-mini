@@ -77,9 +77,15 @@
         if (this.price === '面议' || isMoney(this.price)) {
           this.$emit('price', this.price)
         }
+      },
+      price (val) {
+        if (val && isMoney(val)) {
+          this.$emit('price', val)
+        }
       }
     },
     onLoad () {
+      Object.assign(this.$data, this.$options.data())
       this.price = this.pays[this.payVal[0]]
       this.priceDisabled = this.pays[this.payVal[0]] === '面议'
       if (this.price === '面议' || isMoney(this.price)) {

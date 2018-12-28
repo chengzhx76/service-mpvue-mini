@@ -68,6 +68,7 @@
       }
     },
     onLoad () {
+      Object.assign(this.$data, this.$options.data())
       this.number = this.nums[this.numVal[0]]
       if (this.number && isInteger(this.number)) {
         this.$emit('number', this.number)
