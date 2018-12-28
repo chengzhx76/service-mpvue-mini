@@ -177,6 +177,10 @@
         }
       },
       deletedStart (travel, index) {
+        this.listStart[index].x = 0
+        setTimeout(() => {
+          this.listStart.splice(index, 1)
+        }, 500)
         deleteRelease(travel.id).then(res => {
           this.listStart.splice(index, 1)
         })
@@ -201,8 +205,11 @@
         }
       },
       deletedEnd (travel, index) {
-        deleteRelease(travel.id).then(res => {
+        this.listEnd[index].x = 0
+        setTimeout(() => {
           this.listEnd.splice(index, 1)
+        }, 500)
+        deleteRelease(travel.id).then(res => {
         })
       }
     },
