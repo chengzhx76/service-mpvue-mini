@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/test/main",
     "pages/index/main",
     "pages/release/main",
     "pages/city/main",
