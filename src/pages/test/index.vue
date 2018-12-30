@@ -1,27 +1,26 @@
 <template>
-
-  <view id="test">
-    <map class="map" show-location></map>
-    <center-dialog ref="centerDialog" title="提示" :content="content"/>
-    <button @click="show">打开</button>
+  <view>
+    <custom-header></custom-header>
+    <view id="test">
+      <map class="map" show-location></map>
+      <button @click="show">打开</button>
+    </view>
   </view>
 
 </template>
 
 <script>
-  import CenterDialog from '@/components/CenterDialog/index'
+  import CustomHeader from '@/components/CustomHeader/index'
   export default {
     data () {
       return {
-        content: '数字媒体、摄影、音乐、文学等众多艺术门类于一身的艺术表现形式'
       }
     },
     components: {
-      CenterDialog
+      CustomHeader
     },
     methods: {
       show () {
-        this.$refs.centerDialog.showModal()
       }
     },
     onLoad () {
@@ -29,6 +28,11 @@
     onUnload () {
     },
     created () {
+    },
+    onPullDownRefresh () {
+      wx.showNavigationBarLoading()
+      // wx.stopPullDownRefresh()
+      // wx.hideNavigationBarLoading()
     }
   }
 </script>

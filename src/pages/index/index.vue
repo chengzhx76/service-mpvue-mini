@@ -63,7 +63,7 @@
 
     </view>
     <view class="list">
-      <card-list :travels="list"/>
+      <card-list :travels="list" @shareImgUrl="getShareImgUrl" @cancelActionSheet="cancelActionSheet"/>
       <view class="bottom-block" hover-class="btn-hover" @click="moreHandler">查看更多 ></view>
       <view class="block"></view>
     </view>
@@ -73,7 +73,6 @@
     </view>
 
     <center-dialog ref="freezeDialog"/>
-
   </view>
 </template>
 
@@ -115,7 +114,9 @@
             type: 2,
             isActive: false
           }
-        ]
+        ],
+        imageUrl: '',
+        tid: ''
       }
     },
     components: {
@@ -184,6 +185,13 @@
             })
           }
         }
+      },
+      getShareImgUrl ({ url, tid }) {
+        this.imageUrl = url
+        this.tid = tid
+      },
+      cancelActionSheet () {
+        this.imageUrl = ''
       },
       initFrom () {
         this.service = {
@@ -275,9 +283,9 @@
     },
     onShareAppMessage (res) {
       return {
-        title: this.shareText.index,
-        path: 'pages/index/main',
-        imageUrl: this.shareImg.index
+        title: this.imageUrl ? this.shareText.detail : this.shareText.index,
+        path: `pages/index/main?tid=${this.tid}`,
+        imageUrl: this.imageUrl ? this.imageUrl : this.shareImg.index
       }
     }
   }
