@@ -4,7 +4,7 @@ function setMutations (commit, data) {
   commit('SET_SWITCH', { add: data.SWITCH.SwitchAdd, callPhone: data.SWITCH.SwitchCallPhone })
   commit('SET_PAGE_SIZE', { index: data.PAGE_SIZE.PageSizeIndex, list: data.PAGE_SIZE.PageSizeList })
   commit('SET_SHARE_IMG', { index: data.SHARE_IMG.ShareImgIndex, detail: data.SHARE_IMG.ShareImgDetail })
-  commit('SET_SHARE_TEXT', { inde: data.SHARE_TEXT.ShareTextIndex, detail: data.SHARE_TEXT.ShareTextDetail })
+  commit('SET_SHARE_TEXT', { index: data.SHARE_TEXT.ShareTextIndex, detail: data.SHARE_TEXT.ShareTextDetail })
   commit('SET_INDEX_SWIPER', data.SWIPER)
 }
 

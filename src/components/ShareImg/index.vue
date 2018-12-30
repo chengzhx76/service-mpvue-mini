@@ -36,6 +36,7 @@
       ])
     },
     methods: {
+      // showImg 是否是后台生成图片 true-不是
       createShareImg (val, showImg) {
         if (showImg !== null && showImg !== undefined) {
           this.showImg = showImg
@@ -149,6 +150,12 @@
 
                 // 小程序码
                 ctx.drawImage(res[1].path, self.canvasWidthPx - 110, 295, 100, 100)
+              } else {
+                ctx.beginPath()
+                ctx.setTextAlign('center')
+                ctx.setFillStyle('#990f34')
+                ctx.setFontSize(40)
+                ctx.fillText('快来联系我吧~', self.canvasWidthPx * 0.5, 370)
               }
               ctx.draw()
               resolve()

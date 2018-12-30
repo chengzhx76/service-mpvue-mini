@@ -47,6 +47,7 @@
         setTimeout(() => {
           this.hideMask()
         }, 300)
+        this.$emit('cancel')
       },
       showMask () {
         this.hidden = false

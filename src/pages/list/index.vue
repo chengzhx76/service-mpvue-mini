@@ -15,7 +15,7 @@
       <view class="refresh" v-if="show">{{ text }}</view>
       <view :style="{height: blockHeight + 'rpx'}"></view>
 
-      <card-list :travels="list"/>
+      <card-list :travels="list" @shareImgUrl="getShareImgUrl" @cancelActionSheet="cancelActionSheet"/>
 
       <view class="bottom-block" v-if="switches.add" hover-class="btn-hover" @click="bottomHandler">{{ bottomText }}</view>
       <view class="block"></view>
@@ -75,7 +75,9 @@
         preScrollTop: 0,
         show: false,
         loading: false,
-        text: '下拉加载~~~'
+        text: '下拉加载~~~',
+        imageUrl: '',
+        tid: ''
       }
     },
     methods: {
@@ -193,6 +195,13 @@
             isActive: false
           }
         ]
+      },
+      getShareImgUrl ({ url, tid }) {
+        this.imageUrl = url
+        this.tid = tid
+      },
+      cancelActionSheet () {
+        this.imageUrl = ''
       }
     },
     computed: {
@@ -251,9 +260,9 @@
     },
     onShareAppMessage (res) {
       return {
-        title: this.shareText.index,
-        path: 'pages/index/main',
-        imageUrl: this.shareImg.index
+        title: this.imageUrl ? this.shareText.detail : this.shareText.index,
+        path: `pages/index/main?tid=${this.tid}`,
+        imageUrl: this.imageUrl ? this.imageUrl : this.shareImg.index
       }
     }
   }

@@ -36,9 +36,17 @@
       <view class="bar" hover-class="tab-hover">
         <button class="share-btn" open-type="share">
           <view class="icon">
-            <text class="fa fa-share-alt fa-lg gray-icon"/>
+            <text class="fa fa-share-alt fa-sm gray-icon"/>
           </view>
           <text class="text">推荐给朋友</text>
+        </button>
+      </view>
+      <view class="bar" hover-class="tab-hover">
+        <button class="share-btn" open-type="contact">
+          <view class="icon">
+            <text class="fa fa-comment-o fa-sm gray-icon"/>
+          </view>
+          <text class="text">联系开发者</text>
         </button>
       </view>
       <view class="bar" v-if="admin" @click="manger()" hover-class="tab-hover">

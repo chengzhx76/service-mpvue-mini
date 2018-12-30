@@ -58,8 +58,9 @@
         <button class="call-phone" size="mini" hover-class="btn-hover" @click.stop="phoneCall(travel.mobileNo)">联系TA</button>
       </view>
     </view>
-    <action-sheet ref="actionSheet" @shareImg="createShareImg"></action-sheet>
-    <share-img ref="shareImgCom"></share-img>
+    <action-sheet ref="actionSheet" @shareImg="createShareImg" @cancel="cancelActionSheet"></action-sheet>
+    <!--<share-img ref="shareImgCom"></share-img>-->
+    <share-img ref="shareImgCom" @shareImgUrl="getShareImgUrl"></share-img>
   </view>
 </template>
 
@@ -106,9 +107,16 @@
       chooseShare (item) {
         this.tempTravel = item
         this.$refs.actionSheet.showActionSheet()
+        this.$refs.shareImgCom.createShareImg(item, false)
+      },
+      getShareImgUrl (url) {
+        this.$emit('shareImgUrl', { url, tid: this.tempTravel.id })
       },
       createShareImg () {
-        this.$refs.shareImgCom.createShareImg(this.tempTravel)
+        this.$refs.shareImgCom.createShareImg(this.tempTravel, true)
+      },
+      cancelActionSheet () {
+        this.$emit('cancelActionSheet')
       }
     },
     computed: {
