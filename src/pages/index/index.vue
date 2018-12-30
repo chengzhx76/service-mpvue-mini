@@ -71,12 +71,16 @@
     <view class="add" v-if="switches.add" hover-class="btn-hover" @click="addHandler">
       <text class="icon">+</text>
     </view>
+
+    <center-dialog ref="freezeDialog"/>
+
   </view>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
   import CardList from '@/components/CardList/index'
+  import CenterDialog from '@/components/CenterDialog/index'
   import { list } from '@/api/api'
   import { formatTime, formatDateTime } from '@/utils/index'
   export default {
@@ -115,7 +119,8 @@
       }
     },
     components: {
-      CardList
+      CardList,
+      CenterDialog
     },
     methods: {
       tabsSwitch (clazz, type) {
@@ -223,17 +228,21 @@
       this.windowHeightPx = clientHeight
       this.windowWidthPx = clientWidth
       this.canvasWidthPx = Math.ceil(clientWidth * 0.9)
-
-      const { tid } = this.$root.$mp.query
-      if (tid) {
-        const url = `../detail/main?tid=${tid}`
-        wx.navigateTo({ url })
+      if (this.freeze) {
+        this.$refs.freezeDialog.showModal('提示', '你的帐号已被冻结', false)
+      } else {
+        const { tid } = this.$root.$mp.query
+        if (tid) {
+          const url = `../detail/main?tid=${tid}`
+          wx.navigateTo({ url })
+        }
       }
     },
     computed: {
       ...mapGetters([
         'nickName',
         'token',
+        'freeze',
         'switches',
         'pageSize',
         'swiper',
