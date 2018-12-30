@@ -228,10 +228,17 @@
       this.windowHeightPx = clientHeight
       this.windowWidthPx = clientWidth
       this.canvasWidthPx = Math.ceil(clientWidth * 0.9)
+
       if (this.freeze) {
         this.$refs.freezeDialog.showModal('提示', '你的帐号已被冻结', false)
       } else {
-        const { tid } = this.$root.$mp.query
+        let { tid, scene } = this.$root.$mp.query
+        if (scene) {
+          scene = decodeURIComponent(scene)
+          if (scene) {
+            tid = scene.replace('&tid=', '')
+          }
+        }
         if (tid) {
           const url = `../detail/main?tid=${tid}`
           wx.navigateTo({ url })
