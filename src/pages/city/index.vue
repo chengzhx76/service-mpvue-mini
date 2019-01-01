@@ -11,7 +11,6 @@
                  class="city"
                  :key="index">{{ city }}</view>
     </view>
-    <!--<button @click="testBtn">搜索:url="'../position/main?city=' + city"</button>-->
   </view>
 
 </template>
