@@ -31,7 +31,21 @@ npm run build
 
 ### 主要功能
 
-![image](https://github.com/chengzhx76/weixin-shop-spring-cloud/blob/master/resource/55088109.png)
+![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-1.jpg)
+![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-2.jpg)
+![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-3.jpg)
+![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-4.jpg)
+![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-5.jpg)
+![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-6.jpg)
+![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-7.jpg)
+![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-8.jpg)
+![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-9.jpg)
+![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-10.jpg)
+
+
+体验小程序码
+
+![image](https://github.com/chengzhx76/service-mini/blob/master/resource/qrcode.jpg)
 
 
 大家可以扫码上手试下~~
