@@ -33,13 +33,10 @@ npm run build
 
 ### 主要功能
 
-首页和列表页
+首页、列表页和筛选页
 
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-1.jpg)
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-2.jpg)
-
-筛选页
-
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-3.jpg)
 
 详情页
