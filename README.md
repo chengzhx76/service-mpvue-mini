@@ -40,7 +40,7 @@ npm run build
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-5.jpg)
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-6.jpg)
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-7.jpg)
-![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-8.jpg)
+![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-8_1.jpg)
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-9.jpg)
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-10.jpg)
 
