@@ -34,37 +34,48 @@ npm run build
 ### 主要功能
 
 首页
+
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-1.jpg)
 
 列表页
+
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-2.jpg)
 
 筛选页
+
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-3.jpg)
 
 详情页
+
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-4.jpg)
 
 详情页
+
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-5.jpg)
 
 个人页
+
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-6.jpg)
 
 分享页
+
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-7.jpg)
 
 生成分享图片
+
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-8.jpg)
 
 个人发布行程页
+
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-9.jpg)
 
 司机发布行程页
+
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-10.jpg)
 
 
 体验小程序码
+
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/qrcode.jpg)
 
 
