@@ -33,12 +33,9 @@ npm run build
 
 ### 主要功能
 
-首页
+首页和列表页
 
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-1.jpg)
-
-列表页
-
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-2.jpg)
 
 筛选页
@@ -48,29 +45,20 @@ npm run build
 详情页
 
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-4.jpg)
-
-详情页
-
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-5.jpg)
 
 个人页
 
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-6.jpg)
 
-分享页
+分享和生成分享图片页
 
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-7.jpg)
-
-生成分享图片
-
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-8.jpg)
 
-个人发布行程页
+个人发布行程和司机发布行程页
 
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-9.jpg)
-
-司机发布行程页
-
 ![image](https://github.com/chengzhx76/service-mini/blob/master/resource/mp-10.jpg)
 
 
