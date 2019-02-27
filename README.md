@@ -56,6 +56,6 @@ npm run build
 
 WeChat：chengzhx76
 
- email：chengzhx76@qq.com
+email：chengzhx76@qq.com
  
-    QQ：672655078
+QQ：672655078
