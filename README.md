@@ -2,11 +2,19 @@
 
 service-mini是基于`mpvue`构建的顺风车平台，已经上线（小程序码见下边），欢迎Star。
 
-> 本项目是我周末开发出来的，从设计和开发都是我一个人，画原型、找素材、前后端代码编写和微信小程序认证；中间参考了无数的小程序和APP的样式和交互，争取做到体验第一 人人都是产品经理 ^_^
+> 本项目是我周末开发出来的，从设计和开发都是我一个人，画原型、找素材、前后端代码编写和微信小程序认证；中间参考了无数的小程序和APP的样式和交互，争取做到体验第一 ^_^
 
-> 大概用了两个多月，主要是本身工作比较忙，所以比较拖得时间也长，如有什么不明白的可直接联系我或者有什么好的建议意见都可以联系我 ^_^，下边我会给出我的微信号，谢谢！
+> 大概用了两个多月，主要是本身工作比较忙，所以比较拖得时间也长，如有什么不明白的可直接联系我或者有什么好的建议意见都可以联系我 人人都是产品经理 ^_^，下边我会给出我的微信号，谢谢！
 
 > 喜欢的请Star，fork这些是我坚持下去的动力
+
+> 有想法的小伙伴可以找我一起，把你的奇思妙想变成现实 ^_^
+
+
+
+体验小程序码
+
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/qrcode.jpg)
 
 
 ### 技术栈
@@ -57,11 +65,6 @@ npm run build
 
 ![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/mp-9.jpg)
 ![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/mp-10.jpg)
-
-
-体验小程序码
-
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/qrcode.jpg)
 
 
 大家可以扫码上手试下~~
