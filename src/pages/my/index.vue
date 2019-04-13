@@ -58,6 +58,15 @@
 
     </view>
 
+    <view class="easter-egg">
+      <view class="title">
+        <view class="left">—</view>
+        <view class="center">Cheng 出品</view>
+        <view class="right">—</view>
+      </view>
+      <view class="text">WeChat:chengzhx76</view>
+    </view>
+
   </view>
 
 </template>
@@ -127,6 +136,35 @@
   #my {
     @include height-width-100;
   }
+
+  .easter-egg {
+    @include height-rpx-width-100(150);
+    @include column-align-center;
+    position: fixed;
+    left: 0;
+    bottom: 50rpx;
+    z-index: -999;
+    .title {
+      @include height-rpx-width-100(80);
+      @include justify-align-center;
+      color: $unimpColor;
+      .left, .right {
+        @include height-line(80);
+        font-size: 28rpx;
+      }
+      .center {
+        @include height-line(80);
+        margin: 0 18rpx;
+        font-size: 44rpx;
+      }
+    }
+    .text {
+      @include height-line(40);
+      font-size: 32rpx;
+      color: $tipColor;
+    }
+  }
+
   .header {
     @include height-rpx-width-100(260);
     @include justify-space-between;
@@ -172,7 +210,6 @@
   }
   .content {
     width: 100%;
-    height: 500rpx;
     margin-top: 30rpx;
     .record {
       @include height-rpx-width-100(200);
