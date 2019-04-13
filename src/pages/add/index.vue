@@ -282,6 +282,11 @@
       },
       moreSwitchState (e) {
         this.moreSwitchNo = e.mp.detail.value
+        if (this.moreSwitchNo) {
+          this.menuBottomRadius = '0'
+        } else {
+          this.menuBottomRadius = '10rpx'
+        }
         this.hidePicker()
       },
       showUserInfo (info) {

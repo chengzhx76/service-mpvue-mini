@@ -3,9 +3,7 @@
       <cover-view class="modal-body">
         <cover-view class="title" v-if="title">{{ title }}</cover-view>
         <cover-view class="main">
-          <cover-view class="content">
-            {{ content }}
-          </cover-view>
+          <cover-view class="content">{{ content }}</cover-view>
         </cover-view>
         <cover-view class="footer" v-if="showFooter">
           <cover-view class="btn cancel" hover-class="btn-hover" @click="cancel">{{ cancelText }}</cover-view>
