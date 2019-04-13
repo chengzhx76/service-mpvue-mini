@@ -58,13 +58,13 @@
 
     </view>
 
-    <view class="easter-egg">
+    <view class="easter-egg" @click="service()">
       <view class="title">
         <view class="left">—</view>
         <view class="center">Cheng 出品</view>
         <view class="right">—</view>
       </view>
-      <view class="text">WeChat:chengzhx76</view>
+      <view class="text">{{ weChat }}</view>
     </view>
 
   </view>
@@ -73,11 +73,13 @@
 
 <script>
   import { getReleaseCount } from '@/api/api'
+  import { errorToast } from '@/utils/index'
   import { mapGetters } from 'vuex'
   export default {
     data () {
       return {
-        releaseCount: 0
+        releaseCount: 0,
+        weChat: 'chengzhx76'
       }
     },
     methods: {
@@ -104,6 +106,15 @@
         getReleaseCount().then(res => {
           if (res.meta.code === 2000) {
             this.releaseCount = res.data
+          }
+        })
+      },
+      service () {
+        const that = this
+        wx.setClipboardData({
+          data: that.weChat,
+          success (res) {
+            errorToast('微信号已复制')
           }
         })
       }
@@ -137,33 +148,6 @@
     @include height-width-100;
   }
 
-  .easter-egg {
-    @include height-rpx-width-100(150);
-    @include column-align-center;
-    position: fixed;
-    left: 0;
-    bottom: 50rpx;
-    z-index: -999;
-    .title {
-      @include height-rpx-width-100(80);
-      @include justify-align-center;
-      color: $unimpColor;
-      .left, .right {
-        @include height-line(80);
-        font-size: 28rpx;
-      }
-      .center {
-        @include height-line(80);
-        margin: 0 18rpx;
-        font-size: 44rpx;
-      }
-    }
-    .text {
-      @include height-line(40);
-      font-size: 32rpx;
-      color: $tipColor;
-    }
-  }
 
   .header {
     @include height-rpx-width-100(260);
@@ -211,6 +195,7 @@
   .content {
     width: 100%;
     margin-top: 30rpx;
+    margin-bottom: 100rpx;
     .record {
       @include height-rpx-width-100(200);
       @include justify-start-align-center;
@@ -269,6 +254,31 @@
       &:after {
         @include arrow(18, 25, 45);
       }
+    }
+  }
+
+  .easter-egg {
+    @include height-rpx-width-100(150);
+    @include column-align-center;
+    .title {
+      @include height-rpx-width-100(80);
+      @include justify-align-center;
+      color: $unimpColor;
+      .left, .right {
+        @include height-line(80);
+        font-size: 28rpx;
+      }
+      .center {
+        @include height-line(80);
+        margin: 0 18rpx;
+        font-size: 44rpx;
+        font-weight: bold;
+      }
+    }
+    .text {
+      @include height-line(40);
+      font-size: 32rpx;
+      color: $tipColor;
     }
   }
 
