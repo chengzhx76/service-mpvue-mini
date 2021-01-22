@@ -5,6 +5,7 @@ var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.conf')
 // var HtmlWebpackPlugin = require('html-webpack-plugin')
 var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+var MpvueVendorPlugin = require('webpack-mpvue-vendor-plugin')
 
 // copy from ./webpack.prod.conf.js
 var path = require('path')
@@ -26,7 +27,7 @@ module.exports = merge(baseWebpackConfig, {
   },
   // cheap-module-eval-source-map is faster for development
   // devtool: '#cheap-module-eval-source-map',
-  devtool: '#source-map',
+  // devtool: '#source-map',
   output: {
     path: config.build.assetsRoot,
     // filename: utils.assetsPath('[name].[chunkhash].js'),
@@ -43,7 +44,7 @@ module.exports = merge(baseWebpackConfig, {
     // extract css into its own file
     new ExtractTextPlugin({
       // filename: utils.assetsPath('[name].[contenthash].css')
-      filename: utils.assetsPath('[name].wxss')
+      filename: utils.assetsPath(`[name].${config.dev.fileExt.style}`)
     }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
@@ -67,7 +68,9 @@ module.exports = merge(baseWebpackConfig, {
       name: 'common/manifest',
       chunks: ['common/vendor']
     }),
-
+    new MpvueVendorPlugin({
+      platform: process.env.PLATFORM
+    }),
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
     // new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
