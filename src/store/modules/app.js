@@ -19,8 +19,8 @@ const app = {
       list: 10
     },
     shareImg: {
-      index: 'https://chengzhx76.picp.vip/index-share.jpg',
-      detail: 'https://chengzhx76.picp.vip/share-bg.jpg'
+      index: 'https://chengzhx76.cn/index-share.jpg',
+      detail: 'https://chengzhx76.cn/share-bg.jpg'
     },
     shareText: {
       index: '推荐成武拼车，快来试试~',
@@ -28,8 +28,8 @@ const app = {
     },
     swiper: {
       imgs: [
-        'https://chengzhx76.picp.vip/1.jpg',
-        'https://chengzhx76.picp.vip/2.jpg'
+        'https://chengzhx76.cn/1.png',
+        'https://chengzhx76.cn/2.png'
       ],
       indicatorDots: true,
       vertical: false,

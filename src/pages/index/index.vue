@@ -14,7 +14,7 @@
             <view v-for="(tab, index) in tabs"
                   :class="[tab.class, {active: tab.isActive}, 'btn']"
                   @click="tabsSwitch(tab.class, tab.type)"
-                  :key="tab.class"
+                  :key="index"
                   hover-class="tab-hover">{{ tab.name }}</view>
           </view>
           <view class="my">

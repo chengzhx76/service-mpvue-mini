@@ -1,6 +1,6 @@
 <template>
   <view id="card">
-    <view class="card" @click="detail(travel.id)" v-for="(travel, index) in travels" :key="travel.id" hover-class="choose-hover">
+    <view class="card" @click="detail(travel.id)" v-for="(travel, index) in travels" :key="index" hover-class="choose-hover">
       <view class="header">
         <view :class="[travel.type === 2 ? 'driver' : 'passenger', 'nav-block']"></view>
         <view class="nav-info">
