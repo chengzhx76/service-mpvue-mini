@@ -12,7 +12,7 @@ service-mini是基于`mpvue`构建的顺风车平台，已经上线（小程序�
 
 
 
-新的作品欢迎体验（布谷鸟助手），后期可能考虑开源
+新的作品欢迎体验（布谷鸟助手），后期可能考虑开源（基于`uni-app`构建）
 
 ![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/qrcode_remind.jpg)
 
