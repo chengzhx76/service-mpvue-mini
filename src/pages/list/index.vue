@@ -2,10 +2,9 @@
   <view id="list">
     <view class="nav-main">
       <view class="nav">
-        <view v-for="(tab, index) in tabs"
+        <view v-for="(tab, index) in tabs" :key="index"
               :class="[tab.class, {active: tab.isActive}, 'btn']"
               @click="tabsSwitch(tab.class, tab.type)"
-              :key="tab.class"
               hover-class="tab-hover">{{ tab.name }}</view>
       </view>
       <view class="filter" hover-class="tab-hover" @click="filterHandler()">筛选</view>

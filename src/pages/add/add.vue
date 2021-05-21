@@ -203,6 +203,9 @@
               open-type="getUserInfo"
               @getuserinfo="showUserInfo"
               hover-class="btn-hover">发布行程</button>
+
+      <!-- <button v-if="canIUseGetUserProfile" class="release-button" hover-class="btn-hover" :loading="loading" @click="getUserProfile">立即登录</button>
+      <button v-else class="release-button" open-type="getUserInfo" hover-class="btn-hover" :loading="loading" @getuserinfo="showUserInfo">立即登录</button> -->
     </view>
 
   </view>
@@ -290,7 +293,13 @@
         times: [],
         minutes: [],
         nums: [1, 2, 3, 4, 5, 6],
-        pays: ['面议', '自定义']
+        pays: ['面议', '自定义'],
+        canIUseGetUserProfile: false
+      }
+    },
+    created() {
+      if (wx.getUserProfile) {
+        this.canIUseGetUserProfile = true
       }
     },
     onLoad () {
