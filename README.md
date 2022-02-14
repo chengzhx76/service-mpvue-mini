@@ -79,6 +79,3 @@ npm run build
 WeChat：chengzhx76
 
 email：chengzhx76@qq.com
-
-> 后端源码暂时不打算开源，如有需要请赞助 ¥166，因为本人太穷，服务器和小程序年审都需要money ^_^
-
