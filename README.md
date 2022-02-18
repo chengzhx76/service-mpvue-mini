@@ -61,16 +61,12 @@ npm run build
 
 测试
 
-<img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/10.jpg" width="280px" style="max-width: 280rpx; display: inline-block;"><img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/11.jpg" width="280px" style="max-width: 280rpx; display: inline-block;"><img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/12.jpg" width="280px" style="max-width: 280rpx; display: inline-block;">
+<img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/10.jpg" width="280px"><img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/11.jpg" width="280px"><img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/12.jpg" width="280px">
 
 
 首页
 
 ![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/10.jpg)![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/11.jpg)![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/12.jpg)
-
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/1.0/mp-1.jpg)
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/1.0/mp-2.jpg)
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/1.0/mp-3.jpg)
 
 
 发布
