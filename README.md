@@ -66,48 +66,37 @@ npm run build
 
 首页
 
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/10.jpg)![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/11.jpg)![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/12.jpg)
+<img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/10.jpg" width="260px"><img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/11.jpg" width="260px"><img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/12.jpg" width="260px">
 
 
 发布
 
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/20.jpg)
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/21.jpg)
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/22.jpg)
+<img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/20.jpg" width="260px"><img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/21.jpg" width="260px"><img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/22.jpg" width="260px">
 
 
 查看发布后的行程
 
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/23.jpg)
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/24.jpg)
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/25.jpg)
+<img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/23.jpg" width="260px"><img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/24.jpg" width="260px"><img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/25.jpg" width="260px">
 
 
 预定行程
 
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/30.jpg)
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/31.jpg)
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/32.jpg)
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/33.jpg)
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/34.jpg)
+<img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/30.jpg" width="260px"><img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/31.jpg" width="260px"><img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/32.jpg" width="260px"><img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/33.jpg" width="260px"><img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/34.jpg" width="260px">
 
 
 乘客预定行程后（车主看到的行程信息）
 
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/40.jpg)
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/41.jpg)
+<img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/40.jpg" width="260px"><img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/41.jpg" width="260px">
 
 
 信息中心
 
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/50.jpg)
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/51.jpg)
+<img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/50.jpg" width="260px"><img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/51.jpg" width="260px">
 
 
 个人中心
 
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/60.jpg)
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/61.jpg)
+<img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/60.jpg" width="260px"><img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/61.jpg" width="260px">
 
 
 ### 主要功能（1.0）
