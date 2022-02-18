@@ -59,6 +59,12 @@ npm run build
 
 ### 主要功能（2.0）
 
+测试
+
+<img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/10.jpg" width="260px">
+<img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/11.jpg" width="260px">
+
+
 首页
 
 ![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/10.jpg)
@@ -108,6 +114,7 @@ npm run build
 
 
 ### 主要功能（1.0）
+
 
 首页、列表页和筛选页
 
