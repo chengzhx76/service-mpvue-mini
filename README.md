@@ -68,12 +68,7 @@ npm run build
 
 首页
 
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/10.jpg)
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/11.jpg)
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/12.jpg)
-
-
-首页、列表页和筛选页
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/10.jpg)![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/11.jpg)![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/12.jpg)
 
 ![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/1.0/mp-1.jpg)
 ![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/1.0/mp-2.jpg)
