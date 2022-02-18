@@ -61,7 +61,7 @@ npm run build
 
 测试
 
-<img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/10.jpg" width="280px"><img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/11.jpg" width="280px"><img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/12.jpg" width="280px">
+<img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/10.jpg" width="260px"><img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/11.jpg" width="260px"><img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/12.jpg" width="260px">
 
 
 首页
