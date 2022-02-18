@@ -111,28 +111,28 @@ npm run build
 
 首页、列表页和筛选页
 
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/mp-1.jpg)
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/mp-2.jpg)
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/mp-3.jpg)
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/1.0/mp-1.jpg)
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/1.0/mp-2.jpg)
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/1.0/mp-3.jpg)
 
 详情页
 
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/mp-4.jpg)
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/mp-5.jpg)
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/1.0/mp-4.jpg)
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/1.0/mp-5.jpg)
 
 个人页
 
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/mp-6.jpg)
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/1.0/mp-6.jpg)
 
 分享和生成分享图片页
 
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/mp-7.jpg)
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/mp-8.jpg)
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/1.0/mp-7.jpg)
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/1.0/mp-8.jpg)
 
 个人发布行程和司机发布行程页
 
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/mp-9.jpg)
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/mp-10.jpg)
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/1.0/mp-9.jpg)
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/1.0/mp-10.jpg)
 
 
 大家可以扫码上手试下~~
