@@ -30,9 +30,9 @@ service-mini是基于`mpvue`构建的顺风车平台，已经上线（小程序�
 
 ## 技术栈（2.0）
 
-前端：小程序、mpvue、Vuex、flyio、font-awesome
+前端：小程序、uni-app、Vuex、flyio、font-awesome
 
-后端：Go、BeeGo、MySQL8.0
+后端：Go、BeeGo、MySQL
 
 
 ## 技术栈（1.0）
@@ -42,7 +42,7 @@ service-mini是基于`mpvue`构建的顺风车平台，已经上线（小程序�
 后端：Java、SpringBoot、MySQL
 
 
-## 构建步骤
+## 构建步骤（1.0）
 
 ``` bash
 # 安装依赖
