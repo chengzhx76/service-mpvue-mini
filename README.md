@@ -17,12 +17,25 @@ service-mini是基于`mpvue`构建的顺风车平台，已经上线（小程序�
 ![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/qrcode_remind.jpg)
 
 
-体验小程序码
+小程序码体验
+
+2.0版本
+
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/car_2.0.jpg)
+
+1.0版本
 
 ![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/qrcode.jpg)
 
 
-### 技术栈
+### 技术栈（2.0）
+
+前端：小程序、mpvue、Vuex、flyio、font-awesome
+
+后端：Go、BeeGo、MySQL8.0
+
+
+### 技术栈（1.0）
 
 前端：小程序、mpvue、Vuex、flyio、font-awesome
 
@@ -44,7 +57,57 @@ npm run build
 具体步骤参见 mpvue 官网
 ```
 
-### 主要功能
+### 主要功能（2.0）
+
+首页
+
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/10.jpg)
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/11.jpg)
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/12.jpg)
+
+
+发布
+
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/20.jpg)
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/21.jpg)
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/22.jpg)
+
+
+查看发布后的行程
+
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/23.jpg)
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/24.jpg)
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/25.jpg)
+
+
+预定行程
+
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/30.jpg)
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/31.jpg)
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/32.jpg)
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/33.jpg)
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/34.jpg)
+
+
+乘客预定行程后（车主看到的行程信息）
+
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/40.jpg)
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/41.jpg)
+
+
+信息中心
+
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/50.jpg)
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/51.jpg)
+
+
+个人中心
+
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/60.jpg)
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/2.0/61.jpg)
+
+
+### 主要功能（1.0）
 
 首页、列表页和筛选页
 
