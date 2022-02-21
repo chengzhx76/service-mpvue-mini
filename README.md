@@ -21,11 +21,11 @@ service-mini是基于`mpvue`构建的顺风车平台，已经上线（小程序�
 
 #### 2.0版本
 
-<img src="https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/car_2.0.jpg" width="220px" height="220px">
+![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/qrcode.jpg)
 
 #### 1.0版本
+源码版本
 
-![image](https://github.com/chengzhx76/service-mpvue-mini/blob/master/resource/qrcode.jpg)
 
 
 ## 技术栈（2.0）
