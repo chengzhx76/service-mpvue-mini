@@ -19,8 +19,6 @@ service-mini是基于`mpvue`构建的顺风车平台，已经上线（小程序�
 
 前端：小程序、uni-app、Vuex、flyio、font-awesome
 
-后端：Go、BeeGo、MySQL
-
 
 ## 技术栈（1.0）
 
